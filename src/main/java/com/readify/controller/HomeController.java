@@ -1,10 +1,11 @@
 package com.readify.controller;
 
+import com.readify.model.Book;
+import com.readify.service.BookService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -12,55 +13,61 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.readify.model.Book;
-import com.readify.service.BookService;
-
 @Controller
 public class HomeController {
-	
-	private static final int pageSizeDefault = 6;
 
-	private final BookService bookService;
+  private static final int pageSizeDefault = 6;
 
-	public HomeController(BookService bookService) {
-		this.bookService = bookService;
-	}
+  private final BookService bookService;
 
-	@GetMapping(value = { "", "/" })
-	public String listBooks(Model model, @RequestParam("page") Optional<Integer> page,
-			@RequestParam("size") Optional<Integer> size) {
+  public HomeController(BookService bookService) {
+    this.bookService = bookService;
+  }
 
-		return page(null, model, page, size);
-	}
+  @GetMapping(value = {"", "/"})
+  public String listBooks(
+      Model model,
+      @RequestParam("page") Optional<Integer> page,
+      @RequestParam("size") Optional<Integer> size) {
 
-	@GetMapping("/search")
-	public String searchBooks(@RequestParam("term") String term, Model model,
-			@RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
-		if (term.isBlank()) {
-			return "redirect:/";
-		}
-		return page(term, model, page, size);
-	}
+    return page(null, model, page, size);
+  }
 
-	private String page(@RequestParam("term") String term, Model model, @RequestParam("page") Optional<Integer> page,
-			@RequestParam("size") Optional<Integer> size) {
-		int currentPage = page.orElse(1);
-		int pageSize = size.orElse(pageSizeDefault);
+  @GetMapping("/search")
+  public String searchBooks(
+      @RequestParam("term") String term,
+      Model model,
+      @RequestParam("page") Optional<Integer> page,
+      @RequestParam("size") Optional<Integer> size) {
+    if (term.isBlank()) {
+      return "redirect:/";
+    }
+    return page(term, model, page, size);
+  }
 
-		Page<Book> bookPage;
+  private String page(
+      @RequestParam("term") String term,
+      Model model,
+      @RequestParam("page") Optional<Integer> page,
+      @RequestParam("size") Optional<Integer> size) {
+    int currentPage = page.orElse(1);
+    int pageSize = size.orElse(pageSizeDefault);
 
-		if (term == null) {
-			bookPage = bookService.findPaginated(PageRequest.of(currentPage - 1, pageSize), null);
-		} else {
-			bookPage = bookService.findPaginated(PageRequest.of(currentPage - 1, pageSize), term);
-		}
-		model.addAttribute("bookPage", bookPage);
+    Page<Book> bookPage;
 
-		int totalPages = bookPage.getTotalPages();
-		if (totalPages > 0) {
-			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
-		return "index";
-	}
+    if (term == null) {
+      bookPage = bookService.findPaginated(PageRequest.of(currentPage - 1, pageSize), null);
+    } else {
+      bookPage = bookService.findPaginated(PageRequest.of(currentPage - 1, pageSize), term);
+    }
+    model.addAttribute("bookPage", bookPage);
+
+    int totalPages = bookPage.getTotalPages();
+    if (totalPages > 0) {
+      List<Integer> pageNumbers =
+          IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+      model.addAttribute("pageNumbers", pageNumbers);
+    }
+    return "index";
+  }
 }

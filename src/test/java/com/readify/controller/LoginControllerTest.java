@@ -10,41 +10,45 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 class LoginControllerTest {
 
-	private LoginController LoginController = new LoginController();
+  private LoginController LoginController = new LoginController();
 
-	@Test
-	void shouldShowLoginPageAndButAuthenticationFail() throws Exception {
-		SecurityContextHolder.getContext().setAuthentication(null);
+  @Test
+  void shouldShowLoginPageAndButAuthenticationFail() throws Exception {
+    SecurityContextHolder.getContext().setAuthentication(null);
 
-		String result = LoginController.showLoginPage();
+    String result = LoginController.showLoginPage();
 
-		assertThat(result).isEqualTo("login");
-	}
+    assertThat(result).isEqualTo("login");
+  }
 
-	@Test
-	void shouldShowLoginPageButAnonymousPresentAndReturnToLoginAgain() throws Exception {
-		SecurityContextHolder.getContext().setAuthentication(new AnonymousAuthenticationToken("key", "anonymousUser",
-				AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS")));
+  @Test
+  void shouldShowLoginPageButAnonymousPresentAndReturnToLoginAgain() throws Exception {
+    SecurityContextHolder.getContext()
+        .setAuthentication(
+            new AnonymousAuthenticationToken(
+                "key", "anonymousUser", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS")));
 
-		String result = LoginController.showLoginPage();
+    String result = LoginController.showLoginPage();
 
-		assertThat(result).isEqualTo("login");
-	}
+    assertThat(result).isEqualTo("login");
+  }
 
-	@Test
-	void shouldShowLoginPageAndAfterLoginRedirectToBook() throws Exception {
-		SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("user", "password",
-				AuthorityUtils.createAuthorityList("ROLE_USER")));
+  @Test
+  void shouldShowLoginPageAndAfterLoginRedirectToBook() throws Exception {
+    SecurityContextHolder.getContext()
+        .setAuthentication(
+            new UsernamePasswordAuthenticationToken(
+                "user", "password", AuthorityUtils.createAuthorityList("ROLE_USER")));
 
-		String result = LoginController.showLoginPage();
+    String result = LoginController.showLoginPage();
 
-		assertThat(result).isEqualTo("redirect:/book");
-	}
+    assertThat(result).isEqualTo("redirect:/book");
+  }
 
-	@Test
-	void shouldShowAccessDeniedOrErrorPage() {
-		String result = LoginController.showAccessDenied();
+  @Test
+  void shouldShowAccessDeniedOrErrorPage() {
+    String result = LoginController.showAccessDenied();
 
-		assertThat(result).isEqualTo("error");
-	}
+    assertThat(result).isEqualTo("error");
+  }
 }

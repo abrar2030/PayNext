@@ -1,9 +1,8 @@
 package com.readify.config;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.beans.PropertyVetoException;
-
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -11,65 +10,62 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-
 @Configuration
 @PropertySource("classpath:application.properties")
 public class WebMvcConfiguration {
-	
-	@Value("${spring.datasource.driver-class-name}")
-	private String driver;
 
-	@Value("${spring.datasource.url}")
-	private String dbURL;
+  @Value("${spring.datasource.driver-class-name}")
+  private String driver;
 
-	@Value("${spring.datasource.username}")
-	private String dbUsername;
+  @Value("${spring.datasource.url}")
+  private String dbURL;
 
-	@Value("${spring.datasource.password}")
-	private String dbPassword;
+  @Value("${spring.datasource.username}")
+  private String dbUsername;
 
-	@Value("${connection.pool.initialPoolSize}")
-	private int connPoolInitSize;
+  @Value("${spring.datasource.password}")
+  private String dbPassword;
 
-	@Value("${connection.pool.minPoolSize}")
-	private int connPoolMinSize;
+  @Value("${connection.pool.initialPoolSize}")
+  private int connPoolInitSize;
 
-	@Value("${connection.pool.maxPoolSize}")
-	private int connPoolMaxSize;
+  @Value("${connection.pool.minPoolSize}")
+  private int connPoolMinSize;
 
-	@Value("${connection.pool.maxIdleTime}")
-	private int connPoolMaxIdleTime;
+  @Value("${connection.pool.maxPoolSize}")
+  private int connPoolMaxSize;
 
-	@Bean
-	public MessageSource messageSource() {
-		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.addBasenames("classpath:messages");
-		messageSource.setDefaultEncoding("UTF-8");
-		return messageSource;
-	}
+  @Value("${connection.pool.maxIdleTime}")
+  private int connPoolMaxIdleTime;
 
-	@Bean
-	public DataSource securityDataSource() {
+  @Bean
+  public MessageSource messageSource() {
+    ReloadableResourceBundleMessageSource messageSource =
+        new ReloadableResourceBundleMessageSource();
+    messageSource.addBasenames("classpath:messages");
+    messageSource.setDefaultEncoding("UTF-8");
+    return messageSource;
+  }
 
-		ComboPooledDataSource securityDataSource = new ComboPooledDataSource();
+  @Bean
+  public DataSource securityDataSource() {
 
-		try {
-			securityDataSource.setDriverClass(driver);
-		} 
-		catch (PropertyVetoException exc) {
-			throw new RuntimeException(exc);
-		}
-		securityDataSource.setJdbcUrl(dbURL);
-		securityDataSource.setUser(dbUsername);
-		securityDataSource.setPassword(dbPassword);
+    ComboPooledDataSource securityDataSource = new ComboPooledDataSource();
 
-		securityDataSource.setInitialPoolSize(connPoolInitSize);
-		securityDataSource.setMinPoolSize(connPoolMinSize);
-		securityDataSource.setMaxPoolSize(connPoolMaxSize);
-		securityDataSource.setMaxIdleTime(connPoolMaxIdleTime);
+    try {
+      securityDataSource.setDriverClass(driver);
+    } catch (PropertyVetoException exc) {
+      throw new RuntimeException(exc);
+    }
+    securityDataSource.setJdbcUrl(dbURL);
+    securityDataSource.setUser(dbUsername);
+    securityDataSource.setPassword(dbPassword);
 
-		return securityDataSource;
-	}
+    securityDataSource.setInitialPoolSize(connPoolInitSize);
+    securityDataSource.setMinPoolSize(connPoolMinSize);
+    securityDataSource.setMaxPoolSize(connPoolMaxSize);
+    securityDataSource.setMaxIdleTime(connPoolMaxIdleTime);
 
+    return securityDataSource;
+  }
 }

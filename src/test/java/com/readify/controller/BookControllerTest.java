@@ -6,9 +6,10 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.readify.model.Book;
+import com.readify.service.BookService;
 import java.util.Arrays;
 import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,102 +22,99 @@ import org.springframework.validation.support.BindingAwareModelMap;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
-import com.readify.model.Book;
-import com.readify.service.BookService;
-
 class BookControllerTest {
 
-	private BookService bookService = mock(BookService.class);
-	private BookController bookController = new BookController(bookService);
+  private BookService bookService = mock(BookService.class);
+  private BookController bookController = new BookController(bookService);
 
-	@Test
-	void findPaginated_shouldReturnListOfBooksWhenTermIsNull() {
-		Model model = new BindingAwareModelMap();
-		Optional<Integer> page = Optional.of(1);
-		Optional<Integer> size = Optional.of(10);
+  @Test
+  void findPaginated_shouldReturnListOfBooksWhenTermIsNull() {
+    Model model = new BindingAwareModelMap();
+    Optional<Integer> page = Optional.of(1);
+    Optional<Integer> size = Optional.of(10);
 
-		Page<Book> bookPage = new PageImpl<>(Arrays.asList(new Book(), new Book()));
-		when(bookService.findPaginated(PageRequest.of(0, 10), null)).thenReturn(bookPage);
+    Page<Book> bookPage = new PageImpl<>(Arrays.asList(new Book(), new Book()));
+    when(bookService.findPaginated(PageRequest.of(0, 10), null)).thenReturn(bookPage);
 
-		String result = bookController.getAllBooks(model, page, size);
+    String result = bookController.getAllBooks(model, page, size);
 
-		assertThat(result).isEqualTo("list");
-		assertThat(model.asMap().get("bookPage")).isEqualTo(bookPage);
-		assertThat(model.asMap().get("pageNumbers")).isEqualTo(Arrays.asList(1));
-	}
+    assertThat(result).isEqualTo("list");
+    assertThat(model.asMap().get("bookPage")).isEqualTo(bookPage);
+    assertThat(model.asMap().get("pageNumbers")).isEqualTo(Arrays.asList(1));
+  }
 
-	@Test
-	void testSearchBooksWithBlankTerm() {
-		String term = "";
-		Model model = new BindingAwareModelMap();
-		Optional<Integer> page = Optional.empty();
-		Optional<Integer> size = Optional.empty();
+  @Test
+  void testSearchBooksWithBlankTerm() {
+    String term = "";
+    Model model = new BindingAwareModelMap();
+    Optional<Integer> page = Optional.empty();
+    Optional<Integer> size = Optional.empty();
 
-		String result = bookController.searchBooks(term, model, page, size);
+    String result = bookController.searchBooks(term, model, page, size);
 
-		assertThat("redirect:/book").isEqualTo(result);
-	}
+    assertThat("redirect:/book").isEqualTo(result);
+  }
 
-	@Test
-	void testAddBook() {
-		Model model = new BindingAwareModelMap();
+  @Test
+  void testAddBook() {
+    Model model = new BindingAwareModelMap();
 
-		String result = bookController.addBook(model);
+    String result = bookController.addBook(model);
 
-		assertThat(result).isEqualTo("form");
-		assertThat(model.asMap().get("book")).isNotNull().isInstanceOf(Book.class);
-	}
+    assertThat(result).isEqualTo("form");
+    assertThat(model.asMap().get("book")).isNotNull().isInstanceOf(Book.class);
+  }
 
-	@Test
-	void testSaveBookSuccess() {
-		Book book = new Book();
-		BindingResult bindingResult = new BeanPropertyBindingResult(book, "book");
-		RedirectAttributes redirect = new RedirectAttributesModelMap();
+  @Test
+  void testSaveBookSuccess() {
+    Book book = new Book();
+    BindingResult bindingResult = new BeanPropertyBindingResult(book, "book");
+    RedirectAttributes redirect = new RedirectAttributesModelMap();
 
-		String result = bookController.saveBook(book, bindingResult, redirect);
+    String result = bookController.saveBook(book, bindingResult, redirect);
 
-		verify(bookService).save(book);
-		assertThat(result).isEqualTo("redirect:/book");
-		assertThat(redirect.getFlashAttributes().get("successMessage")).isEqualTo("Saved book successfully!");
-	}
+    verify(bookService).save(book);
+    assertThat(result).isEqualTo("redirect:/book");
+    assertThat(redirect.getFlashAttributes().get("successMessage"))
+        .isEqualTo("Saved book successfully!");
+  }
 
-	@Test
-	void testSaveBookFailure() {
-		Book book = new Book();
-		BindingResult bindingResult = new BeanPropertyBindingResult(book, "book");
-		bindingResult.addError(new ObjectError("name", "Name cannot be empty."));
-		RedirectAttributes redirect = new RedirectAttributesModelMap();
+  @Test
+  void testSaveBookFailure() {
+    Book book = new Book();
+    BindingResult bindingResult = new BeanPropertyBindingResult(book, "book");
+    bindingResult.addError(new ObjectError("name", "Name cannot be empty."));
+    RedirectAttributes redirect = new RedirectAttributesModelMap();
 
-		String result = bookController.saveBook(book, bindingResult, redirect);
+    String result = bookController.saveBook(book, bindingResult, redirect);
 
-		verify(bookService, never()).save(book);
-		assertThat(result).isEqualTo("form");
-	}
+    verify(bookService, never()).save(book);
+    assertThat(result).isEqualTo("form");
+  }
 
-	@Test
-	void testEditBook() {
-		Long id = 1L;
-		Optional<Book> book = Optional.ofNullable(new Book());
-		when(bookService.findBookById(id)).thenReturn(book);
-		Model model = new BindingAwareModelMap();
+  @Test
+  void testEditBook() {
+    Long id = 1L;
+    Optional<Book> book = Optional.ofNullable(new Book());
+    when(bookService.findBookById(id)).thenReturn(book);
+    Model model = new BindingAwareModelMap();
 
-		String result = bookController.editBook(id, model);
+    String result = bookController.editBook(id, model);
 
-		verify(bookService).findBookById(id);
-		assertThat(result).isEqualTo("form");
-		assertThat(model.asMap().get("book")).isNotNull().isEqualTo(book);
-	}
+    verify(bookService).findBookById(id);
+    assertThat(result).isEqualTo("form");
+    assertThat(model.asMap().get("book")).isNotNull().isEqualTo(book);
+  }
 
-	@Test
-	void testDeleteBookById() {
-		Long id = 1L;
-		RedirectAttributes redirect = mock(RedirectAttributes.class);
+  @Test
+  void testDeleteBookById() {
+    Long id = 1L;
+    RedirectAttributes redirect = mock(RedirectAttributes.class);
 
-		String result = bookController.deleteBook(id, redirect);
+    String result = bookController.deleteBook(id, redirect);
 
-		verify(bookService).delete(id);
-		verify(redirect).addFlashAttribute("successMessage", "Deleted book successfully!");
-		assertThat("redirect:/book").isEqualTo(result);
-	}
-
+    verify(bookService).delete(id);
+    verify(redirect).addFlashAttribute("successMessage", "Deleted book successfully!");
+    assertThat("redirect:/book").isEqualTo(result);
+  }
 }

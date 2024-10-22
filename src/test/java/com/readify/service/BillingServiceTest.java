@@ -6,100 +6,97 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
 import com.readify.model.Book;
 import com.readify.model.Customer;
 import com.readify.model.CustomerBooks;
 import com.readify.model.Order;
 import com.readify.repository.BillingRepository;
 import com.readify.repository.OrderRepository;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 class BillingServiceTest {
 
-	private OrderRepository orderRepository = mock(OrderRepository.class);
-	private BillingRepository billingRepository = mock(BillingRepository.class);
-	private BillingService billingService = new BillingService(orderRepository, billingRepository);
+  private OrderRepository orderRepository = mock(OrderRepository.class);
+  private BillingRepository billingRepository = mock(BillingRepository.class);
+  private BillingService billingService = new BillingService(orderRepository, billingRepository);
 
-	@Test
-	void findPaginated_shouldReturnPaginatedBooks() {
-		String term = "2012-12-12";
-		LocalDate date = LocalDate.parse(term);
-		
-		Customer customer1 = new Customer();
-		customer1.setId(1L);
-		Book book1 = new Book();
-		Order order1 = new Order(1L, LocalDate.now(), customer1, book1);
-		Customer customer2 = new Customer();
-		customer2.setId(2L);
-		Book book2 = new Book();
-		Book book3 = new Book();
-		Order order2 = new Order(2L, LocalDate.now(), customer2, book2);
-		Order order3 = new Order(3L, LocalDate.now(), customer2, book3);
-		ArrayList<Order> orders = new ArrayList<>(Arrays.asList(order1, order2, order3));
+  @Test
+  void findPaginated_shouldReturnPaginatedBooks() {
+    String term = "2012-12-12";
+    LocalDate date = LocalDate.parse(term);
 
-		Pageable pageable = PageRequest.of(0, 3);
+    Customer customer1 = new Customer();
+    customer1.setId(1L);
+    Book book1 = new Book();
+    Order order1 = new Order(1L, LocalDate.now(), customer1, book1);
+    Customer customer2 = new Customer();
+    customer2.setId(2L);
+    Book book2 = new Book();
+    Book book3 = new Book();
+    Order order2 = new Order(2L, LocalDate.now(), customer2, book2);
+    Order order3 = new Order(3L, LocalDate.now(), customer2, book3);
+    ArrayList<Order> orders = new ArrayList<>(Arrays.asList(order1, order2, order3));
 
-		when(orderRepository.findAll()).thenReturn(orders);
+    Pageable pageable = PageRequest.of(0, 3);
 
-		Page<CustomerBooks> customerBooksPage = billingService.findPaginated(pageable, term);
+    when(orderRepository.findAll()).thenReturn(orders);
 
-		verify(orderRepository).findByOrderDate(date);
-		assertThat(customerBooksPage).isNotNull();
-		assertThat(customerBooksPage.getSize()).isEqualTo(3);
-	}
-	
-	@Test
-	void findPaginated_shouldReturnPaginatedBooksWhenTermIsNull() {
-		Customer customer1 = new Customer();
-		customer1.setId(1L);
-		Book book1 = new Book();
-		Order order1 = new Order(1L, LocalDate.now(), customer1, book1);
-		Customer customer2 = new Customer();
-		customer2.setId(2L);
-		Book book2 = new Book();
-		Book book3 = new Book();
-		Order order2 = new Order(2L, LocalDate.now(), customer2, book2);
-		Order order3 = new Order(3L, LocalDate.now(), customer2, book3);
-		ArrayList<Order> orders = new ArrayList<>(Arrays.asList(order1, order2, order3));
+    Page<CustomerBooks> customerBooksPage = billingService.findPaginated(pageable, term);
 
-		Pageable pageable = PageRequest.of(0, 3);
+    verify(orderRepository).findByOrderDate(date);
+    assertThat(customerBooksPage).isNotNull();
+    assertThat(customerBooksPage.getSize()).isEqualTo(3);
+  }
 
-		when(orderRepository.findAll()).thenReturn(orders);
+  @Test
+  void findPaginated_shouldReturnPaginatedBooksWhenTermIsNull() {
+    Customer customer1 = new Customer();
+    customer1.setId(1L);
+    Book book1 = new Book();
+    Order order1 = new Order(1L, LocalDate.now(), customer1, book1);
+    Customer customer2 = new Customer();
+    customer2.setId(2L);
+    Book book2 = new Book();
+    Book book3 = new Book();
+    Order order2 = new Order(2L, LocalDate.now(), customer2, book2);
+    Order order3 = new Order(3L, LocalDate.now(), customer2, book3);
+    ArrayList<Order> orders = new ArrayList<>(Arrays.asList(order1, order2, order3));
 
-		Page<CustomerBooks> customerBooksPage = billingService.findPaginated(pageable, null);
+    Pageable pageable = PageRequest.of(0, 3);
 
-		verify(orderRepository).findAll();
-		assertThat(customerBooksPage).isNotNull();
-		assertThat(customerBooksPage.getSize()).isEqualTo(3);
-	}
-	
-	@Test
-	void shouldCreateOrder() {
-		Customer customer = new Customer();
-		Book book1 = new Book();
-		Book book2 = new Book();
-		List<Book> books = Arrays.asList(book1, book2);
+    when(orderRepository.findAll()).thenReturn(orders);
 
-		billingService.createOrder(customer, books);
+    Page<CustomerBooks> customerBooksPage = billingService.findPaginated(pageable, null);
 
-		verify(billingRepository, times(1)).save(customer);
+    verify(orderRepository).findAll();
+    assertThat(customerBooksPage).isNotNull();
+    assertThat(customerBooksPage.getSize()).isEqualTo(3);
+  }
 
-		ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);
-		verify(orderRepository, times(2)).save(captor.capture());
-		List<Order> capturedOrders = captor.getAllValues();
-		for (Order order : capturedOrders) {
-			assertThat(customer).isEqualTo(order.getCustomer());
-		}
-	}
+  @Test
+  void shouldCreateOrder() {
+    Customer customer = new Customer();
+    Book book1 = new Book();
+    Book book2 = new Book();
+    List<Book> books = Arrays.asList(book1, book2);
 
+    billingService.createOrder(customer, books);
+
+    verify(billingRepository, times(1)).save(customer);
+
+    ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);
+    verify(orderRepository, times(2)).save(captor.capture());
+    List<Order> capturedOrders = captor.getAllValues();
+    for (Order order : capturedOrders) {
+      assertThat(customer).isEqualTo(order.getCustomer());
+    }
+  }
 }

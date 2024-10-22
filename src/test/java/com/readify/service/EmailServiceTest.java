@@ -9,23 +9,23 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 public class EmailServiceTest {
-	
-	private JavaMailSender mailSender = mock(JavaMailSender.class);
-	private EmailService emailService = new EmailService(mailSender);
 
-	@Test
-	void sendEmailTest() {
-		String to = "to@example.com";
-		String subject = "Test subject";
-		String message = "Test message body.";
+  private JavaMailSender mailSender = mock(JavaMailSender.class);
+  private EmailService emailService = new EmailService(mailSender);
 
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
-		mailMessage.setTo(to);
-		mailMessage.setSubject(subject);
-		mailMessage.setText(message);
+  @Test
+  void sendEmailTest() {
+    String to = "to@example.com";
+    String subject = "Test subject";
+    String message = "Test message body.";
 
-		emailService.sendEmail(to, subject, message);
+    SimpleMailMessage mailMessage = new SimpleMailMessage();
+    mailMessage.setTo(to);
+    mailMessage.setSubject(subject);
+    mailMessage.setText(message);
 
-		verify(mailSender, times(1)).send(mailMessage);
-	}
+    emailService.sendEmail(to, subject, message);
+
+    verify(mailSender, times(1)).send(mailMessage);
+  }
 }
