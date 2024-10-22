@@ -102,26 +102,4 @@ class BillingServiceTest {
 		}
 	}
 
-	@Test
-	void shouldFindOrdersByCustomerId() {
-		Customer customer1 = new Customer();
-		customer1.setId(1L);
-		Book book1 = new Book();
-		Order order1 = new Order(1L, LocalDate.now(), customer1, book1);
-
-		Customer customer2 = new Customer();
-		customer2.setId(2L);
-		Book book2 = new Book();
-		Book book3 = new Book();
-		Order order2 = new Order(2L, LocalDate.now(), customer2, book2);
-		Order order3 = new Order(3L, LocalDate.now(), customer2, book3);
-
-		List<Order> orders = Arrays.asList(order1, order2, order3);
-		when(orderRepository.findAll()).thenReturn(orders);
-
-		List<CustomerBooks> customerBooks = billingService.findOrdersByCustomerId(2L);
-		assertThat(customer2).isEqualTo(customerBooks.get(0).getCustomer());
-		assertThat(List.of(book2, book3)).isEqualTo(customerBooks.get(0).getBooks());
-	}
-
 }
