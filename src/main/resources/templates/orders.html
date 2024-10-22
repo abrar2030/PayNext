@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout :: head"></head>
+<body>
+<h2>Order History</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Total</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.date}"></td>
+        <td th:text="${order.total}"></td>
+        <td th:text="${order.status}"></td>
+    </tr>
+    </tbody>
+</table>
+<a href="/">Back to Book List</a>
+</body>
+</html>
