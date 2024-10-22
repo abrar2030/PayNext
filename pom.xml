@@ -12,7 +12,7 @@
   <groupId>com.readify</groupId>
   <artifactId>Readify</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Book Store</name>
+  <name>Readify</name>
   <description>Java Spring MVC Hibernate</description>
   <properties>
     <java.version>11</java.version>
