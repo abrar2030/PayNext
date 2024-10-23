@@ -1,23 +1,26 @@
--- TRANSACTIONS
-INSERT INTO TRANSACTIONS (id, user_id, amount, transaction_date, status, payment_method)
-    VALUES (1, 'abrar2030', '99.99', '2024-01-01', 'COMPLETED', 'CREDIT_CARD');
+-- Insert initial customer data
+INSERT INTO CUSTOMERS (name, surname, country_region, street_and_house_number, city, postal_code, phone_number, email)
+VALUES
+    ('John', 'Doe', 'USA', '123 Main St', 'New York', '10001', '1234567890', 'john.doe@example.com'),
+    ('Jane', 'Smith', 'Canada', '456 Maple Ave', 'Toronto', 'M4B 1B4', '0987654321', 'jane.smith@example.com');
 
-INSERT INTO TRANSACTIONS (id, user_id, amount, transaction_date, status, payment_method)
-    VALUES (2, 'abrar2030', '55.00', '2024-01-02', 'PENDING', 'DEBIT_CARD');
+-- Insert initial payment data
+INSERT INTO PAYMENTS (amount, payer_name, transaction_id, payment_method, date)
+VALUES
+    (99.99, 'John Doe', 'TX1234567890', 'CREDIT_CARD', '2024-01-01'),
+    (55.00, 'Jane Smith', 'TX0987654321', 'DEBIT_CARD', '2024-01-02');
 
-INSERT INTO TRANSACTIONS (id, user_id, amount, transaction_date, status, payment_method)
-    VALUES (3, 'abrar2030', '250.89', '2024-01-03', 'FAILED', 'PAYPAL');
+-- Insert initial order data
+INSERT INTO ORDERS (order_date, customer_id, payment_id)
+VALUES
+    ('2024-01-05', 1, 1),
+    ('2024-01-06', 2, 2);
 
-INSERT INTO TRANSACTIONS (id, user_id, amount, transaction_date, status, payment_method)
-    VALUES (4, 'abrar2030', '26.95', '2024-01-04', 'COMPLETED', 'BANK_TRANSFER');
-
-INSERT INTO TRANSACTIONS (id, user_id, amount, transaction_date, status, payment_method)
-    VALUES (5, 'abrar2030', '38.00', '2024-01-05', 'CANCELLED', 'CREDIT_CARD');
-
--- USERS
+-- Insert initial user and authority data
 INSERT INTO USERS (username, password, enabled)
-    VALUES ('abrar2030', '{noop}abrar2030', 1);
+VALUES
+    ('abrar2030', 'password123', 1);
 
--- AUTHORITIES
 INSERT INTO AUTHORITIES (username, authority)
-    VALUES ('abrar2030', 'ADMIN');
+VALUES
+    ('abrar2030', 'ROLE_USER');
