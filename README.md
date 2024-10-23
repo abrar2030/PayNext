@@ -1,8 +1,12 @@
-# Readify
+# PayNext
 
 ## Introduction
 
+<<<<<<< HEAD
 Readify is a sophisticated e-commerce platform designed for the online sale and purchase of payments. Built using the Java Spring Boot framework, this application provides a comprehensive suite of features aimed at enhancing the user experience, from browsing through an extensive catalog of payments to executing purchases.
+=======
+PayNext is a sophisticated e-commerce platform designed for the online sale and purchase of payment services. Built using the Java Spring Boot framework, this application provides a comprehensive suite of features aimed at enhancing the user experience, from browsing through an extensive catalog of payments to executing purchases.
+>>>>>>> 6582008 (Update Files)
 
 ## Table of Contents
 
@@ -39,9 +43,15 @@ The application is built on the robust foundation of Spring Boot, integrating mo
 
 ## Features
 
+<<<<<<< HEAD
 - User-friendly interface for browsing and searching payments
 - Secure user account management (registration, login, profile management)
 - Shopping cart functionality for adding and removing payments
+=======
+- User-friendly interface for browsing and searching payment services
+- Secure user account management (registration, login, profile management)
+- Shopping cart functionality for adding and removing payment services
+>>>>>>> 6582008 (Update Files)
 - Intuitive checkout process with multiple payment options
 - Advanced filtering and sorting options for payment listings
 - Robust security measures to protect user data
@@ -49,16 +59,21 @@ The application is built on the robust foundation of Spring Boot, integrating mo
 
 ## User Documentation
 
-For detailed instructions on accessing and using the Readify platform, please refer to the [User Documentation](#user-documentation) section, which includes information on:
+For detailed instructions on accessing and using the PayNext platform, please refer to the [User Documentation](#user-documentation) section, which includes information on:
 
+<<<<<<< HEAD
 - Browsing payments
 - Adding payments to the cart
+=======
+- Browsing payment services
+- Adding payment services to the cart
+>>>>>>> 6582008 (Update Files)
 - Completing the checkout process
 - Managing user accounts
 
 ## Developer Documentation
 
-Developers can find comprehensive guidelines for setting up, developing, and testing the Readify project in the [Developer Documentation](#developer-documentation) section, which includes:
+Developers can find comprehensive guidelines for setting up, developing, and testing the PayNext project in the [Developer Documentation](#developer-documentation) section, which includes:
 
 - Project setup instructions
 - Application architecture overview
@@ -71,4 +86,4 @@ Developers can find comprehensive guidelines for setting up, developing, and tes
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/abrar2030/Readify.git
+   git clone https://github.com/abrar2030/PayNext.git
