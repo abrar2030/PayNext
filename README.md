@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Readify is a sophisticated e-commerce platform designed for the online sale and purchase of books. Built using the Java Spring Boot framework, this application provides a comprehensive suite of features aimed at enhancing the user experience, from browsing through an extensive catalog of books to executing purchases.
+Readify is a sophisticated e-commerce platform designed for the online sale and purchase of payments. Built using the Java Spring Boot framework, this application provides a comprehensive suite of features aimed at enhancing the user experience, from browsing through an extensive catalog of payments to executing purchases.
 
 ## Table of Contents
 
@@ -39,11 +39,11 @@ The application is built on the robust foundation of Spring Boot, integrating mo
 
 ## Features
 
-- User-friendly interface for browsing and searching books
+- User-friendly interface for browsing and searching payments
 - Secure user account management (registration, login, profile management)
-- Shopping cart functionality for adding and removing books
+- Shopping cart functionality for adding and removing payments
 - Intuitive checkout process with multiple payment options
-- Advanced filtering and sorting options for book listings
+- Advanced filtering and sorting options for payment listings
 - Robust security measures to protect user data
 - Email notifications for order confirmations and account management
 
@@ -51,8 +51,8 @@ The application is built on the robust foundation of Spring Boot, integrating mo
 
 For detailed instructions on accessing and using the Readify platform, please refer to the [User Documentation](#user-documentation) section, which includes information on:
 
-- Browsing books
-- Adding books to the cart
+- Browsing payments
+- Adding payments to the cart
 - Completing the checkout process
 - Managing user accounts
 

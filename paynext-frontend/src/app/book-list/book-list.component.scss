@@ -1,0 +1,21 @@
+/* Styles for the payment list component */
+
+.payment-list {
+    margin: 20px;
+
+    .payment-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    h2 {
+      color: #333;
+    }
+  }

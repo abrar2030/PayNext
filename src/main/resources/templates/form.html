@@ -3,63 +3,39 @@
 <head th:replace="layout :: head"></head>
 
 <body>
-	<nav th:replace="layout :: header"></nav>
+<nav th:replace="layout :: header"></nav>
 
-	<div class="container" id="main-content">
-		<div class="row d-flex justify-content-center">
-			<form style="min-width: 300px;" action="#" th:action="@{/book/save}"
-				th:object="${book}" method="post">
-				<h5 class="text-center">Book form</h5>
+<div class="container" id="main-content">
+	<h1 th:if="${editMode}">Edit Payment Method</h1>
+	<h1 th:if="${not editMode}">Add Payment Method</h1>
+	<form th:action="@{${editMode} ? '/payment/update' : '/payment/add'}" th:object="${paymentMethod}" method="post">
+		<input type="hidden" th:field="*{id}" />
 
-				<input type="hidden" th:field="*{id}" />
-
-				<div class="form-group">
-					<input class="form-control" type="text" placeholder="Book name"
-						th:field="*{name}" th:errorclass="field-error" /> <em
-						th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></em>
-				</div>
-
-				<div class="form-group">
-					<input class="form-control" type="number" placeholder="Book price"
-						step="any" th:field="*{price}" th:errorclass="field-error" /> <em
-						th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></em>
-				</div>
-
-				<div class="form-group">
-					<input class="form-control" type="text" placeholder="Book authors"
-						th:field="*{authors}" th:errorclass="field-error" /> <em
-						th:if="${#fields.hasErrors('authors')}" th:errors="*{authors}"></em>
-				</div>
-
-				<div class="form-group">
-					<input class="form-control" type="text" placeholder="Book ISBN"
-						th:field="*{isbn}" th:errorclass="field-error" /> <em
-						th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></em>
-				</div>
-
-				<div class="form-group">
-					<input class="form-control" type="text"
-						placeholder="Book publisher" th:field="*{publisher}"
-						th:errorclass="field-error" /> <em
-						th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}"></em>
-				</div>
-
-				<div class="form-group">
-					<input class="form-control" type="date"
-						placeholder="Book published on" th:field="*{publishedOn}"
-						th:errorclass="field-error" /> <em
-						th:if="${#fields.hasErrors('publishedOn')}"
-						th:errors="*{publishedOn}"></em>
-				</div>
-
-				<div class="form-group">
-					<button type="submit" class="btn btn-block btn-primary">
-						<i class="fa fa-save"></i> Save
-					</button>
-				</div>
-			</form>
+		<div class="form-group">
+			<label for="cardNumber">Card Number</label>
+			<input type="text" class="form-control" id="cardNumber" th:field="*{cardNumber}" placeholder="Enter card number" required />
+			<em th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}"></em>
 		</div>
-	</div>
 
+		<div class="form-group">
+			<label for="expiryDate">Expiry Date</label>
+			<input type="text" class="form-control" id="expiryDate" th:field="*{expiryDate}" placeholder="MM/YY" required />
+			<em th:if="${#fields.hasErrors('expiryDate')}" th:errors="*{expiryDate}"></em>
+		</div>
+
+		<div class="form-group">
+			<label for="cvv">CVV</label>
+			<input type="text" class="form-control" id="cvv" th:field="*{cvv}" placeholder="Enter CVV" required />
+			<em th:if="${#fields.hasErrors('cvv')}" th:errors="*{cvv}"></em>
+		</div>
+
+		<button type="submit" class="btn btn-primary">
+			<i class="fa fa-save"></i> Save Payment Method
+		</button>
+		<a th:href="@{/payment/list}" class="btn btn-secondary">Cancel</a>
+	</form>
+</div>
+
+<footer th:replace="layout :: footer"></footer>
 </body>
 </html>

@@ -1,9 +1,0 @@
-<div class="book-list">
-    <h2>Available Books</h2>
-    <div *ngFor="let book of books" class="book-item">
-      <a [routerLink]="['/books', book.id]">{{ book.title }}</a>
-      <p>Author: {{ book.author }}</p>
-      <p>Price: {{ book.price | currency }}</p>
-    </div>
-  </div>
-  

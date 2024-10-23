@@ -1,0 +1,25 @@
+/* Styles for the payment detail component */
+
+h2 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  p {
+    color: #555;
+    margin: 5px 0;
+  }
+
+  button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3; /* Darker shade on hover */
+    }
+  }

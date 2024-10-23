@@ -3,26 +3,16 @@
 <head th:replace="layout :: head"></head>
 
 <body>
-	<nav th:replace="layout :: header"></nav>
+<nav th:replace="layout :: header"></nav>
 
-	<div class="container" id="main-content">
-		<div class="row d-flex justify-content-center">
-			<div>
-				<blockquote class="blockquote text-center">
-					<h1>Oops!</h1>
-					<br>
-					<p class="mb-0">
-						The page you are looking for might have been removed, <br>
-						had its name changed or is temporarily unavailable.
-					</p>
-					<br>
-					<form style="min-width: 300px;" action="#" th:action="@{/}">
-						<input type="submit" class="btn btn-info" value="HOME" />
-					</form>
-				</blockquote>
-			</div>
-		</div>
-	</div>
+<div class="container" id="main-content">
+	<h1>Oops!</h1>
+	<h2>The page you are looking for doesn't exist.</h2>
+	<p>
+		<a href="/" class="btn btn-primary">Return to Home</a>
+	</p>
+</div>
 
+<footer th:replace="layout :: footer"></footer>
 </body>
 </html>

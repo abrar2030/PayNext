@@ -9,11 +9,11 @@
     <version>2.6.6</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
-  <groupId>com.readify</groupId>
-  <artifactId>Readify</artifactId>
+  <groupId>com.paynext</groupId>
+  <artifactId>PayNext</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Readify</name>
-  <description>Java Spring MVC Hibernate</description>
+  <name>PayNext</name>
+  <description>FinTech Payment Processing System</description>
   <properties>
     <java.version>11</java.version>
   </properties>
@@ -144,7 +144,7 @@
         </executions>
       </plugin>
     </plugins>
-    <finalName>readify</finalName>
+    <finalName>paynext</finalName>
   </build>
 
 </project>
