@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "paynext-chart.name" . }}-user-service
+  labels:
+    app: {{ include "paynext-chart.name" . }}-user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "paynext-chart.name" . }}-user-service
+  template:
+    metadata:
+      labels:
+        app: {{ include "paynext-chart.name" . }}-user-service
+    spec:
+      containers:
+          - name: user-service
+            image: "{{ .Values.userService.image.repository }}:{{ .Values.userService.image.tag }}"
+            ports:
+              - containerPort: {{ .Values.userService.service.port }}
+            env:
+              - name: EUREKA_SERVER_URL
+                value: "{{ .Values.userService.env.EUREKA_SERVER_URL }}"

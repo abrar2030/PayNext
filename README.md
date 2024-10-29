@@ -1,78 +1,58 @@
-# PayNext
+# Microservices-Based FinTech Payment Solution
 
-## Introduction
-PayNext is a sophisticated e-commerce platform designed for the online sale and purchase of payment services. Built using the Java Spring Boot framework, this application provides a comprehensive suite of features aimed at enhancing the user experience, from browsing through an extensive catalog of payments to executing purchases.
+## Overview
+
+This project is a microservices-based payment solution built with Spring Boot and React.js. It consists of multiple backend microservices and a frontend application to provide a comprehensive FinTech payment platform.
 
 ## Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Technology Stack](#technology-stack)
-3. [Features](#features)
-4. [User Documentation](#user-documentation)
-5. [Developer Documentation](#developer-documentation)
-6. [Installation Guide](#installation-guide)
-7. [Future Enhancements](#future-enhancements)
-8. [License](#license)
+- [Architecture](#architecture)
+- [Services](#services)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [Using the Application](#using-the-application)
+- [API Endpoints](#api-endpoints)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Project Overview
+## Architecture
 
-The application is built on the robust foundation of Spring Boot, integrating modules such as:
-- **Spring MVC** for handling web requests
-- **Spring Security** for authentication and authorization mechanisms
-- **Spring Data JPA** for efficient database interactions
-- **Thymeleaf** for rendering dynamic content
-- **H2 Database** for lightweight data storage during development and testing
+The application follows a microservices architecture, consisting of:
 
-## Technology Stack
+- **Eureka Server**: Service registry for microservices.
+- **API Gateway**: Routes external requests to appropriate microservices.
+- **User Service**: Manages user accounts and authentication.
+- **Payment Service**: Handles payment transactions.
+- **Notification Service**: Sends notifications to users.
+- **Frontend Application**: Built with React.js to provide a user interface.
 
-- **Java 11**
-- **Spring Boot** (2.6.6)
-    - Spring MVC
-    - Spring Security
-    - Spring Data JPA
-- **Thymeleaf**
-- **H2 Database**
-- **MySQL Connector**
-- **C3P0** for connection pooling
-- **Maven** for dependency management
+## Services
 
-## Features
+### Backend Services
 
-- User-friendly interface for browsing and searching payments
-- Secure user account management (registration, login, profile management)
-- Shopping cart functionality for adding and removing payments
-- User-friendly interface for browsing and searching payment services
-- Secure user account management (registration, login, profile management)
-- Shopping cart functionality for adding and removing payment services
-- Intuitive checkout process with multiple payment options
-- Advanced filtering and sorting options for payment listings
-- Robust security measures to protect user data
-- Email notifications for order confirmations and account management
+- **Eureka Server** (`eureka-server`): Runs on port `8761`.
+- **API Gateway** (`api-gateway`): Runs on port `8080`.
+- **User Service** (`user-service`): Runs on port `9001`.
+- **Payment Service** (`payment-service`): Runs on port `9002`.
+- **Notification Service** (`notification-service`): Runs on port `9003`.
 
-## User Documentation
+### Frontend Application
 
-For detailed instructions on accessing and using the PayNext platform, please refer to the [User Documentation](#user-documentation) section, which includes information on:
+- **React.js Application** (`fintech-payment-frontend`): Runs on port `3000`.
 
-- Browsing payments
-- Adding payments to the cart
-- Browsing payment services
-- Adding payment services to the cart
-- Completing the checkout process
-- Managing user accounts
+## Prerequisites
 
-## Developer Documentation
+- **Java 11** or higher installed.
+- **Node.js** and **npm** installed.
+- **Docker** and **Docker Compose** installed.
+- **MySQL** (optional if not using Docker for databases).
 
-Developers can find comprehensive guidelines for setting up, developing, and testing the PayNext project in the [Developer Documentation](#developer-documentation) section, which includes:
+## Installation
 
-- Project setup instructions
-- Application architecture overview
-- Backend and frontend development details
-- Database configuration
-- Testing strategies
+### Clone the Repository
 
-## Installation Guide
-
-1. **Clone the repository:**
-
-   ```bash
-   git clone https://github.com/abrar2030/PayNext.git
+```bash
+git clone https://github.com/yourusername/fintech-payment-solution.git
+cd fintech-payment-solution

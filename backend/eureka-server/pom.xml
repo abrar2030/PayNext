@@ -1,0 +1,28 @@
+<!-- eureka-server/pom.xml -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Inherit from the root POM -->
+    <parent>
+        <groupId>com.fintech</groupId>
+        <artifactId>fintech-payment-solution</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>eureka-server</artifactId>
+
+    <dependencies>
+        <!-- Eureka Server Dependency -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!-- Build plugins are inherited from the parent POM -->
+</project>

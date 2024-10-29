@@ -1,0 +1,5 @@
+apiVersion: v2
+name: paynext-chart
+description: A Helm chart for deploying PayNext application on Kubernetes (Minikube)
+version: 1.0.0
+appVersion: "1.0"

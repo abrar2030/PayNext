@@ -1,0 +1,51 @@
+<!-- Root pom.xml -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Set Spring Boot Starter Parent as the parent POM -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.7</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.fintech</groupId>
+    <artifactId>fintech-payment-solution</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>eureka-server</module>
+        <module>api-gateway</module>
+        <module>user-service</module>
+        <module>payment-service</module>
+        <module>notification-service</module>
+    </modules>
+
+    <properties>
+        <java.version>11</java.version>
+        <spring.boot.version>2.6.7</spring.boot.version>
+        <spring.cloud.version>2021.0.1</spring.cloud.version>
+        <jjwt.version>0.9.1</jjwt.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Import Spring Cloud Dependencies -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Build plugins are inherited from spring-boot-starter-parent -->
+</project>

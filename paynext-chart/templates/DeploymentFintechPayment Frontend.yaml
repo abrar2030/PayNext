@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "paynext-chart.name" . }}-fintech-payment-frontend
+  labels:
+    app: {{ include "paynext-chart.name" . }}-fintech-payment-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "paynext-chart.name" . }}-fintech-payment-frontend
+  template:
+    metadata:
+      labels:
+        app: {{ include "paynext-chart.name" . }}-fintech-payment-frontend
+    spec:
+      containers:
+          - name: fintech-payment-frontend
+            image: "{{ .Values.fintechPaymentFrontend.image.repository }}:{{ .Values.fintechPaymentFrontend.image.tag }}"
+            ports:
+              - containerPort: {{ .Values.fintechPaymentFrontend.service.port }}
+            env:
+              - name: REACT_APP_API_BASE_URL
+                value: "{{ .Values.fintechPaymentFrontend.env.REACT_APP_API_BASE_URL }}"

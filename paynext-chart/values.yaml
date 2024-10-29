@@ -1,0 +1,111 @@
+# Default values for PayNext Helm chart.
+
+# Global configurations
+global:
+  namespace: paynext
+  ingressClass: nginx
+
+# Eureka Server Configuration
+eurekaServer:
+  image:
+    repository: your-docker-repo/eureka-server
+    tag: latest
+  service:
+    port: 8761
+    type: ClusterIP
+
+# API Gateway Configuration
+apiGateway:
+  image:
+    repository: your-docker-repo/api-gateway
+    tag: latest
+  service:
+    port: 8080
+    type: ClusterIP
+  env:
+    JWT_SECRET: your_jwt_secret_here
+
+# User Service Configuration
+userService:
+  image:
+    repository: your-docker-repo/user-service
+    tag: latest
+  service:
+    port: 8081
+    type: ClusterIP
+  env:
+    EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+
+# Payment Service Configuration
+paymentService:
+  image:
+    repository: your-docker-repo/payment-service
+    tag: latest
+  service:
+    port: 8082
+    type: ClusterIP
+  env:
+    EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+    JWT_SECRET: your_jwt_secret_here
+
+# Notification Service Configuration
+notificationService:
+  image:
+    repository: your-docker-repo/notification-service
+    tag: latest
+  service:
+    port: 8083
+    type: ClusterIP
+  env:
+    EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+    JWT_SECRET: your_jwt_secret_here
+
+# Frontend Configuration
+frontend:
+  image:
+    repository: your-docker-repo/frontend
+    tag: latest
+  service:
+    port: 80
+    type: ClusterIP
+  env:
+    REACT_APP_API_BASE_URL: http://api-gateway:8080
+
+# Fintech Payment Frontend Configuration
+fintechPaymentFrontend:
+  image:
+    repository: your-docker-repo/fintech-payment-frontend
+    tag: latest
+  service:
+    port: 80
+    type: ClusterIP
+  env:
+    REACT_APP_API_BASE_URL: http://api-gateway:8080
+
+# Ingress Configuration
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: frontend.paynext.local
+      paths:
+        - path: /
+          pathType: Prefix
+          serviceName: frontend
+          port: 80
+    - host: fintech-payment.paynext.local
+      paths:
+        - path: /
+          pathType: Prefix
+          serviceName: fintech-payment-frontend
+          port: 80
+  tls:
+    - secretName: paynext-tls
+      hosts:
+        - frontend.paynext.local
+        - fintech-payment.paynext.local
+
+# Image Pull Secrets (if needed)
+imagePullSecrets:
+  - name: regcred

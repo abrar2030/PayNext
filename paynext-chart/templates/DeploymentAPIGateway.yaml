@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "paynext-chart.name" . }}-api-gateway
+  labels:
+    app: {{ include "paynext-chart.name" . }}-api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "paynext-chart.name" . }}-api-gateway
+  template:
+    metadata:
+      labels:
+        app: {{ include "paynext-chart.name" . }}-api-gateway
+    spec:
+      containers:
+          - name: api-gateway
+            image: "{{ .Values.apiGateway.image.repository }}:{{ .Values.apiGateway.image.tag }}"
+            ports:
+              - containerPort: {{ .Values.apiGateway.service.port }}
+            env:
+              - name: JWT_SECRET
+                valueFrom:
+                  secretKeyRef:
+                    name: paynext-secrets
+                    key: jwt_secret
+              - name: EUREKA_SERVER_URL
+                value: "{{ .Values.userService.env.EUREKA_SERVER_URL }}"

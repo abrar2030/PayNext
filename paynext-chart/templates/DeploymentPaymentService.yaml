@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "paynext-chart.name" . }}-payment-service
+  labels:
+    app: {{ include "paynext-chart.name" . }}-payment-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "paynext-chart.name" . }}-payment-service
+  template:
+    metadata:
+      labels:
+        app: {{ include "paynext-chart.name" . }}-payment-service
+    spec:
+      containers:
+          - name: payment-service
+            image: "{{ .Values.paymentService.image.repository }}:{{ .Values.paymentService.image.tag }}"
+            ports:
+              - containerPort: {{ .Values.paymentService.service.port }}
+            env:
+              - name: EUREKA_SERVER_URL
+                value: "{{ .Values.paymentService.env.EUREKA_SERVER_URL }}"
+              - name: JWT_SECRET
+                valueFrom:
+                  secretKeyRef:
+                    name: paynext-secrets
+                    key: jwt_secret
