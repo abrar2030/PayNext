@@ -1,65 +1,3 @@
-# Git Rebase Automation Script
-
-Managing Git branches and keeping them up-to-date with the main branch is crucial for maintaining a clean and efficient workflow. Rebasing is a powerful tool that allows you to integrate changes from one branch into another, creating a linear project history. This guide provides a comprehensive **Bash script** to automate the rebasing process, ensuring consistency and reducing manual intervention.
-
----
-## Table of Contents
-
-1. [Prerequisites](#prerequisites)
-2. [Creating the Git Rebase Script](#creating-the-git-rebase-script)
-    - [Script Breakdown](#script-breakdown)
-3. [Making the Script Executable](#making-the-script-executable)
-4. [Using the Script](#using-the-script)
-    - [Basic Usage](#basic-usage)
-    - [Advanced Options](#advanced-options)
-5. [Automating the Script with Cron (Optional)](#automating-the-script-with-cron-optional)
-6. [Best Practices](#best-practices)
-7. [Troubleshooting](#troubleshooting)
-
----
-## Prerequisites
-
-Before setting up the rebase automation script, ensure the following prerequisites are met:
-
-1. **Git Installed:** Verify that Git is installed on your system.
-
-    ```bash
-    git --version
-    ```
-
-2. **Git Repository Initialized:** Navigate to your project directory and ensure it's a Git repository.
-
-    ```bash
-    cd /path/to/your/project
-    git status
-    ```
-
-    If it's not a repository, initialize it:
-
-    ```bash
-    git init
-    ```
-
-3. **Remote Repository Set:** Ensure your local repository is linked to a remote GitHub repository.
-
-    ```bash
-    git remote -v
-    ```
-
-    If not, add the remote:
-
-    ```bash
-    git remote add origin https://github.com/your-username/your-repo.git
-    ```
-
-4. **Authentication Configured:** Ensure you have the necessary permissions to push to the remote repository. This can be via SSH keys or HTTPS with credential caching.
-
----
-## Creating the Git Rebase Script
-
-Create a Bash script named `git-auto-rebase.sh` (you can choose any name) with the following content:
-
-```bash
 #!/bin/bash
 
 # =====================================================
@@ -69,16 +7,17 @@ Create a Bash script named `git-auto-rebase.sh` (you can choose any name) with t
 # branch onto a target branch (e.g., main or develop).
 #
 # Usage:
-#   ./git-auto-rebase.sh [target-branch]
+#   ./git-auto-rebase.sh [target-branch] [remote-name]
 #
 # If no target branch is provided, 'main' is used by default.
 # =====================================================
 
 # Function to display usage information
 usage() {
-    echo "Usage: $0 [target-branch]"
+    echo "Usage: $0 [target-branch] [remote-name]"
     echo ""
     echo "If no target branch is provided, 'main' is used by default."
+    echo "If no remote name is provided, 'origin' is used by default."
     exit 1
 }
 
@@ -102,13 +41,15 @@ check_git_repo() {
 
 # Function to fetch latest changes from remote
 fetch_latest() {
-    echo "Fetching latest changes from remote..."
-    git fetch --all
+    REMOTE=$1
+    echo "Fetching latest changes from remote '$REMOTE'..."
+    git fetch --all "$REMOTE"
 }
 
 # Function to switch to target branch and pull latest
 switch_to_target_branch() {
     TARGET_BRANCH=$1
+    REMOTE=$2
     echo "Switching to target branch: $TARGET_BRANCH"
     git checkout "$TARGET_BRANCH"
 
@@ -117,8 +58,8 @@ switch_to_target_branch() {
         exit 1
     fi
 
-    echo "Pulling latest changes for '$TARGET_BRANCH'..."
-    git pull origin "$TARGET_BRANCH"
+    echo "Pulling latest changes for '$TARGET_BRANCH' from '$REMOTE'..."
+    git pull "$REMOTE" "$TARGET_BRANCH"
 
     if [ $? -ne 0 ]; then
         echo "Error: Failed to pull latest changes for '$TARGET_BRANCH'."
@@ -146,6 +87,8 @@ perform_rebase() {
 
     if [ $? -ne 0 ]; then
         echo "Rebase encountered conflicts. Please resolve them manually."
+        echo "After resolving conflicts, run: git rebase --continue"
+        echo "If you need to abort the rebase, run: git rebase --abort"
         exit 1
     fi
 }
@@ -153,12 +96,18 @@ perform_rebase() {
 # Function to push the rebased branch
 push_rebased_branch() {
     CURRENT_BRANCH=$(git branch --show-current)
-    echo "Pushing rebased branch '$CURRENT_BRANCH' to remote..."
-    git push --force-with-lease origin "$CURRENT_BRANCH"
-
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to push rebased branch '$CURRENT_BRANCH' to remote."
-        exit 1
+    REMOTE=$1
+    echo "Do you want to push the rebased branch '$CURRENT_BRANCH' to remote '$REMOTE'? (y/n)"
+    read -r push_confirmation
+    if [[ $push_confirmation == "y" ]]; then
+        echo "Pushing rebased branch '$CURRENT_BRANCH' to remote '$REMOTE'..."
+        git push --force-with-lease "$REMOTE" "$CURRENT_BRANCH"
+        if [ $? -ne 0 ]; then
+            echo "Error: Failed to push rebased branch '$CURRENT_BRANCH' to remote."
+            exit 1
+        fi
+    else
+        echo "Push skipped. You can manually push your changes later using: git push --force-with-lease"
     fi
 }
 
@@ -169,8 +118,9 @@ main() {
         usage
     fi
 
-    # Set target branch
+    # Set target branch and remote
     TARGET_BRANCH=${1:-main}
+    REMOTE=${2:-origin}
 
     # Perform prerequisite checks
     check_git
@@ -181,17 +131,23 @@ main() {
     echo "Current branch: $ORIGINAL_BRANCH"
     echo "Target branch for rebase: $TARGET_BRANCH"
 
+    # Prevent rebasing onto the same branch
+    if [ "$ORIGINAL_BRANCH" == "$TARGET_BRANCH" ]; then
+        echo "Error: Rebasing a branch onto itself is not allowed. Please switch to a different branch before running the script."
+        exit 1
+    fi
+
     # Ensure working directory is clean
-    if ! git diff-index --quiet HEAD --; then
-        echo "Error: You have uncommitted changes. Please commit or stash them before rebasing."
+    if ! git diff-index --quiet HEAD -- || [ -n "$(git ls-files --others --exclude-standard)" ]; then
+        echo "Error: You have uncommitted or untracked changes. Please commit or stash them before rebasing."
         exit 1
     fi
 
     # Fetch latest changes
-    fetch_latest
+    fetch_latest "$REMOTE"
 
     # Switch to target branch and pull latest
-    switch_to_target_branch "$TARGET_BRANCH"
+    switch_to_target_branch "$TARGET_BRANCH" "$REMOTE"
 
     # Switch back to original branch
     switch_back_to_original_branch "$ORIGINAL_BRANCH"
@@ -200,7 +156,7 @@ main() {
     perform_rebase "$TARGET_BRANCH"
 
     # Push the rebased branch
-    push_rebased_branch
+    push_rebased_branch "$REMOTE"
 }
 
 # Invoke main with all script arguments
