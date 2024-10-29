@@ -55,11 +55,16 @@ git add .
 # Commit the changes with the commit message
 git commit -m "$COMMIT_MESSAGE"
 
-# Push the commit to the current branch's upstream
-git push
+# Pull remote changes to avoid conflicts
+echo "Pulling the latest changes from the remote repository..."
+if ! git pull --rebase; then
+    echo "Error: Failed to pull the latest changes from the remote repository."
+    exit 1
+fi
 
-# Check if push was successful
-if [ $? -eq 0 ]; then
+# Push the commit to the current branch's upstream
+echo "Pushing changes to the remote repository..."
+if git push; then
     echo "Changes have been pushed successfully."
 else
     echo "Error: Failed to push changes."
