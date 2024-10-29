@@ -4,22 +4,22 @@
 
 ### Clean a Specific Backend Service (e.g., `eureka-server`)
 ```bash
-./manage-services.sh clean eureka-server
+cd PayNext && ./manage-services.sh clean eureka-server
 ```
 
 ### Clean a Specific Frontend Service (e.g., `fintech-payment-frontend`)
 ```bash
-./manage-services.sh clean fintech-payment-frontend
+cd PayNext && ./manage-services.sh clean fintech-payment-frontend
 ```
 
 ### Clean the Main Frontend Service
 ```bash
-./manage-services.sh clean frontend
+cd PayNext && ./manage-services.sh clean frontend
 ```
 
 ### Clean All Backend and Frontend Services
 ```bash
-./manage-services.sh clean all
+cd PayNext && ./manage-services.sh clean all
 ```
 
 ---
@@ -28,22 +28,22 @@
 
 ### Build a Specific Backend Service (e.g., `api-gateway`)
 ```bash
-./manage-services.sh build api-gateway
+cd PayNext && ./manage-services.sh build api-gateway
 ```
 
 ### Build a Specific Frontend Service (e.g., `fintech-payment-frontend`)
 ```bash
-./manage-services.sh build fintech-payment-frontend
+cd PayNext && ./manage-services.sh build fintech-payment-frontend
 ```
 
 ### Build the Main Frontend Service
 ```bash
-./manage-services.sh build frontend
+cd PayNext && ./manage-services.sh build frontend
 ```
 
 ### Build All Backend and Frontend Services
 ```bash
-./manage-services.sh build all
+cd PayNext && ./manage-services.sh build all
 ```
 
 ---
@@ -52,22 +52,22 @@
 
 ### Run a Specific Backend Service (e.g., `user-service`)
 ```bash
-./manage-services.sh run user-service
+cd PayNext && ./manage-services.sh run user-service
 ```
 
 ### Run a Specific Frontend Service (e.g., `fintech-payment-frontend`)
 ```bash
-./manage-services.sh run fintech-payment-frontend
+cd PayNext && ./manage-services.sh run fintech-payment-frontend
 ```
 
 ### Run the Main Frontend Service
 ```bash
-./manage-services.sh run frontend
+cd PayNext && ./manage-services.sh run frontend
 ```
 
 ### Run All Backend and Frontend Services
 ```bash
-./manage-services.sh run all
+cd PayNext && ./manage-services.sh run all
 ```
 
 ---
@@ -76,7 +76,7 @@
 
 ### Perform a Full Setup (Clean, Build, Run) for All Services
 ```bash
-./manage-services.sh setup all
+cd PayNext && ./manage-services.sh setup all
 ```
 
 ---
@@ -85,28 +85,28 @@
 
 ### Example: Clean, Build, and Run the `notification-service` Backend
 ```bash
-./manage-services.sh clean notification-service
-./manage-services.sh build notification-service
-./manage-services.sh run notification-service
+cd PayNext && ./manage-services.sh clean notification-service
+cd PayNext && ./manage-services.sh build notification-service
+cd PayNext && ./manage-services.sh run notification-service
 ```
 
 ### Example: Clean, Build, and Run the Main Frontend Service
 ```bash
-./manage-services.sh clean frontend
-./manage-services.sh build frontend
-./manage-services.sh run frontend
+cd PayNext && ./manage-services.sh clean frontend
+cd PayNext && ./manage-services.sh build frontend
+cd PayNext && ./manage-services.sh run frontend
 ```
 
 ### Example: Clean, Build, and Run All Services in One Go
 ```bash
-./manage-services.sh clean all
-./manage-services.sh build all
-./manage-services.sh run all
+cd PayNext && ./manage-services.sh clean all
+cd PayNext && ./manage-services.sh build all
+cd PayNext && ./manage-services.sh run all
 ```
 
 ### Example: Setup All Services (Clean, Build, Run) with a Single Command
 ```bash
-./manage-services.sh setup all
+cd PayNext && ./manage-services.sh setup all
 ```
 
 ---
