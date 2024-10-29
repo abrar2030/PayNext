@@ -54,5 +54,5 @@ The application follows a microservices architecture, consisting of:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/abrar2030/paynext.git
+git clone https://github.com/abrar2030/PayNext.git
 cd PayNext
