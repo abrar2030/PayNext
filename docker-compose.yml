@@ -1,11 +1,10 @@
-version: '3.8'
-
 services:
   # Eureka Server
   eureka-server:
     build:
       context: ./backend/eureka-server
       dockerfile: Dockerfile
+    image: fintech-eureka-server:latest
     container_name: eureka-server
     ports:
       - "8761:8761"
@@ -17,9 +16,10 @@ services:
     build:
       context: ./backend/api-gateway
       dockerfile: Dockerfile
+    image: fintech-api-gateway:latest
     container_name: api-gateway
     ports:
-      - "8080:8080"
+      - "8767:8767"
     depends_on:
       - eureka-server
       - user-service
@@ -36,9 +36,10 @@ services:
     build:
       context: ./backend/user-service
       dockerfile: Dockerfile
+    image: fintech-user-service:latest
     container_name: user-service
     ports:
-      - "8081:8081"
+      - "8760:8760"
     depends_on:
       - eureka-server
     networks:
@@ -51,9 +52,10 @@ services:
     build:
       context: ./backend/payment-service
       dockerfile: Dockerfile
+    image: fintech-payment-service:latest
     container_name: payment-service
     ports:
-      - "8082:8082"
+      - "8765:8765"
     depends_on:
       - eureka-server
       - user-service
@@ -68,9 +70,10 @@ services:
     build:
       context: ./backend/notification-service
       dockerfile: Dockerfile
+    image: fintech-notification-service:latest
     container_name: notification-service
     ports:
-      - "8083:8083"
+      - "8766:8766"
     depends_on:
       - eureka-server
     networks:
@@ -79,26 +82,12 @@ services:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
       - JWT_SECRET=your_jwt_secret_here
 
-  # Main Frontend
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: frontend
-    ports:
-      - "3000:80" # Host port 3000 maps to container port 80
-    depends_on:
-      - api-gateway
-    networks:
-      - fintech-network
-    environment:
-      - REACT_APP_API_BASE_URL=http://api-gateway:8080
-
   # Fintech Payment Frontend
   fintech-payment-frontend:
     build:
       context: ./frontend/fintech-payment-frontend
       dockerfile: Dockerfile
+    image: fintech-payment-frontend:latest
     container_name: fintech-payment-frontend
     ports:
       - "3001:80" # Host port 3001 maps to container port 80
@@ -107,7 +96,7 @@ services:
     networks:
       - fintech-network
     environment:
-      - REACT_APP_API_BASE_URL=http://api-gateway:8080
+      - REACT_APP_API_BASE_URL=http://api-gateway:8767
 
 networks:
   fintech-network:

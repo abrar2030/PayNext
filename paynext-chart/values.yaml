@@ -20,7 +20,7 @@ apiGateway:
     repository: your-docker-repo/api-gateway
     tag: latest
   service:
-    port: 8080
+    port: 8767
     type: ClusterIP
   env:
     JWT_SECRET: your_jwt_secret_here
@@ -31,7 +31,7 @@ userService:
     repository: your-docker-repo/user-service
     tag: latest
   service:
-    port: 8081
+    port: 8760
     type: ClusterIP
   env:
     EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
@@ -42,7 +42,7 @@ paymentService:
     repository: your-docker-repo/payment-service
     tag: latest
   service:
-    port: 8082
+    port: 8765
     type: ClusterIP
   env:
     EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
@@ -54,7 +54,7 @@ notificationService:
     repository: your-docker-repo/notification-service
     tag: latest
   service:
-    port: 8083
+    port: 8766
     type: ClusterIP
   env:
     EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
