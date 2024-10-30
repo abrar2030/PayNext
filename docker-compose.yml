@@ -4,7 +4,7 @@ services:
     build:
       context: ./backend/eureka-server
       dockerfile: Dockerfile
-    image: abrar2030/backend:latest
+    image: abrar2030/backend:eureka-server
     container_name: eureka-server
     ports:
       - "8001:8001"
@@ -16,7 +16,7 @@ services:
     build:
       context: ./backend/api-gateway
       dockerfile: Dockerfile
-    image: fintech-api-gateway:latest
+    image: abrar2030/backend:api-gateway
     container_name: api-gateway
     ports:
       - "8002:8002"
@@ -28,7 +28,7 @@ services:
     networks:
       - fintech-network
     environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8001/eureka/
       - JWT_SECRET=your_jwt_secret_here
 
   # User Service
@@ -36,7 +36,7 @@ services:
     build:
       context: ./backend/user-service
       dockerfile: Dockerfile
-    image: fintech-user-service:latest
+    image: abrar2030/backend:user-service
     container_name: user-service
     ports:
       - "8003:8003"
@@ -45,14 +45,14 @@ services:
     networks:
       - fintech-network
     environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8001/eureka/
 
   # Payment Service
   payment-service:
     build:
       context: ./backend/payment-service
       dockerfile: Dockerfile
-    image: fintech-payment-service:latest
+    image: abrar2030/backend:payment-service
     container_name: payment-service
     ports:
       - "8004:8004"
@@ -62,7 +62,7 @@ services:
     networks:
       - fintech-network
     environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8001/eureka/
       - JWT_SECRET=your_jwt_secret_here
 
   # Notification Service
@@ -70,7 +70,7 @@ services:
     build:
       context: ./backend/notification-service
       dockerfile: Dockerfile
-    image: fintech-notification-service:latest
+    image: abrar2030/backend:notification-service
     container_name: notification-service
     ports:
       - "8005:8005"
@@ -79,7 +79,7 @@ services:
     networks:
       - fintech-network
     environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8001/eureka/
       - JWT_SECRET=your_jwt_secret_here
 
   # Fintech Payment Frontend
@@ -87,7 +87,7 @@ services:
     build:
       context: ./frontend/fintech-payment-frontend
       dockerfile: Dockerfile
-    image: fintech-payment-frontend:latest
+    image: abrar2030/frontend:fintech-payment-frontend
     container_name: fintech-payment-frontend
     ports:
       - "3001:80" # Host port 3001 maps to container port 80
@@ -96,7 +96,7 @@ services:
     networks:
       - fintech-network
     environment:
-      - REACT_APP_API_BASE_URL=http://api-gateway:8767
+      - REACT_APP_API_BASE_URL=http://api-gateway:8002
 
 networks:
   fintech-network:
