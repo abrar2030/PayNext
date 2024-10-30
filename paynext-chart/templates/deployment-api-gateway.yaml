@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: fintech-api-gateway
+          image: abrar2030/backend:api-gateway
           ports:
             - containerPort: 8002
           env:

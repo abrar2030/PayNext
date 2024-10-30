@@ -1,11 +1,8 @@
 # Use a lightweight base image with OpenJDK
-FROM openjdk:17-jdk-alpine
-
-# Set the working directory
-WORKDIR /app
+FROM openjdk:11
 
 # Copy the built JAR file from the host into the Docker image
-COPY api-gateway/target/api-gateway-1.0.0.jar ./api-gateway.jar
+ADD target/api-gateway-1.0.0.jar api-gateway.jar
 
 # Expose the Eureka Server port (default: 8761)
 EXPOSE 8002

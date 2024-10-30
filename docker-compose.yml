@@ -4,7 +4,7 @@ services:
     build:
       context: ./backend/eureka-server
       dockerfile: Dockerfile
-    image: fintech-eureka-server:latest
+    image: abrar2030/backend:latest
     container_name: eureka-server
     ports:
       - "8001:8001"
