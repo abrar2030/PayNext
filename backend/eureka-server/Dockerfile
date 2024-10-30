@@ -1,24 +1,14 @@
-# Stage 1: Build
-FROM maven:3.8.6-openjdk-17 AS builder
-
-WORKDIR /app
-
-COPY pom.xml .
-RUN mvn dependency:go-offline -B
-
-COPY src ./src
-
-RUN mvn clean package -DskipTests
-
-# Stage 2: Run
+# Use a lightweight base image with OpenJDK
 FROM openjdk:17-jdk-alpine
 
-ENV JAVA_OPTS=""
-
+# Set the working directory
 WORKDIR /app
 
-COPY --from=builder /app/target/*.jar app.jar
+# Copy the built JAR file from the host into the Docker image
+COPY eureka-server/target/eureka-server-1.0.0.jar ./eureka-server.jar
 
+# Expose the Eureka Server port (default: 8761)
 EXPOSE 8761
 
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+# Define the entrypoint to run the Eureka Server
+ENTRYPOINT ["java", "-jar", "eureka-server.jar"]
