@@ -18,7 +18,7 @@ spec:
         - name: eureka-server
           image: fintech-eureka-server
           ports:
-            - containerPort: 8761
+            - containerPort: 8001
           env:
             - name: EUREKA_SERVER_PORT
-              value: "8761"
+              value: "8001"

@@ -8,7 +8,7 @@ WORKDIR /app
 COPY user-service/target/user-service-1.0.0.jar ./user-service.jar
 
 # Expose the Eureka Server port (default: 8761)
-EXPOSE 8760
+EXPOSE 8003
 
 # Define the entrypoint to run the Eureka Server
 ENTRYPOINT ["java", "-jar", "user-service.jar"]

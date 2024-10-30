@@ -8,7 +8,7 @@ WORKDIR /app
 COPY notification-service/target/notification-service-1.0.0.jar ./notification-service.jar
 
 # Expose the Eureka Server port (default: 8761)
-EXPOSE 8766
+EXPOSE 8005
 
 # Define the entrypoint to run the Eureka Server
 ENTRYPOINT ["java", "-jar", "notification-service.jar"]

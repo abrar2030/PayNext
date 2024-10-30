@@ -8,19 +8,19 @@ global:
 # Eureka Server Configuration
 eurekaServer:
   image:
-    repository: your-docker-repo/eureka-server
+    repository: abrar2030/paynext/eureka-server
     tag: latest
   service:
-    port: 8761
+    port: 8001
     type: ClusterIP
 
 # API Gateway Configuration
 apiGateway:
   image:
-    repository: your-docker-repo/api-gateway
+    repository: abrar2030/paynext/api-gateway
     tag: latest
   service:
-    port: 8767
+    port: 8002
     type: ClusterIP
   env:
     JWT_SECRET: your_jwt_secret_here
@@ -28,53 +28,42 @@ apiGateway:
 # User Service Configuration
 userService:
   image:
-    repository: your-docker-repo/user-service
+    repository: abrar2030/paynext/user-service
     tag: latest
   service:
-    port: 8760
+    port: 8003
     type: ClusterIP
   env:
-    EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+    EUREKA_SERVER_URL: http://eureka-server:8001/eureka/
 
 # Payment Service Configuration
 paymentService:
   image:
-    repository: your-docker-repo/payment-service
+    repository: abrar2030/paynext/payment-service
     tag: latest
   service:
-    port: 8765
+    port: 8004
     type: ClusterIP
   env:
-    EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+    EUREKA_SERVER_URL: http://eureka-server:8001/eureka/
     JWT_SECRET: your_jwt_secret_here
 
 # Notification Service Configuration
 notificationService:
   image:
-    repository: your-docker-repo/notification-service
+    repository: abrar2030/paynext/notification-service
     tag: latest
   service:
-    port: 8766
+    port: 8005
     type: ClusterIP
   env:
-    EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+    EUREKA_SERVER_URL: http://eureka-server:8001/eureka/
     JWT_SECRET: your_jwt_secret_here
-
-# Frontend Configuration
-frontend:
-  image:
-    repository: your-docker-repo/frontend
-    tag: latest
-  service:
-    port: 80
-    type: ClusterIP
-  env:
-    REACT_APP_API_BASE_URL: http://api-gateway:8080
 
 # Fintech Payment Frontend Configuration
 fintechPaymentFrontend:
   image:
-    repository: your-docker-repo/fintech-payment-frontend
+    repository: abrar2030/paynext/fintech-payment-frontend
     tag: latest
   service:
     port: 80
