@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fintech-payment-frontend
+  labels:
+    app: fintech-payment-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fintech-payment-frontend
+  template:
+    metadata:
+      labels:
+        app: fintech-payment-frontend
+    spec:
+      containers:
+        - name: fintech-payment-frontend
+          image: abrar2030/frontend:fintech-payment-frontend
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REACT_APP_API_BASE_URL
+              value: "http://api-gateway:8002"
