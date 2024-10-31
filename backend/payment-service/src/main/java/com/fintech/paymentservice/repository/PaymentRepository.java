@@ -2,10 +2,9 @@
 package com.fintech.paymentservice.repository;
 
 import com.fintech.paymentservice.model.Payment;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
-    List<Payment> findBySenderIdOrReceiverId(Long senderId, Long receiverId);
+  List<Payment> findBySenderIdOrReceiverId(Long senderId, Long receiverId);
 }

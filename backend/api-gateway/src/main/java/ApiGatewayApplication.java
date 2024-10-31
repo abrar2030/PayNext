@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDeta
 @SpringBootApplication(exclude = ReactiveUserDetailsServiceAutoConfiguration.class)
 public class ApiGatewayApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ApiGatewayApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(ApiGatewayApplication.class, args);
+  }
 }

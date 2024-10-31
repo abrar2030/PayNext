@@ -12,16 +12,22 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @EnableReactiveMethodSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-        http
-                .csrf().disable()
-                .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/", "/login", "/register", "/actuator/**").permitAll()
-                        .anyExchange().permitAll() // Temporarily permit all for testing
-                )
-                .httpBasic().disable()
-                .formLogin().disable();
-        return http.build();
-    }
+  @Bean
+  public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+    http.csrf()
+        .disable()
+        .authorizeExchange(
+            exchanges ->
+                exchanges
+                    .pathMatchers("/", "/login", "/register", "/actuator/**")
+                    .permitAll()
+                    .anyExchange()
+                    .permitAll() // Temporarily permit all for testing
+            )
+        .httpBasic()
+        .disable()
+        .formLogin()
+        .disable();
+    return http.build();
+  }
 }

@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/notifications")
 public class NotificationController {
 
-    private NotificationService notificationService;
+  private NotificationService notificationService;
 
-    @Autowired
-    public NotificationController(NotificationService notificationService) {
-        this.notificationService = notificationService;
-    }
+  @Autowired
+  public NotificationController(NotificationService notificationService) {
+    this.notificationService = notificationService;
+  }
 
-    @PostMapping("/send")
-    public void sendNotification(@RequestBody NotificationRequest notificationRequest) {
-        notificationService.sendNotification(notificationRequest);
-    }
+  @PostMapping("/send")
+  public void sendNotification(@RequestBody NotificationRequest notificationRequest) {
+    notificationService.sendNotification(notificationRequest);
+  }
 }

@@ -3,52 +3,50 @@ package com.fintech.userservice.filter;
 
 import com.fintech.userservice.service.UserDetailsServiceImpl;
 import com.fintech.userservice.util.JwtUtil;
+import java.io.IOException;
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Component
 public class JwtAuthenticationFilter extends GenericFilter {
 
-    @Autowired
-    private JwtUtil jwtUtil;
+  @Autowired private JwtUtil jwtUtil;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+  @Autowired private UserDetailsServiceImpl userDetailsService;
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = getJWTFromRequest((HttpServletRequest) request);
+  @Override
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+      throws IOException, ServletException {
+    String token = getJWTFromRequest((HttpServletRequest) request);
 
-        if (token != null && jwtUtil.getUserIdFromToken(token) != null) {
-            Long userId = jwtUtil.getUserIdFromToken(token);
-            UserDetails userDetails = userDetailsService.loadUserById(userId);
+    if (token != null && jwtUtil.getUserIdFromToken(token) != null) {
+      Long userId = jwtUtil.getUserIdFromToken(token);
+      UserDetails userDetails = userDetailsService.loadUserById(userId);
 
-            if (jwtUtil.getUserIdFromToken(token).equals(userId)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities()
-                );
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-        }
-
-        chain.doFilter(request, response);
+      if (jwtUtil.getUserIdFromToken(token).equals(userId)) {
+        UsernamePasswordAuthenticationToken authentication =
+            new UsernamePasswordAuthenticationToken(
+                userDetails, null, userDetails.getAuthorities());
+        authentication.setDetails(
+            new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+      }
     }
 
-    private String getJWTFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
-        }
-        return null;
+    chain.doFilter(request, response);
+  }
+
+  private String getJWTFromRequest(HttpServletRequest request) {
+    String bearerToken = request.getHeader("Authorization");
+    if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+      return bearerToken.substring(7);
     }
+    return null;
+  }
 }
