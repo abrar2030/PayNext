@@ -1,7 +1,6 @@
-# .github/workflows/frontend-ci.yml
+---
 
 name: Frontend CI
-
 on:
   push:
     branches:
@@ -9,32 +8,25 @@ on:
   pull_request:
     branches:
       - main
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
           node-version: 16
-
       - name: Install Dependencies
         working-directory: frontend
         run: npm install
-
       - name: Run Tests
         working-directory: frontend
         run: npm test -- --watchAll=false
-
       - name: Build Frontend
         working-directory: frontend
         run: npm run build
-
       - name: Archive Build Results
         if: success()
         uses: actions/upload-artifact@v2

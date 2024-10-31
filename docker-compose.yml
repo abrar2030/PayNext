@@ -1,5 +1,5 @@
+---
 services:
-  # Eureka Server
   eureka-server:
     build:
       context: ./backend/eureka-server
@@ -10,8 +10,6 @@ services:
       - "8001:8001"
     networks:
       - fintech-network
-
-  # API Gateway
   api-gateway:
     build:
       context: ./backend/api-gateway
@@ -30,8 +28,6 @@ services:
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8001/eureka/
       - JWT_SECRET=your_jwt_secret_here
-
-  # User Service
   user-service:
     build:
       context: ./backend/user-service
@@ -46,8 +42,6 @@ services:
       - fintech-network
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8001/eureka/
-
-  # Payment Service
   payment-service:
     build:
       context: ./backend/payment-service
@@ -64,8 +58,6 @@ services:
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8001/eureka/
       - JWT_SECRET=your_jwt_secret_here
-
-  # Notification Service
   notification-service:
     build:
       context: ./backend/notification-service
@@ -81,8 +73,6 @@ services:
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8001/eureka/
       - JWT_SECRET=your_jwt_secret_here
-
-  # Fintech Payment Frontend
   fintech-payment-frontend:
     build:
       context: ./frontend/fintech-payment-frontend
@@ -90,14 +80,13 @@ services:
     image: abrar2030/frontend:fintech-payment-frontend
     container_name: fintech-payment-frontend
     ports:
-      - "3001:80" # Host port 3001 maps to container port 80
+      - "3001:80" 
     depends_on:
       - api-gateway
     networks:
       - fintech-network
     environment:
       - REACT_APP_API_BASE_URL=http://api-gateway:8002
-
 networks:
   fintech-network:
     driver: bridge
