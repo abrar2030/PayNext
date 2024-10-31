@@ -1,0 +1,1 @@
+# vpc.tf content placeholder
