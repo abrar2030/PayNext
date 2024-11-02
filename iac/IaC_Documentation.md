@@ -1,90 +1,150 @@
-
 # Infrastructure as Code (IaC) Documentation for PayNext Project
 
 ## Overview
 
-This documentation provides an overview of the Infrastructure as Code (IaC) setup for the PayNext project, detailing each file and directory in the IaC directory for configuring, deploying, and managing the project’s infrastructure.
+This documentation provides a comprehensive guide to the Infrastructure as Code (IaC) setup for the **PayNext** project using **Terraform**. The IaC setup is designed to automate the deployment and management of cloud infrastructure resources required for running the PayNext application, ensuring consistent and repeatable infrastructure provisioning.
 
 ## Directory Structure
 
-The IaC files are organized as follows:
+The IaC directory has the following structure:
 
 ```
-iac/
+.
+├── IaC_Deployment_Script.md
+├── IaC_Documentation.md
+├── deploy-services.sh
+├── kubernetes
+│   ├── eks_cluster.tf
+│   ├── helm.tf
+│   └── outputs.tf
 ├── main.tf
-├── providers.tf
-├── variables.tf
 ├── outputs.tf
+├── providers.tf
+├── services
+│   ├── api-gateway
+│   │   └── main.tf
+│   ├── eureka-server
+│   │   └── main.tf
+│   ├── notification-service
+│   │   └── main.tf
+│   ├── payment-service
+│   │   └── main.tf
+│   └── user-service
+│       └── main.tf
+├── storage
+│   └── s3_bucket.tf
 ├── terraform.tfvars
-├── modules/
-│   ├── vpc/
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   └── outputs.tf
-│   ├── ec2/
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   └── outputs.tf
-│   ├── rds/
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   └── outputs.tf
-│   └── eks/
-│       ├── main.tf
-│       ├── variables.tf
-│       └── outputs.tf
-└── scripts/
-    ├── configure_ec2.sh
-    ├── setup_eks.sh
-    └── db_init.sql
+├── variables.tf
+└── vpc
+    ├── outputs.tf
+    ├── security_groups.tf
+    └── vpc.tf
 ```
 
-## File Descriptions
+## Files Description
 
-- **main.tf**: Contains the root configurations to set up and provision resources.
-- **providers.tf**: Specifies the cloud providers and configurations.
-- **variables.tf**: Defines input variables for the infrastructure.
-- **outputs.tf**: Outputs the values of the configured resources.
-- **terraform.tfvars**: Stores the actual values for variables.
+### 1. `main.tf`
 
-### Modules
-- **vpc**: Manages Virtual Private Cloud (VPC) settings, subnets, and internet gateways.
-- **ec2**: Configures EC2 instances for various services.
-- **rds**: Sets up RDS instances for databases.
-- **eks**: Manages Elastic Kubernetes Service (EKS) clusters for containerized applications.
+The `main.tf` file serves as the primary entry point for the Terraform configuration. It includes module declarations for VPC, Kubernetes, storage, and services.
 
-### Scripts
-- **configure_ec2.sh**: Bootstraps EC2 instances with necessary configurations.
-- **setup_eks.sh**: Automates EKS cluster setup and configurations.
-- **db_init.sql**: SQL script for initializing the database schema and data.
+- **Modules Included**:
+   - VPC
+   - Kubernetes (EKS Cluster)
+   - Storage (S3 Bucket)
+   - Services (API Gateway, Eureka Server, Notification Service, etc.)
 
----
+### 2. `providers.tf`
 
-### Usage
-To deploy the infrastructure, run the following commands from the `iac` directory:
+Defines all the cloud providers that are used in the project, such as AWS, Kubernetes, and Helm providers.
 
-1. Initialize Terraform:
-   ```bash
+### 3. `variables.tf`
+
+This file contains all the variables required across the Terraform code. Variables make the code more flexible and easier to manage by parameterizing key configuration settings.
+
+- **Example Variables**:
+   - `aws_region`: Defines the AWS region to deploy resources.
+   - `cluster_name`: Defines the EKS cluster name.
+
+### 4. `terraform.tfvars`
+
+This file contains the values assigned to the variables defined in `variables.tf`. It is used to customize the infrastructure configuration.
+
+- **Example Variables Set**:
+   - `aws_region = "us-west-2"`
+   - `cluster_name = "paynext-cluster"`
+
+### 5. `outputs.tf`
+
+Defines outputs for the infrastructure, allowing values like VPC ID and EKS cluster name to be easily queried after deployment.
+
+- **Example Outputs**:
+   - `vpc_id`: Outputs the ID of the created VPC.
+   - `eks_cluster_name`: Outputs the name of the EKS cluster.
+
+### 6. `vpc/`
+
+Contains Terraform code for creating Virtual Private Cloud (VPC) and related networking resources.
+
+- **`vpc.tf`**: Defines the VPC and subnets.
+- **`security_groups.tf`**: Defines security groups for the EKS cluster.
+- **`outputs.tf`**: Outputs values related to the VPC, such as VPC ID and subnet IDs.
+
+### 7. `kubernetes/`
+
+Contains the files for configuring the Kubernetes infrastructure.
+
+- **`eks_cluster.tf`**: Creates the EKS cluster using the AWS EKS module.
+- **`helm.tf`**: Configures Helm for managing Kubernetes applications.
+- **`outputs.tf`**: Outputs related to the Kubernetes resources, like the cluster name.
+
+### 8. `services/`
+
+Contains separate folders for each microservice in the PayNext project. Each folder includes a `main.tf` file that defines the deployment and service configuration for the corresponding service.
+
+- **Microservices**:
+   - **API Gateway** (`api-gateway/main.tf`)
+   - **Eureka Server** (`eureka-server/main.tf`)
+   - **Notification Service** (`notification-service/main.tf`)
+   - **Payment Service** (`payment-service/main.tf`)
+   - **User Service** (`user-service/main.tf`)
+
+### 9. `storage/s3_bucket.tf`
+
+Defines an S3 bucket for storing application data or configuration files required by the services. The bucket is private and tagged accordingly.
+
+## Deployment Process
+
+1. **Initialize Terraform**: Run the following command to initialize Terraform and download the necessary provider plugins.
+   ```sh
    terraform init
    ```
 
-2. Preview the plan:
-   ```bash
+2. **Validate Configuration**: Validate the Terraform configuration files to ensure everything is correct.
+   ```sh
+   terraform validate
+   ```
+
+3. **Plan the Infrastructure**: Create an execution plan to see what actions Terraform will take to create the infrastructure.
+   ```sh
    terraform plan
    ```
 
-3. Apply the configuration:
-   ```bash
+4. **Apply the Configuration**: Deploy the infrastructure as defined in the Terraform files.
+   ```sh
    terraform apply
    ```
 
-4. Destroy the infrastructure:
-   ```bash
-   terraform destroy
-   ```
+## Notes
 
-Ensure that the `terraform.tfvars` file is properly configured with the correct values before running the apply command.
+- **State Management**: Ensure the Terraform state file (`terraform.tfstate`) is securely stored. You can use a remote backend like AWS S3 for better state management.
+- **Provider Credentials**: You need valid AWS credentials to run Terraform commands and deploy the infrastructure.
+
+## Best Practices
+
+- **Version Control**: Keep the `.tf` files in version control (e.g., Git) to track infrastructure changes over time.
+- **Environment Separation**: Use different workspaces or separate directories for different environments (e.g., `dev`, `staging`, `prod`).
+- **Security**: Avoid hardcoding sensitive information, such as credentials, in `.tf` files. Use environment variables or secret management tools like AWS Secrets Manager.
 
 ## Conclusion
 
-This documentation serves as a guide for understanding and deploying the PayNext project infrastructure using Terraform and other supporting scripts.
+The IaC setup using Terraform helps to automate the deployment of cloud infrastructure for the PayNext project, ensuring consistent, repeatable, and reliable infrastructure management. This documentation serves as a guide to understanding the structure and purpose of each component in the IaC configuration.

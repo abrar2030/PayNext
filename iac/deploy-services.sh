@@ -1,64 +1,51 @@
 #!/bin/bash
 
-# Script to deploy different IAC services
+# =====================================================
+# Kubernetes Service Deployment Script
+# =====================================================
+# This script automates the deployment of Kubernetes
+# services for the PayNext project using kubectl.
+#
+# Usage:
+#   ./deploy-services.sh
+# =====================================================
 
-# Define services and paths (update as per your directory structure)
-declare -A services
+# Function to check if kubectl is installed
+check_kubectl_installed() {
+    if ! command -v kubectl &> /dev/null; then
+        echo "Error: kubectl is not installed. Please install kubectl before running this script."
+        exit 1
+    fi
+}
+
+# Check for kubectl installation
+check_kubectl_installed
+
+# Array of Kubernetes deployment files
 services=(
-  ["eureka-server"]="path/to/eureka-server"
-  ["api-gateway"]="path/to/api-gateway"
-  ["user-service"]="path/to/user-service"
-  ["payment-service"]="path/to/payment-service"
-  ["notification-service"]="path/to/notification-service"
-  ["frontend"]="path/to/frontend"
+    "./kubernetes/deployment-eureka-server.yaml"
+    "./kubernetes/service-eureka-server.yaml"
+    "./kubernetes/deployment-api-gateway.yaml"
+    "./kubernetes/service-api-gateway.yaml"
+    "./kubernetes/deployment-user-service.yaml"
+    "./kubernetes/service-user-service.yaml"
+    "./kubernetes/deployment-payment-service.yaml"
+    "./kubernetes/service-payment-service.yaml"
+    "./kubernetes/deployment-notification-service.yaml"
+    "./kubernetes/service-notification-service.yaml"
+    "./kubernetes/deployment-fintech-payment-frontend.yaml"
+    "./kubernetes/service-fintech-payment-frontend.yaml"
 )
 
-# Usage information
-usage() {
-  echo "Usage: $0 [service-name | all]"
-  echo ""
-  echo "Example: $0 eureka-server   # Deploys only the Eureka Server"
-  echo "         $0 all             # Deploys all services"
-  exit 1
-}
+# Loop through the services and apply each one
+for service in "${services[@]}"; do
+    echo "Deploying $service..."
+    if kubectl apply -f "$service"; then
+        echo "Successfully deployed $service."
+    else
+        echo "Error: Failed to deploy $service."
+        exit 1
+    fi
+done
 
-# Check if Terraform is installed
-if ! command -v terraform &> /dev/null; then
-  echo "Error: Terraform is not installed. Please install it before running this script."
-  exit 1
-fi
-
-# Deploy a specific service
-deploy_service() {
-  local service=$1
-  local path=${services[$service]}
-
-  echo "Deploying ${service}..."
-  cd "$path" || exit
-  terraform init
-  terraform apply -auto-approve
-  echo "${service} deployed successfully."
-  cd - > /dev/null || exit
-}
-
-# Main deployment function
-main() {
-  if [ "$1" == "all" ]; then
-    for service in "${!services[@]}"; do
-      deploy_service "$service"
-    done
-  elif [[ -n "${services[$1]}" ]]; then
-    deploy_service "$1"
-  else
-    echo "Error: Invalid service name '$1'."
-    usage
-  fi
-}
-
-# Ensure script is called with an argument
-if [ "$#" -ne 1 ]; then
-  usage
-fi
-
-# Call main with the provided argument
-main "$1"
+echo "All services have been deployed successfully."

@@ -1,92 +1,112 @@
+# PayNext IaC Deployment Guide
 
-# PayNext IAC Deployment Script
-
-This deployment script allows you to deploy individual services or all services in the **PayNext Infrastructure as Code (IAC)** setup using Terraform. Each service is deployed independently, making it easy to manage deployments as needed.
-
-## Directory Structure
-
-Ensure your directory structure follows this format for the script to work correctly:
-
-```
-iac/
-├── eureka-server/
-│   ├── main.tf
-│   ├── variables.tf
-│   └── ...
-├── api-gateway/
-│   ├── main.tf
-│   ├── variables.tf
-│   └── ...
-├── user-service/
-│   ├── main.tf
-│   ├── variables.tf
-│   └── ...
-├── payment-service/
-│   ├── main.tf
-│   ├── variables.tf
-│   └── ...
-├── notification-service/
-│   ├── main.tf
-│   ├── variables.tf
-│   └── ...
-└── frontend/
-    ├── main.tf
-    ├── variables.tf
-    └── ...
-```
-
-Update the paths within the script if your structure differs.
+This guide will help you deploy the PayNext infrastructure using Terraform. This Infrastructure as Code (IaC) setup ensures a consistent and automated environment, utilizing AWS and Kubernetes to host and manage the PayNext services.
 
 ## Prerequisites
 
-- **Terraform**: Ensure Terraform is installed and accessible in your system's PATH.
-- **Executable Permission**: Make sure the script has executable permissions.
+Before deploying the infrastructure, make sure you have the following tools installed:
 
-## Usage
+- **Terraform** (v1.0 or newer)
+- **AWS CLI**: To authenticate and manage AWS resources.
+- **kubectl**: Kubernetes command-line tool for interacting with the EKS cluster.
+- **Helm**: Kubernetes package manager to deploy charts.
+- **Docker**: To manage container images locally.
 
-The script allows you to deploy either a single service or all services at once.
+## Deployment Steps
 
-### 1. Deploy a Single Service
+### 1. Set Up AWS Credentials
 
-To deploy an individual service, provide the service name as an argument. For example, to deploy the **Eureka Server**:
-
-```bash
-./deploy-services.sh eureka-server
-```
-
-### 2. Deploy All Services
-
-To deploy all services, use `all` as the argument:
+Ensure you have configured your AWS CLI with proper credentials. Run the following command to set up credentials:
 
 ```bash
-./deploy-services.sh all
+aws configure
 ```
 
-### Example Command Output
+Provide the **AWS Access Key**, **Secret Access Key**, **Default Region**, and **Output Format** when prompted.
 
-Below is an example output for deploying a single service, **user-service**:
+### 2. Initialize Terraform
 
+Navigate to the IaC directory and initialize Terraform to download the necessary providers and modules.
+
+```bash
+cd /path/to/PayNext/iac
+terraform init
 ```
-Deploying user-service...
-Initializing Terraform configuration in path/to/user-service
-Applying configuration for user-service
-user-service deployed successfully.
+
+### 3. Set Up Environment Variables
+
+Ensure that you have the necessary environment variables set up for your AWS region and cluster name:
+
+```bash
+export TF_VAR_aws_region=us-west-2
+export TF_VAR_cluster_name=paynext-cluster
 ```
 
-### Script Details
+### 4. Apply the Terraform Configuration
 
-The script performs the following steps for each specified service:
-1. Navigates to the specified service's directory.
-2. Runs `terraform init` to initialize the configuration.
-3. Runs `terraform apply -auto-approve` to deploy the service automatically.
+Run the following command to apply the Terraform configuration and create the infrastructure. Review the plan and type **yes** to confirm:
 
-> **Note**: `-auto-approve` automatically approves the changes. If you prefer to manually approve changes, remove this flag from the script.
+```bash
+terraform apply
+```
+
+Terraform will create:
+- VPC and Security Groups
+- EKS Cluster
+- S3 Bucket
+- Kubernetes Deployments for all microservices
+
+### 5. Configure Kubernetes
+
+Once the infrastructure is up, configure `kubectl` to use the newly created EKS cluster:
+
+```bash
+aws eks --region us-west-2 update-kubeconfig --name paynext-cluster
+```
+
+### 6. Deploy Kubernetes Services with Helm
+
+Change to the `kubernetes` directory and use Helm to deploy the services:
+
+```bash
+cd kubernetes
+helm install paynext ./
+```
+
+### 7. Verify the Deployment
+
+Use `kubectl` to verify that the pods, services, and deployments are correctly running:
+
+```bash
+kubectl get pods
+kubectl get services
+```
+
+Ensure all services are in the **Running** state and that external endpoints are accessible.
+
+### 8. Access the PayNext Application
+
+Once deployed, you can access the application through the **API Gateway** or the **Frontend** service. Ensure the correct ports are exposed and accessible via your Kubernetes cluster.
 
 ## Troubleshooting
 
-- **Terraform Not Installed**: Ensure Terraform is installed. You can download it from [terraform.io](https://www.terraform.io/).
-- **Invalid Service Name**: If you receive an "Invalid service name" error, verify that the service name matches the ones defined in the script.
+- **Authentication Issues**: Ensure your AWS credentials are properly configured.
+- **Cluster Access**: Make sure your IAM user/role has sufficient permissions for managing EKS.
+- **Pods Not Starting**: Check pod logs for errors using `kubectl logs <pod-name>`.
 
----
+## Cleanup
 
-This README.md serves as documentation for using the `deploy-services.sh` script to manage your IAC deployments easily and efficiently.
+To clean up all the resources created by Terraform and avoid additional charges, run the following command in the IaC directory:
+
+```bash
+terraform destroy
+```
+
+## Additional Notes
+
+- **Helm Values**: If you need to change configuration values, modify the `values.yaml` file before deploying with Helm.
+- **Updating Services**: Redeploy the services using `helm upgrade` if changes are made to the Docker images or other configurations.
+
+## Summary
+
+This guide provides a step-by-step approach to deploying the PayNext infrastructure using Terraform. Following these steps will help you maintain a consistent and scalable environment for your FinTech project.
