@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [eureka-server, api-gateway, user-service, payment-service, notification-service]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -16,5 +19,6 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-      - name: Run tests
+      - name: Run tests for ${{ matrix.service }}
+        working-directory: backend/${{ matrix.service }}
         run: mvn test
