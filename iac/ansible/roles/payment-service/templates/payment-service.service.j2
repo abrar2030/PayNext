@@ -1,0 +1,13 @@
+[Unit]
+Description=Payment Service
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/payment-service.env
+ExecStart=/usr/bin/java -jar /opt/payment-service/payment-service.jar
+User=root
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

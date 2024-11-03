@@ -1,1 +1,7 @@
-# Handlers for api-gateway service
+---
+# handlers/main.yml
+
+- name: restart api-gateway
+  systemd:
+    name: api-gateway
+    state: restarted

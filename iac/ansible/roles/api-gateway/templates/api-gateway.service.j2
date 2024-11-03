@@ -1,0 +1,14 @@
+[Unit]
+Description=API Gateway Service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/opt/api-gateway
+ExecStart=/usr/bin/java -jar /opt/api-gateway/api-gateway.jar
+SuccessExitStatus=143
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,1 +1,9 @@
-# Common variables
+---
+# vars/main.yml
+
+motd_message: "Welcome to the PayNext Project!"
+packages:
+  - git
+  - curl
+  - vim
+  - htop

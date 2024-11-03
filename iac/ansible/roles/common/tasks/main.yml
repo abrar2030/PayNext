@@ -1,1 +1,31 @@
-# Common tasks for setup
+---
+# tasks/main.yml
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install basic packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - git
+    - curl
+    - vim
+    - htop
+  when: ansible_os_family == "Debian"
+
+- name: Set up message of the day (MOTD)
+  template:
+    src: motd.j2
+    dest: /etc/motd
+
+- name: Copy example configuration file
+  copy:
+    src: example_config.conf
+    dest: /etc/example_config.conf
+    owner: root
+    group: root
+    mode: '0644'

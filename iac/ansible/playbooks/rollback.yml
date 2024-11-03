@@ -1,0 +1,30 @@
+---
+- name: Rollback PayNext Application
+  hosts: all
+  become: yes
+  tasks:
+    - name: Stop Docker Compose Services
+      docker_compose:
+        project_src: /path/to/your/docker-compose.yml
+        state: absent
+
+    - name: Remove Docker Images
+      shell: |
+        docker rmi $(docker images -q "abrar2030/backend:*" "abrar2030/frontend:*") || true
+      ignore_errors: yes
+
+    - name: Clean up unused Docker volumes and networks
+      command: docker system prune -f
+
+    - name: Confirm rollback success
+      uri:
+        url: "http://localhost:8002/health"
+        method: GET
+        status_code: 404
+      ignore_errors: yes
+      register: result
+
+    - name: Debug rollback result
+      debug:
+        msg: "Rollback completed successfully. No services available."
+      when: result.failed

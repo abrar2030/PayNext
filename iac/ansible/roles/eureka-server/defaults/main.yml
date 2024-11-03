@@ -1,0 +1,5 @@
+---
+# defaults/main.yml
+
+eureka_server_hostname: "localhost"
+eureka_client_service_url: "http://localhost:8761/eureka"

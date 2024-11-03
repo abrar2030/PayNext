@@ -1,0 +1,5 @@
+---
+app_environment: "production"
+db_host: "prod-db.paynext.local"
+db_user: "prod_user"
+db_password: "prod_password"

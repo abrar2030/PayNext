@@ -1,1 +1,11 @@
-# Handlers for notification-service service
+---
+# Handlers for Notification Service
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: Restart Notification Service
+  ansible.builtin.systemd:
+    name: notification-service
+    state: restarted

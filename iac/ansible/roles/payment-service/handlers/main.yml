@@ -1,1 +1,11 @@
-# Handlers for payment-service service
+---
+# Handlers for Payment Service
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: Restart Payment Service
+  ansible.builtin.systemd:
+    name: payment-service
+    state: restarted

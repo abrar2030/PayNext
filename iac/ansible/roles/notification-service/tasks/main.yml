@@ -1,1 +1,32 @@
-# Tasks for notification-service service
+---
+# Tasks for deploying Notification Service
+
+- name: Copy Notification Service application jar
+  copy:
+    src: /path/to/notification-service.jar
+    dest: /opt/notification-service/notification-service.jar
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Install dependencies
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - java-11-openjdk
+    - unzip
+
+- name: Configure Notification Service environment variables
+  template:
+    src: notification-service.env.j2
+    dest: /etc/notification-service.env
+    mode: '0644'
+
+- name: Create Notification Service systemd service file
+  template:
+    src: notification-service.service.j2
+    dest: /etc/systemd/system/notification-service.service
+  notify:
+    - Reload systemd
+    - Restart Notification Service

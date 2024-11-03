@@ -1,0 +1,5 @@
+---
+app_environment: "development"
+db_host: "dev-db.paynext.local"
+db_user: "dev_user"
+db_password: "dev_password"

@@ -1,0 +1,9 @@
+---
+- name: Deploy Notification Service
+  hosts: notification_service
+  become: true
+  roles:
+    - role: notification-service
+  vars:
+    eureka_server_url: "http://eureka-server:8001/eureka"
+    jwt_secret: "your_jwt_secret_here"

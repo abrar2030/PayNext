@@ -1,4 +1,4 @@
-# Infrastructure as Code (IaC) Documentation for PayNext Project
+# Terraform Documentation for PayNext Project
 
 ## Overview
 

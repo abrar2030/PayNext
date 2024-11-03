@@ -1,0 +1,8 @@
+---
+# defaults/main.yml
+
+motd_message: "Default Message for PayNext Server"
+packages:
+  - git
+  - curl
+  - vim

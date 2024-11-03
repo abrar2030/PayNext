@@ -1,0 +1,5 @@
+---
+app_environment: "staging"
+db_host: "staging-db.paynext.local"
+db_user: "staging_user"
+db_password: "staging_password"

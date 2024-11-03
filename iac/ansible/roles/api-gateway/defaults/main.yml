@@ -1,0 +1,5 @@
+---
+# defaults/main.yml
+
+eureka_server_url: "http://localhost:8761/eureka"
+jwt_secret: "default_jwt_secret"
