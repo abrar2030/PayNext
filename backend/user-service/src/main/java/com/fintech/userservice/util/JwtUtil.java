@@ -1,4 +1,3 @@
-// user-service/src/main/java/com/fintech/userservice/util/JwtUtil.java
 package com.fintech.userservice.util;
 
 import com.fintech.userservice.model.User;

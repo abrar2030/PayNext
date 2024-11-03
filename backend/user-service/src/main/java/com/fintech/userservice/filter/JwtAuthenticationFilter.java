@@ -1,4 +1,3 @@
-// user-service/src/main/java/com/fintech/userservice/filter/JwtAuthenticationFilter.java
 package com.fintech.userservice.filter;
 
 import com.fintech.userservice.service.UserDetailsServiceImpl;

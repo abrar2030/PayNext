@@ -1,4 +1,3 @@
-// payment-service/src/main/java/com/fintech/paymentservice/model/Payment.java
 package com.fintech.paymentservice.model;
 
 import java.time.LocalDateTime;

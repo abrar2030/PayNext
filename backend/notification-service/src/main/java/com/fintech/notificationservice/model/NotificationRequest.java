@@ -1,4 +1,3 @@
-// notification-service/src/main/java/com/fintech/notificationservice/model/NotificationRequest.java
 package com.fintech.notificationservice.model;
 
 import java.util.Map;

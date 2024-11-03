@@ -1,4 +1,3 @@
-// notification-service/src/main/java/com/fintech/notificationservice/controller/NotificationController.java
 package com.fintech.notificationservice.controller;
 
 import com.fintech.notificationservice.model.NotificationRequest;

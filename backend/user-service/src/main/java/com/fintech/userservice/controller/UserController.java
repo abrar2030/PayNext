@@ -1,4 +1,3 @@
-// user-service/src/main/java/com/fintech/userservice/controller/UserController.java
 package com.fintech.userservice.controller;
 
 import com.fintech.userservice.model.User;

@@ -1,4 +1,3 @@
-// user-service/src/main/java/com/fintech/userservice/config/SecurityConfig.java
 package com.fintech.userservice.config;
 
 import com.fintech.userservice.filter.JwtAuthenticationFilter;

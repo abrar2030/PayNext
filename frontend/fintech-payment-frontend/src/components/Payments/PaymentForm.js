@@ -1,4 +1,3 @@
-// src/components/Payments/PaymentForm.js
 import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import PaymentService from '../../services/PaymentService';

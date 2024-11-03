@@ -1,4 +1,3 @@
-// payment-service/src/main/java/com/fintech/paymentservice/controller/PaymentController.java
 package com.fintech.paymentservice.controller;
 
 import com.fintech.paymentservice.model.Payment;

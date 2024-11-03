@@ -1,4 +1,3 @@
-// payment-service/src/main/java/com/fintech/paymentservice/repository/PaymentRepository.java
 package com.fintech.paymentservice.repository;
 
 import com.fintech.paymentservice.model.Payment;

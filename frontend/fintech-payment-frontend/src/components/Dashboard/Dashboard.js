@@ -1,4 +1,3 @@
-// src/components/Dashboard/Dashboard.js
 import React from 'react';
 import { Container, Typography } from '@material-ui/core';
 import PaymentHistory from '../Payments/PaymentHistory';

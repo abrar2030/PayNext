@@ -1,4 +1,3 @@
-// user-service/src/main/java/com/fintech/userservice/model/User.java
 package com.fintech.userservice.model;
 
 import javax.persistence.*;

@@ -1,4 +1,3 @@
-// user-service/src/main/java/com/fintech/userservice/service/UserServiceImpl.java
 package com.fintech.userservice.service;
 
 import com.fintech.userservice.model.User;

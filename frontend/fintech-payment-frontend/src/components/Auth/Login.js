@@ -1,4 +1,3 @@
-// src/components/Auth/Login.js
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography } from '@material-ui/core';
 import AuthService from '../../services/AuthService';

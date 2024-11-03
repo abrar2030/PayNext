@@ -1,4 +1,3 @@
-// payment-service/src/main/java/com/fintech/paymentservice/service/PaymentServiceImpl.java
 package com.fintech.paymentservice.service;
 
 import com.fintech.paymentservice.client.UserClient;
