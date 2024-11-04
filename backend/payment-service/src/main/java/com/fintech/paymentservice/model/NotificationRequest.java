@@ -1,44 +1,38 @@
 package com.fintech.paymentservice.model;
 
-import java.util.Map;
-
 public class NotificationRequest {
-  private String recipientEmail;
-  private String subject;
-  private Map<String, Object> properties;
+  private String recipient;
+  private String message;
 
-  // Constructors
-  public NotificationRequest() {}
-
-  public NotificationRequest(
-      String recipientEmail, String subject, Map<String, Object> properties) {
-    this.recipientEmail = recipientEmail;
-    this.subject = subject;
-    this.properties = properties;
+  public NotificationRequest() {
   }
 
-  // Getters and Setters
-  public String getRecipientEmail() {
-    return recipientEmail;
+  public NotificationRequest(String recipient, String message) {
+    this.recipient = recipient;
+    this.message = message;
   }
 
-  public void setRecipientEmail(String recipientEmail) {
-    this.recipientEmail = recipientEmail;
+  public String getRecipient() {
+    return recipient;
   }
 
-  public String getSubject() {
-    return subject;
+  public void setRecipient(String recipient) {
+    this.recipient = recipient;
   }
 
-  public void setSubject(String subject) {
-    this.subject = subject;
+  public String getMessage() {
+    return message;
   }
 
-  public Map<String, Object> getProperties() {
-    return properties;
+  public void setMessage(String message) {
+    this.message = message;
   }
 
-  public void setProperties(Map<String, Object> properties) {
-    this.properties = properties;
+  @Override
+  public String toString() {
+    return "NotificationRequest{" +
+            "recipient='" + recipient + '\'' +
+            ", message='" + message + '\'' +
+            '}';
   }
 }

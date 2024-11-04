@@ -1,48 +1,42 @@
 package com.fintech.paymentservice.service;
 
-import com.fintech.paymentservice.client.UserClient;
+import com.fintech.paymentservice.client.NotificationClient;
+import com.fintech.paymentservice.model.NotificationRequest;
 import com.fintech.paymentservice.model.Payment;
 import com.fintech.paymentservice.repository.PaymentRepository;
-import java.time.LocalDateTime;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class PaymentServiceImpl implements PaymentService {
-
+  @Autowired
   private PaymentRepository paymentRepository;
-  private UserClient userClient;
 
   @Autowired
-  public PaymentServiceImpl(PaymentRepository paymentRepository, UserClient userClient) {
-    this.paymentRepository = paymentRepository;
-    this.userClient = userClient;
-  }
+  private NotificationClient notificationClient;
 
   @Override
   public Payment processPayment(Payment payment) {
-    // Verify sender and receiver exist
-    if (!userClient.userExists(payment.getSenderId())
-        || !userClient.userExists(payment.getReceiverId())) {
-      throw new IllegalArgumentException("Sender or Receiver does not exist");
-    }
-
-    // Process payment logic
-    payment.setTimestamp(LocalDateTime.now());
-    payment.setStatus("SUCCESS");
-
-    // Save payment to database
     Payment savedPayment = paymentRepository.save(payment);
 
-    // Send notification (assuming there's a method to do so)
-    // notificationClient.sendNotification(...);
+    // Notify user after payment is processed
+    NotificationRequest notificationRequest = new NotificationRequest(String.valueOf(payment.getUserId()), "Payment processed successfully.");
+    notificationClient.sendNotification(notificationRequest);
 
     return savedPayment;
   }
 
   @Override
-  public List<Payment> getPaymentHistory(Long userId) {
-    return paymentRepository.findBySenderIdOrReceiverId(userId, userId);
+  public List<Payment> getAllPayments() {
+    return paymentRepository.findAll();
+  }
+
+  @Override
+  public Payment getPaymentById(Long id) {
+    Optional<Payment> payment = paymentRepository.findById(id);
+    return payment.orElse(null);
   }
 }

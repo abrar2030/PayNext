@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface PaymentService {
   Payment processPayment(Payment payment);
-
-  List<Payment> getPaymentHistory(Long userId);
+  List<Payment> getAllPayments();
+  Payment getPaymentById(Long id);
 }

@@ -1,37 +1,35 @@
 package com.fintech.paymentservice.dto;
 
 public class UserDTO {
-  private Long id;
-  private String username;
+  private Long userId;
+  private String userName;
   private String email;
 
-  // Add other fields as needed
+  // Constructors
+  public UserDTO() {
+  }
 
-  // Default constructor
-  public UserDTO() {}
-
-  // Parameterized constructor
-  public UserDTO(Long id, String username, String email) {
-    this.id = id;
-    this.username = username;
+  public UserDTO(Long userId, String userName, String email) {
+    this.userId = userId;
+    this.userName = userName;
     this.email = email;
   }
 
   // Getters and Setters
-  public Long getId() {
-    return id;
+  public Long getUserId() {
+    return userId;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setUserId(Long userId) {
+    this.userId = userId;
   }
 
-  public String getUsername() {
-    return username;
+  public String getUserName() {
+    return userName;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 
   public String getEmail() {
@@ -40,5 +38,14 @@ public class UserDTO {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  @Override
+  public String toString() {
+    return "UserDTO{" +
+            "userId=" + userId +
+            ", userName='" + userName + '\'' +
+            ", email='" + email + '\'' +
+            '}';
   }
 }
