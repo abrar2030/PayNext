@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Navigate to the frontend directory
-cd frontend
-
 # Install dependencies
 echo "Installing frontend dependencies..."
 npm install
@@ -14,3 +11,4 @@ npm run build
 # Start the frontend in development mode
 echo "Starting the frontend..."
 npm start
+
