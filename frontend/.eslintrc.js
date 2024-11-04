@@ -1,22 +1,19 @@
-// .eslintrc.js
-
 module.exports = {
   env: {
     browser: true,
     es2021: true,
     node: true,
-    jest: true, // Enables Jest global variables like 'test' and 'expect'
+    jest: true,
   },
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@eslint/js/recommended",
   ],
   parserOptions: {
     ecmaVersion: 12,
     sourceType: "module",
     ecmaFeatures: {
-      jsx: true, // Enables JSX parsing
+      jsx: true,
     },
   },
   plugins: [
@@ -24,21 +21,20 @@ module.exports = {
   ],
   settings: {
     react: {
-      version: "detect", // Automatically detects the React version
+      version: "detect",
     },
   },
-  globals: {
-    // Define any additional global variables if necessary
-    // e.g., API_KEY: "readonly",
-  },
   rules: {
-    // Customize your rules here
-    "react/prop-types": "off", // Disable PropTypes validation if not using PropTypes
-    "no-undef": "off", // Disable if you're defining globals elsewhere
-    "react/react-in-jsx-scope": "off", // Disable for React 17+ where importing React is not necessary
-    "linebreak-style": ["error", "unix"], // Enforce Unix line endings
-    "max-len": ["error", { "code": 80 }], // Enforce maximum line length of 80
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }], // Allow unused variables that start with '_'
-    // Add more custom rules as needed
+    "react/prop-types": "off",
+    "no-undef": "off",
+    "react/react-in-jsx-scope": "off",
+    "linebreak-style": "off",
+    "max-len": ["error", { "code": 80 }],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/function-component-definition": "off", // Allows both arrow and function components
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/button-has-type": "off",
+    "react/no-deprecated": "off", // Temporarily disable if React 18 warning persists during migration
   },
 };

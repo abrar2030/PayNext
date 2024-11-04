@@ -80,7 +80,7 @@ services:
     image: abrar2030/frontend:fintech-payment-frontend
     container_name: fintech-payment-frontend
     ports:
-      - "3001:80" 
+      - "3001:80"
     depends_on:
       - api-gateway
     networks:

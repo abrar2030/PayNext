@@ -7,29 +7,24 @@
       apt:
         update_cache: yes
         upgrade: dist
-
     - name: Install Docker
       apt:
         name: docker.io
         state: present
-
     - name: Install Docker Compose
       apt:
         name: docker-compose
         state: present
-
     - name: Ensure Docker service is running
       service:
         name: docker
         state: started
         enabled: true
-
     - name: Pull and run PayNext Docker containers
       docker_compose:
         project_src: /path/to/your/docker-compose.yml
         state: present
         build: yes
-
     - name: Verify the deployment
       uri:
         url: "http://localhost:8002/health"
@@ -37,7 +32,6 @@
         return_content: yes
         status_code: 200
       register: result
-
     - name: Debug deployment result
       debug:
         msg: "Deployment successful. Response code: {{ result.status }}"

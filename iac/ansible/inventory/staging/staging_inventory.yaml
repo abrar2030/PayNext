@@ -1,3 +1,4 @@
+---
 [all:vars]
   ansible_user=staging_user
   ansible_ssh_private_key_file=~/.ssh/staging_key.pem

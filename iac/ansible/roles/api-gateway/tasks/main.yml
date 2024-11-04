@@ -1,5 +1,4 @@
 ---
-# tasks/main.yml
 
 - name: Install API Gateway dependencies
   apt:
@@ -9,7 +8,6 @@
     - openjdk-11-jdk
     - unzip
   when: ansible_os_family == "Debian"
-
 - name: Create API Gateway directory
   file:
     path: /opt/api-gateway
@@ -17,7 +15,6 @@
     owner: root
     group: root
     mode: '0755'
-
 - name: Upload API Gateway JAR file
   copy:
     src: files/api-gateway.jar
@@ -25,7 +22,6 @@
     mode: '0755'
     owner: root
     group: root
-
 - name: Configure API Gateway
   template:
     src: api-gateway-config.j2
@@ -33,7 +29,6 @@
     owner: root
     group: root
     mode: '0644'
-
 - name: Configure systemd service for API Gateway
   template:
     src: api-gateway.service.j2
@@ -41,7 +36,6 @@
     mode: '0644'
   notify:
     - restart api-gateway
-
 - name: Enable and start API Gateway service
   systemd:
     name: api-gateway

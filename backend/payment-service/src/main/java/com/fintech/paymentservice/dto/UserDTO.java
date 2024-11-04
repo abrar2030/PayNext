@@ -6,8 +6,7 @@ public class UserDTO {
   private String email;
 
   // Constructors
-  public UserDTO() {
-  }
+  public UserDTO() {}
 
   public UserDTO(Long userId, String userName, String email) {
     this.userId = userId;
@@ -42,10 +41,15 @@ public class UserDTO {
 
   @Override
   public String toString() {
-    return "UserDTO{" +
-            "userId=" + userId +
-            ", userName='" + userName + '\'' +
-            ", email='" + email + '\'' +
-            '}';
+    return "UserDTO{"
+        + "userId="
+        + userId
+        + ", userName='"
+        + userName
+        + '\''
+        + ", email='"
+        + email
+        + '\''
+        + '}';
   }
 }

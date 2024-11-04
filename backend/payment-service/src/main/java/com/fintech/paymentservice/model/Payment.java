@@ -1,8 +1,8 @@
 package com.fintech.paymentservice.model;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "payments")
@@ -24,8 +24,7 @@ public class Payment {
   @Column(nullable = false)
   private String status;
 
-  public Payment() {
-  }
+  public Payment() {}
 
   public Payment(Long userId, BigDecimal amount, LocalDateTime paymentDate, String status) {
     this.userId = userId;
@@ -76,12 +75,18 @@ public class Payment {
 
   @Override
   public String toString() {
-    return "Payment{" +
-            "id=" + id +
-            ", userId=" + userId +
-            ", amount=" + amount +
-            ", paymentDate=" + paymentDate +
-            ", status='" + status + '\'' +
-            '}';
+    return "Payment{"
+        + "id="
+        + id
+        + ", userId="
+        + userId
+        + ", amount="
+        + amount
+        + ", paymentDate="
+        + paymentDate
+        + ", status='"
+        + status
+        + '\''
+        + '}';
   }
 }

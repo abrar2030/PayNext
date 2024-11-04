@@ -1,5 +1,4 @@
 ---
-# vars/main.yml for user-service
 
 service_name: "user-service"
 service_port: 8003

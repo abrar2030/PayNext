@@ -1,12 +1,10 @@
 ---
-# tasks/main.yml
 
 - name: Install Java dependencies
   apt:
     name: openjdk-11-jdk
     state: present
   when: ansible_os_family == "Debian"
-
 - name: Create Eureka Server directory
   file:
     path: /opt/eureka-server
@@ -14,7 +12,6 @@
     owner: root
     group: root
     mode: '0755'
-
 - name: Upload Eureka Server JAR file
   copy:
     src: files/eureka-server.jar
@@ -22,7 +19,6 @@
     mode: '0755'
     owner: root
     group: root
-
 - name: Configure Eureka Server
   template:
     src: eureka-server-config.j2
@@ -30,7 +26,6 @@
     owner: root
     group: root
     mode: '0644'
-
 - name: Configure systemd service for Eureka Server
   template:
     src: eureka-server.service.j2
@@ -38,7 +33,6 @@
     mode: '0644'
   notify:
     - restart eureka-server
-
 - name: Enable and start Eureka Server service
   systemd:
     name: eureka-server

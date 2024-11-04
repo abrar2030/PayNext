@@ -1,16 +1,12 @@
-### handlers/main.yml ###
-
 ---
-# Handlers for user-service
+
 - name: Restart user-service
   service:
     name: user-service
     state: restarted
-
 - name: Notify dependent services of user-service restart
   debug:
     msg: "User service has been restarted. Notifying dependent services..."
-
 - name: Wait for user-service to be available
   uri:
     url: "http://{{ inventory_hostname }}:8003/health"

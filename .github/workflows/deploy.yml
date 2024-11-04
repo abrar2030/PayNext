@@ -1,3 +1,4 @@
+---
 name: Deploy
 on:
   push:
@@ -9,22 +10,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
       - name: Set up Docker and Build Images
         run: |
           cd backend
-          # Build and push Docker images for all microservices
           for service in eureka-server api-gateway user-service payment-service notification-service; do
             docker build -t abrar2030/paynext-$service -f ../Dockerfile --build-arg SERVICE_NAME=$service .
             echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
             docker push abrar2030/paynext-$service
           done
-
       - name: Deploy to Kubernetes
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
-          # Deploy each service to the Kubernetes cluster
           kubectl apply -f kubernetes/eureka-server-deployment.yaml
           kubectl apply -f kubernetes/api-gateway-deployment.yaml
           kubectl apply -f kubernetes/user-service-deployment.yaml

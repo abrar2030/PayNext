@@ -1,5 +1,4 @@
 ---
-# handlers/main.yml
 
 - name: restart api-gateway
   systemd:

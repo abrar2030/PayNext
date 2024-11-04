@@ -4,8 +4,7 @@ public class NotificationRequest {
   private String recipient;
   private String message;
 
-  public NotificationRequest() {
-  }
+  public NotificationRequest() {}
 
   public NotificationRequest(String recipient, String message) {
     this.recipient = recipient;
@@ -30,9 +29,13 @@ public class NotificationRequest {
 
   @Override
   public String toString() {
-    return "NotificationRequest{" +
-            "recipient='" + recipient + '\'' +
-            ", message='" + message + '\'' +
-            '}';
+    return "NotificationRequest{"
+        + "recipient='"
+        + recipient
+        + '\''
+        + ", message='"
+        + message
+        + '\''
+        + '}';
   }
 }

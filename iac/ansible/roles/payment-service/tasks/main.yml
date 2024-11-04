@@ -1,5 +1,4 @@
 ---
-# Tasks for deploying Payment Service
 
 - name: Copy Payment Service application jar
   copy:
@@ -8,7 +7,6 @@
     owner: root
     group: root
     mode: '0755'
-
 - name: Install dependencies
   ansible.builtin.yum:
     name: "{{ item }}"
@@ -16,13 +14,11 @@
   loop:
     - java-11-openjdk
     - unzip
-
 - name: Configure Payment Service environment variables
   template:
     src: payment-service.env.j2
     dest: /etc/payment-service.env
     mode: '0644'
-
 - name: Create Payment Service systemd service file
   template:
     src: payment-service.service.j2

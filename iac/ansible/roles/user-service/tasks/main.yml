@@ -1,18 +1,14 @@
-# tasks/main.yml
 ---
-# This Ansible task file for the user-service role includes all necessary steps for the deployment and configuration of the user-service in the PayNext project.
 
 - name: Create a user-service directory
   file:
     path: "/opt/paynext/user-service"
     state: directory
     mode: '0755'
-
 - name: Copy application files to user-service directory
   copy:
     src: "{{ playbook_dir }}/files/user-service/"
     dest: "/opt/paynext/user-service/"
-
 - name: Ensure required packages are installed
   apt:
     name: "{{ item }}"
@@ -20,7 +16,6 @@
   loop:
     - openjdk-11-jdk
     - unzip
-
 - name: Set environment variables for user-service
   lineinfile:
     path: "/etc/environment"
@@ -29,15 +24,12 @@
     - "USER_SERVICE_PORT=8003"
     - "EUREKA_SERVER_URL=http://eureka-server:8001/eureka"
     - "JWT_SECRET={{ jwt_secret }}"
-
 - name: Start user-service using systemd
   template:
     src: "user-service.service.j2"
     dest: "/etc/systemd/system/user-service.service"
-
 - name: Reload systemd manager configuration
   command: systemctl daemon-reload
-
 - name: Enable and start user-service
   systemd:
     name: user-service

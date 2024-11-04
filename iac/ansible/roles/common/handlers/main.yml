@@ -1,12 +1,10 @@
 ---
-# handlers/main.yml
 
 - name: Restart ssh
   service:
     name: ssh
     state: restarted
   listen: "restart ssh"
-
 - name: Reload systemd
   command: systemctl daemon-reload
   listen: "reload systemd"
