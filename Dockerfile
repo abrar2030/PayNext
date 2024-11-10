@@ -1,4 +1,3 @@
-# Use a lightweight base image with OpenJDK
 FROM openjdk:11
 
 # Set working directory
