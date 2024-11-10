@@ -1,0 +1,14 @@
+[Unit]
+Description=Eureka Server Service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/opt/eureka-server
+ExecStart=/usr/bin/java -jar /opt/eureka-server/eureka-server.jar
+SuccessExitStatus=143
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
