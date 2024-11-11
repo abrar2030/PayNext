@@ -42,13 +42,14 @@ then
     exit 1
 fi
 
-# Prompt for Docker Hub credentials
-read -p "Docker Hub Username: " DOCKERHUB_USERNAME
-read -s -p "Docker Hub Password: " DOCKERHUB_PASSWORD
-echo ""
+# Use Docker credentials from environment variables
+if [ -z "$DOCKER_USERNAME" ] || [ -z "$DOCKER_PASSWORD" ]; then
+    echo "Error: Docker credentials are not set. Please set DOCKER_USERNAME and DOCKER_PASSWORD in your .bashrc file."
+    exit 1
+fi
 
 # Log in to Docker Hub
-echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 echo "Successfully logged in to Docker Hub."
 
 # Services to build and push
@@ -75,7 +76,7 @@ do
     fi
 
     # Build Docker image
-    IMAGE_NAME="abrar2030/$SERVICE:latest"
+    IMAGE_NAME="$DOCKER_USERNAME/$SERVICE:latest"
     echo "Building Docker image for $SERVICE..."
     docker build -t "$IMAGE_NAME" "$SERVICE_PATH"
     echo "Successfully built $IMAGE_NAME."
