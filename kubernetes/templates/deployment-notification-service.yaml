@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: notification-service
-          image: abrar2030/backend:notification-service
+          image: abrar2030/backend-notification-service:latest
           ports:
             - containerPort: 8005
           env:

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: abrar2030/backend:api-gateway
+          image: abrar2030/backend-api-gateway:latest
           ports:
             - containerPort: 8002
           env:

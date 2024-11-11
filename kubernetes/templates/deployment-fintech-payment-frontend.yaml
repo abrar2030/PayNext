@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: fintech-payment-frontend
-          image: abrar2030/frontend:fintech-payment-frontend
+          image: abrar2030/frontend:latest
           ports:
             - containerPort: 3000
           env:

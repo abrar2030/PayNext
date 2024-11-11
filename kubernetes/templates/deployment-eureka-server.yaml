@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: eureka-server
-          image: abrar2030/backend:latest
+          image: abrar2030/backend-eureka-server:latest
           ports:
             - containerPort: 8001
           env:

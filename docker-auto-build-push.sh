@@ -4,7 +4,14 @@
 # Docker Auto Build & Push Script
 # =====================================================
 # This script automates the process of building, tagging,
-# and pushing Docker images for all services to Docker Hub.
+# and pushing Docker images for frontend and backend services
+# to their respective Docker Hub repositories.
+#
+# Frontend Service:
+#   - Image pushed to abrar2030/frontend:latest
+#
+# Backend Services:
+#   - Images pushed to abrar2030/backend-<service>:latest
 #
 # Usage:
 #   ./docker-auto-build-push.sh
@@ -17,7 +24,7 @@ set -e
 usage() {
     echo "Usage: $0"
     echo ""
-    echo "This script builds, tags, and pushes Docker images to Docker Hub for all specified services."
+    echo "This script builds, tags, and pushes Docker images to Docker Hub for frontend and backend services."
     exit 1
 }
 
@@ -44,7 +51,7 @@ fi
 
 # Use Docker credentials from environment variables
 if [ -z "$DOCKER_USERNAME" ] || [ -z "$DOCKER_PASSWORD" ]; then
-    echo "Error: Docker credentials are not set. Please set DOCKER_USERNAME and DOCKER_PASSWORD in your .bashrc file."
+    echo "Error: Docker credentials are not set. Please set DOCKER_USERNAME and DOCKER_PASSWORD in your environment variables."
     exit 1
 fi
 
@@ -52,32 +59,32 @@ fi
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 echo "Successfully logged in to Docker Hub."
 
-# Services to build and push
-SERVICES=("eureka-server" "api-gateway" "user-service" "payment-service" "notification-service" "fintech-payment-frontend")
+# Define Docker Hub repositories
+FRONTEND_REPO="$DOCKER_USERNAME/frontend"
+BACKEND_PREFIX="$DOCKER_USERNAME/backend"
 
-# Iterate over each service to build and push
-for SERVICE in "${SERVICES[@]}"
-do
-    # Determine service path
-    if [ "$SERVICE" == "fintech-payment-frontend" ]; then
-        SERVICE_PATH="./frontend"
-    else
-        SERVICE_PATH="./backend/$SERVICE"
-    fi
+# Services to build and push
+BACKEND_SERVICES=("eureka-server" "api-gateway" "user-service" "payment-service" "notification-service")
+# shellcheck disable=SC2034
+FRONTEND_SERVICE="fintech-payment-frontend"
+
+# Function to build and push a Docker image
+build_and_push() {
+    local IMAGE_NAME=$1
+    local SERVICE_PATH=$2
 
     echo "----------------------------------------"
-    echo "Processing service: $SERVICE"
+    echo "Building Docker image: $IMAGE_NAME"
     echo "Service path: $SERVICE_PATH"
 
     # Check if service directory exists
     if [ ! -d "$SERVICE_PATH" ]; then
-        echo "Warning: Directory $SERVICE_PATH does not exist. Skipping $SERVICE."
-        continue
+        echo "Warning: Directory $SERVICE_PATH does not exist. Skipping."
+        return
     fi
 
     # Build Docker image
-    IMAGE_NAME="$DOCKER_USERNAME/$SERVICE:latest"
-    echo "Building Docker image for $SERVICE..."
+    echo "Building Docker image for $IMAGE_NAME..."
     docker build -t "$IMAGE_NAME" "$SERVICE_PATH"
     echo "Successfully built $IMAGE_NAME."
 
@@ -85,7 +92,20 @@ do
     echo "Pushing Docker image $IMAGE_NAME to Docker Hub..."
     docker push "$IMAGE_NAME"
     echo "Successfully pushed $IMAGE_NAME to Docker Hub."
+}
+
+# Build and push backend services
+for SERVICE in "${BACKEND_SERVICES[@]}"
+do
+    SERVICE_PATH="./backend/$SERVICE"
+    IMAGE_NAME="$BACKEND_PREFIX-$SERVICE:latest"
+    build_and_push "$IMAGE_NAME" "$SERVICE_PATH"
 done
+
+# Build and push frontend service
+FRONTEND_PATH="./frontend"
+FRONTEND_IMAGE="$FRONTEND_REPO:latest"
+build_and_push "$FRONTEND_IMAGE" "$FRONTEND_PATH"
 
 # Logout from Docker Hub
 docker logout

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: abrar2030/backend:user-service
+          image: abrar2030/backend-user-service:latest
           ports:
             - containerPort: 8003
           env:
