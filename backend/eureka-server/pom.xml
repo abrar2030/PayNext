@@ -15,6 +15,14 @@
     </parent>
 
     <artifactId>eureka-server</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <!-- Spring Boot and Spring Cloud versions (if not inherited) -->
+    <properties>
+        <java.version>11</java.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
+    </properties>
 
     <dependencies>
         <!-- Eureka Server Dependency -->
@@ -23,13 +31,38 @@
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
 
+        <!-- Spring Boot Starter Web for basic web server capabilities -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
         <!-- H2 Database (for testing purposes, can be removed if not needed) -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- PostgreSQL Database (if needed for persistence) -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.8</version>
+        </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <!-- Build plugins are inherited from the parent POM -->
 </project>

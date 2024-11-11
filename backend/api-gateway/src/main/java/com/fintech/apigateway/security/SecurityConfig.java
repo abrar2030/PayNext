@@ -1,4 +1,4 @@
-package com.fintech.apigateway.config;
+package com.fintech.apigateway.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,19 +15,19 @@ public class SecurityConfig {
   @Bean
   public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
     http.csrf()
-        .disable()
-        .authorizeExchange(
-            exchanges ->
-                exchanges
-                    .pathMatchers("/", "/login", "/register", "/actuator/**")
-                    .permitAll()
-                    .anyExchange()
-                    .permitAll() // Temporarily permit all for testing
+            .disable()
+            .authorizeExchange(
+                    exchanges ->
+                            exchanges
+                                    .pathMatchers("/", "/login", "/register", "/actuator/**")
+                                    .permitAll()
+                                    .anyExchange()
+                                    .authenticated() // Require authentication for other endpoints
             )
-        .httpBasic()
-        .disable()
-        .formLogin()
-        .disable();
+            .httpBasic()
+            .and()
+            .formLogin()
+            .disable();
     return http.build();
   }
 }
