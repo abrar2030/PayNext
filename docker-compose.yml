@@ -75,7 +75,7 @@ services:
       - JWT_SECRET=your_jwt_secret_here
   fintech-payment-frontend:
     build:
-      context: ./frontend/fintech-payment-frontend
+      context: ./frontend
       dockerfile: Dockerfile
     image: abrar2030/frontend:fintech-payment-frontend
     container_name: fintech-payment-frontend
