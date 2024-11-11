@@ -30,7 +30,7 @@
     <properties>
         <java.version>17</java.version>
         <spring.boot.version>2.6.7</spring.boot.version>
-        <spring.cloud.version>2021.0.1</spring.cloud.version>
+        <spring.cloud.version>2022.0.3</spring.cloud.version>
         <version.spotless-plugin>2.30.0</version.spotless-plugin>
         <jjwt.version>0.9.1</jjwt.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
