@@ -8,7 +8,7 @@ mvn clean package -DskipTests
 cd ..
 
 echo "Building frontend..."
-cd frontend/fintech-payment-frontend
+cd frontend/
 npm install
 npm run build
 cd ../../
