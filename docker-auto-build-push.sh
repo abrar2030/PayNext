@@ -55,8 +55,8 @@ if [ -z "$DOCKER_USERNAME" ] || [ -z "$DOCKER_PASSWORD" ]; then
     exit 1
 fi
 
-# Log in to Docker Hub
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+# Log in to Docker Hub, suppressing only the warning message
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin 2>/dev/null
 echo "Successfully logged in to Docker Hub."
 
 # Define Docker Hub repositories
