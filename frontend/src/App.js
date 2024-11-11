@@ -10,7 +10,7 @@ import Profile from './components/Profile/Profile';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/pnx-frontend">
       <div className="App">
         <Routes>
           <Route path="/" element={<Login />} />
