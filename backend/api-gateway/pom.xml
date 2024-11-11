@@ -87,6 +87,11 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
         <!-- Reactor Test (Optional, for testing reactive components) -->
         <dependency>
             <groupId>io.projectreactor</groupId>
