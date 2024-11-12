@@ -1,0 +1,97 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m------------------< [0;36mcom.fintech:notification-service[0;1m >------------------[m
+[[1;34mINFO[m] [1mBuilding notification-service 1.0.0[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36mnotification-service[0;1m >>>[m
+[[1;33mWARNING[m] The artifact mysql:mysql-connector-java:jar:8.0.33 has been relocated to com.mysql:mysql-connector-j:jar:8.0.33: MySQL Connector/J artifacts moved to reverse-DNS compliant Maven 2+ coordinates.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:resources[m [1m(default-resources)[m @ [36mnotification-service[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] Copying 0 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36mnotification-service[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 5 source files to /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/notification-service/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:testResources[m [1m(default-testResources)[m @ [36mnotification-service[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
+[[1;34mINFO[m] skip non existing resourceDirectory /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/notification-service/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:testCompile[m [1m(default-testCompile)[m @ [36mnotification-service[0;1m ---[m
+[[1;34mINFO[m] No sources to compile
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m<<< [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[0;1m < [0;1mtest-compile[m @ [36mnotification-service[0;1m <<<[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[m @ [36mnotification-service[0;1m ---[m
+[[1;34mINFO[m] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.7)
+
+2024-11-12 17:48:51.650  INFO 49677 --- [           main] c.f.n.NotificationServiceApplication     : Starting NotificationServiceApplication using Java 21.0.5 on RW50 with PID 49677 (/mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/notification-service/target/classes started by abrarahmed in /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/notification-service)
+2024-11-12 17:48:51.660  INFO 49677 --- [           main] c.f.n.NotificationServiceApplication     : No active profile set, falling back to 1 default profile: "default"
+2024-11-12 17:48:54.619  INFO 49677 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-12 17:48:54.729  INFO 49677 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 80 ms. Found 0 JPA repository interfaces.
+2024-11-12 17:48:55.535  INFO 49677 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=81e182b0-a9b9-35ec-81e5-80caf9e2138b
+2024-11-12 17:48:57.282  INFO 49677 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8005 (http)
+2024-11-12 17:48:57.308  INFO 49677 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-12 17:48:57.309  INFO 49677 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2024-11-12 17:48:57.525  INFO 49677 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-12 17:48:57.525  INFO 49677 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5721 ms
+2024-11-12 17:48:58.379  INFO 49677 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-12 17:48:59.157  INFO 49677 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-12 17:48:59.382  INFO 49677 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-12 17:48:59.656  INFO 49677 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
+2024-11-12 17:49:00.388  INFO 49677 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-11-12 17:49:01.121  INFO 49677 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2024-11-12 17:49:02.051  INFO 49677 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-11-12 17:49:02.107  INFO 49677 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-12 17:49:02.282  WARN 49677 --- [           main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2024-11-12 17:49:02.404  WARN 49677 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-12 17:49:03.995  INFO 49677 --- [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2024-11-12 17:49:04.265  WARN 49677 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2024-11-12 17:49:04.276  INFO 49677 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-11-12 17:49:04.351  INFO 49677 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2024-11-12 17:49:04.638  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2024-11-12 17:49:04.662  INFO 49677 --- [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2024-11-12 17:49:04.790  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2024-11-12 17:49:04.790  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2024-11-12 17:49:04.791  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2024-11-12 17:49:04.791  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2024-11-12 17:49:04.792  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2024-11-12 17:49:04.792  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2024-11-12 17:49:04.792  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2024-11-12 17:49:05.892  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2024-11-12 17:49:05.900  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2024-11-12 17:49:05.910  INFO 49677 --- [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2024-11-12 17:49:05.924  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1731430145923 with initial instances count: 3
+2024-11-12 17:49:05.927  INFO 49677 --- [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application NOTIFICATION-SERVICE with eureka with status UP
+2024-11-12 17:49:05.930  INFO 49677 --- [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1731430145930, current=UP, previous=STARTING]
+2024-11-12 17:49:05.939  INFO 49677 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005: registering service...
+2024-11-12 17:49:05.970  INFO 49677 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8005 (http) with context path ''
+2024-11-12 17:49:05.972  INFO 49677 --- [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8005
+2024-11-12 17:49:06.004  INFO 49677 --- [           main] c.f.n.NotificationServiceApplication     : Started NotificationServiceApplication in 15.888 seconds (JVM running for 16.792)
+2024-11-12 17:49:06.105  INFO 49677 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 - registration status: 204
+2024-11-12 17:53:37.035  INFO 49677 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 - Re-registering apps/NOTIFICATION-SERVICE
+2024-11-12 17:53:37.035  INFO 49677 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005: registering service...
+2024-11-12 17:53:37.040  INFO 49677 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 - registration status: 204
+2024-11-12 17:54:05.962  INFO 49677 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2024-11-12 17:56:37.753  INFO 49677 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 - Re-registering apps/NOTIFICATION-SERVICE
+2024-11-12 17:56:37.755  INFO 49677 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005: registering service...
+2024-11-12 17:56:37.760  INFO 49677 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 - registration status: 204
+2024-11-12 17:59:07.045  INFO 49677 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2024-11-12 17:59:08.316  INFO 49677 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 - Re-registering apps/NOTIFICATION-SERVICE
+2024-11-12 17:59:08.317  INFO 49677 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005: registering service...
+2024-11-12 17:59:08.322  INFO 49677 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 - registration status: 204
+2024-11-12 18:04:08.164  INFO 49677 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

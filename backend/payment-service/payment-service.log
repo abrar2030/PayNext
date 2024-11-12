@@ -1,0 +1,97 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--------------------< [0;36mcom.fintech:payment-service[0;1m >---------------------[m
+[[1;34mINFO[m] [1mBuilding payment-service 1.0.0[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36mpayment-service[0;1m >>>[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:resources[m [1m(default-resources)[m @ [36mpayment-service[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] Copying 0 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36mpayment-service[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 10 source files to /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/payment-service/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:testResources[m [1m(default-testResources)[m @ [36mpayment-service[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
+[[1;34mINFO[m] skip non existing resourceDirectory /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/payment-service/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:testCompile[m [1m(default-testCompile)[m @ [36mpayment-service[0;1m ---[m
+[[1;34mINFO[m] No sources to compile
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m<<< [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[0;1m < [0;1mtest-compile[m @ [36mpayment-service[0;1m <<<[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[m @ [36mpayment-service[0;1m ---[m
+[[1;34mINFO[m] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.7)
+
+2024-11-12 17:48:22.479  INFO 49336 --- [           main] c.f.p.PaymentServiceApplication          : Starting PaymentServiceApplication using Java 21.0.5 on RW50 with PID 49336 (/mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/payment-service/target/classes started by abrarahmed in /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/payment-service)
+2024-11-12 17:48:22.485 DEBUG 49336 --- [           main] c.f.p.PaymentServiceApplication          : Running with Spring Boot v2.6.7, Spring v5.3.19
+2024-11-12 17:48:22.487  INFO 49336 --- [           main] c.f.p.PaymentServiceApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-11-12 17:48:26.011  INFO 49336 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-12 17:48:26.821  INFO 49336 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 783 ms. Found 1 JPA repository interfaces.
+2024-11-12 17:48:27.770  INFO 49336 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=6ce9721f-c8b0-3395-9eb4-2c3565ba99a5
+2024-11-12 17:48:28.861  INFO 49336 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8004 (http)
+2024-11-12 17:48:28.890  INFO 49336 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-12 17:48:28.891  INFO 49336 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2024-11-12 17:48:29.111  INFO 49336 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-12 17:48:29.111  INFO 49336 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6507 ms
+2024-11-12 17:48:30.052  INFO 49336 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-12 17:48:30.297  INFO 49336 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
+2024-11-12 17:48:31.007  INFO 49336 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-11-12 17:48:31.528  INFO 49336 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-12 17:48:32.362  INFO 49336 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-12 17:48:32.542  INFO 49336 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2024-11-12 17:48:35.159  INFO 49336 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-11-12 17:48:35.190  INFO 49336 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-12 17:48:36.112  WARN 49336 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-12 17:48:36.294  INFO 49336 --- [           main] o.s.c.openfeign.FeignClientFactoryBean   : For 'notification-service' URL not provided. Will try picking an instance via load-balancing.
+2024-11-12 17:48:37.803  INFO 49336 --- [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2024-11-12 17:48:37.957  WARN 49336 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2024-11-12 17:48:37.972  INFO 49336 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-11-12 17:48:38.049  INFO 49336 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2024-11-12 17:48:38.317  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2024-11-12 17:48:38.340  INFO 49336 --- [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2024-11-12 17:48:38.448  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2024-11-12 17:48:38.449  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2024-11-12 17:48:38.449  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2024-11-12 17:48:38.449  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2024-11-12 17:48:38.450  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2024-11-12 17:48:38.450  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2024-11-12 17:48:38.450  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2024-11-12 17:48:39.577  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2024-11-12 17:48:39.585  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2024-11-12 17:48:39.596  INFO 49336 --- [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2024-11-12 17:48:39.611  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1731430119610 with initial instances count: 2
+2024-11-12 17:48:39.613  INFO 49336 --- [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application PAYMENT-SERVICE with eureka with status UP
+2024-11-12 17:48:39.616  INFO 49336 --- [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1731430119616, current=UP, previous=STARTING]
+2024-11-12 17:48:39.626  INFO 49336 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/10.255.255.254:payment-service:8004: registering service...
+2024-11-12 17:48:39.654  INFO 49336 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8004 (http) with context path ''
+2024-11-12 17:48:39.656  INFO 49336 --- [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8004
+2024-11-12 17:48:39.690  INFO 49336 --- [           main] c.f.p.PaymentServiceApplication          : Started PaymentServiceApplication in 18.75 seconds (JVM running for 19.667)
+2024-11-12 17:48:39.785  INFO 49336 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/10.255.255.254:payment-service:8004 - registration status: 204
+2024-11-12 17:53:39.608  INFO 49336 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2024-11-12 17:53:40.816  INFO 49336 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/10.255.255.254:payment-service:8004 - Re-registering apps/PAYMENT-SERVICE
+2024-11-12 17:53:40.816  INFO 49336 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/10.255.255.254:payment-service:8004: registering service...
+2024-11-12 17:53:40.821  INFO 49336 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/10.255.255.254:payment-service:8004 - registration status: 204
+2024-11-12 17:56:41.535  INFO 49336 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/10.255.255.254:payment-service:8004 - Re-registering apps/PAYMENT-SERVICE
+2024-11-12 17:56:41.538  INFO 49336 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/10.255.255.254:payment-service:8004: registering service...
+2024-11-12 17:56:41.544  INFO 49336 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/10.255.255.254:payment-service:8004 - registration status: 204
+2024-11-12 17:58:40.704  INFO 49336 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2024-11-12 17:58:41.988  INFO 49336 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/10.255.255.254:payment-service:8004 - Re-registering apps/PAYMENT-SERVICE
+2024-11-12 17:58:41.988  INFO 49336 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/10.255.255.254:payment-service:8004: registering service...
+2024-11-12 17:58:41.994  INFO 49336 --- [tbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/10.255.255.254:payment-service:8004 - registration status: 204
+2024-11-12 18:03:41.820  INFO 49336 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

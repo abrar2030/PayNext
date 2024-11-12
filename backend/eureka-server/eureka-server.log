@@ -1,0 +1,160 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m---------------------< [0;36mcom.fintech:eureka-server[0;1m >----------------------[m
+[[1;34mINFO[m] [1mBuilding eureka-server 1.0.0[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36meureka-server[0;1m >>>[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:resources[m [1m(default-resources)[m @ [36meureka-server[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
+[[1;34mINFO[m] Copying 1 resource
+[[1;34mINFO[m] Copying 0 resource
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36meureka-server[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 1 source file to /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/eureka-server/target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:testResources[m [1m(default-testResources)[m @ [36meureka-server[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
+[[1;34mINFO[m] skip non existing resourceDirectory /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/eureka-server/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:testCompile[m [1m(default-testCompile)[m @ [36meureka-server[0;1m ---[m
+[[1;34mINFO[m] No sources to compile
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m<<< [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[0;1m < [0;1mtest-compile[m @ [36meureka-server[0;1m <<<[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[m @ [36meureka-server[0;1m ---[m
+[[1;34mINFO[m] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.7)
+
+2024-11-12 17:47:23.103  INFO 48707 --- [           main] c.f.e.EurekaServerApplication            : Starting EurekaServerApplication using Java 21.0.5 on RW50 with PID 48707 (/mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/eureka-server/target/classes started by abrarahmed in /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/eureka-server)
+2024-11-12 17:47:23.109  INFO 48707 --- [           main] c.f.e.EurekaServerApplication            : No active profile set, falling back to 1 default profile: "default"
+2024-11-12 17:47:25.875  INFO 48707 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-12 17:47:25.934  INFO 48707 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28 ms. Found 0 JPA repository interfaces.
+2024-11-12 17:47:26.762  INFO 48707 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=583bab16-cbcb-3490-95e2-136c3a681ec5
+2024-11-12 17:47:28.456  INFO 48707 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8001 (http)
+2024-11-12 17:47:28.485  INFO 48707 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-12 17:47:28.486  INFO 48707 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2024-11-12 17:47:28.717  INFO 48707 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-12 17:47:28.717  INFO 48707 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5491 ms
+2024-11-12 17:47:29.958  INFO 48707 --- [           main] c.s.j.s.i.a.WebApplicationImpl           : Initiating Jersey application, version 'Jersey: 1.19.4 05/24/2017 03:20 PM'
+2024-11-12 17:47:30.309  INFO 48707 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2024-11-12 17:47:30.314  INFO 48707 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2024-11-12 17:47:30.897  INFO 48707 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2024-11-12 17:47:30.898  INFO 48707 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2024-11-12 17:47:32.528  INFO 48707 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-12 17:47:33.228  INFO 48707 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-12 17:47:33.389  INFO 48707 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-12 17:47:33.670  INFO 48707 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
+2024-11-12 17:47:34.443  INFO 48707 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-11-12 17:47:35.128  INFO 48707 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-11-12 17:47:36.116  INFO 48707 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-11-12 17:47:36.157  INFO 48707 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-12 17:47:36.271  WARN 48707 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-12 17:47:37.947  INFO 48707 --- [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses Jersey
+2024-11-12 17:47:38.139  WARN 48707 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2024-11-12 17:47:38.225  INFO 48707 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2024-11-12 17:47:38.394  INFO 48707 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2024-11-12 17:47:38.395  INFO 48707 --- [           main] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
+2024-11-12 17:47:38.445  INFO 48707 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1731430058444 with initial instances count: 0
+2024-11-12 17:47:38.597  INFO 48707 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initializing ...
+2024-11-12 17:47:38.603  WARN 48707 --- [           main] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2024-11-12 17:47:38.764  INFO 48707 --- [           main] c.n.e.registry.AbstractInstanceRegistry  : Finished initializing remote region registries. All known remote regions: []
+2024-11-12 17:47:38.765  INFO 48707 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initialized
+2024-11-12 17:47:38.779  INFO 48707 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-11-12 17:47:38.825  INFO 48707 --- [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application EUREKA-SERVER with eureka with status UP
+2024-11-12 17:47:38.863  INFO 48707 --- [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : isAws returned false
+2024-11-12 17:47:38.866  INFO 48707 --- [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : Initialized server context
+2024-11-12 17:47:38.866  INFO 48707 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Got 1 instances from neighboring DS node
+2024-11-12 17:47:38.867  INFO 48707 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Renew threshold is: 1
+2024-11-12 17:47:38.867  INFO 48707 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Changing status to UP
+2024-11-12 17:47:38.871  INFO 48707 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8001 (http) with context path ''
+2024-11-12 17:47:38.872  INFO 48707 --- [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8001
+2024-11-12 17:47:38.893  INFO 48707 --- [       Thread-9] e.s.EurekaServerInitializerConfiguration : Started Eureka Server
+2024-11-12 17:47:38.919  INFO 48707 --- [           main] c.f.e.EurekaServerApplication            : Started EurekaServerApplication in 17.148 seconds (JVM running for 17.931)
+2024-11-12 17:47:56.790  INFO 48707 --- [nio-8001-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-12 17:47:56.791  INFO 48707 --- [nio-8001-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-11-12 17:47:56.792  INFO 48707 --- [nio-8001-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-11-12 17:48:01.247  WARN 48707 --- [nio-8001-exec-4] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: API-GATEWAY - 10.255.255.254:api-gateway:8002
+2024-11-12 17:48:01.248  WARN 48707 --- [nio-8001-exec-4] c.n.eureka.resources.InstanceResource    : Not Found (Renew): API-GATEWAY - 10.255.255.254:api-gateway:8002
+2024-11-12 17:48:01.737  INFO 48707 --- [nio-8001-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/10.255.255.254:api-gateway:8002 with status UP (replication=false)
+2024-11-12 17:48:10.110  INFO 48707 --- [io-8001-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/10.255.255.254:user-service:8003 with status UP (replication=false)
+2024-11-12 17:48:39.118  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 17:48:39.783  INFO 48707 --- [nio-8001-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 with status UP (replication=false)
+2024-11-12 17:49:06.102  INFO 48707 --- [nio-8001-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 with status UP (replication=false)
+2024-11-12 17:49:39.348  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 17:50:39.576  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 17:51:39.794  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 17:52:40.053  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 17:53:17.674  INFO 48707 --- [nio-8001-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/10.255.255.254:user-service:8003 with status UP (replication=false)
+2024-11-12 17:53:17.688  INFO 48707 --- [nio-8001-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance USER-SERVICE/10.255.255.254:user-service:8003 (replication=false)
+2024-11-12 17:53:19.364  INFO 48707 --- [nio-8001-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 with status UP (replication=false)
+2024-11-12 17:53:19.375  INFO 48707 --- [nio-8001-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 (replication=false)
+2024-11-12 17:53:20.143  INFO 48707 --- [nio-8001-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 with status UP (replication=false)
+2024-11-12 17:53:20.152  INFO 48707 --- [nio-8001-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 (replication=false)
+2024-11-12 17:53:37.033  WARN 48707 --- [nio-8001-exec-4] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: NOTIFICATION-SERVICE - 10.255.255.254:notification-service:8005
+2024-11-12 17:53:37.033  WARN 48707 --- [nio-8001-exec-4] c.n.eureka.resources.InstanceResource    : Not Found (Renew): NOTIFICATION-SERVICE - 10.255.255.254:notification-service:8005
+2024-11-12 17:53:37.039  INFO 48707 --- [nio-8001-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 with status UP (replication=false)
+2024-11-12 17:53:40.271  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 17:53:40.813  WARN 48707 --- [nio-8001-exec-8] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: PAYMENT-SERVICE - 10.255.255.254:payment-service:8004
+2024-11-12 17:53:40.814  WARN 48707 --- [nio-8001-exec-8] c.n.eureka.resources.InstanceResource    : Not Found (Renew): PAYMENT-SERVICE - 10.255.255.254:payment-service:8004
+2024-11-12 17:53:40.820  INFO 48707 --- [nio-8001-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 with status UP (replication=false)
+2024-11-12 17:53:41.292  WARN 48707 --- [io-8001-exec-10] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: USER-SERVICE - 10.255.255.254:user-service:8003
+2024-11-12 17:53:41.293  WARN 48707 --- [io-8001-exec-10] c.n.eureka.resources.InstanceResource    : Not Found (Renew): USER-SERVICE - 10.255.255.254:user-service:8003
+2024-11-12 17:53:41.299  INFO 48707 --- [nio-8001-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/10.255.255.254:user-service:8003 with status UP (replication=false)
+2024-11-12 17:54:40.513  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 17:55:40.719  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 17:56:30.764  INFO 48707 --- [nio-8001-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/10.255.255.254:user-service:8003 with status UP (replication=false)
+2024-11-12 17:56:30.776  INFO 48707 --- [io-8001-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance USER-SERVICE/10.255.255.254:user-service:8003 (replication=false)
+2024-11-12 17:56:32.173  INFO 48707 --- [nio-8001-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 with status UP (replication=false)
+2024-11-12 17:56:32.188  INFO 48707 --- [nio-8001-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 (replication=false)
+2024-11-12 17:56:33.304  INFO 48707 --- [nio-8001-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 with status UP (replication=false)
+2024-11-12 17:56:33.314  INFO 48707 --- [io-8001-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 (replication=false)
+2024-11-12 17:56:37.751  WARN 48707 --- [nio-8001-exec-7] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: NOTIFICATION-SERVICE - 10.255.255.254:notification-service:8005
+2024-11-12 17:56:37.752  WARN 48707 --- [nio-8001-exec-7] c.n.eureka.resources.InstanceResource    : Not Found (Renew): NOTIFICATION-SERVICE - 10.255.255.254:notification-service:8005
+2024-11-12 17:56:37.759  INFO 48707 --- [nio-8001-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 with status UP (replication=false)
+2024-11-12 17:56:40.945  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 17:56:41.532  WARN 48707 --- [nio-8001-exec-1] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: PAYMENT-SERVICE - 10.255.255.254:payment-service:8004
+2024-11-12 17:56:41.532  WARN 48707 --- [nio-8001-exec-1] c.n.eureka.resources.InstanceResource    : Not Found (Renew): PAYMENT-SERVICE - 10.255.255.254:payment-service:8004
+2024-11-12 17:56:41.542  INFO 48707 --- [nio-8001-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 with status UP (replication=false)
+2024-11-12 17:56:42.006  WARN 48707 --- [nio-8001-exec-6] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: USER-SERVICE - 10.255.255.254:user-service:8003
+2024-11-12 17:56:42.006  WARN 48707 --- [nio-8001-exec-6] c.n.eureka.resources.InstanceResource    : Not Found (Renew): USER-SERVICE - 10.255.255.254:user-service:8003
+2024-11-12 17:56:42.012  INFO 48707 --- [nio-8001-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/10.255.255.254:user-service:8003 with status UP (replication=false)
+2024-11-12 17:57:40.881  WARN 48707 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2024-11-12 17:57:41.145  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 17:58:39.346  INFO 48707 --- [nio-8001-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/10.255.255.254:user-service:8003 with status UP (replication=false)
+2024-11-12 17:58:39.358  INFO 48707 --- [nio-8001-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance USER-SERVICE/10.255.255.254:user-service:8003 (replication=false)
+2024-11-12 17:58:40.743  INFO 48707 --- [nio-8001-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 with status UP (replication=false)
+2024-11-12 17:58:40.758  INFO 48707 --- [nio-8001-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 (replication=false)
+2024-11-12 17:58:41.364  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 17:58:41.830  INFO 48707 --- [nio-8001-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 with status UP (replication=false)
+2024-11-12 17:58:41.840  INFO 48707 --- [nio-8001-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Cancelled instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 (replication=false)
+2024-11-12 17:58:41.985  WARN 48707 --- [nio-8001-exec-1] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: PAYMENT-SERVICE - 10.255.255.254:payment-service:8004
+2024-11-12 17:58:41.986  WARN 48707 --- [nio-8001-exec-1] c.n.eureka.resources.InstanceResource    : Not Found (Renew): PAYMENT-SERVICE - 10.255.255.254:payment-service:8004
+2024-11-12 17:58:41.993  INFO 48707 --- [nio-8001-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 with status UP (replication=false)
+2024-11-12 17:58:42.453  WARN 48707 --- [nio-8001-exec-2] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: USER-SERVICE - 10.255.255.254:user-service:8003
+2024-11-12 17:58:42.453  WARN 48707 --- [nio-8001-exec-2] c.n.eureka.resources.InstanceResource    : Not Found (Renew): USER-SERVICE - 10.255.255.254:user-service:8003
+2024-11-12 17:58:42.457  INFO 48707 --- [nio-8001-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/10.255.255.254:user-service:8003 with status UP (replication=false)
+2024-11-12 17:59:08.313  WARN 48707 --- [io-8001-exec-10] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: NOTIFICATION-SERVICE - 10.255.255.254:notification-service:8005
+2024-11-12 17:59:08.314  WARN 48707 --- [io-8001-exec-10] c.n.eureka.resources.InstanceResource    : Not Found (Renew): NOTIFICATION-SERVICE - 10.255.255.254:notification-service:8005
+2024-11-12 17:59:08.320  INFO 48707 --- [nio-8001-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 with status UP (replication=false)
+2024-11-12 17:59:41.584  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 18:00:41.803  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 18:01:42.029  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 18:02:42.145  INFO 48707 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 8
+2024-11-12 18:02:42.252  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 18:03:42.478  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 18:04:42.680  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 18:05:42.883  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-12 18:06:43.064  INFO 48707 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
