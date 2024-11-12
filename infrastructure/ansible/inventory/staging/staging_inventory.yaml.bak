@@ -1,0 +1,22 @@
+---
+[all:vars]
+  ansible_user=staging_user
+  ansible_ssh_private_key_file=~/.ssh/staging_key.pem
+  
+  [api-gateway]
+  staging-api-gateway-1 ansible_host=192.168.2.10
+  
+  [eureka-server]
+  staging-eureka-server-1 ansible_host=192.168.2.11
+  
+  [user-service]
+  staging-user-service-1 ansible_host=192.168.2.12
+  
+  [payment-service]
+  staging-payment-service-1 ansible_host=192.168.2.13
+  
+  [notification-service]
+  staging-notification-service-1 ansible_host=192.168.2.14
+  
+  [fintech-payment-frontend]
+  staging-fintech-payment-frontend-1 ansible_host=192.168.2.15

@@ -2,7 +2,6 @@
 global:
   namespace: paynext
   ingressClass: nginx
-
 eurekaServer:
   image:
     repository: abrar2030/backend-eureka-server
@@ -10,7 +9,6 @@ eurekaServer:
   service:
     port: 8001
     type: ClusterIP
-
 apiGateway:
   image:
     repository: abrar2030/backend-api-gateway
@@ -20,7 +18,6 @@ apiGateway:
     type: ClusterIP
   env:
     JWT_SECRET: your_jwt_secret_here
-
 userService:
   image:
     repository: abrar2030/backend-user-service
@@ -30,7 +27,6 @@ userService:
     type: ClusterIP
   env:
     EUREKA_SERVER_URL: http://eureka-server:8001/eureka/
-
 paymentService:
   image:
     repository: abrar2030/backend-payment-service
@@ -41,7 +37,6 @@ paymentService:
   env:
     EUREKA_SERVER_URL: http://eureka-server:8001/eureka/
     JWT_SECRET: your_jwt_secret_here
-
 notificationService:
   image:
     repository: abrar2030/backend-notification-service
@@ -52,7 +47,6 @@ notificationService:
   env:
     EUREKA_SERVER_URL: http://eureka-server:8001/eureka/
     JWT_SECRET: your_jwt_secret_here
-
 fintechPaymentFrontend:
   image:
     repository: abrar2030/frontend
@@ -62,7 +56,6 @@ fintechPaymentFrontend:
     type: ClusterIP
   env:
     REACT_APP_API_BASE_URL: http://api-gateway:8002
-
 ingress:
   enabled: true
   annotations:
@@ -85,6 +78,5 @@ ingress:
       hosts:
         - frontend.paynext.local
         - fintech-payment.paynext.local
-
 imagePullSecrets:
   - name: regcred

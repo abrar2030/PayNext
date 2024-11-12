@@ -15,19 +15,19 @@ public class SecurityConfig {
   @Bean
   public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
     http.csrf()
-            .disable()
-            .authorizeExchange(
-                    exchanges ->
-                            exchanges
-                                    .pathMatchers("/", "/login", "/register", "/actuator/**")
-                                    .permitAll()
-                                    .anyExchange()
-                                    .authenticated() // Require authentication for other endpoints
+        .disable()
+        .authorizeExchange(
+            exchanges ->
+                exchanges
+                    .pathMatchers("/", "/login", "/register", "/actuator/**")
+                    .permitAll()
+                    .anyExchange()
+                    .authenticated() // Require authentication for other endpoints
             )
-            .httpBasic()
-            .and()
-            .formLogin()
-            .disable();
+        .httpBasic()
+        .and()
+        .formLogin()
+        .disable();
     return http.build();
   }
 }

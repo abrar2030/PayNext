@@ -28,10 +28,7 @@ public class JwtAuthenticationFilter implements WebFilter {
       String token = authHeader.replace("Bearer ", "");
 
       try {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
         // Additional claims validation logic can go here
       } catch (SignatureException e) {
         exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);

@@ -152,7 +152,7 @@ This file provides an overview of the directory structure of the **PayNext** pro
 │   │       │   ├── PaymentService.js
 │   │       │   └── UserService.js
 │   │       └── setupTests.js
-├── paynext-chart
+├── kubernetes
 │   ├── Chart.yaml
 │   ├── templates
 │   │   ├── deployment-api-gateway.yaml

@@ -95,7 +95,7 @@ Deploy the application on Minikube using the provided Helm charts:
 2. Deploy using Helm:
 
    ```bash
-   helm install paynext paynext-chart
+   helm install paynext kubernetes
    ```
 
 ## Using the Application
@@ -133,14 +133,14 @@ Once the application is running, access the frontend using your browser:
 The project includes a Helm chart for Kubernetes deployment. All services are defined as Kubernetes deployments and services.
 
 ### Helm Chart Directory
-- **paynext-chart**: Contains Helm templates for deploying all backend services, the frontend, and related Kubernetes configurations.
+- **kubernetes**: Contains Helm templates for deploying all backend services, the frontend, and related Kubernetes configurations.
 
 ### Helm Commands
 
 To install the chart:
 
 ```bash
-helm install paynext ./paynext-chart
+helm install paynext ./kubernetes
 ```
 
 To uninstall the chart:
