@@ -12,7 +12,7 @@ This documentation describes the `minikube-deployment.sh` script, which is used 
 
 ## Usage
 ```sh
-./minikube-deployment.sh [service-name]
+./kubernetes-auto-deploy.sh [service-name]
 ```
 - **service-name**: The name of the service you want to deploy. Possible values include:
     - `eureka-server`
@@ -54,7 +54,7 @@ The services available for deployment are:
 To deploy the `user-service`, run the following command:
 
 ```sh
-./minikube-deployment.sh user-service
+./kubernetes-auto-deploy.sh user-service
 ```
 This command will:
 1. Start Minikube.
