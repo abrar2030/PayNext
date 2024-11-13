@@ -47,7 +47,7 @@ The backend services communicate via REST APIs, and the microservices are regist
 
 ### Frontend Application
 
-- **React.js Application** (`fintech-payment-frontend`): Runs on port `3000`. It provides the user interface for interacting with the backend services, allowing users to register, make payments, view payment history, and more.
+- **React.js Application** (`frontend`): Runs on port `3000`. It provides the user interface for interacting with the backend services, allowing users to register, make payments, view payment history, and more.
 
 ## Prerequisites
 

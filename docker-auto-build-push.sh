@@ -66,7 +66,7 @@ BACKEND_PREFIX="$DOCKER_USERNAME/backend"
 # Services to build and push
 BACKEND_SERVICES=("eureka-server" "api-gateway" "user-service" "payment-service" "notification-service")
 # shellcheck disable=SC2034
-FRONTEND_SERVICE="fintech-payment-frontend"
+FRONTEND_SERVICE="frontend"
 
 # Function to build and push a Docker image
 build_and_push() {

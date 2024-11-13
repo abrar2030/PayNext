@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fintech-payment-frontend
+  name: frontend
   labels:
-    app: fintech-payment-frontend
+    app: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fintech-payment-frontend
+      app: frontend
   template:
     metadata:
       labels:
-        app: fintech-payment-frontend
+        app: frontend
     spec:
       containers:
-        - name: fintech-payment-frontend
+        - name: frontend
           image: abrar2030/frontend:latest
           ports:
             - containerPort: 3000

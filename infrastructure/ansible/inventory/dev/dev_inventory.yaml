@@ -18,5 +18,5 @@
   [notification-service]
   dev-notification-service-1 ansible_host=192.168.1.14
   
-  [fintech-payment-frontend]
-  dev-fintech-payment-frontend-1 ansible_host=192.168.1.15
+  [frontend]
+  dev-frontend-1 ansible_host=192.168.1.15

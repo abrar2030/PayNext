@@ -56,10 +56,10 @@ kubectl apply -f kubernetes/templates/deployment-notification-service.yaml -f ku
 
 ### Fintech Payment Frontend
 ```bash
-docker build -t fintech-payment-frontend ./frontend/fintech-payment-frontend
-docker tag fintech-payment-frontend abrar2030/frontend:fintech-payment-frontend
-docker push abrar2030/frontend:fintech-payment-frontend
-kubectl apply -f kubernetes/templates/deployment-fintech-payment-frontend.yaml -f kubernetes/templates/service-fintech-payment-frontend.yaml
+docker build -t frontend ./frontend/frontend
+docker tag frontend abrar2030/frontend:frontend
+docker push abrar2030/frontend:frontend
+kubectl apply -f kubernetes/templates/deployment-frontend.yaml -f kubernetes/templates/service-frontend.yaml
 ```
 
 ---

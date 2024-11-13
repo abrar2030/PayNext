@@ -18,5 +18,5 @@
   [notification-service]
   staging-notification-service-1 ansible_host=192.168.2.14
   
-  [fintech-payment-frontend]
-  staging-fintech-payment-frontend-1 ansible_host=192.168.2.15
+  [frontend]
+  staging-frontend-1 ansible_host=192.168.2.15

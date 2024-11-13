@@ -168,9 +168,9 @@ echo "----------------------------------------"
 
 # 4. ESLint for JavaScript files
 echo "Running ESLint for JavaScript files..."
-if [ -d "frontend/fintech-payment-frontend" ]; then
+if [ -d "frontend/frontend" ]; then
   (
-    cd frontend/fintech-payment-frontend
+    cd frontend/frontend
     if [ -f package.json ]; then
       echo "Found package.json. Installing npm dependencies..."
       npm install

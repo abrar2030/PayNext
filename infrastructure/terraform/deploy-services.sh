@@ -33,8 +33,8 @@ services=(
     "./kubernetes/service-payment-service.yaml"
     "./kubernetes/deployment-notification-service.yaml"
     "./kubernetes/service-notification-service.yaml"
-    "./kubernetes/deployment-fintech-payment-frontend.yaml"
-    "./kubernetes/service-fintech-payment-frontend.yaml"
+    "./kubernetes/deployment-frontend.yaml"
+    "./kubernetes/service-frontend.yaml"
 )
 
 # Loop through the services and apply each one

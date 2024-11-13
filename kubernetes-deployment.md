@@ -20,7 +20,7 @@ This documentation describes the `minikube-deployment.sh` script, which is used 
     - `user-service`
     - `payment-service`
     - `notification-service`
-    - `fintech-payment-frontend`
+    - `frontend`
 
 ## Script Description
 This Bash script performs the following actions:
@@ -48,7 +48,7 @@ The services available for deployment are:
 - **user-service**: Applies the deployment and service YAML files for User Service.
 - **payment-service**: Applies the deployment and service YAML files for Payment Service.
 - **notification-service**: Applies the deployment and service YAML files for Notification Service.
-- **fintech-payment-frontend**: Applies the deployment and service YAML files for the FinTech Payment Frontend.
+- **frontend**: Applies the deployment and service YAML files for the FinTech Payment Frontend.
 
 ## Example
 To deploy the `user-service`, run the following command:

@@ -73,12 +73,12 @@ services:
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8001/eureka/
       - JWT_SECRET=your_jwt_secret_here
-  fintech-payment-frontend:
+  frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: abrar2030/frontend:fintech-payment-frontend
-    container_name: fintech-payment-frontend
+    image: abrar2030/frontend:frontend
+    container_name: frontend
     ports:
       - "3001:80"
     depends_on:

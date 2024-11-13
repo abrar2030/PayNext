@@ -11,11 +11,11 @@ BACKEND_DIR="$PROJECT_ROOT/backend"
 FRONTEND_DIR="$PROJECT_ROOT/frontend"
 
 # Define frontend subdirectories
-FINTECH_PAYMENT_FRONTEND_DIR="$FRONTEND_DIR/fintech-payment-frontend"
+FINTECH_PAYMENT_FRONTEND_DIR="$FRONTEND_DIR/frontend"
 
 # Define backend and frontend services
 BACKEND_SERVICES=("eureka-server" "api-gateway" "user-service" "payment-service" "notification-service")
-FRONTEND_SERVICES=("frontend" "fintech-payment-frontend")
+FRONTEND_SERVICES=("frontend" "frontend")
 
 # Function to display usage information
 usage() {
@@ -39,7 +39,7 @@ usage() {
     echo "Examples:"
     echo "  $0 clean user-service"
     echo "  $0 build frontend"
-    echo "  $0 run fintech-payment-frontend"
+    echo "  $0 run frontend"
     echo "  $0 build all"
     exit 1
 }
@@ -117,7 +117,7 @@ clean_frontend() {
     SERVICE=$1
     if [ "$SERVICE" == "frontend" ]; then
         SERVICE_DIR="$FRONTEND_DIR"
-    elif [ "$SERVICE" == "fintech-payment-frontend" ]; then
+    elif [ "$SERVICE" == "frontend" ]; then
         SERVICE_DIR="$FINTECH_PAYMENT_FRONTEND_DIR"
     else
         echo "Error: Invalid frontend service '$SERVICE'."
@@ -143,7 +143,7 @@ build_frontend() {
     SERVICE=$1
     if [ "$SERVICE" == "frontend" ]; then
         SERVICE_DIR="$FRONTEND_DIR"
-    elif [ "$SERVICE" == "fintech-payment-frontend" ]; then
+    elif [ "$SERVICE" == "frontend" ]; then
         SERVICE_DIR="$FINTECH_PAYMENT_FRONTEND_DIR"
     else
         echo "Error: Invalid frontend service '$SERVICE'."
@@ -168,7 +168,7 @@ run_frontend() {
     SERVICE=$1
     if [ "$SERVICE" == "frontend" ]; then
         SERVICE_DIR="$FRONTEND_DIR"
-    elif [ "$SERVICE" == "fintech-payment-frontend" ]; then
+    elif [ "$SERVICE" == "frontend" ]; then
         SERVICE_DIR="$FINTECH_PAYMENT_FRONTEND_DIR"
     else
         echo "Error: Invalid frontend service '$SERVICE'."

@@ -119,7 +119,7 @@ This file provides an overview of the directory structure of the **PayNext** pro
 │   │       └── test
 ├── frontend
 │   ├── Dockerfile
-│   ├── fintech-payment-frontend
+│   ├── frontend
 │   │   ├── README.md
 │   │   ├── public
 │   │   │   ├── favicon.ico

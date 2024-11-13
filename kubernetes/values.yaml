@@ -65,13 +65,13 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-          serviceName: fintech-payment-frontend
+          serviceName: frontend
           port: 80
     - host: fintech-payment.paynext.local
       paths:
         - path: /
           pathType: Prefix
-          serviceName: fintech-payment-frontend
+          serviceName: frontend
           port: 80
   tls:
     - secretName: paynext-tls

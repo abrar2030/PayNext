@@ -12,17 +12,17 @@ cd PayNext && ./manage-services.sh clean eureka-server
 cd PayNext && ./manage-services.sh clean api-gateway
 ```
 
-### Clean a Specific Backend Service (`user-service`)
-```bash
-cd PayNext && ./manage-services.sh clean user-service
-```
-
 ### Clean a Specific Backend Service (`payment-service`)
 ```bash
 cd PayNext && ./manage-services.sh clean payment-service
 ```
 
-### Clean a Specific Backend Service (`frontend`)
+### Clean a Specific Backend Service (`notification-service`)
+```bash
+cd PayNext && ./manage-services.sh clean notification-service
+```
+
+### Clean a Specific Frontend Service (`frontend`)
 ```bash
 cd PayNext && ./manage-services.sh clean frontend
 ```
@@ -44,11 +44,6 @@ cd PayNext && ./manage-services.sh build eureka-server
 ### Build a Specific Backend Service (`api-gateway`)
 ```bash
 cd PayNext && ./manage-services.sh build api-gateway
-```
-
-### Build a Specific Backend Service (`user-service`)
-```bash
-cd PayNext && ./manage-services.sh build user-service
 ```
 
 ### Build a Specific Backend Service (`payment-service`)
@@ -85,12 +80,7 @@ cd PayNext && ./manage-services.sh run eureka-server
 cd PayNext && ./manage-services.sh run api-gateway
 ```
 
-### Run a Specific Backend Service (e.g., `user-service`)
-```bash
-cd PayNext && ./manage-services.sh run user-service
-```
-
-### Run a Specific Backend Service (e.g., `payment-service`)
+### Run a Specific Backend Service (`payment-service`)
 ```bash
 cd PayNext && ./manage-services.sh run payment-service
 ```
@@ -100,7 +90,7 @@ cd PayNext && ./manage-services.sh run payment-service
 cd PayNext && ./manage-services.sh run notification-service
 ```
 
-### Run a Specific Frontend Service (e.g., `frontend`)
+### Run a Specific Frontend Service (`frontend`)
 ```bash
 cd PayNext && ./manage-services.sh run frontend
 ```
@@ -135,13 +125,6 @@ cd PayNext && ./manage-services.sh run eureka-server
 cd PayNext && ./manage-services.sh clean api-gateway
 cd PayNext && ./manage-services.sh build api-gateway
 cd PayNext && ./manage-services.sh run api-gateway
-```
-
-### Clean, Build, and Run the `user-service` Backend
-```bash
-cd PayNext && ./manage-services.sh clean user-service
-cd PayNext && ./manage-services.sh build user-service
-cd PayNext && ./manage-services.sh run user-service
 ```
 
 ### Clean, Build, and Run the `payment-service` Backend
@@ -190,8 +173,4 @@ The `manage-services.sh` script provides a streamlined way to manage your backen
 - **Run Services:** `./manage-services.sh run <service-name|all>`
 - **Setup All Services:** `./manage-services.sh setup all`
 
-Replace `<service-name>` with the specific service you intend to manage, such as `eureka-server`, `frontend`, `api-gateway`, etc.
-
----
-
-Feel free to customize this documentation further to fit your project's specific needs!
+Replace `<service-name>` with the specific service you intend to manage, such as `eureka-server`, `frontend`, `api-gateway`, `payment-service`, or `notification-service`.
