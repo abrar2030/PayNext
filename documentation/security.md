@@ -125,4 +125,3 @@ The PayNext project incorporates multiple layers of security across its architec
 ---
 
 This `security.md` provides a comprehensive overview of the security mechanisms within the PayNext project, ensuring a robust, secure foundation for handling financial transactions and sensitive user data.
-
