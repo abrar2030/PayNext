@@ -25,7 +25,7 @@ eval $(minikube -p $MINIKUBE_PROFILE docker-env)
 
 echo "Building Docker image for $SERVICE_NAME..."
 # Set build context to the specific service directory and specify the Dockerfile path
-docker build -t fintech-"$SERVICE_NAME" -f backend/"$SERVICE_NAME"/Dockerfile backend/"$SERVICE_NAME"
+docker buildx build -t fintech-"$SERVICE_NAME" -f backend/"$SERVICE_NAME"/Dockerfile backend/"$SERVICE_NAME"
 
 if [ $? -ne 0 ]; then
   echo "Error building Docker image for $SERVICE_NAME."

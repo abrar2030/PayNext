@@ -16,7 +16,7 @@ This guide provides commands to build, tag, push Docker images, and deploy Kuber
 
 ### Eureka Server
 ```bash
-docker build -t eureka-server ./backend/eureka-server
+docker buildx build -t eureka-server ./backend/eureka-server
 docker tag eureka-server abrar2030/backend:eureka-server
 docker push abrar2030/backend:eureka-server
 kubectl apply -f kubernetes/templates/deployment-eureka-server.yaml -f kubernetes/templates/service-eureka-server.yaml
@@ -24,7 +24,7 @@ kubectl apply -f kubernetes/templates/deployment-eureka-server.yaml -f kubernete
 
 ### API Gateway
 ```bash
-docker build -t api-gateway ./backend/api-gateway
+docker buildx build -t api-gateway ./backend/api-gateway
 docker tag api-gateway abrar2030/backend:api-gateway
 docker push abrar2030/backend:api-gateway
 kubectl apply -f kubernetes/templates/deployment-api-gateway.yaml -f kubernetes/templates/service-api-gateway.yaml
@@ -32,7 +32,7 @@ kubectl apply -f kubernetes/templates/deployment-api-gateway.yaml -f kubernetes/
 
 ### User Service
 ```bash
-docker build -t user-service ./backend/user-service
+docker buildx build -t user-service ./backend/user-service
 docker tag user-service abrar2030/backend:user-service
 docker push abrar2030/backend:user-service
 kubectl apply -f kubernetes/templates/deployment-user-service.yaml -f kubernetes/templates/service-user-service.yaml
@@ -40,7 +40,7 @@ kubectl apply -f kubernetes/templates/deployment-user-service.yaml -f kubernetes
 
 ### Payment Service
 ```bash
-docker build -t payment-service ./backend/payment-service
+docker buildx build -t payment-service ./backend/payment-service
 docker tag payment-service abrar2030/backend:payment-service
 docker push abrar2030/backend:payment-service
 kubectl apply -f kubernetes/templates/deployment-payment-service.yaml -f kubernetes/templates/service-payment-service.yaml
@@ -48,7 +48,7 @@ kubectl apply -f kubernetes/templates/deployment-payment-service.yaml -f kuberne
 
 ### Notification Service
 ```bash
-docker build -t notification-service ./backend/notification-service
+docker buildx build -t notification-service ./backend/notification-service
 docker tag notification-service abrar2030/backend:notification-service
 docker push abrar2030/backend:notification-service
 kubectl apply -f kubernetes/templates/deployment-notification-service.yaml -f kubernetes/templates/service-notification-service.yaml
@@ -56,7 +56,7 @@ kubectl apply -f kubernetes/templates/deployment-notification-service.yaml -f ku
 
 ### Fintech Payment Frontend
 ```bash
-docker build -t PayNext-frontend ./frontend/PayNext-frontend
+docker buildx build -t PayNext-frontend ./frontend/PayNext-frontend
 docker tag PayNext-frontend abrar2030/frontend:PayNext-frontend
 docker push abrar2030/frontend:PayNext-frontend
 kubectl apply -f kubernetes/templates/deployment-PayNext-frontend.yaml -f kubernetes/templates/service-PayNext-frontend.yaml

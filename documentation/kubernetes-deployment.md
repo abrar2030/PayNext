@@ -65,16 +65,16 @@ This command will:
 ## Exit Codes
 - **0**: Successful execution.
 - **1**: Missing service name or unrecognized service name.
-- **Non-zero exit codes**: Docker build errors or other issues during execution.
+- **Non-zero exit codes**: docker buildx build errors or other issues during execution.
 
 ## Notes
 - The script uses Minikube's Docker environment (`eval $(minikube -p $MINIKUBE_PROFILE docker-env)`) to ensure that the built Docker images are available to the Minikube cluster.
 - The Kubernetes resources are deployed using the `kubectl apply -f` command, which expects the YAML files to be in the specified locations (`kubernetes/templates/`).
-- If any Docker build errors occur, the script will exit and report the error.
+- If any docker buildx build errors occur, the script will exit and report the error.
 
 ## Troubleshooting
 - **Minikube Startup Issues**: Make sure that Minikube is installed and properly configured. Use `minikube status` to check the status.
-- **Docker Build Errors**: Verify the Dockerfile paths and that the necessary files are in place for building the Docker image.
+- **docker buildx build Errors**: Verify the Dockerfile paths and that the necessary files are in place for building the Docker image.
 - **Service Not Recognized**: Ensure you are using one of the listed services in the `Usage` section. Double-check the spelling.
 
 ## Author
