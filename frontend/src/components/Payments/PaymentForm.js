@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PaymentService from '../../services/PaymentService';
+import './PaymentForm.css';
 
 const PaymentForm = () => {
   const [amount, setAmount] = useState('');
@@ -9,6 +10,8 @@ const PaymentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSuccessMessage('');
+    setErrorMessage('');
     try {
       await PaymentService.createPayment({ amount, description });
       setSuccessMessage('Payment successfully created!');
@@ -20,31 +23,39 @@ const PaymentForm = () => {
   };
 
   return (
-    <div className="container">
-      <h2>New Payment</h2>
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Amount:</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Description:</label>
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Submit Payment</button>
-      </form>
+    <div className="payment-form-page">
+      <div className="payment-form-container">
+        <h2 className="payment-form-title">Make a Payment</h2>
+        {successMessage && <p className="success-message">{successMessage}</p>}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <form className="payment-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Amount</label>
+            <input
+              type="number"
+              className="form-input"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              required
+              placeholder="Enter amount"
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Description</label>
+            <input
+              type="text"
+              className="form-input"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              placeholder="Enter description"
+            />
+          </div>
+          <button type="submit" className="submit-button">
+            Submit Payment
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

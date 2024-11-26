@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PaymentService from '../../services/PaymentService';
+import './PaymentHistory.css';
 
 const PaymentHistory = () => {
   const [payments, setPayments] = useState([]);
@@ -19,18 +20,35 @@ const PaymentHistory = () => {
   }, []);
 
   return (
-    <div className="container">
-      <h2>Payment History</h2>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      <ul>
-        {payments.map((payment) => (
-          <li key={payment.id}>
-            <p>Amount: {payment.amount}</p>
-            <p>Description: {payment.description}</p>
-            <p>Date: {new Date(payment.date).toLocaleDateString()}</p>
-          </li>
-        ))}
-      </ul>
+    <div className="payment-history-page">
+      <div className="payment-history-container">
+        <h2 className="payment-history-title">Payment History</h2>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {payments.length > 0 ? (
+          <table className="payment-history-table">
+            <thead>
+              <tr>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {payments.map((payment) => (
+                <tr key={payment.id}>
+                  <td>${parseFloat(payment.amount).toFixed(2)}</td>
+                  <td>{payment.description}</td>
+                  <td>{new Date(payment.date).toLocaleDateString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          !errorMessage && (
+            <p className="no-data-message">No payment history available.</p>
+          )
+        )}
+      </div>
     </div>
   );
 };

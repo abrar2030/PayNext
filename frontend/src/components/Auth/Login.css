@@ -1,77 +1,114 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f6f8;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .login-container {
-  max-width: 400px;
-  margin: 80px auto;
-  padding: 40px;
+  display: flex;
+  width: 800px;
+  max-width: 90%;
   background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  font-family: 'Arial, sans-serif';
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.login-image {
+  display: none;
+}
+
+.login-form-container {
+  flex: 1;
+  padding: 40px;
 }
 
 .login-title {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333333;
+  font-size: 28px;
+  color: #2d3436;
+  margin-bottom: 10px;
 }
 
-.error-message {
-  color: #e74c3c;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.login-form .form-group {
-  margin-bottom: 20px;
-}
-
-.login-form .form-label {
-  display: block;
-  margin-bottom: 8px;
-  color: #555555;
-}
-
-.login-form .form-input {
-  width: 100%;
-  padding: 10px 15px;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
+.login-subtitle {
   font-size: 16px;
-  transition: border-color 0.3s;
+  color: #636e72;
+  margin-bottom: 30px;
 }
 
-.login-form .form-input:focus {
-  border-color: #3498db;
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  color: #2d3436;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #dfe6e9;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  border-color: #0984e3;
   outline: none;
 }
 
 .submit-button {
   width: 100%;
-  padding: 12px;
-  background-color: #3498db;
-  border: none;
-  border-radius: 4px;
+  padding: 15px;
+  background-color: #0984e3;
   color: #ffffff;
   font-size: 16px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .submit-button:hover {
-  background-color: #2980b9;
+  background-color: #74b9ff;
 }
 
 .redirect-message {
   text-align: center;
-  margin-top: 15px;
-  color: #555555;
+  margin-top: 20px;
+  font-size: 14px;
 }
 
 .redirect-link {
-  color: #3498db;
+  color: #0984e3;
   text-decoration: none;
   font-weight: bold;
 }
 
 .redirect-link:hover {
   text-decoration: underline;
+}
+
+.error-message {
+  color: #d63031;
+  background-color: #ffe6e6;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .login-image {
+    display: block;
+  }
 }

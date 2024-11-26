@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link
+import { useNavigate, Link } from 'react-router-dom';
 import AuthService from '../../services/AuthService';
 import './Login.css'; // Import the CSS file
 
@@ -20,40 +20,50 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2 className="login-title">Login</h2>
-      {error && <p className="error-message">{error}</p>}
-      <form className="login-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="form-label">Email:</label>
-          <input
-            type="email"
-            className="form-input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="Enter your email"
-          />
+    <div className="login-page">
+      <div className="login-container">
+        <div className="login-image">
+          {/* Image removed as per your request */}
         </div>
-        <div className="form-group">
-          <label className="form-label">Password:</label>
-          <input
-            type="password"
-            className="form-input"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="Enter your password"
-          />
+        <div className="login-form-container">
+          <h2 className="login-title">Welcome Back to PayNext</h2>
+          <p className="login-subtitle">Please login to your account</p>
+          {error && <p className="error-message">{error}</p>}
+          <form className="login-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label className="form-label">Email</label>
+              <input
+                type="email"
+                className="form-input"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="Enter your email"
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Password</label>
+              <input
+                type="password"
+                className="form-input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Enter your password"
+              />
+            </div>
+            <button type="submit" className="submit-button">
+              Login
+            </button>
+          </form>
+          <p className="redirect-message">
+            Don&apos;t have an account?{' '}
+            <Link to="/register" className="redirect-link">
+              Register here
+            </Link>
+          </p>
         </div>
-        <button type="submit" className="submit-button">Login</button>
-      </form>
-      <p className="redirect-message">
-        Don&apos;t have an account?{' '}
-        <Link to="/register" className="redirect-link">
-          Register here
-        </Link>
-      </p>
+      </div>
     </div>
   );
 };

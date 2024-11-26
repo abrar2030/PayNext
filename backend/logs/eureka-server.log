@@ -38,92 +38,146 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.6.7)
 
-2024-11-15 01:07:15.161  INFO 98413 --- [           main] c.f.e.EurekaServerApplication            : Starting EurekaServerApplication using Java 21.0.5 on RW50 with PID 98413 (/mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/eureka-server/target/classes started by abrarahmed in /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/eureka-server)
-2024-11-15 01:07:15.167  INFO 98413 --- [           main] c.f.e.EurekaServerApplication            : No active profile set, falling back to 1 default profile: "default"
-2024-11-15 01:07:17.803  INFO 98413 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-11-15 01:07:17.861  INFO 98413 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28 ms. Found 0 JPA repository interfaces.
-2024-11-15 01:07:18.618  INFO 98413 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=583bab16-cbcb-3490-95e2-136c3a681ec5
-2024-11-15 01:07:19.974  INFO 98413 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8001 (http)
-2024-11-15 01:07:19.996  INFO 98413 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-11-15 01:07:19.997  INFO 98413 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
-2024-11-15 01:07:20.184  INFO 98413 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-11-15 01:07:20.184  INFO 98413 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4901 ms
-2024-11-15 01:07:21.182  INFO 98413 --- [           main] c.s.j.s.i.a.WebApplicationImpl           : Initiating Jersey application, version 'Jersey: 1.19.4 05/24/2017 03:20 PM'
-2024-11-15 01:07:21.472  INFO 98413 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
-2024-11-15 01:07:21.475  INFO 98413 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
-2024-11-15 01:07:21.946  INFO 98413 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
-2024-11-15 01:07:21.946  INFO 98413 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
-2024-11-15 01:07:23.386  INFO 98413 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-11-15 01:07:23.928  INFO 98413 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-11-15 01:07:24.063  INFO 98413 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-11-15 01:07:24.267  INFO 98413 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
-2024-11-15 01:07:24.925  INFO 98413 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2024-11-15 01:07:25.468  INFO 98413 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-2024-11-15 01:07:26.296  INFO 98413 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2024-11-15 01:07:26.334  INFO 98413 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-11-15 01:07:26.442  WARN 98413 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-11-15 01:07:28.081  INFO 98413 --- [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses Jersey
-2024-11-15 01:07:28.239  WARN 98413 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2024-11-15 01:07:28.308  INFO 98413 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
-2024-11-15 01:07:28.440  INFO 98413 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
-2024-11-15 01:07:28.441  INFO 98413 --- [           main] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
-2024-11-15 01:07:28.481  INFO 98413 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1731629248480 with initial instances count: 0
-2024-11-15 01:07:28.645  INFO 98413 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initializing ...
-2024-11-15 01:07:28.651  WARN 98413 --- [           main] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2024-11-15 01:07:28.770  INFO 98413 --- [           main] c.n.e.registry.AbstractInstanceRegistry  : Finished initializing remote region registries. All known remote regions: []
-2024-11-15 01:07:28.771  INFO 98413 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initialized
-2024-11-15 01:07:28.785  INFO 98413 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
-2024-11-15 01:07:28.831  INFO 98413 --- [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application EUREKA-SERVER with eureka with status UP
-2024-11-15 01:07:28.868  INFO 98413 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8001 (http) with context path ''
-2024-11-15 01:07:28.869  INFO 98413 --- [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : isAws returned false
-2024-11-15 01:07:28.869  INFO 98413 --- [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8001
-2024-11-15 01:07:28.871  INFO 98413 --- [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : Initialized server context
-2024-11-15 01:07:28.872  INFO 98413 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Got 1 instances from neighboring DS node
-2024-11-15 01:07:28.873  INFO 98413 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Renew threshold is: 1
-2024-11-15 01:07:28.874  INFO 98413 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Changing status to UP
-2024-11-15 01:07:28.886  INFO 98413 --- [       Thread-9] e.s.EurekaServerInitializerConfiguration : Started Eureka Server
-2024-11-15 01:07:28.898  INFO 98413 --- [           main] c.f.e.EurekaServerApplication            : Started EurekaServerApplication in 14.986 seconds (JVM running for 15.694)
-2024-11-15 01:07:41.916  INFO 98413 --- [nio-8001-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-11-15 01:07:41.916  INFO 98413 --- [nio-8001-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2024-11-15 01:07:41.918  INFO 98413 --- [nio-8001-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2024-11-15 01:07:42.142  WARN 98413 --- [nio-8001-exec-3] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: NOTIFICATION-SERVICE - 10.255.255.254:notification-service:8006
-2024-11-15 01:07:42.142  WARN 98413 --- [nio-8001-exec-3] c.n.eureka.resources.InstanceResource    : Not Found (Renew): NOTIFICATION-SERVICE - 10.255.255.254:notification-service:8006
-2024-11-15 01:07:42.555  INFO 98413 --- [nio-8001-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8006 with status UP (replication=false)
-2024-11-15 01:07:55.565  INFO 98413 --- [nio-8001-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/10.255.255.254:api-gateway:8002 with status UP (replication=false)
-2024-11-15 01:08:23.332  INFO 98413 --- [nio-8001-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/10.255.255.254:user-service:8003 with status UP (replication=false)
-2024-11-15 01:08:28.877  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:08:47.401  INFO 98413 --- [nio-8001-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 with status UP (replication=false)
-2024-11-15 01:09:08.765  INFO 98413 --- [nio-8001-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 with status UP (replication=false)
-2024-11-15 01:09:28.878  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 1ms
-2024-11-15 01:10:28.879  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:11:28.879  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:12:28.879  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:13:28.879  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:14:28.880  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:15:28.879  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:16:28.879  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:17:28.654  WARN 98413 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
-2024-11-15 01:17:28.879  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:18:28.879  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:19:28.880  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:20:28.880  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:21:28.880  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:22:28.769  INFO 98413 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 10
-2024-11-15 01:22:28.880  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:23:28.881  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 1ms
-2024-11-15 01:24:28.881  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:25:28.882  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:26:28.882  INFO 98413 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
-2024-11-15 01:27:04.279  INFO 98413 --- [ionShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application EUREKA-SERVER with eureka with status DOWN
-2024-11-15 01:27:04.305  INFO 98413 --- [ionShutdownHook] o.s.c.n.e.server.EurekaServerBootstrap   : Shutting down Eureka Server..
-2024-11-15 01:27:04.311  INFO 98413 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shutting down ...
-2024-11-15 01:27:04.330  INFO 98413 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shut down
-2024-11-15 01:27:04.330  INFO 98413 --- [ionShutdownHook] o.s.c.n.e.server.EurekaServerBootstrap   : Eureka Service is now shutdown...
-2024-11-15 01:27:04.331  INFO 98413 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shutting down ...
-2024-11-15 01:27:04.335  INFO 98413 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shut down
-2024-11-15 01:27:04.351  INFO 98413 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-11-15 01:27:04.353  INFO 98413 --- [ionShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
-2024-11-15 01:27:04.372  INFO 98413 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-11-15 01:27:04.375  INFO 98413 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-11-15 01:27:04.377  INFO 98413 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
-2024-11-15 01:27:04.382  INFO 98413 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+2024-11-26 16:07:32.071  INFO 4238 --- [           main] c.f.e.EurekaServerApplication            : Starting EurekaServerApplication using Java 21.0.5 on RW50 with PID 4238 (/mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/eureka-server/target/classes started by abrarahmed in /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/eureka-server)
+2024-11-26 16:07:32.081  INFO 4238 --- [           main] c.f.e.EurekaServerApplication            : No active profile set, falling back to 1 default profile: "default"
+2024-11-26 16:07:37.206  INFO 4238 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-26 16:07:37.310  INFO 4238 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53 ms. Found 0 JPA repository interfaces.
+2024-11-26 16:07:38.728  INFO 4238 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=583bab16-cbcb-3490-95e2-136c3a681ec5
+2024-11-26 16:07:41.183  INFO 4238 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8001 (http)
+2024-11-26 16:07:41.227  INFO 4238 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-26 16:07:41.228  INFO 4238 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2024-11-26 16:07:41.553  INFO 4238 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-26 16:07:41.553  INFO 4238 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 9142 ms
+2024-11-26 16:07:43.373  INFO 4238 --- [           main] c.s.j.s.i.a.WebApplicationImpl           : Initiating Jersey application, version 'Jersey: 1.19.4 05/24/2017 03:20 PM'
+2024-11-26 16:07:44.184  INFO 4238 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2024-11-26 16:07:44.189  INFO 4238 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2024-11-26 16:07:45.278  INFO 4238 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2024-11-26 16:07:45.279  INFO 4238 --- [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2024-11-26 16:07:47.871  INFO 4238 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-26 16:07:47.589  INFO 4238 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-26 16:07:47.849  INFO 4238 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-26 16:07:48.344  INFO 4238 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
+2024-11-26 16:07:49.527  INFO 4238 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-11-26 16:07:50.978  INFO 4238 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-11-26 16:07:52.982  INFO 4238 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-11-26 16:07:53.042  INFO 4238 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-26 16:07:53.183  WARN 4238 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-26 16:07:55.628  INFO 4238 --- [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses Jersey
+2024-11-26 16:07:55.919  WARN 4238 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2024-11-26 16:07:56.053  INFO 4238 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2024-11-26 16:07:56.382  INFO 4238 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2024-11-26 16:07:56.383  INFO 4238 --- [           main] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
+2024-11-26 16:07:56.460  INFO 4238 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1732633676457 with initial instances count: 0
+2024-11-26 16:07:56.709  INFO 4238 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initializing ...
+2024-11-26 16:07:56.718  WARN 4238 --- [           main] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2024-11-26 16:07:57.033  INFO 4238 --- [           main] c.n.e.registry.AbstractInstanceRegistry  : Finished initializing remote region registries. All known remote regions: []
+2024-11-26 16:07:57.036  INFO 4238 --- [           main] c.n.eureka.DefaultEurekaServerContext    : Initialized
+2024-11-26 16:07:57.058  INFO 4238 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-11-26 16:07:57.150  INFO 4238 --- [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application EUREKA-SERVER with eureka with status UP
+2024-11-26 16:07:57.246  INFO 4238 --- [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : isAws returned false
+2024-11-26 16:07:57.249  INFO 4238 --- [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : Initialized server context
+2024-11-26 16:07:57.250  INFO 4238 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Got 1 instances from neighboring DS node
+2024-11-26 16:07:57.251  INFO 4238 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Renew threshold is: 1
+2024-11-26 16:07:57.252  INFO 4238 --- [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Changing status to UP
+2024-11-26 16:07:57.266  INFO 4238 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8001 (http) with context path ''
+2024-11-26 16:07:57.267  INFO 4238 --- [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8001
+2024-11-26 16:07:57.272  INFO 4238 --- [       Thread-9] e.s.EurekaServerInitializerConfiguration : Started Eureka Server
+2024-11-26 16:07:57.297  INFO 4238 --- [           main] c.f.e.EurekaServerApplication            : Started EurekaServerApplication in 29.365 seconds (JVM running for 30.721)
+2024-11-26 16:07:58.405  INFO 4238 --- [nio-8001-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-11-26 16:07:58.406  INFO 4238 --- [nio-8001-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-11-26 16:07:58.409  INFO 4238 --- [nio-8001-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-11-26 16:08:44.690  INFO 4238 --- [io-8001-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/10.255.255.254:api-gateway:8002 with status UP (replication=false)
+2024-11-26 16:08:57.257  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2024-11-26 16:09:19.959  INFO 4238 --- [nio-8001-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/10.255.255.254:user-service:8003 with status UP (replication=false)
+2024-11-26 16:09:55.117  INFO 4238 --- [nio-8001-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance PAYMENT-SERVICE/10.255.255.254:payment-service:8004 with status UP (replication=false)
+2024-11-26 16:09:57.257  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3552ms
+2024-11-26 16:10:19.938  INFO 4238 --- [io-8001-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/10.255.255.254:notification-service:8005 with status UP (replication=false)
+2024-11-26 16:10:57.260  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3673ms
+2024-11-26 16:11:57.262  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3620ms
+2024-11-26 16:12:57.264  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3666ms
+2024-11-26 16:13:57.265  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3648ms
+2024-11-26 16:14:57.266  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3702ms
+2024-11-26 16:15:57.266  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3673ms
+2024-11-26 16:16:57.267  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3723ms
+2024-11-26 16:17:23.748  WARN 4238 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2024-11-26 16:17:57.267  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3759ms
+2024-11-26 16:18:57.268  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 1845ms
+2024-11-26 16:19:57.268  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3772ms
+2024-11-26 16:20:57.267  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3790ms
+2024-11-26 16:21:57.270  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3804ms
+2024-11-26 16:22:57.042  INFO 4238 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 8
+2024-11-26 16:22:57.270  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3874ms
+2024-11-26 16:23:57.270  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3759ms
+2024-11-26 16:24:57.272  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3880ms
+2024-11-26 16:25:57.274  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3788ms
+2024-11-26 16:26:47.520  WARN 4238 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2024-11-26 16:26:57.275  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3962ms
+2024-11-26 16:27:57.275  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3794ms
+2024-11-26 16:28:57.275  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3946ms
+2024-11-26 16:29:57.283  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3820ms
+2024-11-26 16:30:57.284  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3923ms
+2024-11-26 16:31:57.291  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3902ms
+2024-11-26 16:32:57.292  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3882ms
+2024-11-26 16:33:57.293  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3915ms
+2024-11-26 16:34:57.303  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3968ms
+2024-11-26 16:35:57.310  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3916ms
+2024-11-26 16:36:10.473  WARN 4238 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2024-11-26 16:36:57.318  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4091ms
+2024-11-26 16:37:57.041  INFO 4238 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 8
+2024-11-26 16:37:57.325  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3915ms
+2024-11-26 16:38:57.331  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3975ms
+2024-11-26 16:39:57.339  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3981ms
+2024-11-26 16:40:57.341  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 3999ms
+2024-11-26 16:41:57.357  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4093ms
+2024-11-26 16:42:57.367  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4042ms
+2024-11-26 16:43:57.368  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4007ms
+2024-11-26 16:44:57.370  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4057ms
+2024-11-26 16:45:34.375  WARN 4238 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2024-11-26 16:45:57.371  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4125ms
+2024-11-26 16:46:57.371  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4079ms
+2024-11-26 16:47:57.372  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4100ms
+2024-11-26 16:48:57.372  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4101ms
+2024-11-26 16:49:57.374  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4159ms
+2024-11-26 16:50:57.376  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4146ms
+2024-11-26 16:51:57.382  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4165ms
+2024-11-26 16:52:57.041  INFO 4238 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 8
+2024-11-26 16:52:57.389  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4162ms
+2024-11-26 16:53:57.389  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4132ms
+2024-11-26 16:54:55.045  WARN 4238 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2024-11-26 16:54:57.390  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4187ms
+2024-11-26 16:55:57.390  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4141ms
+2024-11-26 16:56:57.392  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4200ms
+2024-11-26 16:57:57.393  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4141ms
+2024-11-26 16:58:57.394  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4254ms
+2024-11-26 16:59:57.395  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4107ms
+2024-11-26 17:00:57.396  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4242ms
+2024-11-26 17:01:57.403  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4190ms
+2024-11-26 17:02:57.407  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4246ms
+2024-11-26 17:03:57.408  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4177ms
+2024-11-26 17:04:17.368  WARN 4238 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2024-11-26 17:04:57.409  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4241ms
+2024-11-26 17:05:57.411  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4200ms
+2024-11-26 17:06:57.417  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4258ms
+2024-11-26 17:07:57.043  INFO 4238 --- [hresholdUpdater] c.n.e.r.PeerAwareInstanceRegistryImpl    : Current renewal threshold is : 8
+2024-11-26 17:07:57.420  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4328ms
+2024-11-26 17:08:57.421  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4231ms
+2024-11-26 17:09:57.422  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4298ms
+2024-11-26 17:10:57.422  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4271ms
+2024-11-26 17:11:57.423  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4321ms
+2024-11-26 17:12:57.423  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4294ms
+2024-11-26 17:13:36.787  WARN 4238 --- [eerNodesUpdater] c.n.eureka.cluster.PeerEurekaNodes       : The replica size seems to be empty. Check the route 53 DNS Registry
+2024-11-26 17:13:57.423  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4335ms
+2024-11-26 17:14:57.425  INFO 4238 --- [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 4298ms
+2024-11-26 17:14:58.990  INFO 4238 --- [ionShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application EUREKA-SERVER with eureka with status DOWN
+2024-11-26 17:14:59.121  INFO 4238 --- [ionShutdownHook] o.s.c.n.e.server.EurekaServerBootstrap   : Shutting down Eureka Server..
+2024-11-26 17:14:59.138  INFO 4238 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shutting down ...
+2024-11-26 17:14:59.213  INFO 4238 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shut down
+2024-11-26 17:14:59.214  INFO 4238 --- [ionShutdownHook] o.s.c.n.e.server.EurekaServerBootstrap   : Eureka Service is now shutdown...
+2024-11-26 17:14:59.218  INFO 4238 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shutting down ...
+2024-11-26 17:14:59.229  INFO 4238 --- [ionShutdownHook] c.n.eureka.DefaultEurekaServerContext    : Shut down
+2024-11-26 17:14:59.251  INFO 4238 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-26 17:14:59.256  INFO 4238 --- [ionShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2024-11-26 17:14:59.275  INFO 4238 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-26 17:14:59.283  INFO 4238 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-26 17:14:59.287  INFO 4238 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2024-11-26 17:14:59.295  INFO 4238 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient

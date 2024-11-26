@@ -4,42 +4,28 @@ body {
   background-color: #f4f6f8;
 }
 
-.register-page {
+.profile-page {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 80vh;
 }
 
-.register-container {
-  display: flex;
-  width: 800px;
+.profile-container {
+  width: 500px;
   max-width: 90%;
   background-color: #ffffff;
+  padding: 40px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  overflow: hidden;
 }
 
-.register-image {
-  display: none;
-}
-
-.register-form-container {
-  flex: 1;
-  padding: 40px;
-}
-
-.register-title {
+.profile-title {
+  margin-top: 0;
   font-size: 28px;
   color: #2d3436;
-  margin-bottom: 10px;
-}
-
-.register-subtitle {
-  font-size: 16px;
-  color: #636e72;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .form-group {
@@ -82,20 +68,13 @@ body {
   background-color: #74b9ff;
 }
 
-.redirect-message {
+.success-message {
+  color: #27ae60;
+  background-color: #e0f7e9;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
   text-align: center;
-  margin-top: 20px;
-  font-size: 14px;
-}
-
-.redirect-link {
-  color: #0984e3;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.redirect-link:hover {
-  text-decoration: underline;
 }
 
 .error-message {
@@ -104,19 +83,11 @@ body {
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 20px;
+  text-align: center;
 }
 
-.success-message {
-  color: #27ae60;
-  background-color: #e0f7e9;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-
-/* Responsive Design */
-@media (min-width: 768px) {
-  .register-image {
-    display: block;
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 30px;
   }
 }
