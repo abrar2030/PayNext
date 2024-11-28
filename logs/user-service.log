@@ -38,54 +38,55 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.6.7)
 
-2024-11-28 22:34:32.752  INFO 224089 --- [           main] c.f.userservice.UserServiceApplication   : Starting UserServiceApplication using Java 21.0.5 on RW50 with PID 224089 (/mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/user-service/target/classes started by abrarahmed in /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/user-service)
-2024-11-28 22:34:32.758  INFO 224089 --- [           main] c.f.userservice.UserServiceApplication   : No active profile set, falling back to 1 default profile: "default"
-2024-11-28 22:34:36.273  INFO 224089 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-11-28 22:34:37.209  INFO 224089 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 906 ms. Found 1 JPA repository interfaces.
-2024-11-28 22:34:38.100  INFO 224089 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=7d1c9d1a-caaa-3f87-91a2-5354c363eded
-2024-11-28 22:34:39.406  INFO 224089 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8003 (http)
-2024-11-28 22:34:39.438  INFO 224089 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-11-28 22:34:39.438  INFO 224089 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
-2024-11-28 22:34:39.670  INFO 224089 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2024-11-28 22:34:39.670  INFO 224089 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6814 ms
-2024-11-28 22:34:40.691  INFO 224089 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-11-28 22:34:40.967  INFO 224089 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
-2024-11-28 22:34:41.731  INFO 224089 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2024-11-28 22:34:42.257  INFO 224089 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-11-28 22:34:42.945  INFO 224089 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-11-28 22:34:43.015  INFO 224089 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-2024-11-28 22:34:45.523  INFO 224089 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2024-11-28 22:34:45.562  INFO 224089 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-11-28 22:34:46.826  WARN 224089 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-11-28 22:34:47.516  INFO 224089 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7ab3f194, org.springframework.security.web.context.SecurityContextPersistenceFilter@b75f3f4, org.springframework.security.web.header.HeaderWriterFilter@f13e0a2, org.springframework.security.web.authentication.logout.LogoutFilter@443b6765, com.fintech.userservice.filter.JwtAuthenticationFilter@1fa29b9e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5570dc21, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@72c175f1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@613a608e, org.springframework.security.web.session.SessionManagementFilter@524dd373, org.springframework.security.web.access.ExceptionTranslationFilter@4c599679, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@49654a35]
-2024-11-28 22:34:49.164  INFO 224089 --- [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
-2024-11-28 22:34:49.446  WARN 224089 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2024-11-28 22:34:49.460  INFO 224089 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
-2024-11-28 22:34:49.537  INFO 224089 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
-2024-11-28 22:34:49.907  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
-2024-11-28 22:34:49.941  INFO 224089 --- [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-28 22:34:50.108  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
-2024-11-28 22:34:50.108  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
-2024-11-28 22:34:50.109  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
-2024-11-28 22:34:50.109  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
-2024-11-28 22:34:50.109  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
-2024-11-28 22:34:50.110  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
-2024-11-28 22:34:50.110  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
-2024-11-28 22:34:51.457  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
-2024-11-28 22:34:51.466  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
-2024-11-28 22:34:51.479  INFO 224089 --- [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
-2024-11-28 22:34:51.494  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1732829691493 with initial instances count: 1
-2024-11-28 22:34:51.497  INFO 224089 --- [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application USER-SERVICE with eureka with status UP
-2024-11-28 22:34:51.500  INFO 224089 --- [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1732829691500, current=UP, previous=STARTING]
-2024-11-28 22:34:51.510  INFO 224089 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/10.255.255.254:user-service:8003: registering service...
-2024-11-28 22:34:51.532  INFO 224089 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8003 (http) with context path ''
-2024-11-28 22:34:51.533  INFO 224089 --- [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8003
-2024-11-28 22:34:51.556  INFO 224089 --- [           main] c.f.userservice.UserServiceApplication   : Started UserServiceApplication in 20.29 seconds (JVM running for 21.16)
-2024-11-28 22:34:51.665  INFO 224089 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/10.255.255.254:user-service:8003 - registration status: 204
-2024-11-28 22:37:16.578  INFO 224089 --- [ionShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application USER-SERVICE with eureka with status DOWN
-2024-11-28 22:37:16.579  INFO 224089 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1732829836579, current=DOWN, previous=UP]
-2024-11-28 22:37:16.579  INFO 224089 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/10.255.255.254:user-service:8003: registering service...
-2024-11-28 22:37:16.588  INFO 224089 --- [nfoReplicator-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8001/eureka/} exception=I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2024-11-28 21:26:17.844  INFO 218263 --- [           main] c.f.userservice.UserServiceApplication   : Starting UserServiceApplication using Java 21.0.5 on RW50 with PID 218263 (/mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/user-service/target/classes started by abrarahmed in /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/user-service)
+2024-11-28 21:26:17.851  INFO 218263 --- [           main] c.f.userservice.UserServiceApplication   : No active profile set, falling back to 1 default profile: "default"
+2024-11-28 21:26:21.369  INFO 218263 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-11-28 21:26:22.155  INFO 218263 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 761 ms. Found 1 JPA repository interfaces.
+2024-11-28 21:26:22.901  INFO 218263 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=7d1c9d1a-caaa-3f87-91a2-5354c363eded
+2024-11-28 21:26:24.076  INFO 218263 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8003 (http)
+2024-11-28 21:26:24.105  INFO 218263 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-11-28 21:26:24.106  INFO 218263 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2024-11-28 21:26:24.299  INFO 218263 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-11-28 21:26:24.299  INFO 218263 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6334 ms
+2024-11-28 21:26:25.164  INFO 218263 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-11-28 21:26:25.394  INFO 218263 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
+2024-11-28 21:26:26.100  INFO 218263 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-11-28 21:26:26.578  INFO 218263 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-11-28 21:26:27.165  INFO 218263 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-11-28 21:26:27.233  INFO 218263 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-11-28 21:26:29.433  INFO 218263 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-11-28 21:26:29.470  INFO 218263 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-11-28 21:26:30.501  WARN 218263 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-11-28 21:26:31.095  INFO 218263 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@613a608e, org.springframework.security.web.context.SecurityContextPersistenceFilter@691a5c3a, org.springframework.security.web.header.HeaderWriterFilter@329efc61, org.springframework.security.web.authentication.logout.LogoutFilter@a72925, com.fintech.userservice.filter.JwtAuthenticationFilter@3bf40c74, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1477d4e6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@9fd3b61, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@37b1218, org.springframework.security.web.session.SessionManagementFilter@5ca3acad, org.springframework.security.web.access.ExceptionTranslationFilter@15fd3088, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5169db2f]
+2024-11-28 21:26:32.514  INFO 218263 --- [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2024-11-28 21:26:32.741  WARN 218263 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2024-11-28 21:26:32.751  INFO 218263 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-11-28 21:26:32.825  INFO 218263 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2024-11-28 21:26:33.057  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2024-11-28 21:26:33.078  INFO 218263 --- [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2024-11-28 21:26:33.182  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2024-11-28 21:26:33.182  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2024-11-28 21:26:33.182  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2024-11-28 21:26:33.183  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2024-11-28 21:26:33.183  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2024-11-28 21:26:33.183  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2024-11-28 21:26:33.184  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2024-11-28 21:26:34.502  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2024-11-28 21:26:34.512  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2024-11-28 21:26:34.522  INFO 218263 --- [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2024-11-28 21:26:34.537  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1732825594536 with initial instances count: 1
+2024-11-28 21:26:34.540  INFO 218263 --- [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application USER-SERVICE with eureka with status UP
+2024-11-28 21:26:34.542  INFO 218263 --- [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1732825594542, current=UP, previous=STARTING]
+2024-11-28 21:26:34.552  INFO 218263 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/10.255.255.254:user-service:8003: registering service...
+2024-11-28 21:26:34.574  INFO 218263 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8003 (http) with context path ''
+2024-11-28 21:26:34.575  INFO 218263 --- [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8003
+2024-11-28 21:26:34.597  INFO 218263 --- [           main] c.f.userservice.UserServiceApplication   : Started UserServiceApplication in 18.08 seconds (JVM running for 18.801)
+2024-11-28 21:26:34.688  INFO 218263 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/10.255.255.254:user-service:8003 - registration status: 204
+2024-11-28 22:26:22.344  INFO 218263 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2024-11-28 22:27:48.987  INFO 218263 --- [ionShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application USER-SERVICE with eureka with status DOWN
+2024-11-28 22:27:48.988  INFO 218263 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1732829268988, current=DOWN, previous=UP]
+2024-11-28 22:27:48.989  INFO 218263 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/10.255.255.254:user-service:8003: registering service...
+2024-11-28 22:27:49.002  INFO 218263 --- [nfoReplicator-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8001/eureka/} exception=I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
 	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:785)
 	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:711)
 	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:602)
@@ -135,12 +136,12 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
 	... 34 more
 
-2024-11-28 22:37:16.589  WARN 224089 --- [nfoReplicator-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
-2024-11-28 22:37:16.602  INFO 224089 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-11-28 22:37:16.605  INFO 224089 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-11-28 22:37:16.608  INFO 224089 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-11-28 22:37:16.610  INFO 224089 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
-2024-11-28 22:37:16.616  INFO 224089 --- [nfoReplicator-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8001/eureka/}, exception=I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2024-11-28 22:27:49.003  WARN 218263 --- [nfoReplicator-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2024-11-28 22:27:49.018  INFO 218263 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-11-28 22:27:49.023  INFO 218263 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-11-28 22:27:49.032  INFO 218263 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-11-28 22:27:49.035  INFO 218263 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2024-11-28 22:27:49.037  INFO 218263 --- [nfoReplicator-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8001/eureka/}, exception=I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
 	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:785)
 	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:711)
 	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:602)
@@ -191,8 +192,8 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
 	... 35 more
 
-2024-11-28 22:37:16.617  WARN 224089 --- [nfoReplicator-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
-2024-11-28 22:37:16.628  WARN 224089 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/10.255.255.254:user-service:8003 - registration failed Cannot execute request on any known server
+2024-11-28 22:27:49.038  WARN 218263 --- [nfoReplicator-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on POST request for "http://localhost:8001/eureka/apps/USER-SERVICE": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2024-11-28 22:27:49.066  WARN 218263 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/10.255.255.254:user-service:8003 - registration failed Cannot execute request on any known server
 
 com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
 	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-1.10.17.jar:1.10.17]
@@ -210,7 +211,7 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
 	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
 
-2024-11-28 22:37:16.629  WARN 224089 --- [nfoReplicator-0] c.n.discovery.InstanceInfoReplicator     : There was a problem with the instance info replicator
+2024-11-28 22:27:49.067  WARN 218263 --- [nfoReplicator-0] c.n.discovery.InstanceInfoReplicator     : There was a problem with the instance info replicator
 
 com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
 	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-1.10.17.jar:1.10.17]
@@ -228,8 +229,8 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
 	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
 
-2024-11-28 22:37:16.631  INFO 224089 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Unregistering ...
-2024-11-28 22:37:16.663  INFO 224089 --- [ionShutdownHook] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8001/eureka/}, exception=I/O error on DELETE request for "http://localhost:8001/eureka/apps/USER-SERVICE/10.255.255.254:user-service:8003": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://localhost:8001/eureka/apps/USER-SERVICE/10.255.255.254:user-service:8003": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2024-11-28 22:27:49.071  INFO 218263 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Unregistering ...
+2024-11-28 22:27:49.097  INFO 218263 --- [ionShutdownHook] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8001/eureka/}, exception=I/O error on DELETE request for "http://localhost:8001/eureka/apps/USER-SERVICE/10.255.255.254:user-service:8003": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://localhost:8001/eureka/apps/USER-SERVICE/10.255.255.254:user-service:8003": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
 	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:785)
 	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:711)
 	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:602)
@@ -296,8 +297,8 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
 	... 51 more
 
-2024-11-28 22:37:16.664  WARN 224089 --- [ionShutdownHook] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on DELETE request for "http://localhost:8001/eureka/apps/USER-SERVICE/10.255.255.254:user-service:8003": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
-2024-11-28 22:37:16.664 ERROR 224089 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/10.255.255.254:user-service:8003 - de-registration failedCannot execute request on any known server
+2024-11-28 22:27:49.098  WARN 218263 --- [ionShutdownHook] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on DELETE request for "http://localhost:8001/eureka/apps/USER-SERVICE/10.255.255.254:user-service:8003": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2024-11-28 22:27:49.098 ERROR 218263 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/10.255.255.254:user-service:8003 - de-registration failedCannot execute request on any known server
 
 com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
 	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-1.10.17.jar:1.10.17]
@@ -331,5 +332,4 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114) ~[spring-boot-2.6.7.jar:2.6.7]
 	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
 
-2024-11-28 22:37:16.671  INFO 224089 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+2024-11-28 22:27:49.103  INFO 218263 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
