@@ -38,120 +38,81 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.6.7)
 
-2024-11-30 16:27:21.354  INFO 1737 --- [           main] c.f.apigateway.ApiGatewayApplication     : Starting ApiGatewayApplication using Java 21.0.5 on RW50 with PID 1737 (/mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/api-gateway/target/classes started by abrarahmed in /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/api-gateway)
-2024-11-30 16:27:21.364  INFO 1737 --- [           main] c.f.apigateway.ApiGatewayApplication     : No active profile set, falling back to 1 default profile: "default"
-2024-11-30 16:27:25.305  INFO 1737 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-11-30 16:27:25.422  INFO 1737 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 79 ms. Found 0 JPA repository interfaces.
-2024-11-30 16:27:26.445  INFO 1737 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=3003cb8f-8f8f-3ee0-b982-617904569594
-2024-11-30 16:27:27.645  INFO 1737 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.method.configuration.ReactiveMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.ReactiveMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2024-11-30 16:27:27.733  INFO 1737 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2024-11-30 16:27:27.734  INFO 1737 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2024-11-30 16:27:27.739  INFO 1737 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'reactorDeferringLoadBalancerExchangeFilterFunction' of type [org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2024-11-30 16:27:28.390  INFO 1737 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8002 (http)
-2024-11-30 16:27:28.429  INFO 1737 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-11-30 16:27:28.430  INFO 1737 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
-2024-11-30 16:27:29.095  INFO 1737 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-11-30 16:27:29.955  INFO 1737 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-11-30 16:27:30.185  INFO 1737 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-11-30 16:27:30.494  INFO 1737 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
-2024-11-30 16:27:31.446  INFO 1737 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2024-11-30 16:27:32.404  INFO 1737 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-2024-11-30 16:27:33.664  INFO 1737 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2024-11-30 16:27:33.711  INFO 1737 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-11-30 16:27:33.831  INFO 1737 --- [           main] ctiveUserDetailsServiceAutoConfiguration : 
+2025-01-25 15:54:51.928  INFO 3004 --- [           main] c.f.apigateway.ApiGatewayApplication     : Starting ApiGatewayApplication using Java 21.0.5 on RW50 with PID 3004 (/mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/api-gateway/target/classes started by abrarahmed in /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/api-gateway)
+2025-01-25 15:54:51.951  INFO 3004 --- [           main] c.f.apigateway.ApiGatewayApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-01-25 15:54:59.952  INFO 3004 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-25 15:55:00.216  INFO 3004 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 188 ms. Found 0 JPA repository interfaces.
+2025-01-25 15:55:02.784  INFO 3004 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=3003cb8f-8f8f-3ee0-b982-617904569594
+2025-01-25 15:55:05.503  INFO 3004 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.config.annotation.method.configuration.ReactiveMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.ReactiveMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2025-01-25 15:55:05.693  INFO 3004 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2025-01-25 15:55:05.697  INFO 3004 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig' of type [org.springframework.cloud.client.loadbalancer.reactive.LoadBalancerBeanPostProcessorAutoConfiguration$ReactorDeferringLoadBalancerFilterConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2025-01-25 15:55:05.758  INFO 3004 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'reactorDeferringLoadBalancerExchangeFilterFunction' of type [org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2025-01-25 15:55:07.261  INFO 3004 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8002 (http)
+2025-01-25 15:55:07.342  INFO 3004 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-25 15:55:07.343  INFO 3004 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.62]
+2025-01-25 15:55:08.780  INFO 3004 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-25 15:55:10.694  INFO 3004 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-25 15:55:11.289  INFO 3004 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-25 15:55:12.108  INFO 3004 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.8.Final
+2025-01-25 15:55:14.170  INFO 3004 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-01-25 15:55:16.205  INFO 3004 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2025-01-25 15:55:19.415  INFO 3004 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-01-25 15:55:19.552  INFO 3004 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-25 15:55:19.692  INFO 3004 --- [           main] ctiveUserDetailsServiceAutoConfiguration : 
 
-Using generated security password: b1e82a18-684f-4330-ad06-eaa8c535f627
+Using generated security password: 09a553eb-6cd8-4293-887d-c219da85f91c
 
-2024-11-30 16:27:36.282  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [After]
-2024-11-30 16:27:36.283  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Before]
-2024-11-30 16:27:36.283  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Between]
-2024-11-30 16:27:36.284  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Cookie]
-2024-11-30 16:27:36.284  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Header]
-2024-11-30 16:27:36.284  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Host]
-2024-11-30 16:27:36.285  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Method]
-2024-11-30 16:27:36.285  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Path]
-2024-11-30 16:27:36.285  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Query]
-2024-11-30 16:27:36.286  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [ReadBody]
-2024-11-30 16:27:36.286  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [RemoteAddr]
-2024-11-30 16:27:36.286  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [XForwardedRemoteAddr]
-2024-11-30 16:27:36.287  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Weight]
-2024-11-30 16:27:36.287  INFO 1737 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [CloudFoundryRouteService]
-2024-11-30 16:27:35.525  INFO 1737 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
-2024-11-30 16:27:36.364  INFO 1737 --- [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
-2024-11-30 16:27:36.646  WARN 1737 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2024-11-30 16:27:36.710  INFO 1737 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
-2024-11-30 16:27:37.031  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
-2024-11-30 16:27:37.061  INFO 1737 --- [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 16:27:37.226  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
-2024-11-30 16:27:37.227  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
-2024-11-30 16:27:37.228  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
-2024-11-30 16:27:37.228  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
-2024-11-30 16:27:37.228  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
-2024-11-30 16:27:37.229  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
-2024-11-30 16:27:37.229  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
-2024-11-30 16:27:39.081  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
-2024-11-30 16:27:39.090  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
-2024-11-30 16:27:39.102  INFO 1737 --- [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
-2024-11-30 16:27:39.121  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1732980459120 with initial instances count: 0
-2024-11-30 16:27:39.125  INFO 1737 --- [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application API-GATEWAY with eureka with status UP
-2024-11-30 16:27:39.129  INFO 1737 --- [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1732980459129, current=UP, previous=STARTING]
-2024-11-30 16:27:39.140  INFO 1737 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/10.255.255.254:api-gateway:8002: registering service...
-2024-11-30 16:27:39.224  INFO 1737 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8002 (http) with context path ''
-2024-11-30 16:27:39.225  INFO 1737 --- [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8002
-2024-11-30 16:27:39.263  INFO 1737 --- [           main] c.f.apigateway.ApiGatewayApplication     : Started ApiGatewayApplication in 21.59 seconds (JVM running for 22.523)
-2024-11-30 16:27:39.789  INFO 1737 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/10.255.255.254:api-gateway:8002 - registration status: 204
-2024-11-30 16:28:06.920  INFO 1737 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
-2024-11-30 16:28:06.921  INFO 1737 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
-2024-11-30 16:28:06.921  INFO 1737 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
-2024-11-30 16:28:06.921  INFO 1737 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application is null : false
-2024-11-30 16:28:06.921  INFO 1737 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
-2024-11-30 16:28:06.922  INFO 1737 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
-2024-11-30 16:28:06.922  INFO 1737 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
-2024-11-30 16:28:06.965  INFO 1737 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : The response status is 200
-2024-11-30 16:32:20.126  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 16:37:02.988  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 16:41:45.587  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 16:46:25.682  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 16:51:08.987  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 16:55:52.568  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:00:31.325  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:05:11.580  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:09:51.119  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:14:27.811  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:19:06.301  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:23:44.473  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:28:22.675  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:32:58.172  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:37:36.033  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:42:13.573  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:46:48.451  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:51:25.683  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 17:56:02.700  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:00:37.107  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:05:13.869  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:09:50.701  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:14:24.675  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:19:00.749  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:23:36.512  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:28:12.104  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:32:44.964  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:37:20.654  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:41:56.441  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:46:29.521  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:51:05.214  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 18:55:40.877  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 19:00:13.511  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 19:04:48.747  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 19:09:23.485  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 19:13:58.629  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 19:18:30.940  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 19:23:06.218  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 19:27:41.302  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 19:32:13.704  INFO 1737 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2024-11-30 19:36:30.845  INFO 1737 --- [ionShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application API-GATEWAY with eureka with status DOWN
-2024-11-30 19:36:30.849  INFO 1737 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1732991790849, current=DOWN, previous=UP]
-2024-11-30 19:36:30.853  INFO 1737 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/10.255.255.254:api-gateway:8002: registering service...
-2024-11-30 19:36:31.042  INFO 1737 --- [nfoReplicator-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://abrar2030:abrar2030@localhost:8001/eureka/} exception=I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2025-01-25 15:55:25.827  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [After]
+2025-01-25 15:55:25.829  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Before]
+2025-01-25 15:55:25.830  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Between]
+2025-01-25 15:55:25.831  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Cookie]
+2025-01-25 15:55:25.831  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Header]
+2025-01-25 15:55:25.832  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Host]
+2025-01-25 15:55:25.833  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Method]
+2025-01-25 15:55:25.834  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Path]
+2025-01-25 15:55:25.835  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Query]
+2025-01-25 15:55:25.836  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [ReadBody]
+2025-01-25 15:55:25.838  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [RemoteAddr]
+2025-01-25 15:55:25.839  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [XForwardedRemoteAddr]
+2025-01-25 15:55:25.840  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Weight]
+2025-01-25 15:55:25.840  INFO 3004 --- [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [CloudFoundryRouteService]
+2025-01-25 15:55:27.898  INFO 3004 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2025-01-25 15:55:29.336  INFO 3004 --- [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2025-01-25 15:55:29.977  WARN 3004 --- [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-01-25 15:55:30.138  INFO 3004 --- [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2025-01-25 15:55:30.989  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2025-01-25 15:55:31.058  INFO 3004 --- [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2025-01-25 15:55:31.449  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2025-01-25 15:55:31.450  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2025-01-25 15:55:31.450  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2025-01-25 15:55:31.451  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2025-01-25 15:55:31.452  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2025-01-25 15:55:31.453  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2025-01-25 15:55:31.454  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2025-01-25 15:55:35.766  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2025-01-25 15:55:35.788  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2025-01-25 15:55:35.818  INFO 3004 --- [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2025-01-25 15:55:35.860  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1737816935859 with initial instances count: 0
+2025-01-25 15:55:35.870  INFO 3004 --- [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application API-GATEWAY with eureka with status UP
+2025-01-25 15:55:35.878  INFO 3004 --- [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1737816935878, current=UP, previous=STARTING]
+2025-01-25 15:55:35.905  INFO 3004 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/10.255.255.254:api-gateway:8002: registering service...
+2025-01-25 15:55:36.149  INFO 3004 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8002 (http) with context path ''
+2025-01-25 15:55:36.152  INFO 3004 --- [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8002
+2025-01-25 15:55:36.269  INFO 3004 --- [           main] c.f.apigateway.ApiGatewayApplication     : Started ApiGatewayApplication in 49.787 seconds (JVM running for 51.95)
+2025-01-25 15:55:37.374  INFO 3004 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/10.255.255.254:api-gateway:8002 - registration status: 204
+2025-01-25 15:56:05.270  INFO 3004 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2025-01-25 15:56:05.271  INFO 3004 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2025-01-25 15:56:05.272  INFO 3004 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2025-01-25 15:56:05.273  INFO 3004 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2025-01-25 15:56:05.274  INFO 3004 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2025-01-25 15:56:05.275  INFO 3004 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2025-01-25 15:56:05.276  INFO 3004 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2025-01-25 15:56:05.381  INFO 3004 --- [freshExecutor-0] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2025-01-25 16:00:26.647  INFO 3004 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2025-01-25 16:05:11.964  INFO 3004 --- [ionShutdownHook] o.s.c.n.e.s.EurekaServiceRegistry        : Unregistering application API-GATEWAY with eureka with status DOWN
+2025-01-25 16:05:11.965  INFO 3004 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1737817511965, current=DOWN, previous=UP]
+2025-01-25 16:05:11.966  INFO 3004 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/10.255.255.254:api-gateway:8002: registering service...
+2025-01-25 16:05:11.984  INFO 3004 --- [nfoReplicator-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://abrar2030:abrar2030@localhost:8001/eureka/} exception=I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
 	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:785)
 	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:711)
 	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:602)
@@ -207,8 +168,8 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
 	... 40 more
 
-2024-11-30 19:36:31.044  WARN 1737 --- [nfoReplicator-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
-2024-11-30 19:36:31.113  INFO 1737 --- [nfoReplicator-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://abrar2030:abrar2030@localhost:8001/eureka/}, exception=I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2025-01-25 16:05:11.984  WARN 3004 --- [nfoReplicator-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2025-01-25 16:05:12.014  INFO 3004 --- [nfoReplicator-0] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://abrar2030:abrar2030@localhost:8001/eureka/}, exception=I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
 	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:785)
 	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:711)
 	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:602)
@@ -265,8 +226,13 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
 	... 41 more
 
-2024-11-30 19:36:31.115  WARN 1737 --- [nfoReplicator-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
-2024-11-30 19:36:31.174  WARN 1737 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/10.255.255.254:api-gateway:8002 - registration failed Cannot execute request on any known server
+2025-01-25 16:05:12.015  WARN 3004 --- [nfoReplicator-0] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on POST request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2025-01-25 16:05:12.017  INFO 3004 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-01-25 16:05:12.018  INFO 3004 --- [ionShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2025-01-25 16:05:12.023  INFO 3004 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-25 16:05:12.026  INFO 3004 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-01-25 16:05:12.027  INFO 3004 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2025-01-25 16:05:12.028  WARN 3004 --- [nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/10.255.255.254:api-gateway:8002 - registration failed Cannot execute request on any known server
 
 com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
 	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-1.10.17.jar:1.10.17]
@@ -284,7 +250,7 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
 	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
 
-2024-11-30 19:36:31.176  WARN 1737 --- [nfoReplicator-0] c.n.discovery.InstanceInfoReplicator     : There was a problem with the instance info replicator
+2025-01-25 16:05:12.029  WARN 3004 --- [nfoReplicator-0] c.n.discovery.InstanceInfoReplicator     : There was a problem with the instance info replicator
 
 com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
 	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-1.10.17.jar:1.10.17]
@@ -302,13 +268,8 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
 	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
 
-2024-11-30 19:36:31.183  INFO 1737 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-11-30 19:36:31.200  INFO 1737 --- [ionShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
-2024-11-30 19:36:31.235  INFO 1737 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-11-30 19:36:31.247  INFO 1737 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-11-30 19:36:31.249  INFO 1737 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
-2024-11-30 19:36:34.261  INFO 1737 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Unregistering ...
-2024-11-30 19:36:34.390  INFO 1737 --- [ionShutdownHook] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://abrar2030:abrar2030@localhost:8001/eureka/}, exception=I/O error on DELETE request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY/10.255.255.254:api-gateway:8002": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY/10.255.255.254:api-gateway:8002": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2025-01-25 16:05:12.031  INFO 3004 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Unregistering ...
+2025-01-25 16:05:12.053  INFO 3004 --- [ionShutdownHook] c.n.d.s.t.d.RedirectingEurekaHttpClient  : Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://abrar2030:abrar2030@localhost:8001/eureka/}, exception=I/O error on DELETE request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY/10.255.255.254:api-gateway:8002": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY/10.255.255.254:api-gateway:8002": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
 	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:785)
 	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:711)
 	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:602)
@@ -381,8 +342,8 @@ Caused by: java.net.ConnectException: Connection refused
 	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
 	... 57 more
 
-2024-11-30 19:36:34.392  WARN 1737 --- [ionShutdownHook] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on DELETE request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY/10.255.255.254:api-gateway:8002": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
-2024-11-30 19:36:34.397 ERROR 1737 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/10.255.255.254:api-gateway:8002 - de-registration failedCannot execute request on any known server
+2025-01-25 16:05:12.054  WARN 3004 --- [ionShutdownHook] c.n.d.s.t.d.RetryableEurekaHttpClient    : Request execution failed with message: I/O error on DELETE request for "http://abrar2030:abrar2030@localhost:8001/eureka/apps/API-GATEWAY/10.255.255.254:api-gateway:8002": Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused; nested exception is org.apache.http.conn.HttpHostConnectException: Connect to localhost:8001 [localhost/127.0.0.1] failed: Connection refused
+2025-01-25 16:05:12.055 ERROR 3004 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_API-GATEWAY/10.255.255.254:api-gateway:8002 - de-registration failedCannot execute request on any known server
 
 com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
 	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112) ~[eureka-client-1.10.17.jar:1.10.17]
@@ -416,4 +377,4 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114) ~[spring-boot-2.6.7.jar:2.6.7]
 	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
 
-2024-11-30 19:36:34.430  INFO 1737 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+2025-01-25 16:05:12.062  INFO 3004 --- [ionShutdownHook] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
