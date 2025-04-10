@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_URL = 'https://api.yourdomain.com/users/';
+// Use environment variable or default to localhost API gateway
+const API_URL = process.env.REACT_APP_API_BASE_URL || 
+  'http://localhost:8002/users/';
 
 const getUserProfile = async () => {
   const response = await axios.get(`${API_URL}profile`, {

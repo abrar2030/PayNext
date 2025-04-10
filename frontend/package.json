@@ -82,7 +82,7 @@
     "tabWidth": 2,
     "semi": true
   },
-  "homepage": "https://yourusername.github.io/pnx-frontend",
+  "homepage": "/",
   "browserslist": {
     "production": [
       ">0.2%",

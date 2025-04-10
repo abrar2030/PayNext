@@ -10,8 +10,11 @@ import PaymentHistory from './components/Payments/PaymentHistory';
 import Profile from './components/Profile/Profile';
 
 function App() {
+  // Use basename only in production, not in development
+  const basename = process.env.NODE_ENV === 'production' ? '/pnx-frontend' : '';
+  
   return (
-    <Router basename="/pnx-frontend">
+    <Router basename={basename}>
       <div className="App">
         <Routes>
           <Route path="/" element={<HomePage />} />
