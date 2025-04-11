@@ -1,13 +1,11 @@
 # Use a lightweight base image with OpenJDK
-FROM openjdk:11
+FROM openjdk:17-jdk-alpine
 
-# Add the built JAR file from the host into the Docker image
-ADD target/user-service-1.0.0.jar ./user-service.jar
+# Copy the built JAR file from the host into the Docker image
+COPY target/user-service-1.0.0.jar ./user-service.jar
 
-# Expose the Eureka Server port (default: 8001)
+# Expose the User Service port
 EXPOSE 8003
 
-# Define the entrypoint to run the Eureka Server
+# Define the entrypoint to run the User Service
 ENTRYPOINT ["java", "-jar", "user-service.jar"]
-
-

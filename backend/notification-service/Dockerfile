@@ -1,11 +1,11 @@
 # Use a lightweight base image with OpenJDK
-FROM openjdk:11
+FROM openjdk:17-jdk-alpine
 
-# Add the built JAR file from the host into the Docker image
-ADD target/notification-service-1.0.0.jar ./notification-service.jar
+# Copy the built JAR file from the host into the Docker image
+COPY target/notification-service-1.0.0.jar ./notification-service.jar
 
-# Expose the Eureka Server port (default: 8001)
+# Expose the Notification Service port
 EXPOSE 8005
 
-# Define the entrypoint to run the Eureka Server
+# Define the entrypoint to run the Notification Service
 ENTRYPOINT ["java", "-jar", "notification-service.jar"]
