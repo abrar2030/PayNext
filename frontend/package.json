@@ -1,88 +1,36 @@
 {
-  "name": "pnx-frontend",
+  "name": "frontend",
   "version": "1.0.0",
   "private": true,
-  "description": "Frontend for the PayNext (PNX) project, a FinTech payment processing application.",
-  "main": "index.js",
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.0",
+    "ajv": "^8.17.1",
+    "axios": "^1.4.0",
+    "framer-motion": "^12.6.5",
+    "http-proxy-middleware": "^3.0.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.16.0",
+    "react-router-dom": "^6.11.1",
+    "react-scripts": "^5.0.1",
+    "react-transition-group": "^4.4.5",
+    "web-vitals": "^2.1.4"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint 'src/**/*.{js,jsx}'",
-    "format": "prettier --write 'src/**/*.{js,jsx,css}'",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  },
-  "keywords": [
-    "fintech",
-    "payment",
-    "frontend",
-    "react"
-  ],
-  "author": "Abrar Ahmed",
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^0.27.2",
-    "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "styled-components": "^5.3.3",
-    "web-vitals": "^4.2.4"
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@eslint/js": "^9.14.0",
-    "eslint": "^8.57.1",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "gh-pages": "^4.0.0",
-    "prettier": "^2.6.2"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "airbnb",
-      "plugin:react/recommended"
-    ],
-    "rules": {
-      "react/react-in-jsx-scope": "off",
-      "import/no-extraneous-dependencies": [
-        "error",
-        {
-          "devDependencies": true
-        }
-      ],
-      "jsx-a11y/anchor-is-valid": [
-        "warn",
-        {
-          "components": [
-            "Link"
-          ],
-          "specialLink": [
-            "to"
-          ],
-          "aspects": [
-            "noHref",
-            "invalidHref",
-            "preferButton"
-          ]
-        }
-      ]
-    }
+      "react-app/jest"
+    ]
   },
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "tabWidth": 2,
-    "semi": true
-  },
-  "homepage": "/",
   "browserslist": {
     "production": [
       ">0.2%",
