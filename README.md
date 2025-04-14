@@ -8,6 +8,7 @@ This project is a microservices-based payment solution built with Spring Boot an
 <div align="center">
   <img src="PayNext.bmp" alt="A microservices-based payment solution" width="100%">
 </div>
+
 > **Note**: PayNext is currently under active development. Features and functionalities are being added and improved continuously to enhance user experience.
 
 ## Table of Contents
