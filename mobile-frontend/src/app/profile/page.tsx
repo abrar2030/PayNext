@@ -1,131 +1,171 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { useState } from "react";
+import { toast } from "sonner";
 
-// Basic Card component
-const Card = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-  return (
-    <div className={`bg-white shadow-md rounded-lg p-4 ${className}`}>
-      {children}
-    </div>
-  );
-};
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 
-// Placeholder function for API calls
-const fetchFromApi = async (endpoint: string) => {
-  console.log(`Fetching from API: ${endpoint}`);
-  await new Promise(resolve => setTimeout(resolve, 500));
-  if (endpoint === '/api/user/profile') {
-    return {
-      name: "Alex Johnson",
-      username: "alexj",
-      email: "alex.j@example.com",
-      phone: "+1-555-123-4567",
-      joined: "Jan 15, 2024",
-    };
-  }
-  return null;
-};
-
-const postToApi = async (endpoint: string) => {
-  console.log(`Posting to API: ${endpoint}`);
-  await new Promise(resolve => setTimeout(resolve, 300));
-  return { success: true, message: 'Logged out successfully.' };
-};
+// Define the form schema for editing profile
+const profileFormSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Please enter a valid email." }),
+});
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [logoutStatus, setLogoutStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  // Placeholder user data (could come from context/API later)
+  const [user, setUser] = useState({
+    name: "Alex Johnson",
+    email: "alex.j@example.com",
+    avatarUrl: "https://github.com/shadcn.png", // Example avatar
+  });
 
-  useEffect(() => {
-    const loadProfile = async () => {
-      setLoading(true);
-      try {
-        const profileData = await fetchFromApi('/api/user/profile');
-        setUser(profileData);
-      } catch (error) {
-        console.error("Failed to fetch profile:", error);
-        // Handle error state
-      }
-      setLoading(false);
-    };
-    loadProfile();
-  }, []);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const handleLogout = async () => {
-    setLogoutStatus('loading');
-    try {
-      const response = await postToApi('/api/auth/logout');
-      if (response.success) {
-        setLogoutStatus('success');
-        // In a real app, redirect to login or clear session
-        console.log('Logout successful');
-      } else {
-        setLogoutStatus('error');
-      }
-    } catch (error) {
-      console.error("Logout failed:", error);
-      setLogoutStatus('error');
+  // Define the edit profile form
+  const form = useForm<z.infer<typeof profileFormSchema>>({
+    resolver: zodResolver(profileFormSchema),
+    defaultValues: {
+      name: user.name,
+      email: user.email,
+    },
+  });
+
+  // Watch form values to update user state optimistically or on successful save
+  // For simplicity, we'll update on successful save in this example
+
+  // Define a submit handler for profile edit
+  async function onProfileSubmit(values: z.infer<typeof profileFormSchema>) {
+    console.log("Updating profile:", values);
+    await new Promise(resolve => setTimeout(resolve, 500)); // Simulate API call
+
+    // Simulate success/failure
+    const success = Math.random() > 0.2; // 80% success rate
+
+    if (success) {
+      setUser((prevUser) => ({ ...prevUser, name: values.name, email: values.email }));
+      toast.success("Profile updated successfully!");
+      setIsEditing(false); // Close the dialog/form on success
+    } else {
+      toast.error("Failed to update profile. Please try again.");
     }
+  }
+
+  // Mock logout function
+  const handleLogout = () => {
+    console.log("Logging out...");
+    // In a real app, clear auth tokens, redirect to login
+    toast.info("You have been logged out.");
+    // Simulate redirect or state change
+    // router.push('/login'); // If using Next.js router
   };
-
-  if (loading) {
-    return <p>Loading profile...</p>;
-  }
-
-  if (!user) {
-    return <p>Failed to load profile.</p>;
-  }
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold mb-6">Profile</h1>
-
-      <Card className="text-center">
-        <div className="w-24 h-24 bg-gray-300 rounded-full mx-auto mb-4 flex items-center justify-center text-gray-500">
-          <span className="text-4xl">👤</span>
-        </div>
-        <h2 className="text-xl font-semibold">{user.name}</h2>
-        <p className="text-gray-600">@{user.username}</p>
-      </Card>
-
+      <h1 className="text-2xl font-bold">Profile</h1>
+      
       <Card>
-        <h3 className="text-lg font-semibold mb-3 border-b pb-2">Account Details</h3>
-        <div className="space-y-3">
-          <div className="flex justify-between">
-            <span className="text-gray-600">Email:</span>
-            <span className="font-medium">{user.email}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-600">Phone:</span>
-            <span className="font-medium">{user.phone}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-600">Joined:</span>
-            <span className="font-medium">{user.joined}</span>
-          </div>
-        </div>
-      </Card>
+        <CardHeader className="items-center text-center">
+          <Avatar className="w-24 h-24 mb-4">
+            <AvatarImage src={user.avatarUrl} alt={user.name} />
+            <AvatarFallback>{user.name.split(" ").map(n => n[0]).join("")}</AvatarFallback>
+          </Avatar>
+          <CardTitle>{user.name}</CardTitle>
+          <p className="text-muted-foreground">{user.email}</p>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {/* Edit Profile Dialog */}
+          <Dialog open={isEditing} onOpenChange={setIsEditing}>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="w-full">Edit Profile</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Edit Profile</DialogTitle>
+                <DialogDescription>
+                  Make changes to your profile here. Click save when you're done.
+                </DialogDescription>
+              </DialogHeader>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onProfileSubmit)} className="space-y-4 py-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Your Name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="your@email.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <DialogFooter>
+                    <DialogClose asChild>
+                       <Button type="button" variant="secondary">Cancel</Button>
+                    </DialogClose>
+                    <Button type="submit">Save changes</Button>
+                  </DialogFooter>
+                </form>
+              </Form>
+            </DialogContent>
+          </Dialog>
 
-      <Card>
-        <h3 className="text-lg font-semibold mb-3 border-b pb-2">Settings</h3>
-        <div className="space-y-2">
-          <button className="w-full text-left py-2 px-1 hover:bg-gray-100 rounded">Notifications</button>
-          <button className="w-full text-left py-2 px-1 hover:bg-gray-100 rounded">Security</button>
-          <button className="w-full text-left py-2 px-1 hover:bg-gray-100 rounded">Linked Accounts</button>
-        </div>
+          <Button variant="outline" className="w-full" onClick={() => toast.info("Settings page not implemented yet.")}>Settings</Button>
+          
+          {/* Logout Confirmation Dialog */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="destructive" className="w-full">Log Out</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Log Out</DialogTitle>
+                <DialogDescription>
+                  Are you sure you want to log out?
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                 <DialogClose asChild>
+                    <Button type="button" variant="secondary">Cancel</Button>
+                 </DialogClose>
+                 <DialogClose asChild>
+                    <Button type="button" variant="destructive" onClick={handleLogout}>Log Out</Button>
+                 </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </CardContent>
       </Card>
-
-      <button
-        onClick={handleLogout}
-        className="w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 font-medium disabled:opacity-50"
-        disabled={logoutStatus === 'loading'}
-      >
-        {logoutStatus === 'loading' ? 'Logging out...' : 'Log Out'}
-      </button>
-      {logoutStatus === 'error' && <p className="text-red-600 text-sm text-center mt-2">Logout failed. Please try again.</p>}
-      {logoutStatus === 'success' && <p className="text-green-600 text-sm text-center mt-2">Logged out successfully.</p>}
     </div>
   );
 }
