@@ -10,7 +10,7 @@
 PayNext is a robust, scalable payment processing platform built on a microservices architecture. It provides secure, fast, and reliable payment solutions for businesses of all sizes, with support for multiple payment methods and currencies.
 
 <div align="center">
-  <img src="docs/paynext_dashboard.png" alt="PayNext Dashboard" width="80%">
+  <img src="docs/images/PayNext_dashboard.bmp" alt="PayNext Dashboard" width="80%">
 </div>
 
 > **Note**: This project is under active development. Features and functionalities are continuously being enhanced to improve payment processing capabilities and user experience.
