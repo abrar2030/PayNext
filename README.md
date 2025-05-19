@@ -1,30 +1,27 @@
-# Microservices-Based FinTech Payment Solution
+# PayNext
 
-[![CI Status](https://img.shields.io/github/actions/workflow/status/abrar2030/PayNext/ci-cd.yml?branch=main&label=CI&logo=github)](https://github.com/abrar2030/PayNext/actions)
-[![CI Status](https://img.shields.io/github/workflow/status/abrar2030/PayNext/CI/main?label=CI)](https://github.com/abrar2030/PayNext/actions)
-[![Test Coverage](https://img.shields.io/codecov/c/github/abrar2030/PayNext/main?label=Coverage)](https://codecov.io/gh/abrar2030/PayNext)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI/CD Status](https://img.shields.io/github/actions/workflow/status/abrar2030/PayNext/complete-workflow.yml?branch=main&label=CI/CD&logo=github)](https://github.com/abrar2030/PayNext/actions)
+[![Backend Status](https://img.shields.io/github/actions/workflow/status/abrar2030/PayNext/backend-workflow.yml?branch=main&label=Backend&logo=spring)](https://github.com/abrar2030/PayNext/actions)
+[![Frontend Status](https://img.shields.io/github/actions/workflow/status/abrar2030/PayNext/frontend-workflow.yml?branch=main&label=Frontend&logo=react)](https://github.com/abrar2030/PayNext/actions)
+[![License](https://img.shields.io/github/license/abrar2030/PayNext)](https://github.com/abrar2030/PayNext/blob/main/LICENSE)
 
-## Overview
+## 💳 Modern Microservices Payment Platform
 
-This project is a microservices-based payment solution built with Spring Boot and React.js. It consists of multiple backend microservices, a frontend application, deployment scripts, CI/CD configurations, and Kubernetes configurations, providing a comprehensive FinTech payment platform.
-
+PayNext is a robust, scalable payment processing platform built on a microservices architecture. It provides secure, fast, and reliable payment solutions for businesses of all sizes, with support for multiple payment methods and currencies.
 
 <div align="center">
-  <img src="docs/PayNext.bmp" alt="A microservices-based payment solution" width="100%">
+  <img src="docs/paynext_dashboard.png" alt="PayNext Dashboard" width="80%">
 </div>
 
-> **Note**: PayNext is currently under active development. Features and functionalities are being added and improved continuously to enhance user experience.
+> **Note**: This project is under active development. Features and functionalities are continuously being enhanced to improve payment processing capabilities and user experience.
 
 ## Table of Contents
-
+- [Overview](#overview)
 - [Architecture](#architecture)
+- [Features](#features)
+- [Technology Stack](#technology-stack)
 - [Services](#services)
-- [Feature Implementation Status](#feature-implementation-status)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Running the Application](#running-the-application)
-- [Using the Application](#using-the-application)
+- [Getting Started](#getting-started)
 - [API Endpoints](#api-endpoints)
 - [Testing](#testing)
 - [CI/CD Pipeline](#cicd-pipeline)
@@ -34,155 +31,240 @@ This project is a microservices-based payment solution built with Spring Boot an
 - [Contributing](#contributing)
 - [License](#license)
 
+## Overview
+
+PayNext is a comprehensive payment processing platform designed with a microservices architecture to ensure scalability, resilience, and maintainability. The system handles various payment methods, provides robust security features, and offers a seamless user experience for both merchants and customers.
+
 ## Architecture
 
-The application follows a microservices architecture, consisting of:
+PayNext follows a microservices architecture with the following components:
 
-- **Eureka Server**: Service registry for microservices.
-- **API Gateway**: Routes external requests to appropriate microservices.
-- **User Service**: Manages user accounts and authentication.
-- **Payment Service**: Handles payment transactions.
-- **Notification Service**: Sends notifications to users.
-- **Frontend Application**: Built with React.js to provide a user interface.
-- **MySQL Database**: Used for storing persistent data related to users and transactions.
+```
+PayNext/
+├── API Gateway
+│   └── Routes requests to appropriate services
+├── Service Registry
+│   └── Manages service discovery
+├── Config Server
+│   └── Centralizes configuration management
+├── Core Services
+│   ├── User Service
+│   ├── Payment Service
+│   ├── Transaction Service
+│   ├── Notification Service
+│   └── Reporting Service
+├── Frontend Applications
+│   ├── Web Dashboard
+│   └── Mobile App
+└── Infrastructure
+    ├── Database Cluster
+    ├── Message Queue
+    ├── Cache Layer
+    └── Monitoring Stack
+```
 
-The backend services communicate via REST APIs, and the microservices are registered with the Eureka Server for service discovery.
+### Communication Flow
+1. Client requests are received by the API Gateway
+2. Gateway routes requests to appropriate microservices
+3. Services communicate with each other via REST APIs or message queues
+4. Service Registry maintains a registry of available services
+5. Config Server provides centralized configuration management
+
+## Features
+
+### Payment Processing
+- **Multiple Payment Methods**: Support for credit/debit cards, bank transfers, digital wallets
+- **International Payments**: Multi-currency support with automatic conversion
+- **Recurring Payments**: Scheduled and subscription-based payment processing
+- **Split Payments**: Divide payments among multiple recipients
+- **Payment Links**: Generate shareable payment links
+
+### Security
+- **PCI DSS Compliance**: Adherence to Payment Card Industry Data Security Standards
+- **Fraud Detection**: AI-powered fraud detection and prevention
+- **Tokenization**: Secure handling of sensitive payment information
+- **Two-Factor Authentication**: Enhanced security for user accounts
+- **Encryption**: End-to-end encryption for all transactions
+
+### User Management
+- **Merchant Onboarding**: Streamlined process for merchant registration
+- **Customer Profiles**: Secure storage of customer payment preferences
+- **Role-Based Access Control**: Granular permissions for different user types
+- **Account Management**: Self-service tools for account maintenance
+
+### Reporting & Analytics
+- **Transaction Reports**: Detailed insights into payment activities
+- **Financial Reconciliation**: Tools for balancing accounts
+- **Business Intelligence**: Analytics dashboard for performance metrics
+- **Export Capabilities**: Data export in various formats (CSV, PDF, Excel)
+- **Custom Reports**: Configurable reporting options
+
+## Technology Stack
+
+### Backend
+- **Framework**: Spring Boot, Spring Cloud
+- **Language**: Java 17
+- **Database**: MySQL, MongoDB
+- **Message Queue**: RabbitMQ, Kafka
+- **Cache**: Redis
+- **Service Discovery**: Netflix Eureka
+- **API Gateway**: Spring Cloud Gateway
+- **Config Server**: Spring Cloud Config
+
+### Frontend
+- **Framework**: React with TypeScript
+- **State Management**: Redux Toolkit
+- **Styling**: Material-UI, Styled Components
+- **API Client**: Axios
+- **Data Visualization**: Recharts, D3.js
+
+### Mobile App
+- **Framework**: React Native
+- **Navigation**: React Navigation
+- **State Management**: Redux Toolkit
+- **UI Components**: React Native Paper
+
+### DevOps
+- **Containerization**: Docker
+- **Orchestration**: Kubernetes
+- **CI/CD**: GitHub Actions
+- **Monitoring**: Prometheus, Grafana
+- **Logging**: ELK Stack (Elasticsearch, Logstash, Kibana)
+- **Infrastructure as Code**: Terraform, Helm
 
 ## Services
 
-### Backend Services
+### API Gateway
+- Routes client requests to appropriate microservices
+- Handles authentication and authorization
+- Implements rate limiting and circuit breaking
+- Provides API documentation with Swagger
 
-- **Eureka Server** (`eureka-server`): Runs on port `8001`.
-- **API Gateway** (`api-gateway`): Runs on port `8002`.
-- **User Service** (`user-service`): Runs on port `8003`. Manages user registration, login, and user-related operations.
-- **Payment Service** (`payment-service`): Runs on port `8004`. Manages payment initiation, processing, and history.
-- **Notification Service** (`notification-service`): Runs on port `8005`. Handles notifications, such as payment confirmations.
+### User Service
+- Manages user registration and authentication
+- Handles user profiles and preferences
+- Implements role-based access control
+- Provides account management functionality
 
-### Frontend Application
+### Payment Service
+- Processes payment transactions
+- Integrates with payment gateways and providers
+- Handles payment method management
+- Implements payment security measures
 
-- **React.js Application** (`frontend`): Runs on port `3000`. It provides the user interface for interacting with the backend services, allowing users to register, make payments, view payment history, and more.
+### Transaction Service
+- Records and manages transaction history
+- Provides transaction status tracking
+- Handles refunds and chargebacks
+- Implements transaction reconciliation
 
-## Feature Implementation Status
+### Notification Service
+- Sends transaction notifications and alerts
+- Manages notification preferences
+- Supports multiple channels (email, SMS, push)
+- Handles notification templates
 
-| Feature | Status | Description | Planned Release |
-|---------|--------|-------------|----------------|
-| **Core Infrastructure** |
-| Eureka Server | ✅ Implemented | Service registry for microservices | v1.0 |
-| API Gateway | ✅ Implemented | Request routing and load balancing | v1.0 |
-| Docker Containerization | ✅ Implemented | Containerized services | v1.0 |
-| Kubernetes Deployment | ✅ Implemented | Orchestration for containers | v1.0 |
-| CI/CD Pipeline | ✅ Implemented | Automated testing and deployment | v1.0 |
-| **User Service** |
-| User Registration | ✅ Implemented | Account creation functionality | v1.0 |
-| User Authentication | ✅ Implemented | Secure login with JWT | v1.0 |
-| Profile Management | ✅ Implemented | User profile editing | v1.0 |
-| Role-based Authorization | ✅ Implemented | Access control based on roles | v1.0 |
-| Password Recovery | 🔄 In Progress | Reset forgotten passwords | v1.1 |
-| Multi-factor Authentication | 📅 Planned | Enhanced security with 2FA | v1.2 |
-| **Payment Service** |
-| Payment Initiation | ✅ Implemented | Start payment transactions | v1.0 |
-| Payment Processing | ✅ Implemented | Execute payment transactions | v1.0 |
-| Payment History | ✅ Implemented | View past transactions | v1.0 |
-| Recurring Payments | 🔄 In Progress | Scheduled regular payments | v1.1 |
-| International Payments | 🔄 In Progress | Cross-border transactions | v1.1 |
-| Payment Analytics | 📅 Planned | Transaction insights and reporting | v1.2 |
-| **Notification Service** |
-| Email Notifications | ✅ Implemented | Transaction alerts via email | v1.0 |
-| In-app Notifications | ✅ Implemented | Alerts within the application | v1.0 |
-| Notification Preferences | 🔄 In Progress | User-defined alert settings | v1.1 |
-| SMS Notifications | 📅 Planned | Transaction alerts via SMS | v1.2 |
-| Push Notifications | 📅 Planned | Mobile device alerts | v1.2 |
-| **Frontend Application** |
-| User Dashboard | ✅ Implemented | Main user interface | v1.0 |
-| Payment Interface | ✅ Implemented | Transaction creation UI | v1.0 |
-| Transaction History | ✅ Implemented | View past payments | v1.0 |
-| Responsive Design | ✅ Implemented | Mobile-friendly interface | v1.0 |
-| Advanced Filtering | 🔄 In Progress | Enhanced transaction search | v1.1 |
-| Data Visualization | 📅 Planned | Charts and graphs for insights | v1.2 |
+### Reporting Service
+- Generates financial and transaction reports
+- Provides analytics and insights
+- Handles data export functionality
+- Implements custom reporting options
 
-**Legend:**
-- ✅ Implemented: Feature is complete and available
-- 🔄 In Progress: Feature is currently being developed
-- 📅 Planned: Feature is planned for future release
+## Getting Started
 
-## Prerequisites
+### Prerequisites
+- Java 17
+- Maven
+- Docker and Docker Compose
+- Kubernetes (for production deployment)
+- Node.js and npm
 
-- **Java 17** or higher installed.
-- **Node.js** and **npm** installed.
-- **Docker** and **Docker Compose** installed.
-- **Minikube** for local Kubernetes deployment.
-- **kubectl** for managing Kubernetes clusters.
+### Local Development Setup
 
-## Installation
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/abrar2030/PayNext.git
+   cd PayNext
+   ```
 
-### Clone the Repository
+2. **Start infrastructure services with Docker Compose**
+   ```bash
+   docker-compose up -d mysql rabbitmq redis
+   ```
+
+3. **Build and run backend services**
+   ```bash
+   # Using the convenience script
+   ./paynext.sh build-run-backend
+   
+   # Or manually
+   cd backend
+   ./mvnw clean package
+   java -jar service-registry/target/service-registry.jar &
+   java -jar config-server/target/config-server.jar &
+   java -jar api-gateway/target/api-gateway.jar &
+   java -jar user-service/target/user-service.jar &
+   java -jar payment-service/target/payment-service.jar &
+   ```
+
+4. **Build and run frontend**
+   ```bash
+   cd web-frontend
+   npm install
+   npm start
+   ```
+
+5. **Access the application**
+   - Web Dashboard: http://localhost:3000
+   - API Gateway: http://localhost:8080
+   - Service Registry: http://localhost:8761
+   - Swagger UI: http://localhost:8080/swagger-ui.html
+
+### Using Docker Compose
+
+To run the entire application stack using Docker Compose:
 
 ```bash
-git clone https://github.com/abrar2030/PayNext.git
-cd PayNext
-```
+# Build and start all services
+./docker-build-and-compose.sh
 
-### Setup Environment Variables
-
-Set up the necessary environment variables for JWT secrets and Eureka server URLs in the backend services.
-
-You can create a `.env` file or use Kubernetes secrets for deployment.
-
-## Running the Application
-
-### Docker Setup
-
-Build and run all the microservices and the frontend using Docker Compose:
-
-```bash
+# Or use Docker Compose directly
 docker-compose up --build
 ```
 
-### Kubernetes Deployment
+### Mobile App Setup
 
-Deploy the application on Minikube using the provided Helm charts:
-
-1. Start Minikube:
-
-   ```bash
-   minikube start
-   ```
-
-2. Deploy using Helm:
-
-   ```bash
-   helm install paynext kubernetes
-   ```
-
-## Using the Application
-
-Once the application is running, access the frontend using your browser:
-
-- **Frontend URL**: [http://localhost:3000](http://localhost:3000)
-
-### User Registration and Login
-- Users can register by providing their details.
-- Login with credentials to access the payment features.
-
-### Payment Processing
-- Initiate payments by filling in the required details.
-- View payment history.
-
-### Notifications
-- Notifications are sent upon successful payment transactions.
+```bash
+cd mobile-frontend
+npm install
+npx react-native run-android  # For Android
+npx react-native run-ios      # For iOS
+```
 
 ## API Endpoints
 
 ### User Service
-- `POST /api/users/register` - Register a new user.
-- `POST /api/users/login` - User login.
+- `POST /api/users/register` - Register a new user
+- `POST /api/users/login` - User login
+- `GET /api/users/profile` - Get user profile
+- `PUT /api/users/profile` - Update user profile
 
 ### Payment Service
-- `POST /api/payments` - Initiate a new payment.
-- `GET /api/payments/history` - Retrieve payment history.
+- `POST /api/payments` - Initiate a new payment
+- `GET /api/payments/{id}` - Get payment details
+- `GET /api/payments/history` - Retrieve payment history
+- `POST /api/payments/methods` - Add payment method
+- `GET /api/payments/methods` - List payment methods
+
+### Transaction Service
+- `GET /api/transactions` - List transactions
+- `GET /api/transactions/{id}` - Get transaction details
+- `POST /api/transactions/{id}/refund` - Process refund
 
 ### Notification Service
-- `POST /api/notifications` - Send a notification.
+- `POST /api/notifications` - Send a notification
+- `GET /api/notifications` - List notifications
+- `PUT /api/notifications/preferences` - Update notification preferences
 
 ## Testing
 
@@ -209,21 +291,20 @@ The project includes comprehensive testing to ensure reliability and functionali
 - Response time benchmarking
 
 To run tests:
-
 ```bash
 # Backend tests (from each service directory)
 ./mvnw test
 
 # Frontend tests
-cd frontend
+cd web-frontend
 npm test
 
 # End-to-end tests
-cd frontend
+cd web-frontend
 npm run test:e2e
 
 # Run all tests with the convenience script
-./run-all-tests.sh
+./run_all_tests.sh
 ```
 
 ## CI/CD Pipeline
@@ -243,50 +324,72 @@ PayNext uses GitHub Actions for continuous integration and deployment:
 - Kubernetes deployment updates
 
 Current CI/CD Status:
-- Build: ![Build Status](https://img.shields.io/github/workflow/status/abrar2030/PayNext/CI/main?label=build)
-- Test Coverage: ![Coverage](https://img.shields.io/codecov/c/github/abrar2030/PayNext/main?label=coverage)
-- Code Quality: ![Code Quality](https://img.shields.io/sonar/quality_gate/abrar2030_PayNext?server=https%3A%2F%2Fsonarcloud.io&label=code%20quality)
+- Main: ![CI/CD Status](https://img.shields.io/github/actions/workflow/status/abrar2030/PayNext/complete-workflow.yml?branch=main&label=build)
+- Backend: ![Backend Status](https://img.shields.io/github/actions/workflow/status/abrar2030/PayNext/backend-workflow.yml?branch=main&label=backend)
+- Frontend: ![Frontend Status](https://img.shields.io/github/actions/workflow/status/abrar2030/PayNext/frontend-workflow.yml?branch=main&label=frontend)
 
 ## Deployment with Kubernetes
 
-The project includes a Helm chart for Kubernetes deployment. All services are defined as Kubernetes deployments and services.
+The project includes Kubernetes manifests and Helm charts for deployment:
 
-### Helm Chart Directory
-- **kubernetes**: Contains Helm templates for deploying all backend services, the frontend, and related Kubernetes configurations.
+### Kubernetes Directory Structure
+```
+k8s/
+├── base/                # Base Kubernetes configurations
+├── overlays/            # Environment-specific overlays
+│   ├── development/
+│   ├── staging/
+│   └── production/
+└── helm/                # Helm charts for deployment
+```
 
 ### Helm Commands
-
 To install the chart:
-
 ```bash
-helm install paynext ./kubernetes
+helm install paynext ./k8s/helm
 ```
 
 To uninstall the chart:
-
 ```bash
 helm uninstall paynext
+```
+
+### Kubernetes Deployment
+```bash
+# Deploy to development environment
+./kubernetes-auto-deploy.sh development
+
+# Deploy to staging environment
+./kubernetes-auto-deploy.sh staging
+
+# Deploy to production environment
+./kubernetes-auto-deploy.sh production
 ```
 
 ## Scripts
 
 The project contains several scripts for managing services and deployment:
 
-- **docker-minikube-deploy.sh**: Builds Docker images for each service and deploys them to Minikube.
-- **manage-services.sh**: A script for managing individual microservices, including options to clean, build, and run services.
-- **git-auto-commit.sh**: Automates the process of committing and pushing changes to the GitHub repository.
-- **git-auto-rebase.sh**: Automates rebasing the current branch onto a target branch.
-- **build-and-run.sh**: Builds and runs the backend and frontend services.
+- **paynext.sh**: Main script for managing the application with various commands
+- **docker-build-and-compose.sh**: Builds Docker images and starts services with Docker Compose
+- **kubernetes-auto-deploy.sh**: Automates deployment to Kubernetes environments
+- **run_all_tests.sh**: Runs all tests across the project
+- **manage-services.sh**: Manages individual microservices (build, run, stop)
+- **start-service.sh**: Starts a specific service with proper configuration
 
 ## Technologies Used
 
-- **Backend**: Java, Spring Boot, Spring Cloud (Netflix Eureka), Spring Data JPA, Spring Security.
-- **Frontend**: React.js, Axios for API calls.
-- **Database**: MySQL.
-- **Authentication**: JWT (JSON Web Tokens).
-- **Containerization**: Docker.
-- **Orchestration**: Kubernetes, Helm.
-- **CI/CD**: GitHub Actions for automated testing, building, and deployment.
+- **Backend**: Java 17, Spring Boot, Spring Cloud, Spring Data JPA, Spring Security
+- **Frontend**: React.js, TypeScript, Redux, Material-UI
+- **Mobile**: React Native, Redux
+- **Database**: MySQL, MongoDB, Redis
+- **Messaging**: RabbitMQ, Kafka
+- **Authentication**: JWT, OAuth 2.0
+- **Documentation**: Swagger, Spring REST Docs
+- **Containerization**: Docker
+- **Orchestration**: Kubernetes, Helm
+- **CI/CD**: GitHub Actions
+- **Monitoring**: Prometheus, Grafana, ELK Stack
 
 ## Contributing
 
@@ -318,7 +421,6 @@ We welcome contributions to improve PayNext! Here's how you can contribute:
    - Respond to review comments and make necessary adjustments
 
 ### Development Guidelines
-
 - Follow Java code conventions for backend services
 - Use ESLint and Prettier for JavaScript/React code
 - Write unit tests for new features
