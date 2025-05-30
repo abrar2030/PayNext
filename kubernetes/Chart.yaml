@@ -1,6 +1,8 @@
----
 apiVersion: v2
-name: kubernetes
-description: A Helm chart for deploying PayNext application on Kubernetes
+name: paynext
+description: A Helm chart for deploying PayNext financial application on Kubernetes with financial industry standards
 version: 1.0.0
 appVersion: "1.0"
+maintainers:
+  - name: PayNext Team
+    email: team@paynext.com

@@ -1,57 +1,381 @@
-# Kubernetes Manifests for PayNext
+# PayNext Kubernetes Deployment Guide
+## Financial Industry Standards Compliant
 
-## Overview
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Compliance and Security](#compliance-and-security)
+3. [Architecture](#architecture)
+4. [Prerequisites](#prerequisites)
+5. [Installation](#installation)
+6. [Configuration](#configuration)
+7. [Deployment](#deployment)
+8. [Monitoring and Alerting](#monitoring-and-alerting)
+9. [Backup and Disaster Recovery](#backup-and-disaster-recovery)
+10. [Security Best Practices](#security-best-practices)
+11. [Troubleshooting](#troubleshooting)
+12. [Maintenance](#maintenance)
+13. [Appendix](#appendix)
 
-The k8s directory contains the Kubernetes manifest files that define the deployment configuration for the PayNext fintech payment solution in a Kubernetes environment. These manifests provide a comprehensive, declarative approach to deploying, scaling, and managing the containerized microservices that make up the PayNext application. The configuration files in this directory follow Kubernetes best practices and are structured to support deployment across different environments while maintaining consistency and reliability.
+## Introduction
 
-## Directory Structure
+This Helm chart provides a comprehensive, secure, and compliant deployment solution for the PayNext financial application on Kubernetes. It is designed to meet the stringent requirements of financial industry regulations including PCI-DSS, SOX, GDPR, and other relevant standards.
 
-The k8s directory is organized into subdirectories that correspond to the different components of the PayNext application. Each subdirectory contains the Kubernetes manifest files specific to that component, including Deployments, Services, ConfigMaps, and other Kubernetes resources. This organization makes it easy to locate and manage the configuration for each component independently while maintaining a cohesive overall deployment strategy.
+PayNext is a fintech payment solution that requires robust security, high availability, and comprehensive monitoring. This Helm chart implements industry best practices for deploying financial applications in containerized environments.
 
-The component-specific subdirectories include api-gateway, eureka-server, mobile-frontend, notification-service, payment-service, user-service, and web-frontend. Each contains the necessary manifests to deploy and configure that particular service within the Kubernetes cluster. The secrets.yaml file at the root of the k8s directory contains sensitive configuration data used by multiple components, encrypted using Kubernetes secrets management.
+## Compliance and Security
 
-## Deployment Configuration
+This Helm chart is designed with the following compliance frameworks in mind:
 
-The Kubernetes manifests define the deployment configuration for each component, specifying details such as container images, resource requirements, environment variables, and volume mounts. The Deployment resources ensure that the specified number of replicas for each component are maintained, with automatic recovery from failures. Horizontal Pod Autoscaler configurations are included for components that require dynamic scaling based on load.
+### PCI-DSS Compliance
+- Network segmentation via strict network policies
+- Encrypted data transmission
+- Secure authentication and authorization
+- Comprehensive logging and monitoring
+- Regular automated backups
+- Least privilege access controls
 
-Service resources define how each component is exposed within the cluster and, when appropriate, to external users. Internal services use ClusterIP for communication between components, while user-facing components use LoadBalancer or NodePort services to expose endpoints externally. Ingress resources are configured to manage external access to the services, with routing rules based on paths and hostnames.
+### SOX Compliance
+- Audit trails for all system changes
+- Segregation of duties via RBAC
+- Controlled deployment processes
+- Change management controls
 
-## Configuration Management
+### GDPR Compliance
+- Data protection by design
+- Secure data handling
+- Data minimization principles
+- Ability to implement right to be forgotten
 
-ConfigMap resources are used to manage non-sensitive configuration data, separating configuration from the container images to enable environment-specific settings without rebuilding images. Environment variables and configuration files are injected into containers using ConfigMaps, allowing for consistent container images across environments with environment-specific configurations.
+### NIST Cybersecurity Framework
+- Identify: Asset management and access control
+- Protect: Secure configurations and data protection
+- Detect: Continuous monitoring and anomaly detection
+- Respond: Response planning and communications
+- Recover: Recovery planning and improvements
 
-Secret resources manage sensitive data such as API keys, credentials, and certificates. These secrets are encrypted at rest and only decrypted when needed by the pods. Access to secrets is controlled through Kubernetes RBAC (Role-Based Access Control) to ensure that only authorized components can access sensitive information.
+## Architecture
 
-## Resource Management
+The PayNext application consists of the following microservices:
 
-The manifests include resource requests and limits for CPU and memory, ensuring that each component has the resources it needs while preventing any single component from consuming excessive resources. These settings are tuned based on the expected load and performance requirements of each component. Quality of Service (QoS) classes are assigned based on these resource specifications, influencing scheduling and eviction decisions by the Kubernetes scheduler.
+1. **Eureka Server**: Service discovery for microservices
+2. **API Gateway**: Entry point for all client requests with authentication and routing
+3. **User Service**: User management and authentication
+4. **Payment Service**: Core payment processing functionality
+5. **Notification Service**: Handles notifications via email, SMS, etc.
+6. **Frontend**: Web interface for the application
 
-## Network Policies
+The Helm chart deploys these services with appropriate security contexts, resource limits, health checks, and network policies to ensure a secure and reliable operation.
 
-Network policies define the allowed communication paths between components, implementing the principle of least privilege at the network level. These policies restrict pod-to-pod communication to only what is necessary for the application to function, enhancing security by reducing the attack surface. Egress policies control outbound traffic from the cluster, ensuring that components only communicate with authorized external services.
+## Prerequisites
 
-## Persistent Storage
+Before deploying the PayNext application, ensure you have:
 
-For components that require persistent storage, such as databases or file storage services, the manifests include PersistentVolumeClaim resources. These claims request storage from the underlying infrastructure according to the specified storage class, capacity, and access mode. The storage configuration is designed to be portable across different Kubernetes environments while maintaining data durability and performance.
+1. Kubernetes cluster (v1.19+)
+2. Helm (v3.0+)
+3. kubectl configured to communicate with your cluster
+4. Namespace created for the application
+5. TLS certificates for secure communication
+6. Secrets management solution (optional but recommended)
 
-## Health Checks and Monitoring
+## Installation
 
-Liveness and readiness probes are configured for each component to enable Kubernetes to monitor the health of the application and take appropriate action when issues are detected. These probes use HTTP endpoints, TCP sockets, or command execution to determine the health status of containers. Prometheus annotations are included to enable metrics collection for monitoring and alerting.
+### Adding the Repository
 
-## Deployment Strategy
+```bash
+helm repo add paynext https://charts.paynext.com
+helm repo update
+```
 
-The manifests implement rolling update strategies for zero-downtime deployments, with configuration for maximum unavailable and maximum surge to control the pace of updates. Readiness probes ensure that new versions are only considered available when they are truly ready to serve traffic. For components with stateful requirements, StatefulSet resources are used instead of Deployments to maintain stable network identities and persistent storage.
+### Creating the Namespace
 
-## Environment-Specific Configuration
+```bash
+kubectl create namespace paynext
+```
 
-While the manifests in this directory provide a base configuration, environment-specific overrides can be applied using Kustomize or Helm. The base configuration is designed to work in any environment, with environment-specific settings applied through overlays or value files. This approach ensures consistency across environments while allowing for necessary variations in configuration.
+### Installing the Chart
 
-## Usage Guidelines
+```bash
+helm install paynext paynext/paynext -n paynext -f values-prod.yaml
+```
 
-When working with the Kubernetes manifests, follow these guidelines:
+## Configuration
 
-Always use version control for manifest changes, treating infrastructure code with the same rigor as application code. Test manifest changes in lower environments before applying them to production. Use kubectl apply with the --dry-run flag to validate changes before applying them. Monitor the rollout of changes using kubectl rollout status to ensure successful deployment. Be cautious when modifying stateful components, as changes may affect persistent data.
+The Helm chart is highly configurable through the `values.yaml` file. Below are the key configuration sections:
 
-## Extending the Configuration
+### Global Configuration
 
-When extending the Kubernetes configuration to support new features or components, maintain consistency with the existing architecture and follow the established patterns. Create new subdirectories for new components, following the same structure as existing ones. Ensure that new components include appropriate resource limits, health checks, and security configurations. Document new components thoroughly, including their purpose, dependencies, and configuration options.
+```yaml
+global:
+  namespace: paynext
+  ingressClass: nginx
+  compliance:
+    pci: true
+    gdpr: true
+    sox: true
+  security:
+    networkPolicies: true
+    podSecurityPolicies: true
+    securityContext:
+      enabled: true
+      runAsNonRoot: true
+      runAsUser: 10001
+      fsGroup: 10001
+```
+
+### Service-Specific Configuration
+
+Each service can be configured individually:
+
+```yaml
+apiGateway:
+  image:
+    repository: abrar2030/backend-api-gateway
+    tag: latest
+    pullPolicy: Always
+  service:
+    port: 8002
+    type: ClusterIP
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+```
+
+### Security Configuration
+
+```yaml
+secrets:
+  create: true
+  data:
+    jwt_secret: "REPLACE_WITH_SECURE_JWT_SECRET"
+    payment_gateway_api_key: "REPLACE_WITH_PAYMENT_GATEWAY_API_KEY"
+```
+
+### RBAC Configuration
+
+```yaml
+rbac:
+  create: true
+  roles:
+    - name: paynext-admin
+      rules:
+        - apiGroups: [""]
+          resources: ["pods", "services", "configmaps", "secrets"]
+          verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+```
+
+### Network Policies
+
+```yaml
+networkPolicies:
+  enabled: true
+  defaultDenyIngress: true
+  defaultDenyEgress: false
+  allowedNamespaces:
+    - kube-system
+    - monitoring
+```
+
+### Monitoring Configuration
+
+```yaml
+monitoring:
+  enabled: true
+  prometheus:
+    enabled: true
+  grafana:
+    enabled: true
+```
+
+### Backup Configuration
+
+```yaml
+backup:
+  enabled: true
+  schedule: "0 1 * * *"
+  retention: 30
+```
+
+## Deployment
+
+### Production Deployment
+
+For production deployments, it's recommended to:
+
+1. Create a dedicated `values-prod.yaml` file
+2. Set resource limits appropriate for production workloads
+3. Enable all security features
+4. Configure proper monitoring and alerting
+5. Set up regular backups
+
+```bash
+helm install paynext paynext/paynext -n paynext -f values-prod.yaml
+```
+
+### Staging Deployment
+
+For staging environments:
+
+```bash
+helm install paynext-staging paynext/paynext -n paynext-staging -f values-staging.yaml
+```
+
+### Development Deployment
+
+For development environments:
+
+```bash
+helm install paynext-dev paynext/paynext -n paynext-dev -f values-dev.yaml
+```
+
+## Monitoring and Alerting
+
+The chart includes Prometheus for monitoring and can be configured to send alerts to various channels:
+
+### Prometheus Configuration
+
+Prometheus is configured to scrape metrics from all PayNext services. The configuration can be customized in the `values.yaml` file.
+
+### Grafana Dashboards
+
+Pre-configured Grafana dashboards are included for:
+- System metrics (CPU, memory, network)
+- Application metrics (request rates, error rates, latencies)
+- Business metrics (transaction volumes, success rates)
+
+### Alert Rules
+
+Alert rules are defined for:
+- High error rates
+- Service unavailability
+- Resource constraints
+- Security events
+
+## Backup and Disaster Recovery
+
+### Automated Backups
+
+The chart includes a CronJob for regular backups of:
+- ConfigMaps
+- Secrets (encrypted)
+- PVCs
+- Deployments
+- Services
+- Ingresses
+
+### Disaster Recovery
+
+In case of a disaster:
+
+1. Create a new cluster if necessary
+2. Install the Helm chart
+3. Restore the latest backup
+4. Verify the application functionality
+
+## Security Best Practices
+
+### Pod Security
+
+- All pods run as non-root users
+- Appropriate security contexts are applied
+- Resource limits prevent DoS attacks
+
+### Network Security
+
+- Network policies restrict communication between services
+- Ingress is secured with TLS
+- External communication uses HTTPS
+
+### Secret Management
+
+- Secrets are stored securely in Kubernetes
+- Sensitive values are not stored in plain text
+- Consider using external secret management solutions like HashiCorp Vault
+
+### Access Control
+
+- RBAC is implemented for all components
+- Service accounts have minimal permissions
+- Regular access reviews are recommended
+
+## Troubleshooting
+
+### Common Issues
+
+#### Pod Startup Failures
+
+Check for resource constraints:
+```bash
+kubectl describe pod <pod-name> -n paynext
+```
+
+#### Network Connectivity Issues
+
+Verify network policies:
+```bash
+kubectl get networkpolicies -n paynext
+```
+
+#### Permission Issues
+
+Check RBAC configuration:
+```bash
+kubectl auth can-i --as=system:serviceaccount:paynext:paynext-admin-sa get pods -n paynext
+```
+
+### Logs
+
+Access logs for troubleshooting:
+```bash
+kubectl logs -f deployment/api-gateway -n paynext
+```
+
+## Maintenance
+
+### Upgrading
+
+To upgrade the application:
+```bash
+helm upgrade paynext paynext/paynext -n paynext -f values-prod.yaml
+```
+
+### Scaling
+
+To scale a service:
+```bash
+kubectl scale deployment api-gateway --replicas=3 -n paynext
+```
+
+Or update the `values.yaml` file and upgrade the release.
+
+### Rollback
+
+To rollback to a previous release:
+```bash
+helm rollback paynext 1 -n paynext
+```
+
+## Appendix
+
+### Compliance Checklist
+
+A detailed compliance checklist is available in the `docs/compliance-checklist.md` file.
+
+### Security Hardening Guide
+
+Additional security hardening steps are documented in `docs/security-hardening.md`.
+
+### Reference Architecture
+
+A reference architecture diagram is available in `docs/architecture.png`.
+
+### Values Reference
+
+A complete reference of all available values is in `docs/values-reference.md`.
+
+---
+
+For additional support, please contact the PayNext DevOps team at devops@paynext.com.

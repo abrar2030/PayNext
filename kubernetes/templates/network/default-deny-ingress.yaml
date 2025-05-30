@@ -1,0 +1,9 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: paynext-default-deny-ingress
+  namespace: paynext
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
