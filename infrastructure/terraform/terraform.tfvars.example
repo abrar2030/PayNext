@@ -1,0 +1,323 @@
+# PayNext Infrastructure Configuration
+# Copy this file to terraform.tfvars and customize the values for your environment
+
+# =============================================================================
+# ENVIRONMENT CONFIGURATION
+# =============================================================================
+
+# Deployment environment (dev, staging, prod)
+environment = "dev"
+
+# AWS region for primary deployment
+region = "us-west-2"
+
+# Disaster recovery region
+dr_region = "us-east-1"
+
+# =============================================================================
+# NETWORK CONFIGURATION
+# =============================================================================
+
+# VPC CIDR block
+vpc_cidr = "10.0.0.0/16"
+
+# Availability zones to use
+availability_zones = ["us-west-2a", "us-west-2b", "us-west-2c"]
+
+# Enable multi-AZ deployment
+enable_multi_az = true
+
+# Enable VPC Flow Logs
+enable_vpc_flow_logs = true
+
+# =============================================================================
+# SECURITY CONFIGURATION
+# =============================================================================
+
+# Contact email for security notifications
+security_contact_email = "security@yourcompany.com"
+
+# Contact email for compliance notifications
+compliance_contact_email = "compliance@yourcompany.com"
+
+# Enable encryption at rest
+enable_encryption_at_rest = true
+
+# Enable GuardDuty threat detection
+enable_guardduty = true
+
+# Enable AWS Config for compliance monitoring
+enable_config = true
+
+# Enable CloudTrail for audit logging
+enable_cloudtrail = true
+
+# =============================================================================
+# DATABASE CONFIGURATION
+# =============================================================================
+
+# Database engine (aurora-postgresql or aurora-mysql)
+db_engine = "aurora-postgresql"
+
+# Database engine version
+db_engine_version = "15.3"
+
+# Database name
+db_name = "paynext"
+
+# Master username for database
+db_master_username = "paynext_admin"
+
+# Database instance class
+db_instance_class = "db.r6g.large"
+
+# Number of database instances in cluster
+db_instance_count = 2
+
+# Backup retention period (days)
+backup_retention_days = 35
+
+# Enable cross-region backup
+enable_cross_region_backup = true
+
+# Enable RDS Proxy
+enable_rds_proxy = true
+
+# =============================================================================
+# KUBERNETES CONFIGURATION
+# =============================================================================
+
+# EKS cluster name
+cluster_name = "paynext-cluster"
+
+# Kubernetes version
+kubernetes_version = "1.27"
+
+# Enable public access to EKS endpoint (set to false for production)
+enable_public_access = false
+
+# Public access CIDRs (if public access is enabled)
+public_access_cidrs = ["0.0.0.0/0"]
+
+# Node group configuration
+node_groups = {
+  general = {
+    instance_types             = ["t3.medium"]
+    capacity_type             = "ON_DEMAND"
+    ami_type                  = "AL2_x86_64"
+    disk_size                 = 50
+    desired_size              = 2
+    max_size                  = 10
+    min_size                  = 1
+    max_unavailable_percentage = 25
+    labels = {
+      role = "general"
+    }
+    taints = []
+  }
+  # Add more node groups as needed
+  # compute = {
+  #   instance_types             = ["c5.large"]
+  #   capacity_type             = "ON_DEMAND"
+  #   ami_type                  = "AL2_x86_64"
+  #   disk_size                 = 100
+  #   desired_size              = 1
+  #   max_size                  = 5
+  #   min_size                  = 0
+  #   max_unavailable_percentage = 25
+  #   labels = {
+  #     role = "compute"
+  #   }
+  #   taints = [
+  #     {
+  #       key    = "compute"
+  #       value  = "true"
+  #       effect = "NO_SCHEDULE"
+  #     }
+  #   ]
+  # }
+}
+
+# =============================================================================
+# STORAGE CONFIGURATION
+# =============================================================================
+
+# Enable EFS for shared storage
+enable_efs = true
+
+# Data retention period (days) - 7 years for financial compliance
+data_retention_days = 2555
+
+# Enable cross-region replication
+enable_cross_region_replication = true
+
+# Enable S3 Intelligent Tiering
+enable_intelligent_tiering = true
+
+# S3 lifecycle transition days
+transition_to_ia_days = 30
+transition_to_glacier_days = 90
+transition_to_deep_archive_days = 365
+
+# =============================================================================
+# MONITORING CONFIGURATION
+# =============================================================================
+
+# Log retention period (days)
+log_retention_days = 365
+
+# Enable detailed monitoring
+enable_detailed_monitoring = true
+
+# CloudWatch alarm thresholds
+cloudwatch_alarm_cpu_threshold = 80
+cloudwatch_alarm_error_threshold = 10
+failed_login_threshold = 5
+
+# GuardDuty finding frequency
+guardduty_finding_frequency = "FIFTEEN_MINUTES"
+
+# =============================================================================
+# COMPLIANCE CONFIGURATION
+# =============================================================================
+
+# Enable compliance features
+enable_compliance_monitoring = true
+enable_data_classification = true
+enable_audit_trail = true
+
+# Compliance standards to meet
+compliance_standards = ["PCI-DSS", "GDPR", "SOX"]
+
+# =============================================================================
+# COST OPTIMIZATION
+# =============================================================================
+
+# Enable cost optimization features
+enable_cost_optimization = true
+enable_cost_allocation_tags = true
+enable_storage_analytics = true
+
+# =============================================================================
+# DISASTER RECOVERY
+# =============================================================================
+
+# Enable disaster recovery features
+enable_point_in_time_recovery = true
+enable_automated_backups = true
+
+# Backup schedule (cron format)
+backup_schedule = "cron(0 5 ? * * *)"  # Daily at 5 AM UTC
+
+# Cold storage transition (days)
+backup_cold_storage_after_days = 30
+
+# =============================================================================
+# TAGS
+# =============================================================================
+
+# Common tags applied to all resources
+tags = {
+  Project     = "PayNext"
+  Environment = "dev"  # Change this for each environment
+  Owner       = "Platform Team"
+  CostCenter  = "Engineering"
+  Compliance  = "PCI-DSS,GDPR,SOX"
+  Backup      = "Required"
+  Monitoring  = "Enabled"
+  
+  # Additional tags for cost allocation
+  Application = "PayNext"
+  Team        = "Platform"
+  Department  = "Engineering"
+  
+  # Compliance tags
+  DataClassification = "Confidential"
+  RetentionPeriod   = "7-years"
+  EncryptionRequired = "true"
+}
+
+# =============================================================================
+# ENVIRONMENT-SPECIFIC OVERRIDES
+# =============================================================================
+
+# Development Environment Overrides
+# Uncomment and modify for development environment
+# enable_multi_az = false
+# db_instance_class = "db.t3.medium"
+# db_instance_count = 1
+# backup_retention_days = 7
+# enable_cross_region_backup = false
+# node_groups = {
+#   general = {
+#     instance_types = ["t3.small"]
+#     desired_size   = 1
+#     max_size       = 3
+#     min_size       = 1
+#   }
+# }
+
+# Staging Environment Overrides
+# Uncomment and modify for staging environment
+# enable_multi_az = true
+# db_instance_class = "db.r6g.large"
+# db_instance_count = 2
+# backup_retention_days = 14
+# enable_cross_region_backup = true
+
+# Production Environment Overrides
+# Uncomment and modify for production environment
+# enable_multi_az = true
+# db_instance_class = "db.r6g.xlarge"
+# db_instance_count = 3
+# backup_retention_days = 35
+# enable_cross_region_backup = true
+# enable_public_access = false
+# deletion_protection = true
+# node_groups = {
+#   general = {
+#     instance_types = ["t3.large"]
+#     desired_size   = 3
+#     max_size       = 20
+#     min_size       = 2
+#   }
+#   compute = {
+#     instance_types = ["c5.xlarge"]
+#     desired_size   = 2
+#     max_size       = 10
+#     min_size       = 1
+#   }
+# }
+
+# =============================================================================
+# ADVANCED CONFIGURATION
+# =============================================================================
+
+# Custom CIDR blocks for subnets (optional)
+# public_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+# private_subnet_cidrs = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
+# database_subnet_cidrs = ["10.0.21.0/24", "10.0.22.0/24", "10.0.23.0/24"]
+
+# Custom security group rules (optional)
+# allowed_ssh_cidrs = ["10.0.0.0/8"]
+# allowed_https_cidrs = ["0.0.0.0/0"]
+
+# Custom domain configuration (optional)
+# domain_name = "paynext.yourcompany.com"
+# certificate_arn = "arn:aws:acm:us-west-2:123456789012:certificate/12345678-1234-1234-1234-123456789012"
+
+# =============================================================================
+# NOTES
+# =============================================================================
+
+# 1. Ensure all email addresses are valid and monitored
+# 2. Review security settings before deploying to production
+# 3. Adjust instance sizes based on your workload requirements
+# 4. Consider using AWS Organizations for multi-account setup
+# 5. Enable AWS CloudFormation StackSets for multi-region deployments
+# 6. Review and adjust backup retention based on compliance requirements
+# 7. Test disaster recovery procedures regularly
+# 8. Monitor costs and adjust resources as needed
+# 9. Keep this file secure and do not commit sensitive values to version control
+# 10. Use AWS Secrets Manager or Parameter Store for sensitive configuration
+

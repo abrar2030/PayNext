@@ -1,49 +1,474 @@
-# Infrastructure Directory for PayNext
+# PayNext Infrastructure
+
+This directory contains the comprehensive, enterprise-grade infrastructure code for PayNext, designed to meet financial industry standards including PCI DSS, GDPR, and SOX compliance.
 
 ## Overview
 
-The infrastructure directory contains the Infrastructure as Code (IaC) components that support the deployment, scaling, and management of the PayNext fintech payment solution. This directory houses configuration files and scripts that automate the provisioning and management of the infrastructure required to run the PayNext application in various environments. The infrastructure is designed with cloud-native principles in mind, enabling consistent, reproducible deployments across development, testing, and production environments.
+The infrastructure is built using Terraform and provides a secure, scalable, and compliant foundation for financial applications. It includes comprehensive security controls, monitoring, logging, and disaster recovery capabilities.
 
-## Directory Structure
+## Architecture
 
-The infrastructure directory is organized into two main subdirectories: ansible and terraform. This organization reflects the two primary technologies used for infrastructure management in the PayNext project. Terraform is used for provisioning the underlying cloud infrastructure resources, while Ansible is used for configuration management and application deployment. This separation of concerns allows for a clear distinction between infrastructure provisioning and configuration, making the system more maintainable and adaptable to changing requirements.
+The infrastructure follows a multi-tier architecture with the following components:
 
-## Terraform Components
+### Core Modules
 
-The terraform subdirectory contains Terraform configuration files that define the cloud infrastructure required by the PayNext application. These configurations are written in HashiCorp Configuration Language (HCL) and follow infrastructure-as-code best practices. The Terraform configurations provision various cloud resources such as virtual machines, networking components, load balancers, and managed services like databases and message queues. The configurations are modularized to promote reusability and maintainability, with separate modules for different infrastructure components.
+1. **Security Module** (`modules/security/`)
+   - AWS KMS encryption keys
+   - AWS Secrets Manager for credential management
+   - AWS WAF for web application firewall
+   - IAM roles and policies with least privilege access
+   - Security groups and NACLs
 
-Terraform's state management capabilities ensure that the actual infrastructure stays in sync with the defined configurations, preventing configuration drift and enabling collaborative infrastructure development. The configurations include variables and outputs to facilitate customization for different environments while maintaining consistency in the overall architecture. Security best practices are embedded in the configurations, including proper network segmentation, least-privilege access controls, and encryption for data at rest and in transit.
+2. **VPC Module** (`modules/vpc/`)
+   - Multi-AZ VPC with public, private, and database subnets
+   - NAT Gateways for secure outbound connectivity
+   - VPC Flow Logs for network monitoring
+   - VPC Endpoints for AWS services
+   - Network ACLs for additional security
 
-## Ansible Components
+3. **Monitoring Module** (`modules/monitoring/`)
+   - AWS CloudWatch for metrics and logging
+   - AWS GuardDuty for threat detection
+   - AWS Config for compliance monitoring
+   - AWS CloudTrail for API audit logging
+   - SNS topics for alerting
+   - CloudWatch dashboards
 
-The ansible subdirectory contains Ansible playbooks, roles, and inventories used for configuration management and application deployment. Ansible uses a declarative approach to define the desired state of servers and applications, ensuring consistency across environments. The playbooks automate various operational tasks such as software installation, configuration updates, and application deployments. Ansible roles encapsulate reusable configuration components, promoting modularity and reducing duplication.
+4. **Kubernetes Module** (`modules/kubernetes/`)
+   - Amazon EKS cluster with security hardening
+   - Node groups with auto-scaling
+   - Application Load Balancer
+   - Security groups and IAM roles
+   - Add-ons (VPC CNI, CoreDNS, EBS CSI)
 
-Ansible's agentless architecture makes it lightweight and easy to integrate with existing systems. The inventories define the target hosts for playbook execution, with separate inventories for different environments. Variables are used to customize configurations for specific environments while maintaining a consistent structure. Ansible's idempotent nature ensures that running the same playbook multiple times produces the same result, making operations more predictable and reliable.
+5. **Database Module** (`modules/database/`)
+   - Amazon Aurora PostgreSQL cluster
+   - Multi-AZ deployment for high availability
+   - Automated backups and point-in-time recovery
+   - RDS Proxy for connection pooling
+   - Performance Insights and Enhanced Monitoring
+   - Cross-region backup for disaster recovery
 
-## Integration with CI/CD Pipeline
+6. **Storage Module** (`modules/storage/`)
+   - S3 buckets with encryption and versioning
+   - Lifecycle policies for cost optimization
+   - Cross-region replication for disaster recovery
+   - EFS for shared file storage
+   - CloudWatch monitoring and alerting
 
-The infrastructure components in this directory are designed to integrate seamlessly with the project's CI/CD pipeline. Infrastructure changes follow the same review and approval process as application code, ensuring quality and consistency. The CI/CD pipeline can automatically apply Terraform configurations and run Ansible playbooks, enabling infrastructure-as-code practices throughout the development lifecycle. This integration allows for automated testing of infrastructure changes, reducing the risk of deployment issues.
+## Security Features
 
-## Environment Management
+### Encryption
+- **At Rest**: All data encrypted using AWS KMS with customer-managed keys
+- **In Transit**: TLS 1.2+ enforced for all communications
+- **Database**: Aurora cluster encrypted with KMS
+- **Storage**: S3 buckets encrypted with KMS
 
-The infrastructure configurations support multiple environments (development, staging, production) through parameterization and environment-specific variable files. This approach ensures consistency in the infrastructure architecture across environments while allowing for appropriate scaling and security measures in each environment. Environment-specific configurations are clearly separated from shared configurations, making it easy to understand and manage differences between environments.
+### Access Control
+- **IAM**: Least privilege access with role-based permissions
+- **MFA**: Multi-factor authentication required for sensitive operations
+- **Network**: Private subnets for application and database tiers
+- **Security Groups**: Restrictive ingress/egress rules
 
-## Security Considerations
+### Monitoring & Compliance
+- **Audit Logging**: Comprehensive audit trail with CloudTrail
+- **Threat Detection**: GuardDuty for security monitoring
+- **Compliance**: AWS Config rules for compliance validation
+- **Alerting**: Real-time security alerts via SNS
 
-Security is a fundamental aspect of the infrastructure design, with multiple layers of protection implemented:
+## Compliance Standards
 
-Network security is enforced through proper segmentation, security groups, and access control lists. Infrastructure components follow the principle of least privilege, with fine-grained permissions for different resources and services. Sensitive data such as credentials and certificates are managed securely, using appropriate secret management solutions. Encryption is applied to data at rest and in transit, protecting sensitive information throughout the system. Logging and monitoring configurations are included to enable security auditing and incident response.
+This infrastructure is designed to meet the following compliance standards:
+
+- **PCI DSS**: Payment Card Industry Data Security Standard
+- **GDPR**: General Data Protection Regulation
+- **SOX**: Sarbanes-Oxley Act
+- **HIPAA**: Health Insurance Portability and Accountability Act (optional)
+
+## Prerequisites
+
+1. **Terraform**: Version 1.5.0 or later
+2. **AWS CLI**: Version 2.0 or later
+3. **kubectl**: For Kubernetes management
+4. **Helm**: For Kubernetes package management
+
+## Quick Start
+
+### 1. Configure AWS Credentials
+
+```bash
+aws configure
+```
+
+### 2. Initialize Terraform
+
+```bash
+cd infrastructure/terraform
+terraform init
+```
+
+### 3. Create terraform.tfvars
+
+Copy the example file and customize:
+
+```bash
+cp terraform.tfvars.example terraform.tfvars
+```
+
+Edit `terraform.tfvars` with your specific values:
+
+```hcl
+# Environment Configuration
+environment = "dev"  # or "staging", "prod"
+region      = "us-west-2"
+
+# Network Configuration
+vpc_cidr = "10.0.0.0/16"
+availability_zones = ["us-west-2a", "us-west-2b", "us-west-2c"]
+
+# Contact Information
+security_contact_email    = "security@yourcompany.com"
+compliance_contact_email  = "compliance@yourcompany.com"
+
+# Database Configuration
+db_master_username = "paynext_admin"
+db_instance_class  = "db.r6g.large"
+
+# EKS Configuration
+cluster_name           = "paynext-cluster"
+kubernetes_version     = "1.27"
+node_instance_type     = "t3.medium"
+
+# Tags
+tags = {
+  Project     = "PayNext"
+  Environment = "dev"
+  Owner       = "Platform Team"
+  CostCenter  = "Engineering"
+}
+```
+
+### 4. Plan and Apply
+
+```bash
+# Review the plan
+terraform plan
+
+# Apply the infrastructure
+terraform apply
+```
+
+### 5. Configure kubectl
+
+```bash
+aws eks update-kubeconfig --region us-west-2 --name paynext-cluster-dev
+```
+
+## Module Documentation
+
+### Security Module
+
+The security module provides foundational security services:
+
+- **KMS Keys**: Customer-managed encryption keys for all services
+- **Secrets Manager**: Secure storage for database credentials and API keys
+- **WAF**: Web Application Firewall with OWASP Top 10 protection
+- **IAM**: Service roles with least privilege access
+
+**Usage:**
+```hcl
+module "security" {
+  source = "./modules/security"
+  
+  environment = var.environment
+  vpc_id      = module.vpc.vpc_id
+  tags        = var.tags
+}
+```
+
+### VPC Module
+
+The VPC module creates a secure network foundation:
+
+- **Multi-AZ**: Spans multiple availability zones for high availability
+- **Tiered Subnets**: Public, private, and database subnet tiers
+- **NAT Gateways**: Secure outbound internet access for private subnets
+- **VPC Endpoints**: Private connectivity to AWS services
+
+**Usage:**
+```hcl
+module "vpc" {
+  source = "./modules/vpc"
+  
+  environment        = var.environment
+  vpc_cidr          = var.vpc_cidr
+  availability_zones = var.availability_zones
+  enable_vpc_flow_logs = true
+  tags              = var.tags
+}
+```
+
+### Monitoring Module
+
+The monitoring module provides comprehensive observability:
+
+- **CloudWatch**: Centralized logging and metrics
+- **GuardDuty**: Threat detection and security monitoring
+- **Config**: Compliance monitoring and drift detection
+- **CloudTrail**: API audit logging
+
+**Usage:**
+```hcl
+module "monitoring" {
+  source = "./modules/monitoring"
+  
+  environment               = var.environment
+  vpc_id                   = module.vpc.vpc_id
+  kms_key_id              = module.security.kms_key_id
+  security_contact_email   = var.security_contact_email
+  compliance_contact_email = var.compliance_contact_email
+  tags                    = var.tags
+}
+```
+
+### Kubernetes Module
+
+The Kubernetes module deploys a secure EKS cluster:
+
+- **EKS Cluster**: Managed Kubernetes with security hardening
+- **Node Groups**: Auto-scaling worker nodes
+- **Add-ons**: Essential cluster add-ons (VPC CNI, CoreDNS, EBS CSI)
+- **Security**: Pod security policies and network policies
+
+**Usage:**
+```hcl
+module "kubernetes" {
+  source = "./modules/kubernetes"
+  
+  cluster_name         = var.cluster_name
+  environment         = var.environment
+  vpc_id              = module.vpc.vpc_id
+  private_subnet_ids  = module.vpc.private_subnet_ids
+  public_subnet_ids   = module.vpc.public_subnet_ids
+  kms_key_id          = module.security.kms_key_id
+  security_group_ids  = module.vpc.security_group_ids
+  tags                = var.tags
+}
+```
+
+### Database Module
+
+The database module provides a secure, highly available database:
+
+- **Aurora Cluster**: PostgreSQL with multi-AZ deployment
+- **Encryption**: At-rest and in-transit encryption
+- **Backups**: Automated backups with point-in-time recovery
+- **Monitoring**: Performance Insights and Enhanced Monitoring
+
+**Usage:**
+```hcl
+module "database" {
+  source = "./modules/database"
+  
+  environment            = var.environment
+  vpc_id                = module.vpc.vpc_id
+  database_subnet_ids   = module.vpc.database_subnet_ids
+  kms_key_id           = module.security.kms_key_id
+  security_group_ids   = module.vpc.security_group_ids
+  db_master_username   = var.db_master_username
+  db_instance_class    = var.db_instance_class
+  tags                 = var.tags
+}
+```
+
+### Storage Module
+
+The storage module provides secure, scalable storage:
+
+- **S3 Buckets**: Encrypted buckets with lifecycle policies
+- **Versioning**: Object versioning for data protection
+- **Replication**: Cross-region replication for disaster recovery
+- **EFS**: Shared file storage for Kubernetes
+
+**Usage:**
+```hcl
+module "storage" {
+  source = "./modules/storage"
+  
+  environment         = var.environment
+  vpc_id             = module.vpc.vpc_id
+  private_subnet_ids = module.vpc.private_subnet_ids
+  kms_key_id         = module.security.kms_key_id
+  security_group_ids = module.vpc.security_group_ids
+  tags               = var.tags
+}
+```
+
+## Deployment Environments
+
+### Development Environment
+- Single AZ deployment for cost optimization
+- Smaller instance sizes
+- Reduced backup retention
+- Public access enabled for testing
+
+### Staging Environment
+- Multi-AZ deployment
+- Production-like configuration
+- Extended backup retention
+- Private access only
+
+### Production Environment
+- Multi-AZ deployment with maximum availability
+- Large instance sizes for performance
+- Maximum backup retention (7 years)
+- Deletion protection enabled
+- Enhanced monitoring and alerting
+
+## Security Best Practices
+
+### Network Security
+1. **Private Subnets**: Application and database tiers in private subnets
+2. **Security Groups**: Restrictive rules with least privilege access
+3. **NACLs**: Additional layer of network security
+4. **VPC Flow Logs**: Network traffic monitoring
+
+### Data Protection
+1. **Encryption**: All data encrypted at rest and in transit
+2. **Key Management**: Customer-managed KMS keys
+3. **Backup Encryption**: Encrypted backups with long-term retention
+4. **Access Logging**: Comprehensive audit trail
+
+### Access Control
+1. **IAM Roles**: Service-specific roles with minimal permissions
+2. **MFA**: Multi-factor authentication for sensitive operations
+3. **Secrets Management**: Centralized credential management
+4. **Regular Rotation**: Automated credential rotation
+
+### Monitoring & Alerting
+1. **Real-time Monitoring**: CloudWatch metrics and alarms
+2. **Security Monitoring**: GuardDuty threat detection
+3. **Compliance Monitoring**: Config rules and assessments
+4. **Incident Response**: Automated alerting and response
 
 ## Disaster Recovery
 
-The infrastructure includes provisions for disaster recovery, with configurations for data backups, replication, and failover mechanisms. These measures ensure business continuity in the event of infrastructure failures or other disruptions. Recovery procedures are documented and automated where possible, reducing the time to recover from incidents. Regular testing of disaster recovery procedures is recommended to ensure their effectiveness.
+### Backup Strategy
+- **RDS**: Automated backups with 35-day retention
+- **S3**: Cross-region replication to DR region
+- **EBS**: Automated snapshots
+- **Configuration**: Infrastructure as Code for rapid recovery
 
-## Usage Guidelines
+### Recovery Procedures
+1. **Database Recovery**: Point-in-time recovery from backups
+2. **Application Recovery**: Deploy from Infrastructure as Code
+3. **Data Recovery**: Restore from cross-region replicas
+4. **Network Recovery**: Recreate VPC and networking
 
-When working with the infrastructure components, follow these guidelines:
+### RTO/RPO Targets
+- **RTO (Recovery Time Objective)**: 4 hours
+- **RPO (Recovery Point Objective)**: 1 hour
+- **Data Retention**: 7 years for compliance
 
-Always use version control for infrastructure changes, treating infrastructure code with the same rigor as application code. Test infrastructure changes in lower environments before applying them to production. Document any manual steps or considerations that are not captured in the automation. Keep sensitive information such as access keys and passwords out of the infrastructure code, using appropriate secret management solutions instead. Regularly review and update the infrastructure configurations to incorporate security patches and best practices.
+## Cost Optimization
 
-## Extending the Infrastructure
+### Storage Optimization
+- **S3 Lifecycle Policies**: Automatic transition to cheaper storage classes
+- **Intelligent Tiering**: Automatic optimization based on access patterns
+- **EBS Optimization**: GP3 volumes for better price/performance
 
-When extending the infrastructure to support new features or requirements, maintain consistency with the existing architecture and follow the established patterns. Create modular, reusable components that can be composed to build complex infrastructure. Ensure that new infrastructure components include appropriate monitoring, logging, and security measures. Document new components thoroughly, including their purpose, dependencies, and configuration options.
+### Compute Optimization
+- **Auto Scaling**: Automatic scaling based on demand
+- **Spot Instances**: Use spot instances for non-critical workloads
+- **Reserved Instances**: Reserved capacity for predictable workloads
+
+### Monitoring Costs
+- **Cost Allocation Tags**: Track costs by service and environment
+- **Budgets**: Set up billing alerts and budgets
+- **Cost Explorer**: Regular cost analysis and optimization
+
+## Troubleshooting
+
+### Common Issues
+
+#### Terraform Apply Fails
+```bash
+# Check AWS credentials
+aws sts get-caller-identity
+
+# Verify Terraform version
+terraform version
+
+# Re-initialize if needed
+terraform init -upgrade
+```
+
+#### EKS Cluster Access Issues
+```bash
+# Update kubeconfig
+aws eks update-kubeconfig --region <region> --name <cluster-name>
+
+# Verify access
+kubectl get nodes
+```
+
+#### Database Connection Issues
+```bash
+# Check security groups
+aws ec2 describe-security-groups --group-ids <sg-id>
+
+# Test connectivity
+telnet <rds-endpoint> 5432
+```
+
+### Logs and Monitoring
+
+#### CloudWatch Logs
+- Application logs: `/aws/paynext/<env>/application`
+- Security logs: `/aws/paynext/<env>/security`
+- Audit logs: `/aws/paynext/<env>/audit`
+
+#### CloudTrail Events
+- API calls: CloudTrail console
+- Security events: GuardDuty console
+- Compliance: Config console
+
+## Maintenance
+
+### Regular Tasks
+1. **Security Updates**: Apply security patches monthly
+2. **Backup Verification**: Test backup restoration quarterly
+3. **Access Review**: Review IAM permissions quarterly
+4. **Cost Review**: Analyze costs monthly
+
+### Automated Tasks
+1. **Backup Creation**: Daily automated backups
+2. **Log Rotation**: Automatic log retention policies
+3. **Certificate Renewal**: Automatic SSL certificate renewal
+4. **Security Scanning**: Continuous security monitoring
+
+## Support
+
+### Documentation
+- [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/)
+- [Terraform Documentation](https://www.terraform.io/docs/)
+- [Kubernetes Documentation](https://kubernetes.io/docs/)
+
+### Monitoring Dashboards
+- CloudWatch Dashboard: `PayNext-<environment>-Dashboard`
+- Grafana Dashboard: Available after deployment
+- Cost Dashboard: AWS Cost Explorer
+
+### Contact Information
+- **Security Issues**: security@yourcompany.com
+- **Compliance Questions**: compliance@yourcompany.com
+- **Technical Support**: platform-team@yourcompany.com
+
+## License
+
+This infrastructure code is proprietary and confidential. Unauthorized use, distribution, or modification is strictly prohibited.
+
+---
+
+**Note**: This infrastructure is designed for financial applications and includes comprehensive security and compliance features. Always review and test thoroughly before deploying to production environments.
+
