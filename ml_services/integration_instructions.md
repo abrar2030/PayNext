@@ -1,3 +1,5 @@
+# Integration Instructions for PayNext with ML Services
+
 This document provides instructions on how to integrate the existing PayNext backend (Java Spring Boot) and frontend applications (Next.js/React) with the newly developed Python-based Machine Learning microservices.
 
 ## 1. Fraud Detection Service Integration
@@ -180,3 +182,135 @@ This document provides instructions on how to integrate the existing PayNext bac
 *   **Scalability:** Consider deploying the Python microservices using Docker and Kubernetes for better scalability and management, similar to the existing PayNext architecture.
 
 These instructions provide a clear path for integrating the new ML capabilities into the PayNext application, enhancing its functionality and user experience.
+
+
+## 3. Transaction Categorization Service Integration
+
+**Objective:** To automatically categorize user transactions into predefined categories.
+
+**ML Service Endpoint:** `http://localhost:5002/categorize_transaction` (when running locally)
+
+**Request Method:** `POST`
+
+**Request Body (JSON):**
+```json
+{
+    "merchant": "string",
+    "description": "string"
+}
+```
+
+**Response Body (JSON):**
+```json
+{
+    "merchant": "string",
+    "description": "string",
+    "predicted_category": "string"
+}
+```
+
+**Backend (Java Spring Boot) Integration Steps:**
+
+1.  **Create a Service Class:** Develop a new Java service (e.g., `TransactionCategorizationService.java`) that handles communication with the Python API.
+    ```java
+    @Service
+    public class TransactionCategorizationService {
+        private final WebClient webClient;
+
+        public TransactionCategorizationService(WebClient.Builder webClientBuilder) {
+            this.webClient = webClientBuilder.baseUrl("http://localhost:5002").build();
+        }
+
+        public CategoryPredictionResponse categorizeTransaction(String merchant, String description) {
+            Map<String, String> requestBody = new HashMap<>();
+            requestBody.put("merchant", merchant);
+            requestBody.put("description", description);
+
+            return webClient.post()
+                    .uri("/categorize_transaction")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .bodyValue(requestBody)
+                    .retrieve()
+                    .bodyToMono(CategoryPredictionResponse.class)
+                    .block();
+        }
+    }
+
+    // DTO for response
+    public class CategoryPredictionResponse { 
+        public String merchant; 
+        public String description; 
+        public String predicted_category; 
+        // getters/setters
+    }
+    ```
+2.  **Integrate into Transaction Processing:** After a transaction is processed, call this service to get its category and store it.
+
+## 4. Churn Prediction Service Integration
+
+**Objective:** To predict users who are at risk of churning.
+
+**ML Service Endpoint:** `http://localhost:5003/predict_churn` (when running locally)
+
+**Request Method:** `POST`
+
+**Request Body (JSON):**
+```json
+{
+    "avg_transactions_per_month": "float",
+    "avg_logins_per_month": "float",
+    "avg_feature_usage_score": "float",
+    "total_months_active": "integer"
+}
+```
+
+**Response Body (JSON):**
+```json
+{
+    "is_churn_risk": "boolean",
+    "churn_probability": "float"
+}
+```
+
+**Backend (Java Spring Boot) Integration Steps:**
+
+1.  **Create a Service Class:** Develop a new Java service (e.g., `ChurnPredictionService.java`) that handles communication with the Python API.
+    ```java
+    @Service
+    public class ChurnPredictionService {
+        private final WebClient webClient;
+
+        public ChurnPredictionService(WebClient.Builder webClientBuilder) {
+            this.webClient = webClientBuilder.baseUrl("http://localhost:5003").build();
+        }
+
+        public ChurnPredictionResponse predictChurn(UserBehaviorData userBehavior) {
+            Map<String, Object> requestBody = new HashMap<>();
+            requestBody.put("avg_transactions_per_month", userBehavior.getAvgTransactionsPerMonth());
+            requestBody.put("avg_logins_per_month", userBehavior.getAvgLoginsPerMonth());
+            requestBody.put("avg_feature_usage_score", userBehavior.getAvgFeatureUsageScore());
+            requestBody.put("total_months_active", userBehavior.getTotalMonthsActive());
+
+            return webClient.post()
+                    .uri("/predict_churn")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .bodyValue(requestBody)
+                    .retrieve()
+                    .bodyToMono(ChurnPredictionResponse.class)
+                    .block();
+        }
+    }
+
+    // DTOs for request and response
+    public class UserBehaviorData { /* fields and getters/setters */ }
+    public class ChurnPredictionResponse { boolean is_churn_risk; double churn_probability; /* getters/setters */ }
+    ```
+2.  **Schedule Batch Prediction:** Implement a scheduled task in the Java backend to periodically gather user behavior data, call the `ChurnPredictionService`, and store the churn probabilities. This can then be used by an admin dashboard or for triggering retention campaigns.
+
+## 5. Updated Deployment Considerations
+
+*   **Environment Variables:** Replace `http://localhost:5000`, `http://localhost:5001`, `http://localhost:5002`, and `http://localhost:5003` with actual deployed service URLs using environment variables.
+*   **Security:** Implement API keys or other authentication mechanisms for secure communication between services.
+*   **Scalability:** Consider deploying all Python microservices using Docker and Kubernetes for better scalability and management, similar to the existing PayNext architecture.
+
+These updated instructions provide a comprehensive guide for integrating all new ML capabilities into the PayNext application.
