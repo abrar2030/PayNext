@@ -1,3 +1,4 @@
+
 import pandas as pd
 from flask import Flask, request, jsonify
 import joblib
@@ -6,8 +7,8 @@ app = Flask(__name__)
 
 # Load the trained model and vectorizer
 try:
-    category_model = joblib.load("/home/ubuntu/PayNext/ml_services/category_model.joblib")
-    category_vectorizer = joblib.load("/home/ubuntu/PayNext/ml_services/category_vectorizer.joblib")
+    category_model = joblib.load("PayNext/ml_services/category_model.joblib")
+    category_vectorizer = joblib.load("PayNext/ml_services/category_vectorizer.joblib")
 except Exception as e:
     print(f"Error loading categorization model or vectorizer: {e}")
     category_model = None
@@ -28,11 +29,13 @@ def categorize_transaction():
     text_features_vec = category_vectorizer.transform(text_features)
 
     prediction = category_model.predict(text_features_vec)[0]
+    prediction_proba = category_model.predict_proba(text_features_vec).max() # Probability of the predicted class
 
     return jsonify({
         "merchant": merchant,
         "description": description,
-        "predicted_category": prediction
+        "predicted_category": prediction,
+        "prediction_probability": round(prediction_proba, 4)
     })
 
 if __name__ == "__main__":

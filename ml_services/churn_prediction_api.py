@@ -1,3 +1,4 @@
+
 import pandas as pd
 from flask import Flask, request, jsonify
 import joblib
@@ -6,9 +7,9 @@ app = Flask(__name__)
 
 # Load the trained model and scaler
 try:
-    churn_model = joblib.load("/home/ubuntu/PayNext/ml_services/churn_model.joblib")
-    churn_scaler = joblib.load("/home/ubuntu/PayNext/ml_services/churn_scaler.joblib")
-    churn_model_features = joblib.load("/home/ubuntu/PayNext/ml_services/churn_model_features.joblib")
+    churn_model = joblib.load("PayNext/ml_services/churn_model.joblib")
+    churn_scaler = joblib.load("PayNext/ml_services/churn_scaler.joblib")
+    churn_model_features = joblib.load("PayNext/ml_services/churn_model_features.joblib")
 except Exception as e:
     print(f"Error loading churn model or scaler: {e}")
     churn_model = None
@@ -24,9 +25,16 @@ def predict_churn():
 
     try:
         # Expected input: avg_transactions_per_month, avg_logins_per_month, avg_feature_usage_score, total_months_active
+        # Plus new features: avg_transactions_diff, avg_logins_diff, avg_feature_usage_diff,
+        # max_transactions_per_month, min_transactions_per_month
         input_data = pd.DataFrame([data])
 
         # Ensure columns are in the same order as during training
+        # Fill missing new features with 0 if they are not provided in the request
+        for feature in churn_model_features:
+            if feature not in input_data.columns:
+                input_data[feature] = 0
+        
         input_data = input_data[churn_model_features]
 
         # Scale the input features
