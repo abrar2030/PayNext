@@ -312,5 +312,3 @@ These instructions provide a clear path for integrating the new ML capabilities 
 *   **Environment Variables:** Replace `http://localhost:5000`, `http://localhost:5001`, `http://localhost:5002`, and `http://localhost:5003` with actual deployed service URLs using environment variables.
 *   **Security:** Implement API keys or other authentication mechanisms for secure communication between services.
 *   **Scalability:** Consider deploying all Python microservices using Docker and Kubernetes for better scalability and management, similar to the existing PayNext architecture.
-
-These updated instructions provide a comprehensive guide for integrating all new ML capabilities into the PayNext application.
