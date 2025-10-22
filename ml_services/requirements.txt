@@ -3,10 +3,6 @@ scikit-learn
 joblib
 flask
 lightgbm
-
-
 tensorflow
-
-
-scikit-learn
-
+fastapi
+uvicorn
