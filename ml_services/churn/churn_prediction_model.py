@@ -4,10 +4,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
 from sklearn.preprocessing import StandardScaler
 import joblib
+import os
 import lightgbm as lgb
 from sklearn.model_selection import GridSearchCV 
 
-def train_churn_model(data_path=\'PayNext/ml_services/synthetic_churn_data.csv\'):
+def train_churn_model(data_path=os.path.join(os.path.dirname(__file__), \'..\', \'synthetic_churn_data.csv\')):
     df = pd.read_csv(data_path)
 
     # Convert month to datetime for time-series features
@@ -43,6 +44,8 @@ def train_churn_model(data_path=\'PayNext/ml_services/synthetic_churn_data.csv\'
         avg_logins_per_month=(\'logins_per_month\', \'mean\'),
         avg_feature_usage_score=(\'feature_usage_score\', \'mean\'),
         total_months_active=(\'month\', \'count\'),
+        # Add a feature for user tenure (e.g., months since first transaction)
+        tenure_months=(\'month_dt\', lambda x: (x.max() - x.min()).days / 30.0 if len(x) > 1 else 0),
         ever_churned=(\'is_churned\', \'max\'), # If a user churned at least once, they are considered churned
         # Aggregations for new features
         avg_transactions_diff=(\'transactions_diff\', \'mean\'),
@@ -62,6 +65,7 @@ def train_churn_model(data_path=\'PayNext/ml_services/synthetic_churn_data.csv\'
         "avg_logins_per_month",
         "avg_feature_usage_score",
         "total_months_active",
+        "tenure_months",
         "avg_transactions_diff",
         "avg_logins_diff",
         "avg_feature_usage_diff",
@@ -77,7 +81,8 @@ def train_churn_model(data_path=\'PayNext/ml_services/synthetic_churn_data.csv\'
     # Scale numerical features
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
-    joblib.dump(scaler, \'PayNext/ml_services/churn_scaler.joblib\')
+    model_dir = os.path.join(os.path.dirname(__file__), \'..\')
+    joblib.dump(scaler, os.path.join(model_dir, \'churn_scaler.joblib\'))
     X_scaled_df = pd.DataFrame(X_scaled, columns=X.columns)
 
     X_train, X_test, y_train, y_test = train_test_split(X_scaled_df, y, test_size=0.3, random_state=42, stratify=y)
@@ -107,11 +112,11 @@ def train_churn_model(data_path=\'PayNext/ml_services/synthetic_churn_data.csv\'
     print("ROC AUC Score:", roc_auc_score(y_test, y_proba_lgb))
 
     # Save the LightGBM model
-    joblib.dump(model_lgb, \'PayNext/ml_services/churn_model.joblib\')
+    joblib.dump(model_lgb, os.path.join(model_dir, \'churn_model.joblib\'))
     print("Churn prediction LightGBM model trained and saved to PayNext/ml_services/churn_model.joblib")
 
     # Save feature columns for consistent input during inference
-    joblib.dump(X.columns.tolist(), \'PayNext/ml_services/churn_model_features.joblib\')
+    joblib.dump(X.columns.tolist(), os.path.join(model_dir, \'churn_model_features.joblib\'))
 
 if __name__ == \'__main__\':
     train_churn_model()

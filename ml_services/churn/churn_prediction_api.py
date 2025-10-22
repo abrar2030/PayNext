@@ -1,58 +1,74 @@
-
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 import pandas as pd
-from flask import Flask, request, jsonify
 import joblib
+import os
+from typing import List
 
-app = Flask(__name__)
+app = FastAPI(title="Churn Prediction API")
 
-# Load the trained model and scaler
+# Define the path to the models relative to the current file
+model_dir = os.path.join(os.path.dirname(__file__), "..") # Go up one level to ml_services
+churn_model_path = os.path.join(model_dir, "churn_model.joblib")
+churn_scaler_path = os.path.join(model_dir, "churn_scaler.joblib")
+churn_model_features_path = os.path.join(model_dir, "churn_model_features.joblib")
+
+churn_model = None
+churn_scaler = None
+churn_model_features = None
+
 try:
-    churn_model = joblib.load("PayNext/ml_services/churn_model.joblib")
-    churn_scaler = joblib.load("PayNext/ml_services/churn_scaler.joblib")
-    churn_model_features = joblib.load("PayNext/ml_services/churn_model_features.joblib")
+    churn_model = joblib.load(churn_model_path)
+    churn_scaler = joblib.load(churn_scaler_path)
+    churn_model_features = joblib.load(churn_model_features_path)
+    print("Churn Prediction Model, Scaler, and Features loaded successfully.")
+except FileNotFoundError:
+    print(f"Churn model, scaler, or features file not found at {model_dir}. Please train the model first.")
 except Exception as e:
-    print(f"Error loading churn model or scaler: {e}")
-    churn_model = None
+    print(f"Error loading Churn Prediction Model components: {e}")
 
-@app.route("/predict_churn", methods=["POST"])
-def predict_churn():
-    if churn_model is None:
-        return jsonify({"error": "Churn model not loaded"}), 500
+class ChurnPredictionInput(BaseModel):
+    avg_transactions_per_month: float
+    avg_logins_per_month: float
+    avg_feature_usage_score: float
+    total_months_active: int
+    tenure_months: float = 0.0
+    avg_transactions_diff: float = 0.0
+    avg_logins_diff: float = 0.0
+    avg_feature_usage_diff: float = 0.0
+    max_transactions_per_month: float = 0.0
+    min_transactions_per_month: float = 0.0
+    avg_rolling_avg_transactions_3m: float = 0.0
+    avg_rolling_std_transactions_3m: float = 0.0
+    avg_rolling_avg_logins_3m: float = 0.0
+    avg_rolling_std_logins_3m: float = 0.0
 
-    data = request.get_json(force=True)
-    if not data:
-        return jsonify({"error": "No data provided"}), 400
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "model_loaded": churn_model is not None}
+
+@app.post("/predict_churn/")
+async def predict_churn(user_data: ChurnPredictionInput):
+    if churn_model is None or churn_scaler is None or churn_model_features is None:
+        raise HTTPException(status_code=500, detail="Churn prediction model not loaded. Please train the model.")
 
     try:
-        # Expected input: avg_transactions_per_month, avg_logins_per_month, avg_feature_usage_score, total_months_active
-        # Plus new features: avg_transactions_diff, avg_logins_diff, avg_feature_usage_diff,
-        # max_transactions_per_month, min_transactions_per_month
-        # New rolling window features
-        # avg_rolling_avg_transactions_3m, avg_rolling_std_transactions_3m,
-        # avg_rolling_avg_logins_3m, avg_rolling_std_logins_3m
-        input_data = pd.DataFrame([data])
+        input_df = pd.DataFrame([user_data.dict()])
 
         # Ensure columns are in the same order as during training
-        # Fill missing new features with 0 if they are not provided in the request
-        for feature in churn_model_features:
-            if feature not in input_data.columns:
-                input_data[feature] = 0
-        
-        input_data = input_data[churn_model_features]
+        # Fill missing new features with 0 if they are not provided in the request (handled by Pydantic defaults)
+        input_df = input_df[churn_model_features]
 
         # Scale the input features
-        input_scaled = churn_scaler.transform(input_data)
+        input_scaled = churn_scaler.transform(input_df)
 
         prediction_proba = churn_model.predict_proba(input_scaled)[:, 1][0] # Probability of churning
         is_churn = bool(churn_model.predict(input_scaled)[0])
 
-        return jsonify({
+        return {
             "is_churn_risk": is_churn,
             "churn_probability": round(prediction_proba, 4)
-        })
+        }
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5003)
+        raise HTTPException(status_code=500, detail=str(e))
 

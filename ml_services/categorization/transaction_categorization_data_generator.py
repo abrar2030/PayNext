@@ -1,5 +1,6 @@
 
 import pandas as pd
+import os
 import numpy as np
 from datetime import datetime, timedelta
 
@@ -57,8 +58,9 @@ def generate_categorization_data(num_transactions=10000):
 
 if __name__ == '__main__':
     df = generate_categorization_data(num_transactions=50000)
-    df.to_csv('PayNext/ml_services/synthetic_categorization_data.csv', index=False)
-    print("Synthetic transaction categorization data generated and saved to PayNext/ml_services/synthetic_categorization_data.csv")
+    output_path = os.path.join(os.path.dirname(__file__), \'synthetic_categorization_data.csv\')
+    df.to_csv(output_path, index=False)
+    print(f"Synthetic transaction categorization data generated and saved to {output_path}")
     print(df.head())
     print(df['category'].value_counts())
 

@@ -1,43 +1,54 @@
-
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 import pandas as pd
-from flask import Flask, request, jsonify
 import joblib
+import os
 
-app = Flask(__name__)
+app = FastAPI(title="Transaction Categorization API")
 
-# Load the trained model and vectorizer
+# Define the path to the models relative to the current file
+model_dir = os.path.join(os.path.dirname(__file__), "..") # Go up one level to ml_services
+category_model_path = os.path.join(model_dir, "category_model.joblib")
+category_vectorizer_path = os.path.join(model_dir, "category_vectorizer.joblib")
+
+category_model = None
+category_vectorizer = None
+
 try:
-    category_model = joblib.load("PayNext/ml_services/category_model.joblib")
-    category_vectorizer = joblib.load("PayNext/ml_services/category_vectorizer.joblib")
+    category_model = joblib.load(category_model_path)
+    category_vectorizer = joblib.load(category_vectorizer_path)
+    print("Categorization Model and Vectorizer loaded successfully.")
+except FileNotFoundError:
+    print(f"Categorization model or vectorizer file not found at {model_dir}. Please train the model first.")
 except Exception as e:
-    print(f"Error loading categorization model or vectorizer: {e}")
-    category_model = None
+    print(f"Error loading Categorization Model or Vectorizer: {e}")
 
-@app.route("/categorize_transaction", methods=["POST"])
-def categorize_transaction():
-    if category_model is None:
-        return jsonify({"error": "Categorization model not loaded"}), 500
+class TransactionCategorizationInput(BaseModel):
+    merchant: str
+    description: str
 
-    data = request.get_json(force=True)
-    if not data or "merchant" not in data or "description" not in data:
-        return jsonify({"error": "Missing merchant or description in request"}), 400
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "model_loaded": category_model is not None}
 
-    merchant = data.get("merchant")
-    description = data.get("description")
+@app.post("/categorize_transaction/")
+async def categorize_transaction(transaction: TransactionCategorizationInput):
+    if category_model is None or category_vectorizer is None:
+        raise HTTPException(status_code=500, detail="Categorization model not loaded. Please train the model.")
 
-    text_features = [f"{merchant} {description}"]
-    text_features_vec = category_vectorizer.transform(text_features)
+    try:
+        text_features = [f"{transaction.merchant} {transaction.description}"]
+        text_features_vec = category_vectorizer.transform(text_features)
 
-    prediction = category_model.predict(text_features_vec)[0]
-    prediction_proba = category_model.predict_proba(text_features_vec).max() # Probability of the predicted class
+        prediction = category_model.predict(text_features_vec)[0]
+        prediction_proba = category_model.predict_proba(text_features_vec).max() # Probability of the predicted class
 
-    return jsonify({
-        "merchant": merchant,
-        "description": description,
-        "predicted_category": prediction,
-        "prediction_probability": round(prediction_proba, 4)
-    })
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5002)
+        return {
+            "merchant": transaction.merchant,
+            "description": transaction.description,
+            "predicted_category": prediction,
+            "prediction_probability": round(prediction_proba, 4)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 

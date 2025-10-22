@@ -5,8 +5,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report
 import joblib
+import os
 
-def train_categorization_model(data_path='PayNext/ml_services/synthetic_categorization_data.csv'):
+def train_categorization_model(data_path=os.path.join(os.path.dirname(__file__), 'synthetic_categorization_data.csv')):
     df = pd.read_csv(data_path)
 
     # Combine merchant and description for text features
@@ -21,7 +22,8 @@ def train_categorization_model(data_path='PayNext/ml_services/synthetic_categori
     vectorizer = TfidfVectorizer(max_features=2000, ngram_range=(1, 2)) # Using n-grams for more context
     X_train_vec = vectorizer.fit_transform(X_train)
     X_test_vec = vectorizer.transform(X_test)
-    joblib.dump(vectorizer, 'PayNext/ml_services/category_vectorizer.joblib')
+    model_dir = os.path.join(os.path.dirname(__file__), "..")
+    joblib.dump(vectorizer, os.path.join(model_dir, 'category_vectorizer.joblib'))
 
     # Hyperparameter tuning for SVC
     param_grid = {
@@ -41,8 +43,8 @@ def train_categorization_model(data_path='PayNext/ml_services/synthetic_categori
     print(classification_report(y_test, y_pred))
 
     # Save the best model
-    joblib.dump(best_model, 'PayNext/ml_services/category_model.joblib')
-    print("Transaction categorization model (SVC) trained and saved to PayNext/ml_services/category_model.joblib")
+    joblib.dump(best_model, os.path.join(model_dir, 'category_model.joblib'))
+    print(f"Transaction categorization model (SVC) trained and saved to {os.path.join(model_dir, 'category_model.joblib')}")
 
 if __name__ == '__main__':
     train_categorization_model()

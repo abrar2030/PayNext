@@ -9,12 +9,16 @@ from typing import List, Dict, Optional
 
 # Assuming data_analytics_service.py is in the same directory or accessible
 from .data_analytics.data_analytics_service import DataAnalyticsService
-from .anomaly_detection.anomaly_data_generator import generate_synthetic_transaction_data # For initial data
+from ..anomaly_detection.anomaly_data_generator import generate_synthetic_transaction_data # For initial data
 
 app = FastAPI(title="Data Analytics API")
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "model_loaded": analytics_service.kmeans_model is not None}
+
 # Load the pre-trained models for analytics
-model_path = os.path.join(os.path.dirname(__file__), "data_analytics", "analytics_models.joblib")
+model_path = os.path.join(os.path.dirname(__file__), "analytics_models.joblib")
 
 try:
     analytics_service = DataAnalyticsService.load_models(model_path)

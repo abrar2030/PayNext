@@ -1,4 +1,3 @@
-
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, IsolationForest
@@ -8,9 +7,10 @@ from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 import joblib
+import os
 import numpy as np
 
-def train_fraud_model(data_path='PayNext/ml_services/synthetic_transactions.csv'):
+def train_fraud_model(data_path=os.path.join(os.path.dirname(__file__), '..', 'common', 'synthetic_transactions.csv')):
     df = pd.read_csv(data_path)
 
     # Convert transaction_time to datetime
@@ -45,9 +45,10 @@ def train_fraud_model(data_path='PayNext/ml_services/synthetic_transactions.csv'
     for col in categorical_cols:
         if col in df.columns:
             le = LabelEncoder()
-            df[col] = le.fit_transform(df[col])
+            df[col] = le.fit_transform(np.array(df[col]))
             encoders[col] = le
-            joblib.dump(le, f'PayNext/ml_services/{col}_encoder.joblib')
+            model_dir = os.path.join(os.path.dirname(__file__), '..')
+            joblib.dump(le, os.path.join(model_dir, f'{col}_encoder.joblib'))
 
     # Define features and target
     features = ["transaction_amount", "hour", "day_of_week", "month", "day_of_month",
@@ -60,7 +61,8 @@ def train_fraud_model(data_path='PayNext/ml_services/synthetic_transactions.csv'
     # Scale numerical features
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
-    joblib.dump(scaler, 'PayNext/ml_services/fraud_scaler.joblib')
+    model_dir = os.path.join(os.path.dirname(__file__), '..')
+    joblib.dump(scaler, os.path.join(model_dir, 'fraud_scaler.joblib'))
     X = pd.DataFrame(X_scaled, columns=features)
 
     # Split data
@@ -98,13 +100,13 @@ def train_fraud_model(data_path='PayNext/ml_services/synthetic_transactions.csv'
 
     # Save the best performing model (e.g., RandomForest if ROC AUC is higher, or Isolation Forest for pure anomaly detection)
     # For this example, we'll save RandomForest, but in a real scenario, a meta-learner or ensemble could combine both.
-    joblib.dump(model_rf, 'PayNext/ml_services/fraud_model.joblib')
-    joblib.dump(model_if, 'PayNext/ml_services/fraud_isolation_forest_model.joblib') # Save IF model as well
+    joblib.dump(model_rf, os.path.join(model_dir, 'fraud_model.joblib'))
+    joblib.dump(model_if, os.path.join(model_dir, 'fraud_isolation_forest_model.joblib')) # Save IF model as well
     print("Fraud detection RandomForest model trained and saved to PayNext/ml_services/fraud_model.joblib")
     print("Fraud detection Isolation Forest model trained and saved to PayNext/ml_services/fraud_isolation_forest_model.joblib")
 
     # Save feature columns and scaler for consistent input during inference
-    joblib.dump(features, 'PayNext/ml_services/fraud_model_features.joblib')
+    joblib.dump(features, os.path.join(model_dir, 'fraud_model_features.joblib'))
 
     # --- Autoencoder for Anomaly Detection (New Feature) ---
     # This provides an alternative or complementary anomaly detection mechanism
@@ -133,7 +135,7 @@ def train_fraud_model(data_path='PayNext/ml_services/synthetic_transactions.csv'
 
     # Determine a threshold for anomalies (e.g., based on a percentile of MSE on training data)
     # For simplicity, we'll save the model and let the API determine the threshold dynamically or use a fixed one.
-    joblib.dump(autoencoder, 'PayNext/ml_services/fraud_autoencoder_model.joblib')
+    joblib.dump(autoencoder, os.path.join(model_dir, 'fraud_autoencoder_model.joblib'))
     print("Fraud detection Autoencoder model trained and saved to PayNext/ml_services/fraud_autoencoder_model.joblib")
 
 

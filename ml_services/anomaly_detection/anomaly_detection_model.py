@@ -23,6 +23,8 @@ class AnomalyDetector:
         ]
 
     def preprocess(self, df):
+        if df.empty:
+            return pd.DataFrame(columns=self.features) # Return empty DataFrame with expected columns
         df_processed = df.copy()
 
         # Convert timestamp to datetime and extract features
@@ -39,11 +41,17 @@ class AnomalyDetector:
                     self.label_encoders[col] = LabelEncoder()
                     df_processed[f'{col}_encoded'] = self.label_encoders[col].fit_transform(df_processed[col])
                 else:
-                    # Handle unseen labels during inference by assigning a default value (e.g., -1 or max_label+1)
-                    # Or re-fit if new data is used for training
-                    # For simplicity, we'll transform only known labels and set others to a default
                     known_labels = list(self.label_encoders[col].classes_)
-                    df_processed[f'{col}_encoded'] = df_processed[col].apply(lambda x: self.label_encoders[col].transform([x])[0] if x in known_labels else -1)
+                    # For inference, assign a consistent value for unseen labels. 
+                    # This value should be distinct from existing encoded labels.
+                    # A common practice is to assign a value larger than any existing label.
+                    max_encoded_value = len(known_labels)
+                    df_processed[f'{col}_encoded'] = df_processed[col].apply(
+                        lambda x: self.label_encoders[col].transform([x])[0] 
+                        if x in known_labels else max_encoded_value
+                    )
+                    # During training, if new labels appear, the LabelEncoder should ideally be refit or updated.
+                    # For inference, we just map to an 'unknown' category.
             else:
                 # If a categorical column is missing, add a column of zeros
                 df_processed[f'{col}_encoded'] = 0

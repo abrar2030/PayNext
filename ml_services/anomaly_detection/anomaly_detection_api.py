@@ -11,6 +11,10 @@ from .anomaly_detection.anomaly_detection_model import AnomalyDetector
 
 app = FastAPI(title="Anomaly Detection API")
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "model_loaded": anomaly_detector is not None}
+
 # Load the pre-trained model
 model_path = os.path.join(os.path.dirname(__file__), "anomaly_detection", "anomaly_detector_model.joblib")
 

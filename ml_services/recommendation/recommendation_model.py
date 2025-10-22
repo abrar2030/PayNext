@@ -1,13 +1,11 @@
 
 import pandas as pd
+import os
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-
-def train_recommendation_model(data_path=\'PayNext/ml_services/synthetic_transactions.csv\'
-                               , num_clusters=7): # Increased number of clusters for more granularity
+from sklearn.metrics.pairwise import cosine_similardef train_recommendation_model(data_path=os.path.join(os.path.dirname(__file__), \'..\', \'common\', \'synthetic_transactions.csv\'), num_clusters=7): # Increased number of clusters for more granularity
     df_transactions = pd.read_csv(data_path)
 
     # Convert transaction_time to datetime if available and needed for future time-based features
@@ -41,23 +39,24 @@ def train_recommendation_model(data_path=\'PayNext/ml_services/synthetic_transac
     # Scale the features
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
-    joblib.dump(scaler, \'PayNext/ml_services/recommendation_scaler.joblib\')
+    model_dir = os.path.join(os.path.dirname(__file__), \'..\')
+    joblib.dump(scaler, os.path.join(model_dir, \'recommendation_scaler.joblib\'))
 
     # Train KMeans clustering model
     kmeans = KMeans(n_clusters=num_clusters, random_state=42, n_init=10)
     user_spending["cluster"] = kmeans.fit_predict(X_scaled)
 
     # Save the KMeans model
-    joblib.dump(kmeans, \'PayNext/ml_services/recommendation_kmeans_model.joblib\')
-    print(f"Recommendation KMeans model trained with {num_clusters} clusters and saved to PayNext/ml_services/recommendation_kmeans_model.joblib")
+    joblib.dump(kmeans, os.path.join(model_dir, \'recommendation_kmeans_model.joblib\'))
+    print(f"Recommendation KMeans model trained with {num_clusters} clusters and saved to {os.path.join(model_dir, \'recommendation_kmeans_model.joblib\')}")
 
     # Save user spending with clusters for potential analysis or initial recommendations
-    user_spending.to_csv(\'PayNext/ml_services/user_spending_clusters.csv\', index=False)
-    print("User spending with clusters saved to PayNext/ml_services/user_spending_clusters.csv")
+    user_spending.to_csv(os.path.join(model_dir, \'user_spending_clusters.csv\'), index=False)
+    print(f"User spending with clusters saved to {os.path.join(model_dir, \'user_spending_clusters.csv\')}")
     print(user_spending.head())
 
     # Save the list of features used for consistent input during inference
-    joblib.dump(features, \'PayNext/ml_services/recommendation_features.joblib\')
+    joblib.dump(features, os.path.join(model_dir, \'recommendation_features.joblib\'))
 
     # --- Content-Based Recommendation Model (New Feature) ---
     # This model will recommend items based on similarity of transaction types and merchants.
@@ -72,15 +71,18 @@ def train_recommendation_model(data_path=\'PayNext/ml_services/synthetic_transac
     tfidf_matrix = tfidf_vectorizer.fit_transform(df_transactions["item_description"])
 
     # Save TF-IDF vectorizer and matrix (or just vectorizer if matrix is too large)
-    joblib.dump(tfidf_vectorizer, \'PayNext/ml_services/recommendation_tfidf_vectorizer.joblib\')
+    joblib.dump(tfidf_vectorizer, os.path.join(model_dir, \'recommendation_tfidf_vectorizer.joblib\'))
     # For demonstration, we'll save a sample of the matrix or a way to regenerate it.
     # In production, you'd compute similarity on demand or pre-compute for popular items.
     # For now, we'll just save the vectorizer.
-    print("Content-based recommendation TF-IDF vectorizer trained and saved to PayNext/ml_services/recommendation_tfidf_vectorizer.joblib")
+    print(f"Content-based recommendation TF-IDF vectorizer trained and saved to {os.path.join(model_dir, \'recommendation_tfidf_vectorizer.joblib\')}")
 
     # We also need to save the transaction data itself to be able to map back to items
-    df_transactions[["transaction_id", "item_description", "transaction_type", "merchant"]].to_csv(\'PayNext/ml_services/recommendation_items.csv\', index=False)
-    print("Transaction items data saved for content-based recommendations.")
+    # Add a dummy transaction_id for now, as it's not in the original synthetic_transactions.csv
+    if 'transaction_id' not in df_transactions.columns:
+        df_transactions['transaction_id'] = range(len(df_transactions))
+    df_transactions[["transaction_id", "item_description", "transaction_type", "merchant"]].to_csv(os.path.join(model_dir, \'recommendation_items.csv\'), index=False)
+    print(f"Transaction items data saved for content-based recommendations to {os.path.join(model_dir, \'recommendation_items.csv\')}")
 
 
 if __name__ == \'__main__\':

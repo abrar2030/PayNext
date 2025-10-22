@@ -1,5 +1,6 @@
 
 import pandas as pd
+import os
 import numpy as np
 from datetime import datetime, timedelta
 
@@ -57,8 +58,9 @@ def generate_churn_data(num_users=1000, num_months=12):
 
 if __name__ == '__main__':
     df = generate_churn_data(num_users=5000, num_months=12)
-    df.to_csv('PayNext/ml_services/synthetic_churn_data.csv', index=False)
-    print("Synthetic churn data generated and saved to PayNext/ml_services/synthetic_churn_data.csv")
+    output_path = os.path.join(os.path.dirname(__file__), \'synthetic_churn_data.csv\')
+    df.to_csv(output_path, index=False)
+    print(f"Synthetic churn data generated and saved to {output_path}")
     print(df.head())
     print(df['is_churned'].value_counts())
 

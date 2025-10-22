@@ -5,9 +5,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, roc_auc_score
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 import joblib
+import os
 import numpy as np
 
-def train_credit_scoring_model(data_path='PayNext/ml_services/synthetic_transactions.csv'):
+def train_credit_scoring_model(data_path=os.path.join(os.path.dirname(__file__), \'..\', \'common\', \'synthetic_transactions.csv\')):
     df = pd.read_csv(data_path)
 
     # For credit scoring, we'll need to aggregate transaction data per user
@@ -51,7 +52,8 @@ def train_credit_scoring_model(data_path='PayNext/ml_services/synthetic_transact
     # Scale numerical features
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
-    joblib.dump(scaler, 'PayNext/ml_services/credit_scoring_scaler.joblib')
+    model_dir = os.path.join(os.path.dirname(__file__), \'..\')
+    joblib.dump(scaler, os.path.join(model_dir, \'credit_scoring_scaler.joblib\'))
     X = pd.DataFrame(X_scaled, columns=features)
 
     # Split data
@@ -69,8 +71,8 @@ def train_credit_scoring_model(data_path='PayNext/ml_services/synthetic_transact
     print("ROC AUC Score:", roc_auc_score(y_test, y_proba))
 
     # Save the model
-    joblib.dump(model, 'PayNext/ml_services/credit_scoring_model.joblib')
-    joblib.dump(features, 'PayNext/ml_services/credit_scoring_features.joblib')
+    joblib.dump(model, os.path.join(model_dir, \'credit_scoring_model.joblib\'))
+    joblib.dump(features, os.path.join(model_dir, \'credit_scoring_features.joblib\'))
     print("Credit scoring model trained and saved to PayNext/ml_services/credit_scoring_model.joblib")
 
 if __name__ == '__main__':
