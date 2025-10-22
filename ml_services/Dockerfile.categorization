@@ -1,0 +1,17 @@
+FROM python:3.9-slim-buster
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY categorization_api.py .
+COPY transaction_categorization_model.py .
+COPY synthetic_categorization_data.csv .
+COPY category_model.joblib .
+COPY category_vectorizer.joblib .
+
+EXPOSE 5002
+
+CMD ["python", "categorization_api.py"]
+

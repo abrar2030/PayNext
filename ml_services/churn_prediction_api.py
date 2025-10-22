@@ -27,6 +27,9 @@ def predict_churn():
         # Expected input: avg_transactions_per_month, avg_logins_per_month, avg_feature_usage_score, total_months_active
         # Plus new features: avg_transactions_diff, avg_logins_diff, avg_feature_usage_diff,
         # max_transactions_per_month, min_transactions_per_month
+        # New rolling window features
+        # avg_rolling_avg_transactions_3m, avg_rolling_std_transactions_3m,
+        # avg_rolling_avg_logins_3m, avg_rolling_std_logins_3m
         input_data = pd.DataFrame([data])
 
         # Ensure columns are in the same order as during training

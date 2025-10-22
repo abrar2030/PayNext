@@ -1,0 +1,20 @@
+FROM python:3.9-slim-buster
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY fraud_detection_api.py .
+COPY fraud_detection_model.py .
+COPY synthetic_transactions.csv .
+COPY fraud_scaler.joblib .
+COPY fraud_model.joblib .
+COPY fraud_isolation_forest_model.joblib .
+COPY fraud_model_features.joblib .
+COPY *.joblib .
+
+EXPOSE 5000
+
+CMD ["python", "fraud_detection_api.py"]
+

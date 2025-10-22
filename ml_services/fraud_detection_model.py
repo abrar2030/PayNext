@@ -2,6 +2,9 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, IsolationForest
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, Dense
+from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 import joblib
@@ -102,6 +105,37 @@ def train_fraud_model(data_path='PayNext/ml_services/synthetic_transactions.csv'
 
     # Save feature columns and scaler for consistent input during inference
     joblib.dump(features, 'PayNext/ml_services/fraud_model_features.joblib')
+
+    # --- Autoencoder for Anomaly Detection (New Feature) ---
+    # This provides an alternative or complementary anomaly detection mechanism
+    input_dim = X_train.shape[1]
+    encoding_dim = int(input_dim / 2) # Example: reduce dimension by half
+
+    input_layer = Input(shape=(input_dim,))
+    encoder = Dense(encoding_dim, activation="relu")(input_layer)
+    decoder = Dense(input_dim, activation="sigmoid")(encoder)
+    
+    autoencoder = Model(inputs=input_layer, outputs=decoder)
+    autoencoder.compile(optimizer=Adam(learning_rate=0.001), loss='mean_squared_error')
+
+    print("\nTraining Autoencoder for Anomaly Detection...")
+    autoencoder.fit(X_train, X_train, 
+                    epochs=50, 
+                    batch_size=32, 
+                    shuffle=True, 
+                    validation_split=0.1, 
+                    verbose=0)
+    print("Autoencoder training complete.")
+
+    # Predict reconstruction errors for anomaly scoring
+    reconstructions = autoencoder.predict(X)
+    mse = np.mean(np.power(X - reconstructions, 2), axis=1)
+
+    # Determine a threshold for anomalies (e.g., based on a percentile of MSE on training data)
+    # For simplicity, we'll save the model and let the API determine the threshold dynamically or use a fixed one.
+    joblib.dump(autoencoder, 'PayNext/ml_services/fraud_autoencoder_model.joblib')
+    print("Fraud detection Autoencoder model trained and saved to PayNext/ml_services/fraud_autoencoder_model.joblib")
+
 
 if __name__ == '__main__':
     train_fraud_model()

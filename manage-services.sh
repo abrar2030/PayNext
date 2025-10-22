@@ -15,6 +15,7 @@ FINTECH_PAYMENT_FRONTEND_DIR="$FRONTEND_DIR/frontend"
 
 # Define backend and frontend services
 BACKEND_SERVICES=("eureka-server" "api-gateway" "user-service" "payment-service" "notification-service")
+ML_SERVICES=("fraud-detection-service" "churn-prediction-service" "recommendation-service" "categorization-service" "credit-scoring-service")
 FRONTEND_SERVICES=("frontend" "frontend")
 
 # Function to display usage information
@@ -29,6 +30,10 @@ usage() {
     echo "Services:"
     echo "  Backend Services:"
     for service in "${BACKEND_SERVICES[@]}"; do
+        echo "    - $service"
+    done
+    echo "  ML Services:"
+    for service in "${ML_SERVICES[@]}"; do
         echo "    - $service"
     done
     echo "  Frontend Services:"
@@ -60,6 +65,46 @@ check_docker_compose() {
         echo "Docker Compose could not be found. Please install Docker Compose before running this script."
         exit 1
     fi
+}
+
+# Function to build an ML service
+build_ml_service() {
+    SERVICE=$1
+    SERVICE_DIR="$PROJECT_ROOT/ml_services"
+    PYTHON_SCRIPT=""
+
+    case "$SERVICE" in
+        "fraud-detection-service") PYTHON_SCRIPT="fraud_detection_api.py" ;;
+        "churn-prediction-service") PYTHON_SCRIPT="churn_prediction_api.py" ;;
+        "recommendation-service") PYTHON_SCRIPT="recommendation_api.py" ;;
+        "categorization-service") PYTHON_SCRIPT="categorization_api.py" ;;
+        "credit-scoring-service") PYTHON_SCRIPT="credit_scoring_api.py" ;;
+        *)
+            echo "Error: Unknown ML service $SERVICE."
+            exit 1
+            ;;
+    esac
+
+    if [ -f "$SERVICE_DIR/$PYTHON_SCRIPT" ]; then
+        echo "Building ML service: $SERVICE (No explicit build step for Python Flask apps, ensuring dependencies)"
+        cd "$SERVICE_DIR"
+        # Assuming dependencies are managed via requirements.txt or similar
+        # For now, we just ensure the script exists. Docker build will handle actual dependencies.
+        echo "ML service $SERVICE build step completed (script found)."
+        cd "$PROJECT_ROOT"
+    else
+        echo "Error: ML service script $SERVICE_DIR/$PYTHON_SCRIPT does not exist."
+        exit 1
+    fi
+}
+
+# Function to run an ML service
+run_ml_service() {
+    SERVICE=$1
+    echo "Running ML service: $SERVICE"
+    cd "$PROJECT_ROOT"
+    docker-compose up -d "$SERVICE"
+    echo "ML service $SERVICE is now running."
 }
 
 # Function to clean a backend service
@@ -190,7 +235,9 @@ run_frontend() {
 all_services() {
     ACTION=$1
 
-    echo "Performing '$ACTION' on all backend services..."
+    echo "Performing 
+$ACTION
+ on all backend services..."
     for service in "${BACKEND_SERVICES[@]}"; do
         case "$ACTION" in
             clean)
@@ -203,7 +250,29 @@ all_services() {
                 run_backend "$service"
                 ;;
             *)
-                echo "Error: Invalid action '$ACTION'."
+                echo "Error: Invalid action 
+$ACTION
+."
+                usage
+                ;;
+        esac
+    done
+
+    echo "Performing 
+$ACTION
+ on all ML services..."
+    for service in "${ML_SERVICES[@]}"; do
+        case "$ACTION" in
+            build)
+                build_ml_service "$service"
+                ;;
+            run)
+                run_ml_service "$service"
+                ;;
+            *)
+                echo "Error: Invalid action 
+$ACTION
+ for ML services (only build and run supported)."
                 usage
                 ;;
         esac
@@ -254,6 +323,8 @@ main() {
     # shellcheck disable=SC2076
     if [[ " ${BACKEND_SERVICES[@]} " =~ " ${SERVICE} " ]]; then
         SERVICE_TYPE="backend"
+    elif [[ " ${ML_SERVICES[@]} " =~ " ${SERVICE} " ]]; then
+        SERVICE_TYPE="ml_service"
     elif [[ " ${FRONTEND_SERVICES[@]} " =~ " ${SERVICE} " ]]; then
         SERVICE_TYPE="frontend"
     else
@@ -276,6 +347,20 @@ main() {
                     ;;
                 *)
                     echo "Error: Invalid command '$COMMAND' for backend service."
+                    usage
+                    ;;
+            esac
+            ;;
+        ml_service)
+            case "$COMMAND" in
+                build)
+                    build_ml_service "$SERVICE"
+                    ;;
+                run)
+                    run_ml_service "$SERVICE"
+                    ;;
+                *)
+                    echo "Error: Invalid command $COMMAND for ML service (only build and run supported)."
                     usage
                     ;;
             esac

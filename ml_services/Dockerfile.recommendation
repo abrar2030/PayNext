@@ -1,0 +1,19 @@
+FROM python:3.9-slim-buster
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY recommendation_api.py .
+COPY recommendation_model.py .
+COPY synthetic_transactions.csv .
+COPY recommendation_scaler.joblib .
+COPY recommendation_kmeans_model.joblib .
+COPY recommendation_features.joblib .
+COPY user_spending_clusters.csv .
+
+EXPOSE 5003
+
+CMD ["python", "recommendation_api.py"]
+

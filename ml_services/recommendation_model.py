@@ -3,6 +3,8 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import joblib
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 def train_recommendation_model(data_path=\'PayNext/ml_services/synthetic_transactions.csv\'
                                , num_clusters=7): # Increased number of clusters for more granularity
@@ -56,6 +58,30 @@ def train_recommendation_model(data_path=\'PayNext/ml_services/synthetic_transac
 
     # Save the list of features used for consistent input during inference
     joblib.dump(features, \'PayNext/ml_services/recommendation_features.joblib\')
+
+    # --- Content-Based Recommendation Model (New Feature) ---
+    # This model will recommend items based on similarity of transaction types and merchants.
+    # For simplicity, we'll use a TF-IDF vectorizer and cosine similarity.
+    # In a real scenario, this would be a separate model or integrated more deeply.
+
+    # Create a combined text feature for content-based recommendations
+    df_transactions["item_description"] = df_transactions["transaction_type"] + " " + df_transactions["merchant"]
+
+    # TF-IDF Vectorizer
+    tfidf_vectorizer = TfidfVectorizer(stop_words=\'english\')
+    tfidf_matrix = tfidf_vectorizer.fit_transform(df_transactions["item_description"])
+
+    # Save TF-IDF vectorizer and matrix (or just vectorizer if matrix is too large)
+    joblib.dump(tfidf_vectorizer, \'PayNext/ml_services/recommendation_tfidf_vectorizer.joblib\')
+    # For demonstration, we'll save a sample of the matrix or a way to regenerate it.
+    # In production, you'd compute similarity on demand or pre-compute for popular items.
+    # For now, we'll just save the vectorizer.
+    print("Content-based recommendation TF-IDF vectorizer trained and saved to PayNext/ml_services/recommendation_tfidf_vectorizer.joblib")
+
+    # We also need to save the transaction data itself to be able to map back to items
+    df_transactions[["transaction_id", "item_description", "transaction_type", "merchant"]].to_csv(\'PayNext/ml_services/recommendation_items.csv\', index=False)
+    print("Transaction items data saved for content-based recommendations.")
+
 
 if __name__ == \'__main__\':
     train_recommendation_model()

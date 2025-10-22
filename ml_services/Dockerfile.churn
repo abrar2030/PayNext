@@ -1,0 +1,18 @@
+FROM python:3.9-slim-buster
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY churn_prediction_api.py .
+COPY churn_prediction_model.py .
+COPY synthetic_churn_data.csv .
+COPY churn_scaler.joblib .
+COPY churn_model.joblib .
+COPY churn_model_features.joblib .
+
+EXPOSE 5001
+
+CMD ["python", "churn_prediction_api.py"]
+

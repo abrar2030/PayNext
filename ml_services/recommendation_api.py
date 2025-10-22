@@ -2,6 +2,8 @@ _api.py
 import pandas as pd
 from flask import Flask, request, jsonify
 import joblib
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 

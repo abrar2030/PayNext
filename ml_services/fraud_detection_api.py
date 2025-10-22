@@ -11,6 +11,7 @@ app = Flask(__name__)
 try:
     fraud_model_rf = joblib.load("PayNext/ml_services/fraud_model.joblib")
     fraud_model_if = joblib.load("PayNext/ml_services/fraud_isolation_forest_model.joblib")
+    fraud_model_ae = joblib.load("PayNext/ml_services/fraud_autoencoder_model.joblib")
     fraud_scaler = joblib.load("PayNext/ml_services/fraud_scaler.joblib")
     fraud_model_features = joblib.load("PayNext/ml_services/fraud_model_features.joblib")
     
@@ -22,10 +23,11 @@ except Exception as e:
     print(f"Error loading model or encoders: {e}")
     fraud_model_rf = None
     fraud_model_if = None
+    fraud_model_ae = None
 
 @app.route("/predict_fraud", methods=["POST"])
 def predict_fraud():
-    if fraud_model_rf is None or fraud_model_if is None:
+    if fraud_model_rf is None or fraud_model_if is None or fraud_model_ae is None:
         return jsonify({"error": "Models not loaded"}), 500
 
     data = request.get_json(force=True)
@@ -107,15 +109,31 @@ def predict_fraud():
         # We can normalize this score or use a threshold. For simplicity, we'll return the raw score.
         # A higher anomaly_score_if suggests higher fraud probability from Isolation Forest.
 
+        # Predict with Autoencoder (reconstruction error)
+        reconstruction = fraud_model_ae.predict(input_scaled_df)
+        mse = np.mean(np.power(input_scaled_df - reconstruction, 2), axis=1)[0]
+        # Higher MSE suggests higher anomaly (fraud) likelihood from Autoencoder.
+
         # Combine predictions (simple average for now, can be improved)
         # For example, if both models agree, or if one is strongly confident
-        combined_fraud_probability = (prediction_proba_rf + (anomaly_score_if / (anomaly_score_if + 1))) / 2 # Simple normalization for IF score
-        is_fraud = bool(prediction_rf) or (anomaly_score_if > 0.5) # Example thresholding for IF
+        # Combine predictions (simple average for now, can be improved with weighted average or meta-learner)
+        # For Isolation Forest, decision_function is typically negative for inliers, positive for outliers.
+        # We want a score where higher is more fraudulent. So, we use -decision_function.
+        # For Autoencoder, higher MSE is more fraudulent.
+        # Normalize IF and AE scores to a 0-1 range for easier combination.
+        # This is a simplified combination. A more advanced approach would involve training a meta-learner.
+        normalized_anomaly_score_if = 1 / (1 + np.exp(-anomaly_score_if)) # Sigmoid to normalize IF score
+        normalized_anomaly_score_ae = 1 / (1 + np.exp(-mse)) # Sigmoid to normalize MSE (adjust threshold as needed)
+
+        # Simple weighted average for demonstration
+        combined_fraud_probability = (prediction_proba_rf * 0.5 + normalized_anomaly_score_if * 0.25 + normalized_anomaly_score_ae * 0.25)
+        is_fraud = (combined_fraud_probability > 0.5) # Example threshold for combined score
 
         return jsonify({
             "is_fraud": is_fraud,
             "fraud_probability_rf": round(prediction_proba_rf, 4),
             "anomaly_score_if": round(anomaly_score_if, 4),
+            "anomaly_score_ae": round(mse, 4),
             "combined_fraud_probability": round(combined_fraud_probability, 4)
         })
     except Exception as e:

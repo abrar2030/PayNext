@@ -73,6 +73,61 @@ services:
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8001/eureka/
       - JWT_SECRET=${JWT_SECRET:-changeme}
+  fraud-detection-service:
+    build:
+      context: ./ml_services
+      dockerfile: Dockerfile.fraud
+    image: abrar2030/paynext-ml:fraud-detection-service
+    container_name: fraud-detection-service
+    ports:
+      - "5000:5000"
+    networks:
+      - fintech-network
+
+  churn-prediction-service:
+    build:
+      context: ./ml_services
+      dockerfile: Dockerfile.churn
+    image: abrar2030/paynext-ml:churn-prediction-service
+    container_name: churn-prediction-service
+    ports:
+      - "5001:5001"
+    networks:
+      - fintech-network
+
+  categorization-service:
+    build:
+      context: ./ml_services
+      dockerfile: Dockerfile.categorization
+    image: abrar2030/paynext-ml:categorization-service
+    container_name: categorization-service
+    ports:
+      - "5002:5002"
+    networks:
+      - fintech-network
+
+  recommendation-service:
+    build:
+      context: ./ml_services
+      dockerfile: Dockerfile.recommendation
+    image: abrar2030/paynext-ml:recommendation-service
+    container_name: recommendation-service
+    ports:
+      - "5003:5003"
+    networks:
+      - fintech-network
+
+  credit-scoring-service:
+    build:
+      context: ./ml_services
+      dockerfile: Dockerfile.credit_scoring
+    image: abrar2030/paynext-ml:credit-scoring-service
+    container_name: credit-scoring-service
+    ports:
+      - "5005:5005"
+    networks:
+      - fintech-network
+
   frontend:
     build:
       context: ./frontend

@@ -1,0 +1,18 @@
+FROM python:3.9-slim-buster
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY credit_scoring_api.py .
+COPY credit_scoring_model.py .
+COPY synthetic_transactions.csv .
+COPY credit_scoring_scaler.joblib .
+COPY credit_scoring_model.joblib .
+COPY credit_scoring_features.joblib .
+
+EXPOSE 5005
+
+CMD ["python", "credit_scoring_api.py"]
+
