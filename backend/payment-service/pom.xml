@@ -9,7 +9,7 @@
     <!-- Inherit from the root POM -->
     <parent>
         <groupId>com.fintech</groupId>
-        <artifactId>fintech-payment-solution</artifactId>
+        <artifactId>paynext-backend</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>

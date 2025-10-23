@@ -9,7 +9,7 @@
     <!-- Inherit from the root POM -->
     <parent>
         <groupId>com.fintech</groupId>
-        <artifactId>fintech-payment-solution</artifactId>
+        <artifactId>paynext-backend</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -39,14 +39,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-            <version>${spring.boot.version}</version>
         </dependency>
 
         <!-- Lombok (Optional) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
         </dependency>
 
         <!-- Spring Boot Starter Test -->
@@ -66,7 +64,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version> <!-- Use the latest stable version -->
             <scope>runtime</scope>
         </dependency>
 
@@ -75,7 +72,6 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.3.8</version>
         </dependency>
     </dependencies>
 

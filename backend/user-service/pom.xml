@@ -9,7 +9,7 @@
     <!-- Inherit from the root POM -->
     <parent>
         <groupId>com.fintech</groupId>
-        <artifactId>fintech-payment-solution</artifactId>
+        <artifactId>paynext-backend</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -48,11 +48,11 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- JWT Dependency -->
+        <!-- Common Module for shared utilities like JwtUtil -->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jjwt.version}</version>
+            <groupId>com.fintech</groupId>
+            <artifactId>common-module</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Lombok (Optional) -->

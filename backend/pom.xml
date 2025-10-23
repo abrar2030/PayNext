@@ -7,17 +7,16 @@
 
     <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.7</version>
-        <relativePath/> <!-- lookup parent from repository -->
+      <artifactId>spring-boot-starter-parent</artifactId>
+            <version>${spring.boot.version}</version>       <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.fintech</groupId>
-    <artifactId>fintech-payment-solution</artifactId>
+    <artifactId>paynext-backend</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    <name>PayNext Fintech Payment Solution</name>
-    <description>A multi-module Spring Boot application for Fintech Payment Processing</description>
+    <name>PayNext Backend</name>
+    <description>Parent POM for PayNext Microservices</description>
 
     <modules>
         <module>eureka-server</module>
@@ -26,14 +25,15 @@
         <module>payment-service</module>
         <module>notification-service</module>
         <module>ai-fraud-detection-service</module>
+        <module>common-module</module>
     </modules>
 
     <properties>
-        <java.version>11</java.version>
-        <spring.boot.version>2.6.7</spring.boot.version>
-        <spring.cloud.version>2021.0.1</spring.cloud.version>
+        <java.version>17</java.version>
+        <spring.boot.version>3.2.0</spring.boot.version>
+        <spring.cloud.version>2023.0.0</spring.cloud.version>
         <version.spotless-plugin>2.30.0</version.spotless-plugin>
-        <jjwt.version>0.9.1</jjwt.version>
+        <jjwt.version>0.11.5</jjwt.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -58,6 +58,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
@@ -75,8 +79,20 @@
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
+            <artifactId>jjwt-api</artifactId>
             <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

@@ -1,5 +1,7 @@
 package com.fintech.apigateway.security;
 
+import com.fintech.common.util.JwtUtil;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
 public class JwtAuthenticationFilter implements WebFilter {
 
   @Autowired
-  private JwtUtil jwtUtil;
+  private com.fintech.common.util.JwtUtil jwtUtil;
 
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
@@ -48,14 +50,8 @@ public class JwtAuthenticationFilter implements WebFilter {
     String token = authHeader.substring(7);
     
     try {
-      // Validate token
-      if (!jwtUtil.validateToken(token)) {
-        exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-        return exchange.getResponse().setComplete();
-      }
-      
       // Extract username and set authentication
-      String username = jwtUtil.extractUsername(token);
+      String username = jwtUtil.getUsernameFromToken(token);
       UsernamePasswordAuthenticationToken authentication = 
           new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
       

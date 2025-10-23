@@ -2,10 +2,12 @@ package com.fintech.userservice.controller;
 
 import com.fintech.userservice.model.User;
 import com.fintech.userservice.service.UserService;
-import com.fintech.userservice.util.JwtUtil;
+import com.fintech.common.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +44,7 @@ public class UserController {
               new UsernamePasswordAuthenticationToken(
                   loginRequest.getUsername(), loginRequest.getPassword()));
       SecurityContextHolder.getContext().setAuthentication(authentication);
-      User user = userService.findByUsername(loginRequest.getUsername());
-      String jwt = jwtUtil.generateToken(user);
+      String jwt = jwtUtil.generateToken((UserDetails) authentication.getPrincipal());
       return ResponseEntity.ok(new AuthResponse(jwt));
     } catch (BadCredentialsException e) {
       return ResponseEntity.status(401).body("Invalid credentials");

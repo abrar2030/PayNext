@@ -1,10 +1,10 @@
 package com.fintech.userservice.filter;
 
 import com.fintech.userservice.service.UserDetailsServiceImpl;
-import com.fintech.userservice.util.JwtUtil;
+import com.fintech.common.util.JwtUtil;
 import java.io.IOException;
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,11 +24,11 @@ public class JwtAuthenticationFilter extends GenericFilter {
       throws IOException, ServletException {
     String token = getJWTFromRequest((HttpServletRequest) request);
 
-    if (token != null && jwtUtil.getUserIdFromToken(token) != null) {
-      Long userId = jwtUtil.getUserIdFromToken(token);
-      UserDetails userDetails = userDetailsService.loadUserById(userId);
+    if (token != null && jwtUtil.getUsernameFromToken(token) != null) {
+      String username = jwtUtil.getUsernameFromToken(token);
+      UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-      if (jwtUtil.getUserIdFromToken(token).equals(userId)) {
+      if (userDetails != null && jwtUtil.getUsernameFromToken(token).equals(username)) {
         UsernamePasswordAuthenticationToken authentication =
             new UsernamePasswordAuthenticationToken(
                 userDetails, null, userDetails.getAuthorities());

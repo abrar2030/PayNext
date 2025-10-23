@@ -10,7 +10,7 @@
     <!-- Inherit from the root POM -->
     <parent>
         <groupId>com.fintech</groupId>
-        <artifactId>fintech-payment-solution</artifactId>
+        <artifactId>paynext-backend</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath> <!-- Adjust if necessary -->
     </parent>
@@ -59,11 +59,11 @@
             </exclusions>
         </dependency>
 
-        <!-- JWT Dependency -->
+        <!-- Common Module for shared utilities like JwtUtil -->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jjwt.version}</version> <!-- Ensure this property is defined in parent POM or here -->
+            <groupId>com.fintech</groupId>
+            <artifactId>common-module</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- H2 Database (for testing purposes, can be removed if not needed) -->
@@ -100,26 +100,7 @@
         </dependency>
     </dependencies>
 
-    <!-- Dependency Management -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- Spring Cloud Dependencies BOM -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2021.0.4</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
 
-            <!-- Define JWT Version if not defined in parent POM -->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>0.9.1</version> <!-- Replace with your desired version -->
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <!-- Build plugins are inherited from the parent POM -->
 </project>
