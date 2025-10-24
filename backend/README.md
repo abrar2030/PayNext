@@ -33,9 +33,9 @@ The service implements secure password handling, role-based access control, and 
 
 The Payment Service handles all payment processing operations, including transaction initiation, validation, processing, and recording. It implements secure payment protocols, integrates with external payment gateways, and maintains transaction records. The service includes fraud detection mechanisms and ensures compliance with financial regulations. It communicates with the Notification Service to alert users about transaction status changes.
 
-### Fraud Detection Service (Renamed)
+### Fraud Detection Service
 
-This service, formerly known as the "AI Fraud Detection Service," provides real-time transaction analysis and risk scoring. It is responsible for identifying and flagging suspicious activities before they can be processed. The service communicates with the Payment Service to provide a fraud risk assessment during the transaction lifecycle.
+This service provides real-time transaction analysis and risk scoring. It is responsible for identifying and flagging suspicious activities before they can be processed. The service communicates with the Payment Service to provide a fraud risk assessment during the transaction lifecycle.
 
 ### Notification Service
 
