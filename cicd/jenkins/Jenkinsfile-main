@@ -1,7 +1,10 @@
+// Main pipeline for orchestrating CI/CD for all microservices in the monorepo.
+
 pipeline {
     agent any
     
     environment {
+        // Credentials should be defined in Jenkins Global Credentials
         DOCKER_CREDENTIALS = credentials('docker-credentials')
         KUBECONFIG_CREDENTIALS = credentials('kubeconfig')
     }
@@ -13,18 +16,37 @@ pipeline {
             }
         }
         
-        stage('Backend Pipeline') {
+        stage('Build and Deploy Backend Services') {
             steps {
-                build job: 'PayNext-Backend-Pipeline', 
-                      parameters: [
-                          string(name: 'BRANCH_NAME', value: env.BRANCH_NAME)
-                      ],
-                      wait: true
+                script {
+                    // Define all backend services and their properties
+                    def backendServices = [
+                        [dir: 'backend/api-gateway', name: 'api-gateway', image: 'abrar2030/backend-api-gateway', sonar: 'paynext-api-gateway'],
+                        [dir: 'backend/eureka-server', name: 'eureka-server', image: 'abrar2030/backend-eureka-server', sonar: 'paynext-eureka-server'],
+                        [dir: 'backend/notification-service', name: 'notification-service', image: 'abrar2030/backend-notification-service', sonar: 'paynext-notification-service'],
+                        [dir: 'backend/payment-service', name: 'payment-service', image: 'abrar2030/backend-payment-service', sonar: 'paynext-payment-service'],
+                        [dir: 'backend/user-service', name: 'user-service', image: 'abrar2030/backend-user-service', sonar: 'paynext-user-service']
+                    ]
+
+                    // Iterate over each service and call the generic pipeline
+                    for (service in backendServices) {
+                        echo "Starting CI/CD for service: ${service.name}"
+                        build job: 'PayNext-Service-Pipeline', // Assuming a job named 'PayNext-Service-Pipeline' is configured to run Jenkinsfile-service
+                              parameters: [
+                                  string(name: 'SERVICE_DIR', value: service.dir),
+                                  string(name: 'SERVICE_NAME', value: service.name),
+                                  string(name: 'DOCKER_IMAGE_NAME', value: service.image),
+                                  string(name: 'SONARQUBE_PROJECT_KEY', value: service.sonar)
+                              ],
+                              wait: true
+                    }
+                }
             }
         }
         
-        stage('Frontend Pipeline') {
+        stage('Build and Deploy Frontend') {
             steps {
+                // Assuming a job named 'PayNext-Frontend-Pipeline' is configured to run Jenkinsfile-frontend
                 build job: 'PayNext-Frontend-Pipeline', 
                       parameters: [
                           string(name: 'BRANCH_NAME', value: env.BRANCH_NAME)
@@ -48,61 +70,14 @@ pipeline {
         
         stage('Deploy All to Kubernetes') {
             when {
-                branch 'main'
-            }
-            steps {
-                script {
-                    // Configure kubectl
-                    sh 'mkdir -p ~/.kube'
-                    sh 'echo "${KUBECONFIG_CREDENTIALS}" > ~/.kube/config'
-                    
-                    // Apply Kubernetes manifests
-                    sh 'kubectl apply -f kubernetes/eureka-server-deployment.yaml'
-                    sh 'kubectl apply -f kubernetes/api-gateway-deployment.yaml'
-                    sh 'kubectl apply -f kubernetes/user-service-deployment.yaml'
-                    sh 'kubectl apply -f kubernetes/payment-service-deployment.yaml'
-                    sh 'kubectl apply -f kubernetes/notification-service-deployment.yaml'
-                    sh 'kubectl apply -f kubernetes/frontend-deployment.yaml'
-                    
-                    // Verify all deployments
-                    sh 'kubectl get deployments'
-                    sh 'kubectl get services'
-                    sh 'kubectl get pods'
+                expression { 
+                    return env.BRANCH_NAME == 'main'
                 }
             }
-        }
-        
-        stage('Smoke Tests') {
-            when {
-                branch 'main'
-            }
             steps {
-                echo "Running smoke tests against deployed services"
-                // Add smoke test commands here
-                sh 'echo "Smoke tests would run here"'
-            }
-        }
-    }
-    
-    post {
-        always {
-            cleanWs()
-        }
-        success {
-            echo 'Complete pipeline completed successfully!'
-            // Send notification on success
-            script {
-                if (env.BRANCH_NAME == 'main') {
-                    // Send deployment notification
-                    echo "Deployment notification would be sent here"
-                }
-            }
-        }
-        failure {
-            echo 'Pipeline failed!'
-            // Send notification on failure
-            script {
-                echo "Failure notification would be sent here"
+                echo "Deploying all services to production Kubernetes cluster"
+                // The individual service pipelines handle their own Helm deployment.
+                // This stage can be used for final, full-stack deployment checks or external services.
             }
         }
     }

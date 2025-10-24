@@ -1,4 +1,3 @@
----
 global:
   namespace: paynext
   ingressClass: nginx
@@ -18,342 +17,239 @@ global:
       fsGroup: 10001
     rbac:
       enabled: true
-      strictMode: true
-  # Resource management
-  resources:
-    requests:
-      enabled: true
-    limits:
-      enabled: true
-  # Monitoring and logging
-  monitoring:
-    enabled: true
-    prometheus:
-      enabled: true
-    grafana:
-      enabled: true
-  logging:
-    enabled: true
-    elasticsearch:
-      enabled: true
-    kibana:
-      enabled: true
-  # Backup and disaster recovery
-  backup:
-    enabled: true
-    schedule: "0 1 * * *"
-    retention: 30
 
-# Service-specific configurations
-eurekaServer:
-  image:
-    repository: abrar2030/backend-eureka-server
-    tag: latest
-    pullPolicy: Always
-  service:
-    port: 8001
-    type: ClusterIP
-  resources:
-    requests:
-      memory: "512Mi"
-      cpu: "250m"
-    limits:
-      memory: "1Gi"
-      cpu: "500m"
-  securityContext:
-    enabled: true
-    runAsNonRoot: true
-    runAsUser: 10001
-  livenessProbe:
-    enabled: true
-    initialDelaySeconds: 60
-    periodSeconds: 20
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
-    enabled: true
-    initialDelaySeconds: 30
-    periodSeconds: 10
-    timeoutSeconds: 3
-    failureThreshold: 3
+image:
+  repository: abrar2030
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
 
-apiGateway:
-  image:
-    repository: abrar2030/backend-api-gateway
-    tag: latest
-    pullPolicy: Always
-  service:
-    port: 8002
-    type: ClusterIP
-  resources:
-    requests:
-      memory: "512Mi"
-      cpu: "250m"
-    limits:
-      memory: "1Gi"
-      cpu: "500m"
-  securityContext:
-    enabled: true
-    runAsNonRoot: true
-    runAsUser: 10001
-  env:
-    JWT_SECRET:
-      valueFrom:
-        secretKeyRef:
-          name: paynext-secrets
-          key: jwt_secret
-    JWT_EXPIRATION: 3600
-    RATE_LIMIT_ENABLED: true
-    RATE_LIMIT_REQUESTS_PER_SECOND: 100
-  livenessProbe:
-    enabled: true
-    initialDelaySeconds: 60
-    periodSeconds: 20
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
-    enabled: true
-    initialDelaySeconds: 30
-    periodSeconds: 10
-    timeoutSeconds: 3
-    failureThreshold: 3
-
-userService:
-  image:
-    repository: abrar2030/backend-user-service
-    tag: latest
-    pullPolicy: Always
-  service:
-    port: 8003
-    type: ClusterIP
-  resources:
-    requests:
-      memory: "512Mi"
-      cpu: "250m"
-    limits:
-      memory: "1Gi"
-      cpu: "500m"
-  securityContext:
-    enabled: true
-    runAsNonRoot: true
-    runAsUser: 10001
-  env:
-    EUREKA_SERVER_URL: http://eureka-server:8001/eureka/
-    PASSWORD_HASH_ITERATIONS: 10000
-    PASSWORD_HASH_ALGORITHM: PBKDF2WithHmacSHA256
-    SESSION_TIMEOUT: 1800
-  livenessProbe:
-    enabled: true
-    initialDelaySeconds: 60
-    periodSeconds: 20
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
-    enabled: true
-    initialDelaySeconds: 30
-    periodSeconds: 10
-    timeoutSeconds: 3
-    failureThreshold: 3
-
-paymentService:
-  image:
-    repository: abrar2030/backend-payment-service
-    tag: latest
-    pullPolicy: Always
-  service:
-    port: 8004
-    type: ClusterIP
-  resources:
-    requests:
-      memory: "512Mi"
-      cpu: "250m"
-    limits:
-      memory: "1Gi"
-      cpu: "500m"
-  securityContext:
-    enabled: true
-    runAsNonRoot: true
-    runAsUser: 10001
-  env:
-    EUREKA_SERVER_URL: http://eureka-server:8001/eureka/
-    JWT_SECRET:
-      valueFrom:
-        secretKeyRef:
-          name: paynext-secrets
-          key: jwt_secret
-    PAYMENT_GATEWAY_URL: https://secure-payment-gateway.com/api
-    PAYMENT_GATEWAY_API_KEY:
-      valueFrom:
-        secretKeyRef:
-          name: paynext-secrets
-          key: payment_gateway_api_key
-    TRANSACTION_TIMEOUT: 30
-    ENCRYPTION_ENABLED: true
-  livenessProbe:
-    enabled: true
-    initialDelaySeconds: 60
-    periodSeconds: 20
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
-    enabled: true
-    initialDelaySeconds: 30
-    periodSeconds: 10
-    timeoutSeconds: 3
-    failureThreshold: 3
-
-notificationService:
-  image:
-    repository: abrar2030/backend-notification-service
-    tag: latest
-    pullPolicy: Always
-  service:
-    port: 8005
-    type: ClusterIP
-  resources:
-    requests:
-      memory: "512Mi"
-      cpu: "250m"
-    limits:
-      memory: "1Gi"
-      cpu: "500m"
-  securityContext:
-    enabled: true
-    runAsNonRoot: true
-    runAsUser: 10001
-  env:
-    EUREKA_SERVER_URL: http://eureka-server:8001/eureka/
-    JWT_SECRET:
-      valueFrom:
-        secretKeyRef:
-          name: paynext-secrets
-          key: jwt_secret
-    EMAIL_SERVICE_URL: https://email-service.com/api
-    EMAIL_SERVICE_API_KEY:
-      valueFrom:
-        secretKeyRef:
-          name: paynext-secrets
-          key: email_service_api_key
-    SMS_SERVICE_URL: https://sms-service.com/api
-    SMS_SERVICE_API_KEY:
-      valueFrom:
-        secretKeyRef:
-          name: paynext-secrets
-          key: sms_service_api_key
-  livenessProbe:
-    enabled: true
-    initialDelaySeconds: 60
-    periodSeconds: 20
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
-    enabled: true
-    initialDelaySeconds: 30
-    periodSeconds: 10
-    timeoutSeconds: 3
-    failureThreshold: 3
-
-fintechPaymentFrontend:
-  image:
-    repository: abrar2030/frontend
-    tag: latest
-    pullPolicy: Always
-  service:
-    port: 80
-    type: ClusterIP
-  resources:
-    requests:
-      memory: "256Mi"
-      cpu: "100m"
-    limits:
-      memory: "512Mi"
-      cpu: "200m"
-  securityContext:
-    enabled: true
-    runAsNonRoot: true
-    runAsUser: 10001
-  env:
-    REACT_APP_API_BASE_URL: http://api-gateway:8002
-    CONTENT_SECURITY_POLICY: "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' api-gateway:8002;"
-    ENABLE_HTTPS_REDIRECT: true
-  livenessProbe:
-    enabled: true
-    initialDelaySeconds: 30
-    periodSeconds: 20
-    timeoutSeconds: 5
-    failureThreshold: 3
-  readinessProbe:
-    enabled: true
-    initialDelaySeconds: 15
-    periodSeconds: 10
-    timeoutSeconds: 3
-    failureThreshold: 3
-
-ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      more_set_headers "X-Frame-Options: DENY";
-      more_set_headers "X-Content-Type-Options: nosniff";
-      more_set_headers "X-XSS-Protection: 1; mode=block";
-      more_set_headers "Referrer-Policy: strict-origin-when-cross-origin";
-      more_set_headers "Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'";
-  hosts:
-    - host: frontend.paynext.local
-      paths:
-        - path: /
-          pathType: Prefix
-          serviceName: frontend
-          port: 80
-    - host: fintech-payment.paynext.local
-      paths:
-        - path: /
-          pathType: Prefix
-          serviceName: frontend
-          port: 80
-  tls:
-    - secretName: paynext-tls
-      hosts:
-        - frontend.paynext.local
-        - fintech-payment.paynext.local
-
-networkPolicies:
-  enabled: true
-  defaultDenyIngress: true
-  defaultDenyEgress: false
-  allowedNamespaces:
-    - kube-system
-    - monitoring
-
-secrets:
+serviceAccount:
+  # Specifies whether a service account should be created
   create: true
-  data:
-    jwt_secret: "REPLACE_WITH_SECURE_JWT_SECRET"
-    payment_gateway_api_key: "REPLACE_WITH_PAYMENT_GATEWAY_API_KEY"
-    email_service_api_key: "REPLACE_WITH_EMAIL_SERVICE_API_KEY"
-    sms_service_api_key: "REPLACE_WITH_SMS_SERVICE_API_KEY"
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
 
-rbac:
-  create: true
-  roles:
-    - name: paynext-admin
-      rules:
-        - apiGroups: [""]
-          resources: ["pods", "services", "configmaps", "secrets"]
-          verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
-    - name: paynext-viewer
-      rules:
-        - apiGroups: [""]
-          resources: ["pods", "services", "configmaps"]
-          verbs: ["get", "list", "watch"]
+podSecurityContext: {}
+  # fsGroup: 2000
 
-imagePullSecrets:
-  - name: regcred
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# ==============================================================================
+# Microservices Configuration
+# ==============================================================================
+services:
+  api-gateway:
+    enabled: true
+    replicaCount: 1
+    image:
+      repository: abrar2030/backend-api-gateway
+      tag: latest
+    service:
+      type: NodePort
+      ports:
+        - name: http
+          port: 8002
+          targetPort: 8002
+          nodePort: 30080
+    resources: {}
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 5
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+
+  eureka-server:
+    enabled: true
+    replicaCount: 1
+    image:
+      repository: abrar2030/backend-eureka-server
+      tag: latest
+    service:
+      type: NodePort
+      ports:
+        - name: http
+          port: 8001
+          targetPort: 8001
+          nodePort: 30081
+    resources: {}
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 5
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+
+  fintech-payment-frontend:
+    enabled: true
+    replicaCount: 1
+    image:
+      repository: abrar2030/frontend-fintech-payment
+      tag: latest
+    service:
+      type: NodePort
+      ports:
+        - name: http
+          port: 80
+          targetPort: 80
+          nodePort: 30000
+    resources: {}
+
+  notification-service:
+    enabled: true
+    replicaCount: 1
+    image:
+      repository: abrar2030/backend-notification-service
+      tag: latest
+    service:
+      type: ClusterIP
+      ports:
+        - name: http
+          port: 8004
+          targetPort: 8004
+    resources: {}
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 5
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+
+  payment-service:
+    enabled: true
+    replicaCount: 1
+    image:
+      repository: abrar2030/backend-payment-service
+      tag: latest
+    service:
+      type: ClusterIP
+      ports:
+        - name: http
+          port: 8003
+          targetPort: 8003
+    resources: {}
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 5
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 5
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+
+  user-service:
+    enabled: true
+    replicaCount: 1
+    image:
+      repository: abrar2030/backend-user-service
+      tag: latest
+    service:
+      type: ClusterIP
+      ports:
+        - name: http
+          port: 8000
+          targetPort: 8000
+    resources: {}
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 5
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+    livenessProbe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: http
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 5
+    readinessProbe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: http
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+

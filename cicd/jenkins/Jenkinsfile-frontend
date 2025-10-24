@@ -84,21 +84,14 @@ pipeline {
             }
         }
         
-        stage('Deploy Frontend to Kubernetes') {
+        stage('Deploy Frontend to Kubernetes (Helm)') {
             when {
                 branch 'main'
             }
             steps {
-                script {
-                    // Configure kubectl
-                    sh 'mkdir -p ~/.kube'
-                    sh 'echo "${KUBECONFIG_CREDENTIALS}" > ~/.kube/config'
-                    
-                    // Apply Kubernetes manifests
-                    sh 'kubectl apply -f kubernetes/frontend-deployment.yaml'
-                    
-                    // Verify deployment
-                    sh 'kubectl rollout status deployment/frontend --timeout=300s'
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
+                    // Note: The service name for the frontend in values.yaml is 'fintech-payment-frontend'
+                    sh "helm upgrade --install fintech-payment-frontend kubernetes --set services.fintech-payment-frontend.image.tag=${env.BUILD_NUMBER} --kubeconfig ${KUBECONFIG_FILE}"
                 }
             }
         }

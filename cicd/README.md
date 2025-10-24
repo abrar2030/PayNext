@@ -1,47 +1,45 @@
-# PayNext CI/CD Configuration
+# PayNext CI/CD Pipelines (Jenkins)
 
-This directory contains CI/CD configurations for the PayNext project, including Jenkins pipeline configurations.
+This directory contains the Jenkins Pipeline definitions for the PayNext microservice application. The pipelines are designed to support a multi-service monorepo structure.
 
-## Jenkins Pipelines
+## Refactoring and Enhancement Summary
 
-The Jenkins pipeline configurations include:
+The Jenkins pipeline structure has been streamlined to eliminate redundant files and introduce a generic, parameterized pipeline for all backend services.
 
-1. **Jenkinsfile-backend**: Pipeline for the Java/Spring Boot backend microservices
-   - Builds and tests the backend services
-   - Performs code quality analysis with SonarQube
-   - Builds and pushes Docker images for each microservice
-   - Deploys to Kubernetes in production environment (main branch only)
+### Key Changes:
 
-2. **Jenkinsfile-frontend**: Pipeline for the Node.js frontend
-   - Builds and tests the frontend application
-   - Performs linting and code coverage analysis
-   - Builds and pushes Docker image
-   - Deploys to Kubernetes in production environment (main branch only)
+*   **File Consolidation**: The monolithic `Jenkinsfile` and the non-parameterized `Jenkinsfile-backend` have been removed.
+*   **Generic Service Pipeline**: A new file, **`jenkins/Jenkinsfile-service`**, has been created. This single, parameterized pipeline handles the full CI/CD lifecycle (build, test, SonarQube, Docker build/push, Helm deploy) for **any backend microservice**.
+*   **Central Orchestration**: The **`jenkins/Jenkinsfile-main`** now acts as the central orchestrator for the entire application. It defines all services and iteratively calls the generic `Jenkinsfile-service` for each backend service, passing the necessary parameters (e.g., service directory, Docker image name, SonarQube project key).
+*   **Frontend Consistency**: The **`jenkins/Jenkinsfile-frontend`** has been updated to use the new Helm-based deployment approach, ensuring consistency with the refactored Kubernetes chart.
 
-3. **Jenkinsfile-main**: Main pipeline that orchestrates both backend and frontend pipelines
-   - Triggers backend and frontend pipelines
-   - Performs integration tests
-   - Deploys all services to Kubernetes
-   - Runs smoke tests against deployed services
+## Pipeline Structure
+
+| File | Purpose | Description |
+| :--- | :--- | :--- |
+| `jenkins/Jenkinsfile-main` | **Orchestrator** | Main pipeline that coordinates the CI/CD for all services. Calls `Jenkinsfile-service` for backend services and `Jenkinsfile-frontend` for the frontend. |
+| `jenkins/Jenkinsfile-service` | **Generic Backend Service** | Parameterized pipeline for any backend microservice. Handles Maven build, unit tests, SonarQube analysis, Docker build/push, and Helm deployment. |
+| `jenkins/Jenkinsfile-frontend` | **Frontend Service** | Dedicated pipeline for the frontend application. Handles Node.js dependencies, linting, testing, Docker build/push, and Helm deployment. |
 
 ## Setup Instructions
 
 ### Jenkins Setup
 
-1. Create the following Jenkins pipeline jobs:
-   - `PayNext-Backend-Pipeline`: Use `Jenkinsfile-backend`
-   - `PayNext-Frontend-Pipeline`: Use `Jenkinsfile-frontend`
-   - `PayNext-Main-Pipeline`: Use `Jenkinsfile-main`
+1.  **Job Creation**: The previous three separate jobs (`PayNext-Backend-Pipeline`, `PayNext-Frontend-Pipeline`, `PayNext-Main-Pipeline`) are now consolidated into two main jobs:
+    *   **`PayNext-Main-Pipeline`**: A Multibranch Pipeline job that uses the `jenkins/Jenkinsfile-main` file to orchestrate the entire build.
+    *   **`PayNext-Service-Pipeline`**: A parameterized Pipeline job that uses the **`jenkins/Jenkinsfile-service`** file. This job is called by `PayNext-Main-Pipeline` for each backend service.
+    *   **`PayNext-Frontend-Pipeline`**: A parameterized Pipeline job that uses the **`jenkins/Jenkinsfile-frontend`** file. This job is called by `PayNext-Main-Pipeline` for the frontend service.
 
-2. Configure the following credentials in Jenkins:
-   - `docker-credentials`: Username and password for Docker registry
-   - `sonarqube-token`: SonarQube authentication token
-   - `sonarqube-url`: URL of your SonarQube instance
-   - `kubeconfig`: Kubernetes configuration file
+2.  **Credentials**: Configure the following credentials in Jenkins Global Credentials:
+    *   `docker-credentials`: Username and password for Docker registry.
+    *   `sonarqube-token`: SonarQube authentication token (Secret Text).
+    *   `kubeconfig`: Kubernetes configuration file (Secret File).
 
-3. Install the following Jenkins plugins:
-   - Pipeline
-   - Docker Pipeline
-   - Kubernetes CLI
-   - SonarQube Scanner
-   - HTML Publisher (for test reports)
+3.  **Plugins**: Ensure the following Jenkins plugins are installed:
+    *   Pipeline
+    *   Docker Pipeline
+    *   Kubernetes CLI
+    *   SonarQube Scanner
+    *   HTML Publisher (for test reports)
+    *   **Build with Parameters** (required for the new parameterized service jobs).
+

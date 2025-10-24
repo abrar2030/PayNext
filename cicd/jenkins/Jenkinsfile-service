@@ -1,0 +1,87 @@
+// Generic pipeline for a single backend microservice
+// This file is intended to be called from Jenkinsfile-main with parameters.
+
+pipeline {
+    agent any
+    
+    parameters {
+        string(name: 'SERVICE_DIR', defaultValue: 'backend/api-gateway', description: 'The directory of the microservice to build (e.g., backend/api-gateway)')
+        string(name: 'SERVICE_NAME', defaultValue: 'api-gateway', description: 'The name of the microservice (e.g., api-gateway)')
+        string(name: 'DOCKER_IMAGE_NAME', defaultValue: 'abrar2030/backend-api-gateway', description: 'The full name of the Docker image to build and push')
+        string(name: 'SONARQUBE_PROJECT_KEY', defaultValue: 'paynext-api-gateway', description: 'The SonarQube project key')
+    }
+
+    tools {
+        maven 'Maven 3.8.6'
+        jdk 'JDK 17'
+    }
+    
+    environment {
+        // Credentials should be defined in Jenkins Global Credentials
+        DOCKER_CREDENTIALS = credentials('docker-credentials')
+        SONARQUBE_TOKEN = credentials('sonarqube-token')
+        KUBECONFIG_CREDENTIALS = credentials('kubeconfig')
+        HELM_CHART_PATH = 'kubernetes'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                dir("${params.SERVICE_DIR}") {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                dir("${params.SERVICE_DIR}") {
+                    sh 'mvn test'
+                }
+            }
+            post {
+                always {
+                    junit "**/target/surefire-reports/*.xml"
+                }
+            }
+        }
+        
+        stage('Code Quality (SonarQube)') {
+            steps {
+                dir("${params.SERVICE_DIR}") {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "mvn sonar:sonar -Dsonar.projectKey=${params.SONARQUBE_PROJECT_KEY} -Dsonar.host.url=\${SONARQUBE_URL} -Dsonar.login=\${SONARQUBE_TOKEN}"
+                    }
+                }
+            }
+        }
+        
+        stage('Docker Build and Push') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        sh "docker build -t ${params.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER} ${params.SERVICE_DIR}"
+                        sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
+                        sh "docker push ${params.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER}"
+                        sh "docker tag ${params.DOCKER_IMAGE_NAME}:${env.BUILD_NUMBER} ${params.DOCKER_IMAGE_NAME}:latest"
+                        sh "docker push ${params.DOCKER_IMAGE_NAME}:latest"
+                    }
+                }
+            }
+        }
+        
+        stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
+                    sh "helm upgrade --install ${params.SERVICE_NAME} ${HELM_CHART_PATH} --set services.${params.SERVICE_NAME}.image.tag=${env.BUILD_NUMBER} --kubeconfig ${KUBECONFIG_FILE}"
+                }
+            }
+        }
+    }
+}
