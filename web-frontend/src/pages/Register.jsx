@@ -17,6 +17,9 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
+
+import { authService } from '../services/api';
 
 const Register = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -31,6 +34,7 @@ const Register = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const steps = ['Personal Information', 'Account Details', 'Confirmation'];
@@ -78,14 +82,29 @@ const Register = () => {
     setError('');
     
     try {
-      // Here you would typically make an API call to your backend
-      console.log('Registration data:', formData);
+      setLoading(true);
+      const userRegistrationData = {
+        username: formData.email, // Assuming email is used as username
+        password: formData.password,
+        email: formData.email,
+        // The backend User model only has username, password, email, role.
+        // We are ignoring firstName, lastName, phoneNumber, address for now, 
+        // as they are not in the backend model. This is a potential bug/enhancement
+        // for the backend to handle UserProfile data, but for now we align with the API.
+      };
       
-      // Simulate successful registration
+      await authService.register(userRegistrationData);
+      
+      // On successful registration, redirect to login
       navigate('/login');
     } catch (err) {
-      setError('Registration failed. Please try again.');
+      const errorMessage = err.response && err.response.data
+        ? err.response.data
+        : 'Registration failed. Please try again.';
+      setError(errorMessage);
       console.error('Registration error:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -282,13 +301,14 @@ const Register = () => {
               </Button>
               
               {activeStep === steps.length - 1 ? (
-                <Button
-                  variant="contained"
-                  onClick={handleSubmit}
-                  sx={{ backgroundColor: '#1976d2' }}
-                >
-                  Complete Registration
-                </Button>
+	              <Button
+	                variant="contained"
+	                onClick={handleSubmit}
+	                sx={{ backgroundColor: '#1976d2' }}
+	                disabled={loading}
+	              >
+	                {loading ? <CircularProgress size={24} color="inherit" /> : 'Complete Registration'}
+	              </Button>
               ) : (
                 <Button
                   variant="contained"

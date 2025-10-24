@@ -52,20 +52,18 @@ const Login = ({ onLogin }) => {
     setLoading(true);
     
     try {
-      // In a real implementation, this would call the backend
-      // await authService.login(formData.email, formData.password);
-      
-      // For demo purposes, simulate successful login
-      setTimeout(() => {
-        localStorage.setItem('isAuthenticated', 'true');
-        if (onLogin) onLogin();
-        navigate('/dashboard');
-        setLoading(false);
-      }, 1000);
+      await authService.login(formData.email, formData.password);
+      if (onLogin) onLogin();
+      navigate('/dashboard');
     } catch (err) {
-      setError('Invalid email or password. Please try again.');
+      const errorMessage = err.response && err.response.data && err.response.data.message
+        ? err.response.data.message
+        : 'Invalid email or password. Please try again.';
+      setError(errorMessage);
       console.error('Login error:', err);
+    } finally {
       setLoading(false);
+    }
     }
   };
 

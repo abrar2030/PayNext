@@ -1,6 +1,6 @@
-# FinTech Payment Frontend
+# PayNext Frontend
 
-This is the frontend for the FinTech Payment Solution (PayNext). It is built using React and provides a user interface for users to manage payments, view their profiles, and access dashboards.
+The frontend of PayNext is built using React and provides a user interface for users to manage payments, view their profiles, and access dashboards.
 
 ## Getting Started
 
