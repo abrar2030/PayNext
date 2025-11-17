@@ -1,12 +1,14 @@
 
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
-from sklearn.preprocessing import StandardScaler
-import joblib
 import os
+
+import joblib
 import lightgbm as lgb
-from sklearn.model_selection import GridSearchCV 
+import pandas as pd
+from sklearn.metrics import (classification_report, confusion_matrix,
+                             roc_auc_score)
+from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.preprocessing import StandardScaler
+
 
 def train_churn_model(data_path=os.path.join(os.path.dirname(__file__), \'..\', \'synthetic_churn_data.csv\')):
     df = pd.read_csv(data_path)

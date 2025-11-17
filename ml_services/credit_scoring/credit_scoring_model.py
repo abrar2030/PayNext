@@ -1,12 +1,14 @@
 
+import os
+
+import joblib
+import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, roc_auc_score
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-import joblib
-import os
-import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+
 
 def train_credit_scoring_model(data_path=os.path.join(os.path.dirname(__file__), \'..\', \'common\', \'synthetic_transactions.csv\')):
     df = pd.read_csv(data_path)

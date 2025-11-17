@@ -1,12 +1,15 @@
 
-import pandas as pd
 import os
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
+
 import joblib
+import pandas as pd
+from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similardef train_recommendation_model(data_path=os.path.join(os.path.dirname(__file__), \'..\', \'common\', \'synthetic_transactions.csv\'), num_clusters=7): # Increased number of clusters for more granularity
-    df_transactions = pd.read_csv(data_path)
+from sklearn.metrics.pairwise import (  # Increased number of clusters for more granularity
+    ', '.., 'common, 'synthetic_transactions.csv, :, =, __file__,
+    cosine_similardef, data_path, data_path=os.path.join, df_transactions,
+    num_clusters=7, os.path.dirname, pd.read_csv, train_recommendation_model)
+from sklearn.preprocessing import StandardScaler
 
     # Convert transaction_time to datetime if available and needed for future time-based features
     if \'transaction_time\' in df_transactions.columns:

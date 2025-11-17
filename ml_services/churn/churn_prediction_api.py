@@ -1,14 +1,17 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import pandas as pd
-import joblib
 import os
 from typing import List
+
+import joblib
+import pandas as pd
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 app = FastAPI(title="Churn Prediction API")
 
 # Define the path to the models relative to the current file
-model_dir = os.path.join(os.path.dirname(__file__), "..") # Go up one level to ml_services
+model_dir = os.path.join(
+    os.path.dirname(__file__), ".."
+)  # Go up one level to ml_services
 churn_model_path = os.path.join(model_dir, "churn_model.joblib")
 churn_scaler_path = os.path.join(model_dir, "churn_scaler.joblib")
 churn_model_features_path = os.path.join(model_dir, "churn_model_features.joblib")
@@ -23,9 +26,12 @@ try:
     churn_model_features = joblib.load(churn_model_features_path)
     print("Churn Prediction Model, Scaler, and Features loaded successfully.")
 except FileNotFoundError:
-    print(f"Churn model, scaler, or features file not found at {model_dir}. Please train the model first.")
+    print(
+        f"Churn model, scaler, or features file not found at {model_dir}. Please train the model first."
+    )
 except Exception as e:
     print(f"Error loading Churn Prediction Model components: {e}")
+
 
 class ChurnPredictionInput(BaseModel):
     avg_transactions_per_month: float
@@ -43,14 +49,19 @@ class ChurnPredictionInput(BaseModel):
     avg_rolling_avg_logins_3m: float = 0.0
     avg_rolling_std_logins_3m: float = 0.0
 
+
 @app.get("/health")
 async def health_check():
     return {"status": "ok", "model_loaded": churn_model is not None}
 
+
 @app.post("/predict_churn/")
 async def predict_churn(user_data: ChurnPredictionInput):
     if churn_model is None or churn_scaler is None or churn_model_features is None:
-        raise HTTPException(status_code=500, detail="Churn prediction model not loaded. Please train the model.")
+        raise HTTPException(
+            status_code=500,
+            detail="Churn prediction model not loaded. Please train the model.",
+        )
 
     try:
         input_df = pd.DataFrame([user_data.dict()])
@@ -62,13 +73,14 @@ async def predict_churn(user_data: ChurnPredictionInput):
         # Scale the input features
         input_scaled = churn_scaler.transform(input_df)
 
-        prediction_proba = churn_model.predict_proba(input_scaled)[:, 1][0] # Probability of churning
+        prediction_proba = churn_model.predict_proba(input_scaled)[:, 1][
+            0
+        ]  # Probability of churning
         is_churn = bool(churn_model.predict(input_scaled)[0])
 
         return {
             "is_churn_risk": is_churn,
-            "churn_probability": round(prediction_proba, 4)
+            "churn_probability": round(prediction_proba, 4),
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-

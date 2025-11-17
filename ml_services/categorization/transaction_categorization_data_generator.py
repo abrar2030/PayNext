@@ -1,8 +1,10 @@
 
-import pandas as pd
 import os
-import numpy as np
 from datetime import datetime, timedelta
+
+import numpy as np
+import pandas as pd
+
 
 def generate_categorization_data(num_transactions=10000):
     np.random.seed(43)

@@ -1,16 +1,23 @@
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, IsolationForest
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, Dense
-from tensorflow.keras.optimizers import Adam
-from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-import joblib
 import os
-import numpy as np
 
-def train_fraud_model(data_path=os.path.join(os.path.dirname(__file__), '..', 'common', 'synthetic_transactions.csv')):
+import joblib
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import IsolationForest, RandomForestClassifier
+from sklearn.metrics import (classification_report, confusion_matrix,
+                             roc_auc_score)
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
+
+
+def train_fraud_model(
+    data_path=os.path.join(
+        os.path.dirname(__file__), "..", "common", "synthetic_transactions.csv"
+    )
+):
     df = pd.read_csv(data_path)
 
     # Convert transaction_time to datetime
@@ -24,17 +31,35 @@ def train_fraud_model(data_path=os.path.join(os.path.dirname(__file__), '..', 'c
     df["day_of_month"] = df["transaction_time"].dt.day
 
     # Time-based features (e.g., transaction velocity, time since last transaction)
-    df["time_since_last_txn"] = df.groupby("user_id")["transaction_time"].diff().dt.total_seconds().fillna(0)
+    df["time_since_last_txn"] = (
+        df.groupby("user_id")["transaction_time"].diff().dt.total_seconds().fillna(0)
+    )
 
     # Calculate rolling features within each user group
-    df["user_avg_txn_amount_24h"] = df.groupby("user_id")["transaction_amount"]\
-                                       .rolling("24h", on="transaction_time").mean().reset_index(level=0, drop=True)
-    df["user_txn_count_24h"] = df.groupby("user_id")["transaction_amount"]\
-                                    .rolling("24h", on="transaction_time").count().reset_index(level=0, drop=True)
-    df["user_avg_txn_amount_7d"] = df.groupby("user_id")["transaction_amount"]\
-                                      .rolling("7D", on="transaction_time").mean().reset_index(level=0, drop=True)
-    df["user_txn_count_7d"] = df.groupby("user_id")["transaction_amount"]\
-                                   .rolling("7D", on="transaction_time").count().reset_index(level=0, drop=True)
+    df["user_avg_txn_amount_24h"] = (
+        df.groupby("user_id")["transaction_amount"]
+        .rolling("24h", on="transaction_time")
+        .mean()
+        .reset_index(level=0, drop=True)
+    )
+    df["user_txn_count_24h"] = (
+        df.groupby("user_id")["transaction_amount"]
+        .rolling("24h", on="transaction_time")
+        .count()
+        .reset_index(level=0, drop=True)
+    )
+    df["user_avg_txn_amount_7d"] = (
+        df.groupby("user_id")["transaction_amount"]
+        .rolling("7D", on="transaction_time")
+        .mean()
+        .reset_index(level=0, drop=True)
+    )
+    df["user_txn_count_7d"] = (
+        df.groupby("user_id")["transaction_amount"]
+        .rolling("7D", on="transaction_time")
+        .count()
+        .reset_index(level=0, drop=True)
+    )
 
     # Fill NaN values created by rolling windows (for initial transactions)
     df.fillna(0, inplace=True)
@@ -47,29 +72,49 @@ def train_fraud_model(data_path=os.path.join(os.path.dirname(__file__), '..', 'c
             le = LabelEncoder()
             df[col] = le.fit_transform(np.array(df[col]))
             encoders[col] = le
-            model_dir = os.path.join(os.path.dirname(__file__), '..')
-            joblib.dump(le, os.path.join(model_dir, f'{col}_encoder.joblib'))
+            model_dir = os.path.join(os.path.dirname(__file__), "..")
+            joblib.dump(le, os.path.join(model_dir, f"{col}_encoder.joblib"))
 
     # Define features and target
-    features = ["transaction_amount", "hour", "day_of_week", "month", "day_of_month",
-                "location", "merchant", "transaction_type", "user_id",
-                "time_since_last_txn", "user_avg_txn_amount_24h", "user_txn_count_24h",
-                "user_avg_txn_amount_7d", "user_txn_count_7d"]
+    features = [
+        "transaction_amount",
+        "hour",
+        "day_of_week",
+        "month",
+        "day_of_month",
+        "location",
+        "merchant",
+        "transaction_type",
+        "user_id",
+        "time_since_last_txn",
+        "user_avg_txn_amount_24h",
+        "user_txn_count_24h",
+        "user_avg_txn_amount_7d",
+        "user_txn_count_7d",
+    ]
     X = df[features]
     y = df["is_fraud"]
 
     # Scale numerical features
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
-    model_dir = os.path.join(os.path.dirname(__file__), '..')
-    joblib.dump(scaler, os.path.join(model_dir, 'fraud_scaler.joblib'))
+    model_dir = os.path.join(os.path.dirname(__file__), "..")
+    joblib.dump(scaler, os.path.join(model_dir, "fraud_scaler.joblib"))
     X = pd.DataFrame(X_scaled, columns=features)
 
     # Split data
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, random_state=42, stratify=y
+    )
 
     # Train a RandomForestClassifier (improved with more features)
-    model_rf = RandomForestClassifier(n_estimators=200, random_state=42, class_weight='balanced', max_depth=10, min_samples_leaf=5)
+    model_rf = RandomForestClassifier(
+        n_estimators=200,
+        random_state=42,
+        class_weight="balanced",
+        max_depth=10,
+        min_samples_leaf=5,
+    )
     model_rf.fit(X_train, y_train)
 
     # Evaluate RandomForest model
@@ -83,13 +128,17 @@ def train_fraud_model(data_path=os.path.join(os.path.dirname(__file__), '..', 'c
     # Train an Isolation Forest for anomaly detection (unsupervised, good for fraud)
     # Note: Isolation Forest doesn't use 'y' for training, but we can evaluate its performance
     # by treating 'is_fraud' as the anomaly label for evaluation purposes.
-    model_if = IsolationForest(random_state=42, contamination=y_train.sum() / len(y_train)) # contamination is the proportion of outliers in the data set
+    model_if = IsolationForest(
+        random_state=42, contamination=y_train.sum() / len(y_train)
+    )  # contamination is the proportion of outliers in the data set
     model_if.fit(X_train)
 
     # Evaluate Isolation Forest model
     # Isolation Forest predicts -1 for anomalies (fraud) and 1 for inliers (non-fraud)
     y_pred_if = model_if.predict(X_test)
-    y_pred_if_binary = np.where(y_pred_if == -1, 1, 0) # Convert -1/1 to 1/0 for fraud/non-fraud
+    y_pred_if_binary = np.where(
+        y_pred_if == -1, 1, 0
+    )  # Convert -1/1 to 1/0 for fraud/non-fraud
     print("\nIsolation Forest Anomaly Detection Report:")
     print(classification_report(y_test, y_pred_if_binary))
     print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_if_binary))
@@ -100,33 +149,42 @@ def train_fraud_model(data_path=os.path.join(os.path.dirname(__file__), '..', 'c
 
     # Save the best performing model (e.g., RandomForest if ROC AUC is higher, or Isolation Forest for pure anomaly detection)
     # For this example, we'll save RandomForest, but in a real scenario, a meta-learner or ensemble could combine both.
-    joblib.dump(model_rf, os.path.join(model_dir, 'fraud_model.joblib'))
-    joblib.dump(model_if, os.path.join(model_dir, 'fraud_isolation_forest_model.joblib')) # Save IF model as well
-    print("Fraud detection RandomForest model trained and saved to PayNext/ml_services/fraud_model.joblib")
-    print("Fraud detection Isolation Forest model trained and saved to PayNext/ml_services/fraud_isolation_forest_model.joblib")
+    joblib.dump(model_rf, os.path.join(model_dir, "fraud_model.joblib"))
+    joblib.dump(
+        model_if, os.path.join(model_dir, "fraud_isolation_forest_model.joblib")
+    )  # Save IF model as well
+    print(
+        "Fraud detection RandomForest model trained and saved to PayNext/ml_services/fraud_model.joblib"
+    )
+    print(
+        "Fraud detection Isolation Forest model trained and saved to PayNext/ml_services/fraud_isolation_forest_model.joblib"
+    )
 
     # Save feature columns and scaler for consistent input during inference
-    joblib.dump(features, os.path.join(model_dir, 'fraud_model_features.joblib'))
+    joblib.dump(features, os.path.join(model_dir, "fraud_model_features.joblib"))
 
     # --- Autoencoder for Anomaly Detection (New Feature) ---
     # This provides an alternative or complementary anomaly detection mechanism
     input_dim = X_train.shape[1]
-    encoding_dim = int(input_dim / 2) # Example: reduce dimension by half
+    encoding_dim = int(input_dim / 2)  # Example: reduce dimension by half
 
     input_layer = Input(shape=(input_dim,))
     encoder = Dense(encoding_dim, activation="relu")(input_layer)
     decoder = Dense(input_dim, activation="sigmoid")(encoder)
-    
+
     autoencoder = Model(inputs=input_layer, outputs=decoder)
-    autoencoder.compile(optimizer=Adam(learning_rate=0.001), loss='mean_squared_error')
+    autoencoder.compile(optimizer=Adam(learning_rate=0.001), loss="mean_squared_error")
 
     print("\nTraining Autoencoder for Anomaly Detection...")
-    autoencoder.fit(X_train, X_train, 
-                    epochs=50, 
-                    batch_size=32, 
-                    shuffle=True, 
-                    validation_split=0.1, 
-                    verbose=0)
+    autoencoder.fit(
+        X_train,
+        X_train,
+        epochs=50,
+        batch_size=32,
+        shuffle=True,
+        validation_split=0.1,
+        verbose=0,
+    )
     print("Autoencoder training complete.")
 
     # Predict reconstruction errors for anomaly scoring
@@ -135,10 +193,11 @@ def train_fraud_model(data_path=os.path.join(os.path.dirname(__file__), '..', 'c
 
     # Determine a threshold for anomalies (e.g., based on a percentile of MSE on training data)
     # For simplicity, we'll save the model and let the API determine the threshold dynamically or use a fixed one.
-    joblib.dump(autoencoder, os.path.join(model_dir, 'fraud_autoencoder_model.joblib'))
-    print("Fraud detection Autoencoder model trained and saved to PayNext/ml_services/fraud_autoencoder_model.joblib")
+    joblib.dump(autoencoder, os.path.join(model_dir, "fraud_autoencoder_model.joblib"))
+    print(
+        "Fraud detection Autoencoder model trained and saved to PayNext/ml_services/fraud_autoencoder_model.joblib"
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     train_fraud_model()
-

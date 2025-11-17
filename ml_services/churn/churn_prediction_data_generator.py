@@ -1,8 +1,10 @@
 
-import pandas as pd
 import os
-import numpy as np
 from datetime import datetime, timedelta
+
+import numpy as np
+import pandas as pd
+
 
 def generate_churn_data(num_users=1000, num_months=12):
     np.random.seed(44)
