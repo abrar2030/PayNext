@@ -15,4 +15,3 @@ COPY credit_scoring_features.joblib .
 EXPOSE 5005
 
 CMD ["python", "credit_scoring_api.py"]
-

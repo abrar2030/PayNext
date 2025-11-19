@@ -6,9 +6,22 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import (  # Increased number of clusters for more granularity
-    ', '.., 'common, 'synthetic_transactions.csv, :, =, __file__,
-    cosine_similardef, data_path, data_path=os.path.join, df_transactions,
-    num_clusters=7, os.path.dirname, pd.read_csv, train_recommendation_model)
+    ',
+    '..,
+    'common,
+    'synthetic_transactions.csv,
+    :,
+    =,
+    __file__,
+    cosine_similardef,
+    data_path,
+    data_path=os.path.join,
+    df_transactions,
+    num_clusters=7,
+    os.path.dirname,
+    pd.read_csv,
+    train_recommendation_model,
+)
 from sklearn.preprocessing import StandardScaler
 
     # Convert transaction_time to datetime if available and needed for future time-based features
@@ -90,4 +103,3 @@ from sklearn.preprocessing import StandardScaler
 
 if __name__ == \'__main__\':
     train_recommendation_model()
-

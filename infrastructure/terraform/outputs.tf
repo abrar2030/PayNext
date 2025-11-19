@@ -230,4 +230,3 @@ output "availability_zones" {
   description = "Availability zones in use"
   value       = module.vpc.availability_zones
 }
-

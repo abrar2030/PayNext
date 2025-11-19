@@ -2,20 +2,20 @@
 
 pipeline {
     agent any
-    
+
     environment {
         // Credentials should be defined in Jenkins Global Credentials
         DOCKER_CREDENTIALS = credentials('docker-credentials')
         KUBECONFIG_CREDENTIALS = credentials('kubeconfig')
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        
+
         stage('Build and Deploy Backend Services') {
             steps {
                 script {
@@ -43,21 +43,21 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build and Deploy Frontend') {
             steps {
                 // Assuming a job named 'PayNext-Frontend-Pipeline' is configured to run Jenkinsfile-frontend
-                build job: 'PayNext-Frontend-Pipeline', 
+                build job: 'PayNext-Frontend-Pipeline',
                       parameters: [
                           string(name: 'BRANCH_NAME', value: env.BRANCH_NAME)
                       ],
                       wait: true
             }
         }
-        
+
         stage('Integration Tests') {
             when {
-                expression { 
+                expression {
                     return env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'develop'
                 }
             }
@@ -67,10 +67,10 @@ pipeline {
                 sh 'echo "Integration tests would run here"'
             }
         }
-        
+
         stage('Deploy All to Kubernetes') {
             when {
-                expression { 
+                expression {
                     return env.BRANCH_NAME == 'main'
                 }
             }

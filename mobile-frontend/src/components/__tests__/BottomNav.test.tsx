@@ -35,7 +35,7 @@ describe('Mobile BottomNav Component', () => {
     const sendLink = screen.getByRole('link', { name: /send/i });
     // Check if the active link has a specific style or attribute (e.g., aria-current)
     // This depends on how active state is implemented in BottomNav.tsx
-    // Example: expect(sendLink).toHaveClass('active'); 
+    // Example: expect(sendLink).toHaveClass('active');
     // Example: expect(sendLink).toHaveAttribute('aria-current', 'page');
     // Add the specific assertion based on your component's implementation
   });
@@ -56,4 +56,3 @@ describe('Mobile BottomNav Component', () => {
     expect(mockPush).toHaveBeenCalledWith('/profile');
   });
 });
-

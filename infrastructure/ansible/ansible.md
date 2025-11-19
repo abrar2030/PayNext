@@ -158,4 +158,3 @@ The `rollback.yml` playbook is used to roll back deployments if any issues occur
 
 ## Summary
 The Ansible setup for the PayNext project is designed to facilitate easy deployment and configuration of all services. Each role is tailored to a specific microservice, ensuring modularity and ease of maintenance.
-

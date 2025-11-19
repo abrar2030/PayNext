@@ -6,8 +6,8 @@ import { Box } from '@mui/material';
 // Animation variants for different entrance effects
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.6,
@@ -18,8 +18,8 @@ const fadeInUp = {
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: 60 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: {
       duration: 0.6,
@@ -30,8 +30,8 @@ const fadeInLeft = {
 
 const fadeInRight = {
   hidden: { opacity: 0, x: -60 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: {
       duration: 0.6,
@@ -42,7 +42,7 @@ const fadeInRight = {
 
 const fadeIn = {
   hidden: { opacity: 0 },
-  visible: { 
+  visible: {
     opacity: 1,
     transition: {
       duration: 0.6,
@@ -53,8 +53,8 @@ const fadeIn = {
 
 const scaleUp = {
   hidden: { opacity: 0, scale: 0.8 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
     transition: {
       duration: 0.6,
@@ -64,12 +64,12 @@ const scaleUp = {
 };
 
 // Animation component that triggers when element comes into view
-const AnimatedElement = ({ 
-  children, 
-  animation = "fadeInUp", 
-  delay = 0, 
+const AnimatedElement = ({
+  children,
+  animation = "fadeInUp",
+  delay = 0,
   threshold = 0.1,
-  ...props 
+  ...props
 }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold, triggerOnce: true });

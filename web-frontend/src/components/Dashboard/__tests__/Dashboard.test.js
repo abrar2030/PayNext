@@ -19,7 +19,7 @@ describe('Dashboard Component', () => {
 
   test('renders dashboard sections', () => {
     renderWithRouter(<Dashboard />); // Use the helper
-    
+
     // Check if main sections are rendered (using mocks or actual content)
     // Update this assertion based on actual content or structure
     // expect(screen.getByText(/dashboard overview/i)).toBeInTheDocument(); // Assuming there's a title
@@ -44,4 +44,3 @@ describe('Dashboard Component', () => {
   });
   */
 });
-

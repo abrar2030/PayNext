@@ -10,7 +10,7 @@ jest.mock('../services/paymentService', () => ({
 
 describe('PaymentForm Component', () => {
   const mockOnSuccess = jest.fn();
-  
+
   beforeEach(() => {
     render(<PaymentForm onSuccess={mockOnSuccess} />);
   });
@@ -24,10 +24,10 @@ describe('PaymentForm Component', () => {
 
   test('validates form inputs', async () => {
     const submitButton = screen.getByRole('button', { name: /send payment/i });
-    
+
     // Try submitting without filling fields
     fireEvent.click(submitButton);
-    
+
     // Check for validation messages
     await waitFor(() => {
       expect(screen.getByText(/amount is required/i)).toBeInTheDocument();
@@ -38,11 +38,11 @@ describe('PaymentForm Component', () => {
   test('validates amount is a positive number', async () => {
     const amountInput = screen.getByLabelText(/amount/i);
     const submitButton = screen.getByRole('button', { name: /send payment/i });
-    
+
     // Enter invalid amount
     fireEvent.change(amountInput, { target: { value: '-50' } });
     fireEvent.click(submitButton);
-    
+
     // Check for validation message
     await waitFor(() => {
       expect(screen.getByText(/amount must be positive/i)).toBeInTheDocument();
@@ -54,15 +54,15 @@ describe('PaymentForm Component', () => {
     const recipientInput = screen.getByLabelText(/recipient/i);
     const descriptionInput = screen.getByLabelText(/description/i);
     const submitButton = screen.getByRole('button', { name: /send payment/i });
-    
+
     // Fill in form
     fireEvent.change(amountInput, { target: { value: '100' } });
     fireEvent.change(recipientInput, { target: { value: 'john@example.com' } });
     fireEvent.change(descriptionInput, { target: { value: 'Dinner payment' } });
-    
+
     // Submit form
     fireEvent.click(submitButton);
-    
+
     // Check if payment service was called and onSuccess callback triggered
     await waitFor(() => {
       const paymentService = require('../services/paymentService');
@@ -78,21 +78,21 @@ describe('PaymentForm Component', () => {
   test('shows error message on payment failure', async () => {
     // Override the mock to simulate failure
     const paymentService = require('../services/paymentService');
-    paymentService.processPayment.mockImplementationOnce(() => 
+    paymentService.processPayment.mockImplementationOnce(() =>
       Promise.reject(new Error('Insufficient funds'))
     );
-    
+
     const amountInput = screen.getByLabelText(/amount/i);
     const recipientInput = screen.getByLabelText(/recipient/i);
     const submitButton = screen.getByRole('button', { name: /send payment/i });
-    
+
     // Fill in form
     fireEvent.change(amountInput, { target: { value: '5000' } });
     fireEvent.change(recipientInput, { target: { value: 'john@example.com' } });
-    
+
     // Submit form
     fireEvent.click(submitButton);
-    
+
     // Check for error message
     await waitFor(() => {
       expect(screen.getByText(/insufficient funds/i)).toBeInTheDocument();

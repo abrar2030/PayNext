@@ -1,32 +1,32 @@
 [[1;34mINFO[m] Scanning for projects...
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m----------------------< [0;36mcom.fintech:api-gateway[0;1m >-----------------------[m
 [[1;34mINFO[m] [1mBuilding api-gateway 1.0.0[m
 [[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36mapi-gateway[0;1m >>>[m
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:resources[m [1m(default-resources)[m @ [36mapi-gateway[0;1m ---[m
 [[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
 [[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
 [[1;34mINFO[m] Copying 1 resource
 [[1;34mINFO[m] Copying 19 resources
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36mapi-gateway[0;1m ---[m
 [[1;34mINFO[m] Changes detected - recompiling the module!
 [[1;34mINFO[m] Compiling 5 source files to /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/api-gateway/target/classes
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:testResources[m [1m(default-testResources)[m @ [36mapi-gateway[0;1m ---[m
 [[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
 [[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
 [[1;34mINFO[m] skip non existing resourceDirectory /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/api-gateway/src/test/resources
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:testCompile[m [1m(default-testCompile)[m @ [36mapi-gateway[0;1m ---[m
 [[1;34mINFO[m] No sources to compile
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m<<< [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[0;1m < [0;1mtest-compile[m @ [36mapi-gateway[0;1m <<<[m
-[[1;34mINFO[m] 
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[m @ [36mapi-gateway[0;1m ---[m
 [[1;34mINFO[m] Attaching agents: []
 
@@ -58,7 +58,7 @@
 2025-01-25 15:55:16.205  INFO 3004 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
 2025-01-25 15:55:19.415  INFO 3004 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
 2025-01-25 15:55:19.552  INFO 3004 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-01-25 15:55:19.692  INFO 3004 --- [           main] ctiveUserDetailsServiceAutoConfiguration : 
+2025-01-25 15:55:19.692  INFO 3004 --- [           main] ctiveUserDetailsServiceAutoConfiguration :
 
 Using generated security password: 09a553eb-6cd8-4293-887d-c219da85f91c
 

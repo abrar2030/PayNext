@@ -1,23 +1,23 @@
 pipeline {
     agent any
-    
+
     tools {
         nodejs 'Node 18'
     }
-    
+
     environment {
         DOCKER_CREDENTIALS = credentials('docker-credentials')
         KUBECONFIG_CREDENTIALS = credentials('kubeconfig')
         DOCKER_IMAGE = 'abrar2030/paynext-frontend'
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        
+
         stage('Frontend Install Dependencies') {
             steps {
                 dir('frontend') {
@@ -25,7 +25,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Frontend Lint') {
             steps {
                 dir('frontend') {
@@ -33,7 +33,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Frontend Test') {
             steps {
                 dir('frontend') {
@@ -53,7 +53,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Frontend Build') {
             steps {
                 dir('frontend') {
@@ -61,19 +61,19 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Frontend Docker Build & Push') {
             steps {
                 script {
                     // Login to Docker registry
                     sh 'echo ${DOCKER_CREDENTIALS_PSW} | docker login -u ${DOCKER_CREDENTIALS_USR} --password-stdin'
-                    
+
                     // Build and push frontend
                     dir('frontend') {
                         def imageTag = "${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
                         sh "docker build -t ${imageTag} ."
                         sh "docker push ${imageTag}"
-                        
+
                         // Also tag as latest if on main branch
                         if (env.BRANCH_NAME == 'main') {
                             sh "docker tag ${imageTag} ${DOCKER_IMAGE}:latest"
@@ -83,7 +83,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Deploy Frontend to Kubernetes (Helm)') {
             when {
                 branch 'main'
@@ -96,7 +96,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             cleanWs()

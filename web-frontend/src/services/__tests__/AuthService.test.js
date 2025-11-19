@@ -9,15 +9,15 @@ describe('AuthService', () => {
     // Clear mock calls after each test
     jest.clearAllMocks();
     // Clear potential localStorage changes if logout is tested
-    // localStorage.clear(); 
+    // localStorage.clear();
   });
 
-  // --- Login Tests --- 
+  // --- Login Tests ---
   it('should call the login API endpoint with correct credentials', async () => {
     const email = 'test@example.com';
     const password = 'password123';
     const mockResponse = { success: true, token: 'fake-token', user: { id: 1, email } };
-    
+
     // Configure the mock for the 'post' method of the api module
     api.post.mockResolvedValue(mockResponse);
 
@@ -49,7 +49,7 @@ describe('AuthService', () => {
     await expect(AuthService.login(email, password)).rejects.toThrow(errorMessage);
   });
 
-  // --- Register Tests --- 
+  // --- Register Tests ---
   it('should call the register API endpoint with correct user data', async () => {
     const userData = { username: 'testuser', email: 'new@example.com', password: 'password123' };
     const mockResponse = { success: true, message: 'User registered successfully' }; // Adjust based on actual API response
@@ -88,4 +88,3 @@ describe('AuthService', () => {
   });
   */
 });
-

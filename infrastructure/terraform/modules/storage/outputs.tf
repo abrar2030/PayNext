@@ -270,4 +270,3 @@ output "disaster_recovery_info" {
     backup_retention_days            = var.backup_retention_days
   }
 }
-

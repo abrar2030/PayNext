@@ -30,35 +30,35 @@ public class JwtAuthenticationFilter implements WebFilter {
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
     ServerHttpRequest request = exchange.getRequest();
-    
+
     // Skip filter for specific paths
     String path = request.getPath().value();
     if (path.contains("/login") || path.contains("/register") || path.contains("/actuator")) {
       return chain.filter(exchange);
     }
-    
+
     // Check for Authorization header
     if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
       return chain.filter(exchange);
     }
-    
+
     String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
       return chain.filter(exchange);
     }
-    
+
     String token = authHeader.substring(7);
-    
+
     try {
       // Extract username and set authentication
       String username = jwtUtil.getUsernameFromToken(token);
-      UsernamePasswordAuthenticationToken authentication = 
+      UsernamePasswordAuthenticationToken authentication =
           new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
-      
+
       return chain.filter(exchange)
           .contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication));
-      
-    } catch (SignatureException | MalformedJwtException | ExpiredJwtException | 
+
+    } catch (SignatureException | MalformedJwtException | ExpiredJwtException |
              UnsupportedJwtException | IllegalArgumentException e) {
       exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
       return exchange.getResponse().setComplete();

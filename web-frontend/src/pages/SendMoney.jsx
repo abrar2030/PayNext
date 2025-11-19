@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { 
-  Container, 
-  Typography, 
-  Box, 
-  Grid, 
-  Paper, 
+import {
+  Container,
+  Typography,
+  Box,
+  Grid,
+  Paper,
   Button,
   TextField,
   Stepper,
@@ -41,48 +41,48 @@ import { AnimatedElement } from '../components/AnimationComponents';
 const SendMoney = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  
+
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     recipient: '',
     amount: '',
     paymentMethod: 'card',
     note: ''
   });
-  
+
   const [searchResults, setSearchResults] = useState([
     { id: 'user1', name: 'John Smith', email: 'john.smith@example.com', avatar: 'JS' },
     { id: 'user2', name: 'Sarah Johnson', email: 'sarah.j@example.com', avatar: 'SJ' },
     { id: 'user3', name: 'Michael Chen', email: 'mchen@example.com', avatar: 'MC' }
   ]);
-  
+
   const [paymentMethods, setPaymentMethods] = useState([
     { id: 'card1', type: 'card', name: 'Visa ending in 4242', icon: <CreditCardIcon /> },
     { id: 'bank1', type: 'bank', name: 'Chase Bank ****6789', icon: <AccountBalanceIcon /> }
   ]);
-  
+
   const handleNext = () => {
     if (activeStep === 0 && !formData.recipient) {
       setError('Please select a recipient');
       return;
     }
-    
+
     if (activeStep === 1) {
       if (!formData.amount) {
         setError('Please enter an amount');
         return;
       }
-      
+
       if (isNaN(formData.amount) || parseFloat(formData.amount) <= 0) {
         setError('Please enter a valid amount');
         return;
       }
     }
-    
+
     setError('');
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -98,32 +98,32 @@ const SendMoney = () => {
       [name]: value
     });
   };
-  
+
   const handleRecipientSelect = (recipient) => {
     setFormData({
       ...formData,
       recipient: recipient
     });
   };
-  
+
   const handlePaymentMethodSelect = (method) => {
     setFormData({
       ...formData,
       paymentMethod: method
     });
   };
-  
+
   const handleSubmit = async () => {
     setLoading(true);
     setError('');
-    
+
     try {
       // In a real implementation, this would call the backend
       // await paymentService.sendMoney(formData);
-      
+
       // For demo purposes, simulate API call
       await simulateApiCall({ success: true }, 1500);
-      
+
       setSuccess(true);
       setLoading(false);
     } catch (err) {
@@ -131,12 +131,12 @@ const SendMoney = () => {
       setLoading(false);
     }
   };
-  
+
   const handleSearchChange = (e) => {
     // In a real implementation, this would search users from the backend
     console.log('Searching for:', e.target.value);
   };
-  
+
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -144,7 +144,7 @@ const SendMoney = () => {
       minimumFractionDigits: 2
     }).format(amount);
   };
-  
+
   const steps = [
     {
       label: 'Select Recipient',
@@ -165,17 +165,17 @@ const SendMoney = () => {
             }}
             sx={{ mb: 3 }}
           />
-          
+
           <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 'medium' }}>
             Recent Recipients
           </Typography>
-          
+
           <Grid container spacing={2}>
             {searchResults.map((user) => (
               <Grid item xs={12} sm={6} md={4} key={user.id}>
-                <Card 
+                <Card
                   elevation={formData.recipient && formData.recipient.id === user.id ? 3 : 1}
-                  sx={{ 
+                  sx={{
                     cursor: 'pointer',
                     borderRadius: 2,
                     border: formData.recipient && formData.recipient.id === user.id ? `2px solid ${theme.palette.primary.main}` : 'none',
@@ -188,8 +188,8 @@ const SendMoney = () => {
                   onClick={() => handleRecipientSelect(user)}
                 >
                   <CardContent sx={{ display: 'flex', alignItems: 'center', p: 2 }}>
-                    <Avatar 
-                      sx={{ 
+                    <Avatar
+                      sx={{
                         bgcolor: formData.recipient && formData.recipient.id === user.id ? 'primary.main' : 'primary.light',
                         mr: 2
                       }}
@@ -212,13 +212,13 @@ const SendMoney = () => {
               </Grid>
             ))}
           </Grid>
-          
+
           {error && (
             <Alert severity="error" sx={{ mt: 3 }}>
               {error}
             </Alert>
           )}
-          
+
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
             <Button
               variant="contained"
@@ -254,7 +254,7 @@ const SendMoney = () => {
             }}
             sx={{ mb: 3 }}
           />
-          
+
           <TextField
             fullWidth
             label="Add a note (optional)"
@@ -266,13 +266,13 @@ const SendMoney = () => {
             rows={3}
             sx={{ mb: 3 }}
           />
-          
+
           {error && (
             <Alert severity="error" sx={{ mb: 3 }}>
               {error}
             </Alert>
           )}
-          
+
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
             <Button
               onClick={handleBack}
@@ -306,7 +306,7 @@ const SendMoney = () => {
                 <Paper
                   key={method.id}
                   elevation={formData.paymentMethod === method.type ? 3 : 1}
-                  sx={{ 
+                  sx={{
                     mb: 2,
                     borderRadius: 2,
                     border: formData.paymentMethod === method.type ? `2px solid ${theme.palette.primary.main}` : 'none',
@@ -336,7 +336,7 @@ const SendMoney = () => {
               ))}
             </RadioGroup>
           </FormControl>
-          
+
           <Button
             variant="text"
             color="primary"
@@ -344,13 +344,13 @@ const SendMoney = () => {
           >
             + Add New Payment Method
           </Button>
-          
+
           {error && (
             <Alert severity="error" sx={{ mb: 3 }}>
               {error}
             </Alert>
           )}
-          
+
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
             <Button
               onClick={handleBack}
@@ -377,7 +377,7 @@ const SendMoney = () => {
             <Typography variant="h6" sx={{ mb: 3, fontWeight: 'medium' }}>
               Payment Summary
             </Typography>
-            
+
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <Typography variant="body2" color="text.secondary">
@@ -392,11 +392,11 @@ const SendMoney = () => {
                   {formData.recipient ? formData.recipient.email : ''}
                 </Typography>
               </Grid>
-              
+
               <Grid item xs={12}>
                 <Divider sx={{ my: 1 }} />
               </Grid>
-              
+
               <Grid item xs={4}>
                 <Typography variant="body2" color="text.secondary">
                   Amount
@@ -407,11 +407,11 @@ const SendMoney = () => {
                   {formData.amount ? formatCurrency(formData.amount) : '$0.00'}
                 </Typography>
               </Grid>
-              
+
               <Grid item xs={12}>
                 <Divider sx={{ my: 1 }} />
               </Grid>
-              
+
               <Grid item xs={4}>
                 <Typography variant="body2" color="text.secondary">
                   Payment Method
@@ -422,13 +422,13 @@ const SendMoney = () => {
                   {paymentMethods.find(m => m.type === formData.paymentMethod)?.name || ''}
                 </Typography>
               </Grid>
-              
+
               {formData.note && (
                 <>
                   <Grid item xs={12}>
                     <Divider sx={{ my: 1 }} />
                   </Grid>
-                  
+
                   <Grid item xs={4}>
                     <Typography variant="body2" color="text.secondary">
                       Note
@@ -443,13 +443,13 @@ const SendMoney = () => {
               )}
             </Grid>
           </Paper>
-          
+
           {error && (
             <Alert severity="error" sx={{ mb: 3 }}>
               {error}
             </Alert>
           )}
-          
+
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
             <Button
               onClick={handleBack}
@@ -470,7 +470,7 @@ const SendMoney = () => {
       )
     }
   ];
-  
+
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <AnimatedElement>
@@ -478,19 +478,19 @@ const SendMoney = () => {
           Send Money
         </Typography>
       </AnimatedElement>
-      
+
       {success ? (
         <AnimatedElement animation="scaleUp">
-          <Paper 
-            elevation={2} 
-            sx={{ 
-              p: 4, 
+          <Paper
+            elevation={2}
+            sx={{
+              p: 4,
               borderRadius: 4,
               textAlign: 'center'
             }}
           >
-            <Avatar 
-              sx={{ 
+            <Avatar
+              sx={{
                 bgcolor: 'success.main',
                 width: 80,
                 height: 80,
@@ -500,15 +500,15 @@ const SendMoney = () => {
             >
               <CheckIcon sx={{ fontSize: 40 }} />
             </Avatar>
-            
+
             <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
               Payment Successful!
             </Typography>
-            
+
             <Typography variant="body1" sx={{ mb: 3 }}>
               You have successfully sent {formatCurrency(formData.amount)} to {formData.recipient.name}.
             </Typography>
-            
+
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 4 }}>
               <Button
                 variant="outlined"
@@ -536,10 +536,10 @@ const SendMoney = () => {
         </AnimatedElement>
       ) : (
         <AnimatedElement animation="fadeInUp">
-          <Paper 
-            elevation={2} 
-            sx={{ 
-              p: 3, 
+          <Paper
+            elevation={2}
+            sx={{
+              p: 3,
               borderRadius: 4
             }}
           >

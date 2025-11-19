@@ -49,17 +49,17 @@ export const authService = {
     }
     return response.data;
   },
-  
+
   register: async (userData) => {
     const response = await api.post('/auth/register', userData);
     return response.data;
   },
-  
+
   logout: () => {
     localStorage.removeItem('token');
     localStorage.removeItem('isAuthenticated');
   },
-  
+
   getCurrentUser: async () => {
     const response = await api.get('/users/me');
     return response.data;
@@ -72,7 +72,7 @@ export const userService = {
     const response = await api.put('/users/profile', userData);
     return response.data;
   },
-  
+
   getTransactionHistory: async (params) => {
     const response = await api.get('/users/transactions', { params });
     return response.data;
@@ -85,17 +85,17 @@ export const paymentService = {
     const response = await api.post('/payments/send', paymentData);
     return response.data;
   },
-  
+
   getBalance: async () => {
     const response = await api.get('/payments/balance');
     return response.data;
   },
-  
+
   getPaymentMethods: async () => {
     const response = await api.get('/payments/methods');
     return response.data;
   },
-  
+
   addPaymentMethod: async (methodData) => {
     const response = await api.post('/payments/methods', methodData);
     return response.data;

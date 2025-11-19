@@ -179,7 +179,7 @@ The security module provides foundational security services:
 ```hcl
 module "security" {
   source = "./modules/security"
-  
+
   environment = var.environment
   vpc_id      = module.vpc.vpc_id
   tags        = var.tags
@@ -199,7 +199,7 @@ The VPC module creates a secure network foundation:
 ```hcl
 module "vpc" {
   source = "./modules/vpc"
-  
+
   environment        = var.environment
   vpc_cidr          = var.vpc_cidr
   availability_zones = var.availability_zones
@@ -221,7 +221,7 @@ The monitoring module provides comprehensive observability:
 ```hcl
 module "monitoring" {
   source = "./modules/monitoring"
-  
+
   environment               = var.environment
   vpc_id                   = module.vpc.vpc_id
   kms_key_id              = module.security.kms_key_id
@@ -244,7 +244,7 @@ The Kubernetes module deploys a secure EKS cluster:
 ```hcl
 module "kubernetes" {
   source = "./modules/kubernetes"
-  
+
   cluster_name         = var.cluster_name
   environment         = var.environment
   vpc_id              = module.vpc.vpc_id
@@ -269,7 +269,7 @@ The database module provides a secure, highly available database:
 ```hcl
 module "database" {
   source = "./modules/database"
-  
+
   environment            = var.environment
   vpc_id                = module.vpc.vpc_id
   database_subnet_ids   = module.vpc.database_subnet_ids
@@ -294,7 +294,7 @@ The storage module provides secure, scalable storage:
 ```hcl
 module "storage" {
   source = "./modules/storage"
-  
+
   environment         = var.environment
   vpc_id             = module.vpc.vpc_id
   private_subnet_ids = module.vpc.private_subnet_ids
@@ -471,4 +471,3 @@ This infrastructure code is proprietary and confidential. Unauthorized use, dist
 ---
 
 **Note**: This infrastructure is designed for financial applications and includes comprehensive security and compliance features. Always review and test thoroughly before deploying to production environments.
-

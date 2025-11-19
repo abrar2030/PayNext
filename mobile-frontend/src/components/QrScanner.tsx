@@ -18,7 +18,7 @@ const QrScanner: React.FC<QrScannerProps> = ({ onScanSuccess, onScanFailure }) =
     // Ensure this runs only on the client
     if (typeof window !== 'undefined') {
       const verbose = false; // Set to true for debugging
-      
+
       // Define callbacks
       const qrCodeSuccessCallback: QrcodeSuccessCallback = (decodedText, decodedResult) => {
         if (decodedText !== scanResult) { // Prevent multiple calls for the same scan
@@ -87,4 +87,3 @@ const QrScanner: React.FC<QrScannerProps> = ({ onScanSuccess, onScanFailure }) =
 };
 
 export default QrScanner;
-

@@ -1,11 +1,11 @@
 pipeline {
     agent any
-    
+
     tools {
         maven 'Maven 3.8.6'
         jdk 'JDK 17'
     }
-    
+
     environment {
         DOCKER_CREDENTIALS = credentials('docker-credentials')
         SONARQUBE_TOKEN = credentials('sonarqube-token')
@@ -13,14 +13,14 @@ pipeline {
         KUBECONFIG_CREDENTIALS = credentials('kubeconfig')
         DOCKER_IMAGE_PREFIX = 'abrar2030/paynext'
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        
+
         stage('Backend Build') {
             steps {
                 dir('backend') {
@@ -28,7 +28,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Backend Test') {
             steps {
                 dir('backend') {
@@ -41,7 +41,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Backend Code Quality') {
             steps {
                 dir('backend') {
@@ -51,13 +51,13 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Backend Docker Build & Push') {
             steps {
                 script {
                     // Login to Docker registry
                     sh 'echo ${DOCKER_CREDENTIALS_PSW} | docker login -u ${DOCKER_CREDENTIALS_USR} --password-stdin'
-                    
+
                     // Build and push microservices
                     def services = [
                         'eureka-server',
@@ -66,13 +66,13 @@ pipeline {
                         'payment-service',
                         'notification-service'
                     ]
-                    
+
                     for (service in services) {
                         def imageTag = "${DOCKER_IMAGE_PREFIX}-${service}:${env.BUILD_NUMBER}"
                         sh """
                             docker buildx build -t ${imageTag} -f Dockerfile --build-arg SERVICE_NAME=${service} ./backend
                             docker push ${imageTag}
-                            
+
                             # Also tag as latest if on main branch
                             if [ "${env.BRANCH_NAME}" = "main" ]; then
                                 docker tag ${imageTag} ${DOCKER_IMAGE_PREFIX}-${service}:latest
@@ -83,7 +83,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Deploy Backend to Kubernetes') {
             when {
                 branch 'main'
@@ -93,14 +93,14 @@ pipeline {
                     // Configure kubectl
                     sh 'mkdir -p ~/.kube'
                     sh 'echo "${KUBECONFIG_CREDENTIALS}" > ~/.kube/config'
-                    
+
                     // Apply Kubernetes manifests
                     sh 'kubectl apply -f kubernetes/eureka-server-deployment.yaml'
                     sh 'kubectl apply -f kubernetes/api-gateway-deployment.yaml'
                     sh 'kubectl apply -f kubernetes/user-service-deployment.yaml'
                     sh 'kubectl apply -f kubernetes/payment-service-deployment.yaml'
                     sh 'kubectl apply -f kubernetes/notification-service-deployment.yaml'
-                    
+
                     // Verify deployments
                     sh 'kubectl rollout status deployment/eureka-server --timeout=300s'
                     sh 'kubectl rollout status deployment/api-gateway --timeout=300s'
@@ -111,7 +111,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             cleanWs()

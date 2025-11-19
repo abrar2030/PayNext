@@ -7,8 +7,10 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
-from ..anomaly_detection.anomaly_data_generator import \
-    generate_synthetic_transaction_data  # For initial data
+from ..anomaly_detection.anomaly_data_generator import (  # For initial data
+    generate_synthetic_transaction_data,
+)
+
 # Assuming data_analytics_service.py is in the same directory or accessible
 from .data_analytics.data_analytics_service import DataAnalyticsService
 

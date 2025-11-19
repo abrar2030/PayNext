@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { userService, simulateApiCall } from '../services/api';
-import { 
-  Container, 
-  Grid, 
-  Paper, 
-  Typography, 
-  Box, 
-  Button, 
-  Card, 
-  CardContent, 
+import {
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Box,
+  Button,
+  Card,
+  CardContent,
   Divider,
   Avatar,
   List,
@@ -39,7 +39,7 @@ const Dashboard = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
-  
+
   const [balance, setBalance] = useState(0);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -53,10 +53,10 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       try {
         setLoading(true);
-        
+
         // Simulate API calls for demo purposes
         const balanceResponse = await simulateApiCall({ balance: 2547.63 });
-        
+
         const transactionsResponse = await simulateApiCall({
           transactions: [
             {
@@ -106,24 +106,24 @@ const Dashboard = () => {
             }
           ]
         });
-        
+
         const statsResponse = await simulateApiCall({
           monthlySpending: 1250.75,
           savedThisMonth: 450.25,
           pendingTransactions: 2
         });
-        
+
         setBalance(balanceResponse.data.balance);
         setTransactions(transactionsResponse.data.transactions);
         setStats(statsResponse.data);
-        
+
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
       } finally {
         setLoading(false);
       }
     };
-    
+
     fetchDashboardData();
   }, []);
 
@@ -133,7 +133,7 @@ const Dashboard = () => {
       currency: 'USD'
     }).format(amount);
   };
-  
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('en-US', {
@@ -154,15 +154,15 @@ const Dashboard = () => {
           Dashboard
         </Typography>
       </AnimatedElement>
-      
+
       <Grid container spacing={4}>
         {/* Balance Card */}
         <Grid item xs={12} md={6} lg={4}>
           <AnimatedElement animation="fadeInUp" delay={0.1}>
-            <Paper 
-              elevation={2} 
-              sx={{ 
-                p: 3, 
+            <Paper
+              elevation={2}
+              sx={{
+                p: 3,
                 height: '100%',
                 borderRadius: 4,
                 background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
@@ -177,18 +177,18 @@ const Dashboard = () => {
                   <RefreshIcon />
                 </IconButton>
               </Box>
-              
+
               <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 3 }}>
                 {formatCurrency(balance)}
               </Typography>
-              
+
               <Box sx={{ display: 'flex', gap: 2 }}>
-                <Button 
-                  variant="contained" 
+                <Button
+                  variant="contained"
                   color="secondary"
                   startIcon={<SendIcon />}
                   onClick={handleSendMoney}
-                  sx={{ 
+                  sx={{
                     py: 1,
                     px: 2,
                     borderRadius: 8,
@@ -200,9 +200,9 @@ const Dashboard = () => {
                 >
                   Send Money
                 </Button>
-                <Button 
+                <Button
                   variant="outlined"
-                  sx={{ 
+                  sx={{
                     py: 1,
                     px: 2,
                     borderRadius: 8,
@@ -220,13 +220,13 @@ const Dashboard = () => {
             </Paper>
           </AnimatedElement>
         </Grid>
-        
+
         {/* Quick Stats */}
         <Grid item xs={12} md={6} lg={8}>
           <AnimatedElement animation="fadeInUp" delay={0.2}>
-            <Paper 
-              elevation={2} 
-              sx={{ 
+            <Paper
+              elevation={2}
+              sx={{
                 p: 3,
                 height: '100%',
                 borderRadius: 4
@@ -235,7 +235,7 @@ const Dashboard = () => {
               <Typography variant="h6" sx={{ fontWeight: 'medium', mb: 3 }}>
                 Quick Stats
               </Typography>
-              
+
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={4}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
@@ -250,7 +250,7 @@ const Dashboard = () => {
                     </Typography>
                   </Box>
                 </Grid>
-                
+
                 <Grid item xs={12} sm={4}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                     <Avatar sx={{ bgcolor: 'success.light', mb: 1, width: 56, height: 56 }}>
@@ -264,7 +264,7 @@ const Dashboard = () => {
                     </Typography>
                   </Box>
                 </Grid>
-                
+
                 <Grid item xs={12} sm={4}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                     <Avatar sx={{ bgcolor: 'warning.light', mb: 1, width: 56, height: 56 }}>
@@ -282,13 +282,13 @@ const Dashboard = () => {
             </Paper>
           </AnimatedElement>
         </Grid>
-        
+
         {/* Recent Transactions */}
         <Grid item xs={12}>
           <AnimatedElement animation="fadeInUp" delay={0.3}>
-            <Paper 
-              elevation={2} 
-              sx={{ 
+            <Paper
+              elevation={2}
+              sx={{
                 p: 3,
                 borderRadius: 4
               }}
@@ -297,21 +297,21 @@ const Dashboard = () => {
                 <Typography variant="h6" sx={{ fontWeight: 'medium' }}>
                   Recent Transactions
                 </Typography>
-                <Button 
+                <Button
                   endIcon={<HistoryIcon />}
                   size="small"
                 >
                   View All
                 </Button>
               </Box>
-              
+
               <StaggeredList staggerDelay={0.1}>
                 {transactions.map((transaction) => (
-                  <Card 
-                    key={transaction.id} 
+                  <Card
+                    key={transaction.id}
                     elevation={0}
-                    sx={{ 
-                      mb: 2, 
+                    sx={{
+                      mb: 2,
                       borderRadius: 2,
                       border: '1px solid',
                       borderColor: 'divider',
@@ -325,8 +325,8 @@ const Dashboard = () => {
                     <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
                       <Grid container alignItems="center" spacing={2}>
                         <Grid item>
-                          <Avatar 
-                            sx={{ 
+                          <Avatar
+                            sx={{
                               bgcolor: transaction.type === 'incoming' ? 'success.light' : 'error.light',
                               width: 40,
                               height: 40
@@ -335,7 +335,7 @@ const Dashboard = () => {
                             {transaction.type === 'incoming' ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
                           </Avatar>
                         </Grid>
-                        
+
                         <Grid item xs>
                           <Typography variant="subtitle1" sx={{ fontWeight: 'medium' }}>
                             {transaction.description}
@@ -344,11 +344,11 @@ const Dashboard = () => {
                             {transaction.type === 'incoming' ? `From: ${transaction.sender}` : `To: ${transaction.recipient}`}
                           </Typography>
                         </Grid>
-                        
+
                         <Grid item>
-                          <Typography 
-                            variant="subtitle1" 
-                            sx={{ 
+                          <Typography
+                            variant="subtitle1"
+                            sx={{
                               fontWeight: 'bold',
                               color: transaction.type === 'incoming' ? 'success.main' : 'error.main'
                             }}
@@ -367,13 +367,13 @@ const Dashboard = () => {
             </Paper>
           </AnimatedElement>
         </Grid>
-        
+
         {/* Payment Methods */}
         <Grid item xs={12} md={6}>
           <AnimatedElement animation="fadeInLeft" delay={0.4}>
-            <Paper 
-              elevation={2} 
-              sx={{ 
+            <Paper
+              elevation={2}
+              sx={{
                 p: 3,
                 borderRadius: 4
               }}
@@ -381,12 +381,12 @@ const Dashboard = () => {
               <Typography variant="h6" sx={{ fontWeight: 'medium', mb: 3 }}>
                 Payment Methods
               </Typography>
-              
+
               <List disablePadding>
-                <ListItem 
-                  sx={{ 
-                    p: 2, 
-                    mb: 2, 
+                <ListItem
+                  sx={{
+                    p: 2,
+                    mb: 2,
                     borderRadius: 2,
                     border: '1px solid',
                     borderColor: 'divider'
@@ -397,17 +397,17 @@ const Dashboard = () => {
                       <CreditCardIcon />
                     </Avatar>
                   </ListItemIcon>
-                  <ListItemText 
-                    primary="Visa ending in 4242" 
-                    secondary="Expires 04/2028" 
+                  <ListItemText
+                    primary="Visa ending in 4242"
+                    secondary="Expires 04/2028"
                   />
                   <Chip label="Default" size="small" color="primary" />
                 </ListItem>
-                
-                <ListItem 
-                  sx={{ 
-                    p: 2, 
-                    mb: 2, 
+
+                <ListItem
+                  sx={{
+                    p: 2,
+                    mb: 2,
                     borderRadius: 2,
                     border: '1px solid',
                     borderColor: 'divider'
@@ -418,15 +418,15 @@ const Dashboard = () => {
                       <AccountBalanceIcon />
                     </Avatar>
                   </ListItemIcon>
-                  <ListItemText 
-                    primary="Bank Account" 
-                    secondary="Chase ****6789" 
+                  <ListItemText
+                    primary="Bank Account"
+                    secondary="Chase ****6789"
                   />
                 </ListItem>
-                
+
                 <Box sx={{ textAlign: 'center', mt: 3 }}>
-                  <Button 
-                    variant="outlined" 
+                  <Button
+                    variant="outlined"
                     color="primary"
                     sx={{ borderRadius: 8 }}
                   >
@@ -437,13 +437,13 @@ const Dashboard = () => {
             </Paper>
           </AnimatedElement>
         </Grid>
-        
+
         {/* Quick Actions */}
         <Grid item xs={12} md={6}>
           <AnimatedElement animation="fadeInRight" delay={0.5}>
-            <Paper 
-              elevation={2} 
-              sx={{ 
+            <Paper
+              elevation={2}
+              sx={{
                 p: 3,
                 borderRadius: 4
               }}
@@ -451,7 +451,7 @@ const Dashboard = () => {
               <Typography variant="h6" sx={{ fontWeight: 'medium', mb: 3 }}>
                 Quick Actions
               </Typography>
-              
+
               <Grid container spacing={2}>
                 <Grid item xs={6}>
                   <Button
@@ -459,7 +459,7 @@ const Dashboard = () => {
                     variant="outlined"
                     startIcon={<SendIcon />}
                     onClick={handleSendMoney}
-                    sx={{ 
+                    sx={{
                       p: 2,
                       height: '100%',
                       borderRadius: 2,
@@ -473,13 +473,13 @@ const Dashboard = () => {
                     <Typography variant="body1" sx={{ mt: 1 }}>Send Money</Typography>
                   </Button>
                 </Grid>
-                
+
                 <Grid item xs={6}>
                   <Button
                     fullWidth
                     variant="outlined"
                     startIcon={<HistoryIcon />}
-                    sx={{ 
+                    sx={{
                       p: 2,
                       height: '100%',
                       borderRadius: 2,
@@ -493,13 +493,13 @@ const Dashboard = () => {
                     <Typography variant="body1" sx={{ mt: 1 }}>Transaction History</Typography>
                   </Button>
                 </Grid>
-                
+
                 <Grid item xs={6}>
                   <Button
                     fullWidth
                     variant="outlined"
                     startIcon={<CreditCardIcon />}
-                    sx={{ 
+                    sx={{
                       p: 2,
                       height: '100%',
                       borderRadius: 2,
@@ -513,13 +513,13 @@ const Dashboard = () => {
                     <Typography variant="body1" sx={{ mt: 1 }}>Manage Cards</Typography>
                   </Button>
                 </Grid>
-                
+
                 <Grid item xs={6}>
                   <Button
                     fullWidth
                     variant="outlined"
                     startIcon={<AccountBalanceIcon />}
-                    sx={{ 
+                    sx={{
                       p: 2,
                       height: '100%',
                       borderRadius: 2,

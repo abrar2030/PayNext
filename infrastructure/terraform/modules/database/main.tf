@@ -177,12 +177,12 @@ resource "aws_rds_cluster" "paynext_cluster" {
   master_username                = var.db_master_username
   manage_master_user_password    = false
   master_password                = random_password.db_master_password.result
-  
+
   # Network and Security
   db_subnet_group_name           = aws_db_subnet_group.paynext_db_subnet_group.name
   vpc_security_group_ids         = [aws_security_group.rds_cluster.id]
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.paynext_cluster_pg.name
-  
+
   # Backup and Maintenance
   backup_retention_period        = var.backup_retention_days
   preferred_backup_window        = "03:00-04:00"
@@ -191,14 +191,14 @@ resource "aws_rds_cluster" "paynext_cluster" {
   deletion_protection           = var.environment == "prod" ? true : false
   skip_final_snapshot           = var.environment == "prod" ? false : true
   final_snapshot_identifier     = var.environment == "prod" ? "paynext-cluster-${var.environment}-final-snapshot-${formatdate("YYYY-MM-DD-hhmm", timestamp())}" : null
-  
+
   # Encryption
   storage_encrypted              = var.enable_encryption_at_rest
   kms_key_id                    = var.kms_key_id
-  
+
   # Logging
   enabled_cloudwatch_logs_exports = ["postgresql"]
-  
+
   # Performance Insights
   performance_insights_enabled          = true
   performance_insights_kms_key_id      = var.kms_key_id
@@ -247,13 +247,13 @@ resource "aws_rds_cluster_instance" "paynext_cluster_instances" {
   performance_insights_retention_period = 7
   monitoring_interval                   = 60
   monitoring_role_arn                   = aws_iam_role.rds_enhanced_monitoring.arn
-  
+
   # Parameter Group
   db_parameter_group_name = aws_db_parameter_group.paynext_db_pg.name
-  
+
   # Auto Minor Version Upgrade
   auto_minor_version_upgrade = true
-  
+
   # Public Access
   publicly_accessible = false
 
@@ -334,11 +334,11 @@ resource "aws_db_proxy" "paynext_proxy" {
     auth_scheme = "SECRETS"
     secret_arn  = aws_secretsmanager_secret.db_master_password.arn
   }
-  
+
   role_arn               = aws_iam_role.rds_proxy.arn
   vpc_subnet_ids         = var.database_subnet_ids
   vpc_security_group_ids = [aws_security_group.rds_proxy.id]
-  
+
   target {
     db_cluster_identifier = aws_rds_cluster.paynext_cluster.cluster_identifier
   }
@@ -446,28 +446,28 @@ resource "aws_iam_role_policy" "rds_proxy" {
 # Cross-region backup (if enabled)
 resource "aws_rds_cluster" "paynext_cluster_backup" {
   count = var.enable_cross_region_backup ? 1 : 0
-  
+
   cluster_identifier              = "paynext-cluster-backup-${var.environment}"
   engine                         = var.db_engine
   engine_version                 = var.db_engine_version
-  
+
   # Restore from snapshot
   snapshot_identifier            = aws_rds_cluster.paynext_cluster.final_snapshot_identifier
-  
+
   # Network (in DR region)
   db_subnet_group_name           = "default"  # Assuming default subnet group exists in DR region
   vpc_security_group_ids         = ["sg-default"]  # Would need to be created in DR region
-  
+
   # Backup settings
   backup_retention_period        = var.backup_retention_days
   copy_tags_to_snapshot         = true
   deletion_protection           = false
   skip_final_snapshot           = true
-  
+
   # Encryption
   storage_encrypted              = var.enable_encryption_at_rest
   kms_key_id                    = var.kms_key_id  # Would need DR region KMS key
-  
+
   tags = merge(var.tags, {
     Name        = "PayNext-DB-Cluster-Backup-${var.environment}"
     Purpose     = "DisasterRecovery"
@@ -571,7 +571,7 @@ resource "aws_backup_plan" "paynext_backup_plan" {
 
     copy_action {
       destination_vault_arn = aws_backup_vault.paynext_backup_vault.arn
-      
+
       lifecycle {
         cold_storage_after = 30
         delete_after       = var.backup_retention_days
@@ -628,4 +628,3 @@ resource "aws_iam_role_policy_attachment" "restore_policy" {
   role       = aws_iam_role.backup_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSBackupServiceRolePolicyForRestores"
 }
-

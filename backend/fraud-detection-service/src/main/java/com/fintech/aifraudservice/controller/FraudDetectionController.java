@@ -22,48 +22,48 @@ import java.util.Map;
 @Slf4j
 @CrossOrigin(origins = "*")
 public class FraudDetectionController {
-    
+
     @Autowired
     private FraudDetectionService fraudDetectionService;
-    
+
     @PostMapping("/analyze")
     public ResponseEntity<TransactionAnalysis> analyzeTransaction(@Valid @RequestBody TransactionAnalysisRequest request) {
         try {
             log.info("Received fraud analysis request for transaction: {}", request.getTransactionId());
-            
+
             TransactionAnalysis analysis = fraudDetectionService.analyzeTransaction(request);
-            
+
             return ResponseEntity.ok(analysis);
         } catch (Exception e) {
             log.error("Error analyzing transaction: {}", e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     @PostMapping("/score")
     public ResponseEntity<Map<String, Object>> getRealTimeFraudScore(@Valid @RequestBody TransactionAnalysisRequest request) {
         try {
             Double fraudScore = fraudDetectionService.calculateRealTimeFraudScore(request);
-            
+
             Map<String, Object> response = Map.of(
                 "transactionId", request.getTransactionId(),
                 "fraudScore", fraudScore,
                 "riskLevel", determineRiskLevel(fraudScore),
                 "timestamp", System.currentTimeMillis()
             );
-            
+
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Error calculating fraud score: {}", e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     @GetMapping("/user/{userId}/profile")
     public ResponseEntity<UserBehaviorProfile> getUserBehaviorProfile(@PathVariable Long userId) {
         try {
             UserBehaviorProfile profile = fraudDetectionService.getUserBehaviorProfile(userId);
-            
+
             if (profile != null) {
                 return ResponseEntity.ok(profile);
             } else {
@@ -74,7 +74,7 @@ public class FraudDetectionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     @GetMapping("/stats")
     public ResponseEntity<Map<String, Object>> getFraudDetectionStats() {
         try {
@@ -85,7 +85,7 @@ public class FraudDetectionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     @GetMapping("/high-risk")
     public ResponseEntity<List<TransactionAnalysis>> getHighRiskTransactions(
             @RequestParam(defaultValue = "50") int limit) {
@@ -97,7 +97,7 @@ public class FraudDetectionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     @PostMapping("/review/{transactionId}")
     public ResponseEntity<Map<String, String>> reviewTransaction(
             @PathVariable String transactionId,
@@ -106,38 +106,38 @@ public class FraudDetectionController {
             @RequestParam(required = false) String notes) {
         try {
             fraudDetectionService.markTransactionFraud(transactionId, isFraud, reviewedBy, notes);
-            
+
             Map<String, String> response = Map.of(
                 "status", "success",
                 "message", "Transaction review completed",
                 "transactionId", transactionId,
                 "decision", isFraud ? "fraud" : "legitimate"
             );
-            
+
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Error reviewing transaction: {}", e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     @PostMapping("/retrain")
     public ResponseEntity<Map<String, String>> retrainModel() {
         try {
             fraudDetectionService.retrainFraudModel();
-            
+
             Map<String, String> response = Map.of(
                 "status", "success",
                 "message", "Model retraining initiated"
             );
-            
+
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Error retraining model: {}", e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     @GetMapping("/health")
     public ResponseEntity<Map<String, String>> healthCheck() {
         Map<String, String> health = Map.of(
@@ -145,10 +145,10 @@ public class FraudDetectionController {
             "service", "AI Fraud Detection Service",
             "timestamp", String.valueOf(System.currentTimeMillis())
         );
-        
+
         return ResponseEntity.ok(health);
     }
-    
+
     private String determineRiskLevel(Double fraudScore) {
         if (fraudScore >= 0.8) {
             return "CRITICAL";
@@ -161,4 +161,3 @@ public class FraudDetectionController {
         }
     }
 }
-

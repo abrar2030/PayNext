@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  Button, 
-  IconButton, 
-  Box, 
-  Drawer, 
-  List, 
-  ListItem, 
-  ListItemText, 
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Box,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
   Container,
   useScrollTrigger,
   Slide,
@@ -44,13 +44,13 @@ const Navbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [productsAnchorEl, setProductsAnchorEl] = useState(null);
   const [companyAnchorEl, setCompanyAnchorEl] = useState(null);
-  
+
   useEffect(() => {
     // Check if user is authenticated
     const authStatus = localStorage.getItem('isAuthenticated');
@@ -97,9 +97,9 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { 
-      label: 'Products', 
-      path: null, 
+    {
+      label: 'Products',
+      path: null,
       hasSubmenu: true,
       submenuItems: [
         { label: 'Personal Payments', path: '/products/personal' },
@@ -109,9 +109,9 @@ const Navbar = () => {
       handleClick: handleProductsMenuOpen
     },
     { label: 'Pricing', path: '/pricing', hasSubmenu: false },
-    { 
-      label: 'Company', 
-      path: null, 
+    {
+      label: 'Company',
+      path: null,
       hasSubmenu: true,
       submenuItems: [
         { label: 'About Us', path: '/about' },
@@ -135,45 +135,45 @@ const Navbar = () => {
             {item.hasSubmenu ? (
               <>
                 <ListItem>
-                  <ListItemText 
-                    primary={item.label} 
-                    primaryTypographyProps={{ 
+                  <ListItemText
+                    primary={item.label}
+                    primaryTypographyProps={{
                       fontWeight: 'medium',
                       color: 'text.primary'
-                    }} 
+                    }}
                   />
                 </ListItem>
                 <List disablePadding>
                   {item.submenuItems.map((subItem) => (
-                    <ListItem 
-                      key={subItem.label} 
-                      button 
+                    <ListItem
+                      key={subItem.label}
+                      button
                       onClick={() => handleNavigation(subItem.path)}
                       sx={{ pl: 4 }}
                     >
-                      <ListItemText 
-                        primary={subItem.label} 
-                        primaryTypographyProps={{ 
+                      <ListItemText
+                        primary={subItem.label}
+                        primaryTypographyProps={{
                           fontSize: '0.9rem',
                           color: 'text.secondary'
-                        }} 
+                        }}
                       />
                     </ListItem>
                   ))}
                 </List>
               </>
             ) : (
-              <ListItem 
-                button 
+              <ListItem
+                button
                 onClick={() => handleNavigation(item.path)}
                 selected={isActive(item.path)}
               >
-                <ListItemText 
-                  primary={item.label} 
-                  primaryTypographyProps={{ 
+                <ListItemText
+                  primary={item.label}
+                  primaryTypographyProps={{
                     fontWeight: isActive(item.path) ? 'bold' : 'medium',
                     color: isActive(item.path) ? 'primary.main' : 'text.primary'
-                  }} 
+                  }}
                 />
               </ListItem>
             )}
@@ -209,11 +209,11 @@ const Navbar = () => {
   return (
     <>
       <HideOnScroll>
-        <AppBar 
-          position="fixed" 
-          color="default" 
+        <AppBar
+          position="fixed"
+          color="default"
           elevation={0}
-          sx={{ 
+          sx={{
             backgroundColor: 'background.paper',
             borderBottom: '1px solid',
             borderColor: 'divider',
@@ -279,8 +279,8 @@ const Navbar = () => {
                       <>
                         <Button
                           onClick={item.handleClick}
-                          sx={{ 
-                            my: 2, 
+                          sx={{
+                            my: 2,
                             mx: 1,
                             color: 'text.primary',
                             display: 'flex',
@@ -328,10 +328,10 @@ const Navbar = () => {
                           }}
                         >
                           {item.submenuItems.map((subItem) => (
-                            <MenuItem 
-                              key={subItem.label} 
+                            <MenuItem
+                              key={subItem.label}
                               onClick={() => handleNavigation(subItem.path)}
-                              sx={{ 
+                              sx={{
                                 py: 1.5,
                                 '&:hover': {
                                   backgroundColor: 'rgba(25, 118, 210, 0.08)'
@@ -346,8 +346,8 @@ const Navbar = () => {
                     ) : (
                       <Button
                         onClick={() => handleNavigation(item.path)}
-                        sx={{ 
-                          my: 2, 
+                        sx={{
+                          my: 2,
                           mx: 1,
                           color: isActive(item.path) ? 'primary.main' : 'text.primary',
                           fontWeight: isActive(item.path) ? 'bold' : 'medium',
@@ -439,7 +439,7 @@ const Navbar = () => {
           </Container>
         </AppBar>
       </HideOnScroll>
-      
+
       {/* Mobile drawer */}
       <Drawer
         anchor="left"
@@ -455,7 +455,7 @@ const Navbar = () => {
       >
         {drawer}
       </Drawer>
-      
+
       {/* Toolbar placeholder to prevent content from hiding behind the AppBar */}
       <Toolbar />
     </>

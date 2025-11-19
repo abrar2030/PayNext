@@ -15,4 +15,3 @@ COPY churn_model_features.joblib .
 EXPOSE 5001
 
 CMD ["python", "churn_prediction_api.py"]
-

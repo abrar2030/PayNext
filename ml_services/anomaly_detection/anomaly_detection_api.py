@@ -31,8 +31,9 @@ except FileNotFoundError:
         f"Model file not found at {model_path}. Training a new model for demonstration."
     )
     # If model not found, train a dummy one for demonstration purposes
-    from anomaly_detection.anomaly_data_generator import \
-        generate_synthetic_transaction_data
+    from anomaly_detection.anomaly_data_generator import (
+        generate_synthetic_transaction_data,
+    )
 
     synthetic_df = generate_synthetic_transaction_data(
         num_transactions=10000, num_users=100, anomaly_ratio=0.01

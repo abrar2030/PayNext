@@ -36,45 +36,45 @@ info() {
 
 check_terraform_syntax() {
     log "Checking Terraform syntax..."
-    
+
     cd "$TERRAFORM_DIR"
-    
+
     # Format check
     if terraform fmt -check=true -diff=true; then
         log "Terraform formatting is correct"
     else
         warn "Terraform files need formatting. Run 'terraform fmt' to fix."
     fi
-    
+
     # Validate syntax
     terraform init -backend=false
     terraform validate
-    
+
     log "Terraform syntax validation passed"
 }
 
 check_security_configuration() {
     log "Checking security configuration..."
-    
+
     local issues=0
-    
+
     # Check for hardcoded secrets
     if grep -r "password\|secret\|key" "$TERRAFORM_DIR" --include="*.tf" | grep -v "variable\|output\|data\|resource"; then
         warn "Potential hardcoded secrets found"
         ((issues++))
     fi
-    
+
     # Check for public access
     if grep -r "0.0.0.0/0" "$TERRAFORM_DIR" --include="*.tf"; then
         info "Found public access configurations - ensure these are intentional"
     fi
-    
+
     # Check encryption settings
     if ! grep -r "encrypted.*=.*true" "$TERRAFORM_DIR" --include="*.tf" > /dev/null; then
         warn "No encryption settings found"
         ((issues++))
     fi
-    
+
     if [[ $issues -eq 0 ]]; then
         log "Security configuration check passed"
     else
@@ -84,66 +84,66 @@ check_security_configuration() {
 
 check_compliance_features() {
     log "Checking compliance features..."
-    
+
     local features=()
-    
+
     # Check for CloudTrail
     if grep -r "aws_cloudtrail" "$TERRAFORM_DIR" --include="*.tf" > /dev/null; then
         features+=("CloudTrail")
     fi
-    
+
     # Check for GuardDuty
     if grep -r "aws_guardduty" "$TERRAFORM_DIR" --include="*.tf" > /dev/null; then
         features+=("GuardDuty")
     fi
-    
+
     # Check for Config
     if grep -r "aws_config" "$TERRAFORM_DIR" --include="*.tf" > /dev/null; then
         features+=("Config")
     fi
-    
+
     # Check for KMS
     if grep -r "aws_kms" "$TERRAFORM_DIR" --include="*.tf" > /dev/null; then
         features+=("KMS")
     fi
-    
+
     # Check for backup
     if grep -r "aws_backup" "$TERRAFORM_DIR" --include="*.tf" > /dev/null; then
         features+=("Backup")
     fi
-    
+
     log "Compliance features found: ${features[*]}"
 }
 
 check_best_practices() {
     log "Checking Terraform best practices..."
-    
+
     local issues=0
-    
+
     # Check for provider version constraints
     if ! grep -r "required_providers" "$TERRAFORM_DIR" --include="*.tf" > /dev/null; then
         warn "No provider version constraints found"
         ((issues++))
     fi
-    
+
     # Check for resource tagging
     if ! grep -r "tags.*=" "$TERRAFORM_DIR" --include="*.tf" > /dev/null; then
         warn "No resource tagging found"
         ((issues++))
     fi
-    
+
     # Check for outputs
     if [[ ! -f "$TERRAFORM_DIR/outputs.tf" ]]; then
         warn "No outputs.tf file found"
         ((issues++))
     fi
-    
+
     # Check for variables
     if [[ ! -f "$TERRAFORM_DIR/variables.tf" ]]; then
         warn "No variables.tf file found"
         ((issues++))
     fi
-    
+
     if [[ $issues -eq 0 ]]; then
         log "Best practices check passed"
     else
@@ -153,23 +153,23 @@ check_best_practices() {
 
 check_module_structure() {
     log "Checking module structure..."
-    
+
     local modules_dir="$TERRAFORM_DIR/modules"
-    
+
     if [[ ! -d "$modules_dir" ]]; then
         error "Modules directory not found"
     fi
-    
+
     local expected_modules=("security" "vpc" "monitoring" "kubernetes" "database" "storage")
-    
+
     for module in "${expected_modules[@]}"; do
         local module_dir="$modules_dir/$module"
-        
+
         if [[ ! -d "$module_dir" ]]; then
             warn "Module $module not found"
             continue
         fi
-        
+
         # Check for required files
         local required_files=("main.tf" "variables.tf" "outputs.tf")
         for file in "${required_files[@]}"; do
@@ -177,28 +177,28 @@ check_module_structure() {
                 warn "Module $module missing $file"
             fi
         done
-        
+
         log "Module $module structure validated"
     done
 }
 
 check_documentation() {
     log "Checking documentation..."
-    
+
     local docs_issues=0
-    
+
     # Check for README
     if [[ ! -f "$TERRAFORM_DIR/../README.md" ]]; then
         warn "README.md not found"
         ((docs_issues++))
     fi
-    
+
     # Check for tfvars example
     if [[ ! -f "$TERRAFORM_DIR/terraform.tfvars.example" ]]; then
         warn "terraform.tfvars.example not found"
         ((docs_issues++))
     fi
-    
+
     if [[ $docs_issues -eq 0 ]]; then
         log "Documentation check passed"
     else
@@ -208,27 +208,27 @@ check_documentation() {
 
 run_security_scan() {
     log "Running security scan..."
-    
+
     # Check for common security issues
     local security_issues=0
-    
+
     # Check for default passwords
     if grep -ri "password.*=.*\"password\"" "$TERRAFORM_DIR" --include="*.tf"; then
         warn "Default passwords found"
         ((security_issues++))
     fi
-    
+
     # Check for insecure protocols
     if grep -ri "http://" "$TERRAFORM_DIR" --include="*.tf"; then
         warn "Insecure HTTP protocols found"
         ((security_issues++))
     fi
-    
+
     # Check for overly permissive security groups
     if grep -A5 -B5 "0.0.0.0/0" "$TERRAFORM_DIR" --include="*.tf" | grep -i "ingress"; then
         info "Found ingress rules with 0.0.0.0/0 - verify these are intentional"
     fi
-    
+
     if [[ $security_issues -eq 0 ]]; then
         log "Security scan passed"
     else
@@ -238,9 +238,9 @@ run_security_scan() {
 
 generate_validation_report() {
     log "Generating validation report..."
-    
+
     local report_file="/tmp/paynext-validation-report-$(date +%Y%m%d-%H%M%S).txt"
-    
+
     cat > "$report_file" << EOF
 PayNext Infrastructure Validation Report
 Generated: $(date)
@@ -339,7 +339,7 @@ EOF
 
 main() {
     log "Starting PayNext infrastructure validation..."
-    
+
     check_terraform_syntax
     check_security_configuration
     check_compliance_features
@@ -348,10 +348,9 @@ main() {
     check_documentation
     run_security_scan
     generate_validation_report
-    
+
     log "PayNext infrastructure validation completed successfully!"
 }
 
 # Run main function
 main "$@"
-

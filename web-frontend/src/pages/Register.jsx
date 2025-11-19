@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { 
-  Container, 
-  Typography, 
-  TextField, 
-  Button, 
-  Paper, 
-  Box, 
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Box,
   Grid,
   Link,
   InputAdornment,
@@ -67,7 +67,7 @@ const Register = () => {
         return;
       }
     }
-    
+
     setError('');
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -80,7 +80,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     try {
       setLoading(true);
       const userRegistrationData = {
@@ -88,13 +88,13 @@ const Register = () => {
         password: formData.password,
         email: formData.email,
         // The backend User model only has username, password, email, role.
-        // We are ignoring firstName, lastName, phoneNumber, address for now, 
+        // We are ignoring firstName, lastName, phoneNumber, address for now,
         // as they are not in the backend model. This is a potential bug/enhancement
         // for the backend to handle UserProfile data, but for now we align with the API.
       };
-      
+
       await authService.register(userRegistrationData);
-      
+
       // On successful registration, redirect to login
       navigate('/login');
     } catch (err) {
@@ -273,7 +273,7 @@ const Register = () => {
           <Typography component="h1" variant="h5" align="center" sx={{ mb: 3, fontWeight: 'bold' }}>
             Create Your PayNext Account
           </Typography>
-          
+
           <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
             {steps.map((label) => (
               <Step key={label}>
@@ -281,16 +281,16 @@ const Register = () => {
               </Step>
             ))}
           </Stepper>
-          
+
           {error && (
             <Alert severity="error" sx={{ mb: 2 }}>
               {error}
             </Alert>
           )}
-          
+
           <Box component="form" noValidate>
             {getStepContent(activeStep)}
-            
+
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
               <Button
                 disabled={activeStep === 0}
@@ -299,7 +299,7 @@ const Register = () => {
               >
                 Back
               </Button>
-              
+
               {activeStep === steps.length - 1 ? (
 	              <Button
 	                variant="contained"
@@ -320,7 +320,7 @@ const Register = () => {
               )}
             </Box>
           </Box>
-          
+
           {activeStep === 0 && (
             <Grid container justifyContent="flex-end" sx={{ mt: 2 }}>
               <Grid item>

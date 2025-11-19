@@ -76,7 +76,7 @@ EOF
 
 check_prerequisites() {
     log "Checking prerequisites..."
-    
+
     # Check if required tools are installed
     local tools=("terraform" "aws" "kubectl" "jq")
     for tool in "${tools[@]}"; do
@@ -84,7 +84,7 @@ check_prerequisites() {
             error "$tool is not installed or not in PATH"
         fi
     done
-    
+
     # Check Terraform version
     local tf_version
     tf_version=$(terraform version -json | jq -r '.terraform_version')
@@ -92,12 +92,12 @@ check_prerequisites() {
     if ! printf '%s\n%s\n' "$required_version" "$tf_version" | sort -V -C; then
         error "Terraform version $tf_version is too old. Required: $required_version or later"
     fi
-    
+
     # Check AWS credentials
     if ! aws sts get-caller-identity &> /dev/null; then
         error "AWS credentials not configured or invalid"
     fi
-    
+
     log "Prerequisites check passed"
 }
 
@@ -105,49 +105,49 @@ validate_environment() {
     if [[ ! "$ENVIRONMENT" =~ ^(dev|staging|prod)$ ]]; then
         error "Invalid environment: $ENVIRONMENT. Must be dev, staging, or prod"
     fi
-    
+
     if [[ -z "$REGION" ]]; then
         error "Region is required"
     fi
-    
+
     log "Environment validation passed: $ENVIRONMENT in $REGION"
 }
 
 setup_terraform() {
     log "Setting up Terraform..."
-    
+
     cd "$TERRAFORM_DIR"
-    
+
     # Initialize Terraform
     log "Initializing Terraform..."
     terraform init -upgrade
-    
+
     # Validate configuration
     log "Validating Terraform configuration..."
     terraform validate
-    
+
     # Format check
     if ! terraform fmt -check=true -diff=true; then
         warn "Terraform files are not properly formatted. Run 'terraform fmt' to fix."
     fi
-    
+
     log "Terraform setup completed"
 }
 
 create_tfvars() {
     local tfvars_file="$TERRAFORM_DIR/terraform.tfvars"
-    
+
     if [[ ! -f "$tfvars_file" ]]; then
         log "Creating terraform.tfvars from example..."
         cp "$TERRAFORM_DIR/terraform.tfvars.example" "$tfvars_file"
-        
+
         # Update environment and region in tfvars
         sed -i.bak "s/environment = \"dev\"/environment = \"$ENVIRONMENT\"/" "$tfvars_file"
         sed -i.bak "s/region = \"us-west-2\"/region = \"$REGION\"/" "$tfvars_file"
-        
+
         warn "terraform.tfvars created from example. Please review and customize before proceeding."
         info "Edit $tfvars_file to match your requirements"
-        
+
         if [[ "$AUTO_APPROVE" == false ]]; then
             read -p "Press Enter to continue after reviewing terraform.tfvars..."
         fi
@@ -156,19 +156,19 @@ create_tfvars() {
 
 run_terraform_plan() {
     log "Running Terraform plan..."
-    
+
     cd "$TERRAFORM_DIR"
-    
+
     local plan_file="tfplan-$ENVIRONMENT-$(date +%Y%m%d-%H%M%S)"
-    
+
     terraform plan \
         -var="environment=$ENVIRONMENT" \
         -var="region=$REGION" \
         -out="$plan_file" \
         -detailed-exitcode
-    
+
     local exit_code=$?
-    
+
     case $exit_code in
         0)
             info "No changes detected"
@@ -180,35 +180,35 @@ run_terraform_plan() {
             info "Changes detected and plan saved to $plan_file"
             ;;
     esac
-    
+
     return $exit_code
 }
 
 run_terraform_apply() {
     log "Running Terraform apply..."
-    
+
     cd "$TERRAFORM_DIR"
-    
+
     local apply_args=()
     apply_args+=("-var=environment=$ENVIRONMENT")
     apply_args+=("-var=region=$REGION")
-    
+
     if [[ "$AUTO_APPROVE" == true ]]; then
         apply_args+=("-auto-approve")
     fi
-    
+
     terraform apply "${apply_args[@]}"
-    
+
     log "Terraform apply completed successfully"
 }
 
 run_terraform_destroy() {
     log "Running Terraform destroy..."
-    
+
     cd "$TERRAFORM_DIR"
-    
+
     warn "This will destroy all infrastructure in environment: $ENVIRONMENT"
-    
+
     if [[ "$AUTO_APPROVE" == false ]]; then
         read -p "Are you sure you want to destroy the infrastructure? (yes/no): " confirm
         if [[ "$confirm" != "yes" ]]; then
@@ -216,31 +216,31 @@ run_terraform_destroy() {
             exit 0
         fi
     fi
-    
+
     local destroy_args=()
     destroy_args+=("-var=environment=$ENVIRONMENT")
     destroy_args+=("-var=region=$REGION")
-    
+
     if [[ "$AUTO_APPROVE" == true ]]; then
         destroy_args+=("-auto-approve")
     fi
-    
+
     terraform destroy "${destroy_args[@]}"
-    
+
     log "Terraform destroy completed successfully"
 }
 
 configure_kubectl() {
     log "Configuring kubectl..."
-    
+
     local cluster_name="paynext-cluster-$ENVIRONMENT"
-    
+
     # Update kubeconfig
     aws eks update-kubeconfig \
         --region "$REGION" \
         --name "$cluster_name" \
         --alias "$cluster_name"
-    
+
     # Verify connection
     if kubectl get nodes &> /dev/null; then
         log "kubectl configured successfully"
@@ -252,35 +252,35 @@ configure_kubectl() {
 
 post_deployment_checks() {
     log "Running post-deployment checks..."
-    
+
     cd "$TERRAFORM_DIR"
-    
+
     # Get outputs
     log "Terraform outputs:"
     terraform output
-    
+
     # Check EKS cluster if it exists
     local cluster_name="paynext-cluster-$ENVIRONMENT"
     if aws eks describe-cluster --name "$cluster_name" --region "$REGION" &> /dev/null; then
         configure_kubectl
     fi
-    
+
     # Check RDS cluster
     local db_cluster_id="paynext-cluster-$ENVIRONMENT"
     if aws rds describe-db-clusters --db-cluster-identifier "$db_cluster_id" --region "$REGION" &> /dev/null; then
         log "RDS cluster is available"
     fi
-    
+
     # Check S3 buckets
     log "S3 buckets created:"
     aws s3 ls | grep "paynext.*$ENVIRONMENT" || true
-    
+
     log "Post-deployment checks completed"
 }
 
 generate_summary() {
     log "Generating deployment summary..."
-    
+
     cat << EOF
 
 ================================================================================
@@ -374,47 +374,47 @@ done
 main() {
     log "Starting PayNext infrastructure deployment..."
     log "Log file: $LOG_FILE"
-    
+
     # Trap for cleanup
     trap cleanup EXIT
-    
+
     # Check prerequisites
     check_prerequisites
-    
+
     # Validate-only mode
     if [[ "$VALIDATE_ONLY" == true ]]; then
         setup_terraform
         log "Validation completed successfully"
         exit 0
     fi
-    
+
     # Validate inputs
     validate_environment
-    
+
     # Setup Terraform
     setup_terraform
-    
+
     # Create tfvars if needed
     create_tfvars
-    
+
     # Plan-only mode
     if [[ "$PLAN_ONLY" == true ]]; then
         run_terraform_plan
         exit 0
     fi
-    
+
     # Destroy mode
     if [[ "$DESTROY" == true ]]; then
         run_terraform_destroy
         exit 0
     fi
-    
+
     # Normal deployment
     run_terraform_plan
     run_terraform_apply
     post_deployment_checks
     generate_summary
-    
+
     log "PayNext infrastructure deployment completed successfully!"
 }
 
@@ -427,4 +427,3 @@ fi
 
 # Run main function
 main "$@"
-

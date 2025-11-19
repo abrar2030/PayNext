@@ -79,4 +79,3 @@ def train_credit_scoring_model(data_path=os.path.join(os.path.dirname(__file__),
 
 if __name__ == '__main__':
     train_credit_scoring_model()
-

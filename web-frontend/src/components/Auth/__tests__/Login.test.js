@@ -16,7 +16,7 @@ const renderWithRouter = (ui, { route = '/' } = {}) => {
 describe('Login Component', () => {
   test('renders login form correctly', () => {
     renderWithRouter(<Login />);
-    
+
     // Check if essential elements are present
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
@@ -25,7 +25,7 @@ describe('Login Component', () => {
 
   test('allows user to input email and password', () => {
     renderWithRouter(<Login />);
-    
+
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
 
@@ -52,11 +52,10 @@ describe('Login Component', () => {
 
     // Check if AuthService.login was called
     expect(AuthService.login).toHaveBeenCalledWith('test@example.com', 'password123');
-    
+
     // Wait for potential async updates
     // await screen.findByText(/login successful/i); // Example assertion
     // expect(mockLogin).toHaveBeenCalled();
   });
   */
 });
-

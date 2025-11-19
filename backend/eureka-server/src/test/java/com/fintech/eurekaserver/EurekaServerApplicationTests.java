@@ -29,7 +29,7 @@ public class EurekaServerApplicationTests {
     void eurekaEndpointShouldBeAvailable() {
         ResponseEntity<String> response = restTemplate.getForEntity(
                 "http://localhost:" + port + "/eureka/apps", String.class);
-        
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
@@ -37,7 +37,7 @@ public class EurekaServerApplicationTests {
     void eurekaStatusEndpointShouldReturnUp() {
         ResponseEntity<String> response = restTemplate.getForEntity(
                 "http://localhost:" + port + "/actuator/health", String.class);
-        
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertTrue(response.getBody().contains("UP"));
     }

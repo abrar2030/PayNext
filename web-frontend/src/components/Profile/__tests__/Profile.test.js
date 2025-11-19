@@ -92,4 +92,3 @@ describe('Profile Component', () => {
     expect(await screen.findByText(new RegExp(updateErrorMessage, 'i'))).toBeInTheDocument();
   });
 });
-

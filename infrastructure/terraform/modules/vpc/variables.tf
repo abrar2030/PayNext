@@ -4,7 +4,7 @@ variable "vpc_cidr" {
   description = "CIDR block for the VPC"
   type        = string
   default     = "10.0.0.0/16"
-  
+
   validation {
     condition     = can(cidrhost(var.vpc_cidr, 0))
     error_message = "VPC CIDR must be a valid CIDR block."
@@ -15,7 +15,7 @@ variable "private_subnet_cidrs" {
   description = "CIDR blocks for private subnets"
   type        = list(string)
   default     = ["10.0.10.0/24", "10.0.11.0/24", "10.0.12.0/24"]
-  
+
   validation {
     condition = alltrue([
       for cidr in var.private_subnet_cidrs : can(cidrhost(cidr, 0))
@@ -28,7 +28,7 @@ variable "public_subnet_cidrs" {
   description = "CIDR blocks for public subnets"
   type        = list(string)
   default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-  
+
   validation {
     condition = alltrue([
       for cidr in var.public_subnet_cidrs : can(cidrhost(cidr, 0))
@@ -41,7 +41,7 @@ variable "database_subnet_cidrs" {
   description = "CIDR blocks for database subnets"
   type        = list(string)
   default     = ["10.0.20.0/24", "10.0.21.0/24", "10.0.22.0/24"]
-  
+
   validation {
     condition = alltrue([
       for cidr in var.database_subnet_cidrs : can(cidrhost(cidr, 0))
@@ -59,7 +59,7 @@ variable "availability_zones" {
 variable "environment" {
   description = "Deployment environment (dev, staging, prod)"
   type        = string
-  
+
   validation {
     condition     = contains(["dev", "staging", "prod"], var.environment)
     error_message = "Environment must be one of: dev, staging, prod."
@@ -82,7 +82,7 @@ variable "allowed_cidr_blocks" {
   description = "CIDR blocks allowed to access resources"
   type        = list(string)
   default     = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
-  
+
   validation {
     condition = alltrue([
       for cidr in var.allowed_cidr_blocks : can(cidrhost(cidr, 0))
@@ -124,7 +124,7 @@ variable "flow_log_retention_days" {
   description = "Number of days to retain VPC flow logs"
   type        = number
   default     = 365
-  
+
   validation {
     condition     = var.flow_log_retention_days >= 1
     error_message = "Flow log retention must be at least 1 day."
@@ -142,4 +142,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-

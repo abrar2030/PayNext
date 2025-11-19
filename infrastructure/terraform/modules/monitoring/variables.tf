@@ -3,7 +3,7 @@
 variable "environment" {
   description = "Deployment environment (dev, staging, prod)"
   type        = string
-  
+
   validation {
     condition     = contains(["dev", "staging", "prod"], var.environment)
     error_message = "Environment must be one of: dev, staging, prod."
@@ -32,7 +32,7 @@ variable "log_retention_days" {
   description = "Number of days to retain CloudWatch logs"
   type        = number
   default     = 365
-  
+
   validation {
     condition     = var.log_retention_days >= 30
     error_message = "Log retention must be at least 30 days."
@@ -43,7 +43,7 @@ variable "data_retention_days" {
   description = "Number of days to retain audit and compliance data"
   type        = number
   default     = 2555  # 7 years for financial compliance
-  
+
   validation {
     condition     = var.data_retention_days >= 365
     error_message = "Data retention must be at least 365 days for financial compliance."
@@ -53,7 +53,7 @@ variable "data_retention_days" {
 variable "security_contact_email" {
   description = "Email address for security notifications"
   type        = string
-  
+
   validation {
     condition     = can(regex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", var.security_contact_email))
     error_message = "Security contact email must be a valid email address."
@@ -63,7 +63,7 @@ variable "security_contact_email" {
 variable "compliance_contact_email" {
   description = "Email address for compliance notifications"
   type        = string
-  
+
   validation {
     condition     = can(regex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", var.compliance_contact_email))
     error_message = "Compliance contact email must be a valid email address."
@@ -101,7 +101,7 @@ variable "guardduty_finding_frequency" {
   description = "Frequency for GuardDuty findings publication"
   type        = string
   default     = "FIFTEEN_MINUTES"
-  
+
   validation {
     condition = contains([
       "FIFTEEN_MINUTES",
@@ -116,11 +116,11 @@ variable "config_delivery_frequency" {
   description = "Frequency for AWS Config delivery channel"
   type        = string
   default     = "TwentyFour_Hours"
-  
+
   validation {
     condition = contains([
       "One_Hour",
-      "Three_Hours", 
+      "Three_Hours",
       "Six_Hours",
       "Twelve_Hours",
       "TwentyFour_Hours"
@@ -157,7 +157,7 @@ variable "cloudwatch_alarm_cpu_threshold" {
   description = "CPU utilization threshold for CloudWatch alarms"
   type        = number
   default     = 80
-  
+
   validation {
     condition     = var.cloudwatch_alarm_cpu_threshold >= 50 && var.cloudwatch_alarm_cpu_threshold <= 95
     error_message = "CPU threshold must be between 50 and 95 percent."
@@ -168,7 +168,7 @@ variable "cloudwatch_alarm_error_threshold" {
   description = "Error count threshold for CloudWatch alarms"
   type        = number
   default     = 10
-  
+
   validation {
     condition     = var.cloudwatch_alarm_error_threshold >= 1
     error_message = "Error threshold must be at least 1."
@@ -179,7 +179,7 @@ variable "failed_login_threshold" {
   description = "Failed login attempts threshold for security alerts"
   type        = number
   default     = 5
-  
+
   validation {
     condition     = var.failed_login_threshold >= 3 && var.failed_login_threshold <= 20
     error_message = "Failed login threshold must be between 3 and 20."
@@ -215,4 +215,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-

@@ -23,9 +23,9 @@ const BottomNav = () => {
           const isActive = pathname === item.href;
           const Icon = item.icon;
           return (
-            <Link 
-              key={item.href} 
-              href={item.href} 
+            <Link
+              key={item.href}
+              href={item.href}
               className={cn(
                 "flex flex-col items-center justify-center flex-1 h-full text-muted-foreground hover:text-primary transition-colors",
                 isActive && "text-primary"
@@ -42,4 +42,3 @@ const BottomNav = () => {
 };
 
 export default BottomNav;
-

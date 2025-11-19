@@ -16,7 +16,7 @@ const renderWithRouter = (ui, { route = '/' } = {}) => {
 describe('Register Component', () => {
   test('renders registration form correctly', () => {
     renderWithRouter(<Register />);
-    
+
     // Check if essential elements are present
     expect(screen.getByLabelText(/username/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe('Register Component', () => {
 
   test('allows user to input registration details', () => {
     renderWithRouter(<Register />);
-    
+
     const usernameInput = screen.getByLabelText(/username/i);
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/^password$/i);
@@ -62,11 +62,10 @@ describe('Register Component', () => {
 
     // Check if AuthService.register was called
     expect(AuthService.register).toHaveBeenCalledWith('testuser', 'test@example.com', 'password123');
-    
+
     // Wait for potential async updates
     // await screen.findByText(/registration successful/i); // Example assertion
     // expect(mockRegister).toHaveBeenCalled();
   });
   */
 });
-

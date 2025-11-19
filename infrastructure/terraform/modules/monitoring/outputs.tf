@@ -208,4 +208,3 @@ output "log_retention_summary" {
     cloudtrail_logs_retention_days  = var.data_retention_days
   }
 }
-

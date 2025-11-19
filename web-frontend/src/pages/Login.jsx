@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/api';
-import { 
-  Container, 
-  Typography, 
-  TextField, 
-  Button, 
-  Paper, 
-  Box, 
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Box,
   Grid,
   Link,
   InputAdornment,
@@ -42,7 +42,7 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     // Basic validation
     if (!formData.email || !formData.password) {
       setError('Please fill in all fields');
@@ -50,7 +50,7 @@ const Login = ({ onLogin }) => {
     }
 
     setLoading(true);
-    
+
     try {
       await authService.login(formData.email, formData.password);
       if (onLogin) onLogin();
@@ -81,13 +81,13 @@ const Login = ({ onLogin }) => {
           <Typography component="h1" variant="h5" align="center" sx={{ mb: 3, fontWeight: 'bold' }}>
             Sign In to PayNext
           </Typography>
-          
+
           {error && (
             <Alert severity="error" sx={{ mb: 2 }}>
               {error}
             </Alert>
           )}
-          
+
           <Box component="form" onSubmit={handleSubmit} noValidate>
             <TextField
               margin="normal"

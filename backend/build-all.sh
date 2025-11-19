@@ -120,4 +120,3 @@ if [ $# -eq 1 ]; then
 else
     build_all_services
 fi
-

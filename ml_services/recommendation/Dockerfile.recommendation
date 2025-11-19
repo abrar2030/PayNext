@@ -16,4 +16,3 @@ COPY user_spending_clusters.csv .
 EXPOSE 5003
 
 CMD ["python", "recommendation_api.py"]
-

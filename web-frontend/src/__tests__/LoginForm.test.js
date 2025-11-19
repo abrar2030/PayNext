@@ -11,7 +11,7 @@ jest.mock('../services/authService', () => ({
 
 describe('LoginForm Component', () => {
   const mockOnSuccess = jest.fn();
-  
+
   beforeEach(() => {
     render(
       <BrowserRouter>
@@ -28,10 +28,10 @@ describe('LoginForm Component', () => {
 
   test('validates form inputs', async () => {
     const loginButton = screen.getByRole('button', { name: /sign in/i });
-    
+
     // Try submitting without filling fields
     fireEvent.click(loginButton);
-    
+
     // Check for validation messages
     await waitFor(() => {
       expect(screen.getByText(/email is required/i)).toBeInTheDocument();
@@ -43,14 +43,14 @@ describe('LoginForm Component', () => {
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
     const loginButton = screen.getByRole('button', { name: /sign in/i });
-    
+
     // Fill in form
     fireEvent.change(emailInput, { target: { value: 'user@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    
+
     // Submit form
     fireEvent.click(loginButton);
-    
+
     // Check if login service was called and onSuccess callback triggered
     await waitFor(() => {
       const authService = require('../services/authService');
@@ -62,21 +62,21 @@ describe('LoginForm Component', () => {
   test('shows error message on login failure', async () => {
     // Override the mock to simulate failure
     const authService = require('../services/authService');
-    authService.login.mockImplementationOnce(() => 
+    authService.login.mockImplementationOnce(() =>
       Promise.reject(new Error('Invalid credentials'))
     );
-    
+
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
     const loginButton = screen.getByRole('button', { name: /sign in/i });
-    
+
     // Fill in form
     fireEvent.change(emailInput, { target: { value: 'user@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'wrongpassword' } });
-    
+
     // Submit form
     fireEvent.click(loginButton);
-    
+
     // Check for error message
     await waitFor(() => {
       expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();

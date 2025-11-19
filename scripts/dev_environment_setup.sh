@@ -53,9 +53,9 @@ error() {
 execute() {
     local cmd="$1"
     local msg="$2"
-    
+
     echo -e "${CYAN}[EXECUTING]${NC} $cmd"
-    
+
     if eval "$cmd"; then
         success "$msg"
         return 0
@@ -76,9 +76,9 @@ check_service() {
     local port="$2"
     local max_retries="${3:-30}"
     local retry_interval="${4:-2}"
-    
+
     info "Checking if $service_name is running on port $port..."
-    
+
     for ((i=1; i<=max_retries; i++)); do
         if nc -z localhost "$port" >/dev/null 2>&1; then
             success "$service_name is running on port $port"
@@ -88,7 +88,7 @@ check_service() {
             sleep "$retry_interval"
         fi
     done
-    
+
     echo ""
     error "$service_name failed to start on port $port after $((max_retries * retry_interval)) seconds"
     return 1
@@ -113,10 +113,10 @@ detect_os() {
 
 check_prerequisites() {
     section "Checking Prerequisites"
-    
+
     local os=$(detect_os)
     info "Detected operating system: $os"
-    
+
     # Check Java
     if command_exists java; then
         local java_version=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed 's/^1\.//' | cut -d'.' -f1)
@@ -129,7 +129,7 @@ check_prerequisites() {
         error "Java is not installed. Please install Java 17 or higher"
         exit 1
     fi
-    
+
     # Check Maven
     if command_exists mvn; then
         local mvn_version=$(mvn --version | head -1 | awk '{print $3}')
@@ -138,7 +138,7 @@ check_prerequisites() {
         error "Maven is not installed. Please install Maven"
         exit 1
     fi
-    
+
     # Check Node.js
     if command_exists node; then
         local node_version=$(node --version | cut -d'v' -f2)
@@ -147,7 +147,7 @@ check_prerequisites() {
         error "Node.js is not installed. Please install Node.js"
         exit 1
     fi
-    
+
     # Check npm
     if command_exists npm; then
         local npm_version=$(npm --version)
@@ -156,7 +156,7 @@ check_prerequisites() {
         error "npm is not installed. Please install npm"
         exit 1
     fi
-    
+
     # Check Docker
     if command_exists docker; then
         local docker_version=$(docker --version | awk '{print $3}' | sed 's/,//')
@@ -165,7 +165,7 @@ check_prerequisites() {
         error "Docker is not installed. Please install Docker"
         exit 1
     fi
-    
+
     # Check Docker Compose
     if command_exists docker-compose; then
         local compose_version=$(docker-compose --version | awk '{print $3}' | sed 's/,//')
@@ -174,7 +174,7 @@ check_prerequisites() {
         error "Docker Compose is not installed. Please install Docker Compose"
         exit 1
     fi
-    
+
     # Check kubectl (optional)
     if command_exists kubectl; then
         local kubectl_version=$(kubectl version --client --short | awk '{print $3}')
@@ -182,7 +182,7 @@ check_prerequisites() {
     else
         warning "kubectl is not installed. It's optional but recommended for Kubernetes deployments"
     fi
-    
+
     # Check netcat for port checking
     if ! command_exists nc; then
         warning "netcat (nc) is not installed. It's used for service health checks"
@@ -194,7 +194,7 @@ check_prerequisites() {
             info "For Windows, you can use nmap instead or install netcat via WSL"
         fi
     fi
-    
+
     success "Prerequisites check completed"
 }
 
@@ -204,7 +204,7 @@ check_prerequisites() {
 
 setup_environment_variables() {
     section "Setting Up Environment Variables"
-    
+
     # Check if .env file exists
     if [[ -f .env ]]; then
         info "Found .env file, loading environment variables"
@@ -247,11 +247,11 @@ KIBANA_PORT=5601
 EOF
         success "Created default .env file"
     fi
-    
+
     # Load environment variables
     # shellcheck disable=SC1091
     source .env
-    
+
     success "Environment variables set up successfully"
 }
 
@@ -261,9 +261,9 @@ EOF
 
 start_infrastructure_services() {
     section "Starting Infrastructure Services"
-    
+
     info "Starting MySQL, RabbitMQ, Redis, and MongoDB with Docker Compose"
-    
+
     # Check if docker-compose.yml exists for infrastructure
     if [[ ! -f docker-compose.yml ]]; then
         info "Creating docker-compose.yml for infrastructure services"
@@ -337,20 +337,20 @@ volumes:
 EOF
         success "Created docker-compose.yml for infrastructure services"
     fi
-    
+
     # Start infrastructure services
     execute "docker-compose up -d mysql rabbitmq redis mongodb" "Infrastructure services started successfully"
-    
+
     # Wait for services to be ready
     info "Waiting for infrastructure services to be ready..."
     sleep 10
-    
+
     # Check if services are running
     check_service "MySQL" "${MYSQL_PORT}"
     check_service "RabbitMQ" "${RABBITMQ_PORT}"
     check_service "Redis" "${REDIS_PORT}"
     check_service "MongoDB" "${MONGODB_PORT}"
-    
+
     success "All infrastructure services are running"
 }
 
@@ -360,40 +360,40 @@ EOF
 
 build_backend_services() {
     section "Building Backend Services"
-    
+
     local backend_dir="backend"
-    
+
     # Check if backend directory exists
     if [[ ! -d "$backend_dir" ]]; then
         error "Backend directory not found: $backend_dir"
         exit 1
     fi
-    
+
     # Build backend services
     info "Building backend services with Maven"
     cd "$backend_dir" || exit 1
-    
+
     # Use the existing Maven wrapper if available
     if [[ -f "mvnw" ]]; then
         execute "./mvnw clean package -DskipTests" "Backend services built successfully"
     else
         execute "mvn clean package -DskipTests" "Backend services built successfully"
     fi
-    
+
     cd - || exit 1
 }
 
 start_backend_services() {
     section "Starting Backend Services"
-    
+
     local backend_dir="backend"
     local logs_dir="$backend_dir/logs"
     local pids_dir="$backend_dir/pids"
-    
+
     # Create logs and pids directories if they don't exist
     mkdir -p "$logs_dir"
     mkdir -p "$pids_dir"
-    
+
     # Define services and their dependencies
     local services=(
         "eureka-server"
@@ -405,7 +405,7 @@ start_backend_services() {
         "notification-service"
         "reporting-service"
     )
-    
+
     # Define service ports
     declare -A service_ports=(
         ["eureka-server"]="${EUREKA_PORT}"
@@ -417,7 +417,7 @@ start_backend_services() {
         ["notification-service"]="${NOTIFICATION_SERVICE_PORT}"
         ["reporting-service"]="${REPORTING_SERVICE_PORT}"
     )
-    
+
     # Start services in order
     for service in "${services[@]}"; do
         local service_dir="$backend_dir/$service"
@@ -425,19 +425,19 @@ start_backend_services() {
         local log_file="$logs_dir/$service.log"
         local pid_file="$pids_dir/$service.pid"
         local port="${service_ports[$service]}"
-        
+
         # Check if service directory exists
         if [[ ! -d "$service_dir" ]]; then
             warning "Service directory not found: $service_dir, skipping..."
             continue
         fi
-        
+
         # Check if JAR file exists
         if [[ ! -f "$jar_file" ]]; then
             warning "JAR file not found: $jar_file, skipping..."
             continue
         fi
-        
+
         # Check if service is already running
         if [[ -f "$pid_file" ]]; then
             local pid
@@ -450,18 +450,18 @@ start_backend_services() {
                 rm -f "$pid_file"
             fi
         fi
-        
+
         info "Starting $service on port $port"
-        
+
         # Start the service
         java -jar "$jar_file" --server.port="$port" > "$log_file" 2>&1 &
         local pid=$!
         echo "$pid" > "$pid_file"
-        
+
         # Wait for service to start
         check_service "$service" "$port"
     done
-    
+
     success "All backend services started successfully"
 }
 
@@ -471,51 +471,51 @@ start_backend_services() {
 
 build_and_start_web_frontend() {
     section "Building and Starting Web Frontend"
-    
+
     local frontend_dir="web-frontend"
-    
+
     # Check if frontend directory exists
     if [[ ! -d "$frontend_dir" ]]; then
         error "Web frontend directory not found: $frontend_dir"
         exit 1
     fi
-    
+
     # Install dependencies and build
     cd "$frontend_dir" || exit 1
-    
+
     info "Installing web frontend dependencies"
     execute "npm install" "Web frontend dependencies installed successfully"
-    
+
     info "Starting web frontend development server"
     execute "npm start &" "Web frontend started successfully"
-    
+
     # Wait for frontend to start
     check_service "Web Frontend" "${WEB_FRONTEND_PORT}"
-    
+
     cd - || exit 1
 }
 
 build_and_start_mobile_frontend() {
     section "Building Mobile Frontend"
-    
+
     local mobile_dir="mobile-frontend"
-    
+
     # Check if mobile directory exists
     if [[ ! -d "$mobile_dir" ]]; then
         warning "Mobile frontend directory not found: $mobile_dir, skipping..."
         return
     fi
-    
+
     # Install dependencies
     cd "$mobile_dir" || exit 1
-    
+
     info "Installing mobile frontend dependencies"
     execute "npm install" "Mobile frontend dependencies installed successfully"
-    
+
     info "Mobile frontend is ready for development"
     info "To run on Android: npx react-native run-android"
     info "To run on iOS: npx react-native run-ios"
-    
+
     cd - || exit 1
 }
 
@@ -525,32 +525,32 @@ build_and_start_mobile_frontend() {
 
 verify_environment() {
     section "Verifying Development Environment"
-    
+
     # Check infrastructure services
     info "Checking infrastructure services..."
     check_service "MySQL" "${MYSQL_PORT}" 5 1
     check_service "RabbitMQ" "${RABBITMQ_PORT}" 5 1
     check_service "Redis" "${REDIS_PORT}" 5 1
     check_service "MongoDB" "${MONGODB_PORT}" 5 1
-    
+
     # Check backend services
     info "Checking backend services..."
     check_service "Eureka Server" "${EUREKA_PORT}" 5 1
     check_service "API Gateway" "${API_GATEWAY_PORT}" 5 1
-    
+
     # Check frontend
     info "Checking web frontend..."
     check_service "Web Frontend" "${WEB_FRONTEND_PORT}" 5 1
-    
+
     success "Development environment verification completed"
-    
+
     # Print access URLs
     section "Access URLs"
     echo -e "${GREEN}Web Dashboard:${NC} http://localhost:${WEB_FRONTEND_PORT}"
     echo -e "${GREEN}API Gateway:${NC} http://localhost:${API_GATEWAY_PORT}"
     echo -e "${GREEN}Eureka Server:${NC} http://localhost:${EUREKA_PORT}"
     echo -e "${GREEN}RabbitMQ Management:${NC} http://localhost:${RABBITMQ_MANAGEMENT_PORT}"
-    
+
     section "Development Environment Setup Complete"
     echo -e "${GREEN}PayNext development environment has been successfully set up!${NC}"
     echo -e "Use ${CYAN}./stop_environment.sh${NC} to stop the environment when you're done."
@@ -562,38 +562,38 @@ verify_environment() {
 
 main() {
     section "PayNext Development Environment Setup"
-    
+
     # Store the start time
     local start_time
     start_time=$(date +%s)
-    
+
     # Check prerequisites
     check_prerequisites
-    
+
     # Setup environment variables
     setup_environment_variables
-    
+
     # Start infrastructure services
     start_infrastructure_services
-    
+
     # Build and start backend services
     build_backend_services
     start_backend_services
-    
+
     # Build and start frontend
     build_and_start_web_frontend
     build_and_start_mobile_frontend
-    
+
     # Verify environment
     verify_environment
-    
+
     # Calculate and display elapsed time
     local end_time
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
     local minutes=$((elapsed_time / 60))
     local seconds=$((elapsed_time % 60))
-    
+
     echo -e "\n${BLUE}Setup completed in ${minutes} minutes and ${seconds} seconds.${NC}"
 }
 

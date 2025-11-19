@@ -65,4 +65,3 @@ if __name__ == '__main__':
     print(f"Synthetic churn data generated and saved to {output_path}")
     print(df.head())
     print(df['is_churned'].value_counts())
-

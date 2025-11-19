@@ -19,4 +19,3 @@ public class AIFraudDetectionServiceApplication {
         SpringApplication.run(AIFraudDetectionServiceApplication.class, args);
     }
 }
-

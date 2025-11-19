@@ -54,9 +54,9 @@ execute() {
     local cmd="$1"
     local msg="$2"
     local continue_on_error="${3:-false}"
-    
+
     echo -e "${CYAN}[EXECUTING]${NC} $cmd"
-    
+
     if eval "$cmd"; then
         success "$msg"
         return 0
@@ -124,10 +124,10 @@ TEST_TYPES=(
 
 check_prerequisites() {
     section "Checking Prerequisites"
-    
+
     local os=$(detect_os)
     info "Detected operating system: $os"
-    
+
     # Check Java
     if command_exists java; then
         local java_version=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed 's/^1\.//' | cut -d'.' -f1)
@@ -140,7 +140,7 @@ check_prerequisites() {
         error "Java is not installed. Please install Java 17 or higher"
         exit 1
     fi
-    
+
     # Check Maven
     if command_exists mvn; then
         local mvn_version=$(mvn --version | head -1 | awk '{print $3}')
@@ -149,7 +149,7 @@ check_prerequisites() {
         error "Maven is not installed. Please install Maven"
         exit 1
     fi
-    
+
     # Check Node.js
     if command_exists node; then
         local node_version=$(node --version | cut -d'v' -f2)
@@ -158,7 +158,7 @@ check_prerequisites() {
         error "Node.js is not installed. Please install Node.js"
         exit 1
     fi
-    
+
     # Check npm
     if command_exists npm; then
         local npm_version=$(npm --version)
@@ -167,7 +167,7 @@ check_prerequisites() {
         error "npm is not installed. Please install npm"
         exit 1
     fi
-    
+
     success "Prerequisites check completed"
 }
 
@@ -177,14 +177,14 @@ check_prerequisites() {
 
 setup_test_environment() {
     section "Setting Up Test Environment"
-    
+
     # Create reports directory
     mkdir -p "$REPORTS_DIR"
     mkdir -p "$REPORTS_DIR/backend"
     mkdir -p "$REPORTS_DIR/web-frontend"
     mkdir -p "$REPORTS_DIR/mobile-frontend"
     mkdir -p "$REPORTS_DIR/e2e"
-    
+
     success "Test environment setup completed"
 }
 
@@ -194,11 +194,11 @@ setup_test_environment() {
 
 run_backend_tests() {
     section "Running Backend Tests"
-    
+
     local test_type="$1"
     local specific_service="$2"
     local services=()
-    
+
     # Determine which services to test
     if [[ -n "$specific_service" ]]; then
         if [[ " ${BACKEND_SERVICES[*]} " == *" $specific_service "* ]]; then
@@ -210,21 +210,21 @@ run_backend_tests() {
     else
         services=("${BACKEND_SERVICES[@]}")
     fi
-    
+
     # Run tests for each service
     for service in "${services[@]}"; do
         local service_dir="$BACKEND_DIR/$service"
-        
+
         # Check if service directory exists
         if [[ ! -d "$service_dir" ]]; then
             warning "Service directory not found: $service_dir, skipping..."
             continue
         fi
-        
+
         info "Running $test_type tests for $service"
-        
+
         cd "$service_dir" || continue
-        
+
         case "$test_type" in
             "unit")
                 execute "mvn test -Dtest=*Test -DfailIfNoTests=false" "Unit tests completed for $service" true
@@ -236,16 +236,16 @@ run_backend_tests() {
                 warning "Unknown test type: $test_type for backend, skipping..."
                 ;;
         esac
-        
+
         # Copy test reports
         if [[ -d "target/surefire-reports" ]]; then
             mkdir -p "$REPORTS_DIR/backend/$service"
             cp -r target/surefire-reports/* "$REPORTS_DIR/backend/$service/"
         fi
-        
+
         cd "$PROJECT_ROOT" || exit 1
     done
-    
+
     success "Backend $test_type tests completed"
 }
 
@@ -255,17 +255,17 @@ run_backend_tests() {
 
 run_web_frontend_tests() {
     section "Running Web Frontend Tests"
-    
+
     local test_type="$1"
-    
+
     # Check if web frontend directory exists
     if [[ ! -d "$WEB_FRONTEND_DIR" ]]; then
         warning "Web frontend directory not found: $WEB_FRONTEND_DIR, skipping..."
         return
     fi
-    
+
     cd "$WEB_FRONTEND_DIR" || exit 1
-    
+
     case "$test_type" in
         "unit")
             info "Running unit tests for web frontend"
@@ -279,15 +279,15 @@ run_web_frontend_tests() {
             warning "Unknown test type: $test_type for web frontend, skipping..."
             ;;
     esac
-    
+
     # Copy test reports
     if [[ -d "coverage" ]]; then
         mkdir -p "$REPORTS_DIR/web-frontend"
         cp -r coverage/* "$REPORTS_DIR/web-frontend/"
     fi
-    
+
     cd "$PROJECT_ROOT" || exit 1
-    
+
     success "Web frontend $test_type tests completed"
 }
 
@@ -297,17 +297,17 @@ run_web_frontend_tests() {
 
 run_mobile_frontend_tests() {
     section "Running Mobile Frontend Tests"
-    
+
     local test_type="$1"
-    
+
     # Check if mobile frontend directory exists
     if [[ ! -d "$MOBILE_FRONTEND_DIR" ]]; then
         warning "Mobile frontend directory not found: $MOBILE_FRONTEND_DIR, skipping..."
         return
     fi
-    
+
     cd "$MOBILE_FRONTEND_DIR" || exit 1
-    
+
     case "$test_type" in
         "unit")
             info "Running unit tests for mobile frontend"
@@ -317,15 +317,15 @@ run_mobile_frontend_tests() {
             warning "Unknown test type: $test_type for mobile frontend, skipping..."
             ;;
     esac
-    
+
     # Copy test reports
     if [[ -d "coverage" ]]; then
         mkdir -p "$REPORTS_DIR/mobile-frontend"
         cp -r coverage/* "$REPORTS_DIR/mobile-frontend/"
     fi
-    
+
     cd "$PROJECT_ROOT" || exit 1
-    
+
     success "Mobile frontend $test_type tests completed"
 }
 
@@ -335,25 +335,25 @@ run_mobile_frontend_tests() {
 
 run_e2e_tests() {
     section "Running End-to-End Tests"
-    
+
     # Check if e2e tests directory exists
     if [[ -d "$PROJECT_ROOT/e2e-tests" ]]; then
         cd "$PROJECT_ROOT/e2e-tests" || exit 1
-        
+
         info "Running end-to-end tests"
         execute "npm test" "End-to-end tests completed" true
-        
+
         # Copy test reports
         if [[ -d "reports" ]]; then
             mkdir -p "$REPORTS_DIR/e2e"
             cp -r reports/* "$REPORTS_DIR/e2e/"
         fi
-        
+
         cd "$PROJECT_ROOT" || exit 1
     else
         warning "End-to-end tests directory not found: $PROJECT_ROOT/e2e-tests, skipping..."
     fi
-    
+
     success "End-to-end tests completed"
 }
 
@@ -363,9 +363,9 @@ run_e2e_tests() {
 
 generate_test_report() {
     section "Generating Test Report"
-    
+
     local report_file="$REPORTS_DIR/test-summary.html"
-    
+
     # Create HTML report
     cat > "$report_file" << EOF
 <!DOCTYPE html>
@@ -428,11 +428,11 @@ generate_test_report() {
         <div class="summary">
             <h2>Test Summary</h2>
             <p>Generated on: $(date)</p>
-            
+
             <h3>Backend Tests</h3>
             <ul>
 EOF
-    
+
     # Add backend test results
     for service in "${BACKEND_SERVICES[@]}"; do
         if [[ -d "$REPORTS_DIR/backend/$service" ]]; then
@@ -440,53 +440,53 @@ EOF
             echo "<li>$service: $test_count tests</li>" >> "$report_file"
         fi
     done
-    
+
     cat >> "$report_file" << EOF
             </ul>
-            
+
             <h3>Frontend Tests</h3>
             <ul>
 EOF
-    
+
     # Add frontend test results
     if [[ -d "$REPORTS_DIR/web-frontend" ]]; then
         echo "<li>Web Frontend: Coverage report available</li>" >> "$report_file"
     fi
-    
+
     if [[ -d "$REPORTS_DIR/mobile-frontend" ]]; then
         echo "<li>Mobile Frontend: Coverage report available</li>" >> "$report_file"
     fi
-    
+
     cat >> "$report_file" << EOF
             </ul>
-            
+
             <h3>End-to-End Tests</h3>
             <ul>
 EOF
-    
+
     # Add e2e test results
     if [[ -d "$REPORTS_DIR/e2e" ]]; then
         echo "<li>End-to-End Tests: Reports available</li>" >> "$report_file"
     else
         echo "<li>End-to-End Tests: No reports available</li>" >> "$report_file"
     fi
-    
+
     cat >> "$report_file" << EOF
             </ul>
         </div>
-        
+
         <h2>Detailed Results</h2>
         <p>Detailed test results are available in the test-reports directory.</p>
-        
+
         <h3>Test Coverage</h3>
         <p>For detailed coverage reports, see the coverage directories in each component's test reports.</p>
     </div>
 </body>
 </html>
 EOF
-    
+
     success "Test report generated: $report_file"
-    
+
     # Open the report if possible
     if command_exists xdg-open; then
         xdg-open "$report_file" &
@@ -505,7 +505,7 @@ run_tests() {
     local test_type="$1"
     local component="$2"
     local specific_service="$3"
-    
+
     # Run tests based on component and type
     case "$component" in
         "backend")
@@ -572,7 +572,7 @@ main() {
     local component="all"
     local specific_service=""
     local generate_report=false
-    
+
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --type)
@@ -602,41 +602,41 @@ main() {
                 ;;
         esac
     done
-    
+
     # Validate test type
     if [[ "$test_type" != "all" && "$test_type" != "unit" && "$test_type" != "integration" && "$test_type" != "e2e" ]]; then
         error "Invalid test type: $test_type"
         usage
         exit 1
     fi
-    
+
     # Store the start time
     local start_time
     start_time=$(date +%s)
-    
+
     section "PayNext Testing Automation"
-    
+
     # Check prerequisites
     check_prerequisites
-    
+
     # Setup test environment
     setup_test_environment
-    
+
     # Run tests
     run_tests "$test_type" "$component" "$specific_service"
-    
+
     # Generate report if requested
     if [[ "$generate_report" == true ]]; then
         generate_test_report
     fi
-    
+
     # Calculate and display elapsed time
     local end_time
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
     local minutes=$((elapsed_time / 60))
     local seconds=$((elapsed_time % 60))
-    
+
     section "Testing Completed"
     echo -e "${GREEN}All tests completed successfully!${NC}"
     echo -e "${BLUE}Testing completed in ${minutes} minutes and ${seconds} seconds.${NC}"

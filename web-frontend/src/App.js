@@ -12,7 +12,7 @@ import Profile from './components/Profile/Profile';
 function App() {
   // Use basename only in production, not in development
   const basename = process.env.NODE_ENV === 'production' ? '/pnx-frontend' : '';
-  
+
   return (
     <Router basename={basename}>
       <div className="App">

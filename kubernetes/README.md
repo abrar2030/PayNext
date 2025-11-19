@@ -49,4 +49,3 @@ All microservice configurations are managed through the `services` map in `value
 
 ---
 **Note:** The original comprehensive README content (covering compliance, architecture, monitoring, etc.) has been preserved and is available in the full repository. This updated section focuses on the usage and configuration of the refactored Helm chart structure.
-

@@ -308,4 +308,3 @@ output "monitoring_summary" {
     memory_alarm_threshold          = var.memory_threshold
   }
 }
-

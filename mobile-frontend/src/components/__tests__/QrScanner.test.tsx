@@ -54,4 +54,3 @@ describe('Mobile QrScanner Component', () => {
 
   // Add tests for props like delay, constraints, styling if applicable
 });
-

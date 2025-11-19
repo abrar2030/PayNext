@@ -306,4 +306,3 @@ fi
 /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource NodeGroup --region ${AWS::Region}
 
 echo "EKS node configuration completed successfully"
-

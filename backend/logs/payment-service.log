@@ -1,32 +1,32 @@
 [[1;34mINFO[m] Scanning for projects...
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m--------------------< [0;36mcom.fintech:payment-service[0;1m >---------------------[m
 [[1;34mINFO[m] [1mBuilding payment-service 1.0.0[m
 [[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m>>> [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[0;1m > [0;1mtest-compile[m @ [36mpayment-service[0;1m >>>[m
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:resources[m [1m(default-resources)[m @ [36mpayment-service[0;1m ---[m
 [[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
 [[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
 [[1;34mINFO[m] Copying 1 resource
 [[1;34mINFO[m] Copying 0 resource
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36mpayment-service[0;1m ---[m
 [[1;34mINFO[m] Changes detected - recompiling the module!
 [[1;34mINFO[m] Compiling 10 source files to /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/payment-service/target/classes
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.2.0:testResources[m [1m(default-testResources)[m @ [36mpayment-service[0;1m ---[m
 [[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
 [[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered properties files.
 [[1;34mINFO[m] skip non existing resourceDirectory /mnt/c/Users/36202/OneDrive/Desktop/PayNext/backend/payment-service/src/test/resources
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:testCompile[m [1m(default-testCompile)[m @ [36mpayment-service[0;1m ---[m
 [[1;34mINFO[m] No sources to compile
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m<<< [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[0;1m < [0;1mtest-compile[m @ [36mpayment-service[0;1m <<<[m
-[[1;34mINFO[m] 
-[[1;34mINFO[m] 
+[[1;34mINFO[m]
+[[1;34mINFO[m]
 [[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:2.6.7:run[m [1m(default-cli)[m @ [36mpayment-service[0;1m ---[m
 [[1;34mINFO[m] Attaching agents: []
 

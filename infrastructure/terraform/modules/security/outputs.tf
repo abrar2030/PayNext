@@ -110,4 +110,3 @@ output "compliance_features" {
     web_application_firewall = var.enable_waf
   }
 }
-

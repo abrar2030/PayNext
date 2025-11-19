@@ -91,7 +91,7 @@ resource "aws_eks_cluster" "paynext_cluster" {
 
   enabled_cluster_log_types = [
     "api",
-    "audit", 
+    "audit",
     "authenticator",
     "controllerManager",
     "scheduler"
@@ -667,4 +667,3 @@ resource "random_string" "bucket_suffix" {
   special = false
   upper   = false
 }
-

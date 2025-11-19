@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { 
-  Container, 
-  Typography, 
-  Box, 
-  Grid, 
-  Paper, 
+import {
+  Container,
+  Typography,
+  Box,
+  Grid,
+  Paper,
   Button,
   Card,
   CardContent,
@@ -116,8 +116,8 @@ const AboutPage = () => {
   return (
     <Box sx={{ overflow: 'hidden' }}>
       {/* Hero Section */}
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
           color: 'white',
           pt: { xs: 8, md: 12 },
@@ -129,10 +129,10 @@ const AboutPage = () => {
         <Container maxWidth="lg">
           <Grid container spacing={4} alignItems="center">
             <Grid item xs={12} md={6}>
-              <Typography 
-                variant="h2" 
-                component="h1" 
-                sx={{ 
+              <Typography
+                variant="h2"
+                component="h1"
+                sx={{
                   fontWeight: 'bold',
                   mb: 2,
                   fontSize: { xs: '2.5rem', md: '3.5rem' }
@@ -140,9 +140,9 @@ const AboutPage = () => {
               >
                 About PayNext
               </Typography>
-              <Typography 
-                variant="h5" 
-                sx={{ 
+              <Typography
+                variant="h5"
+                sx={{
                   mb: 4,
                   opacity: 0.9,
                   lineHeight: 1.5
@@ -152,11 +152,11 @@ const AboutPage = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Box 
+              <Box
                 component="img"
                 src="https://cdn.pixabay.com/photo/2015/01/09/11/08/startup-594090_1280.jpg"
                 alt="PayNext Team"
-                sx={{ 
+                sx={{
                   width: '100%',
                   maxWidth: 600,
                   borderRadius: 4,
@@ -166,10 +166,10 @@ const AboutPage = () => {
             </Grid>
           </Grid>
         </Container>
-        
+
         {/* Decorative elements */}
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             position: 'absolute',
             top: -100,
             right: -100,
@@ -178,10 +178,10 @@ const AboutPage = () => {
             borderRadius: '50%',
             background: 'rgba(255,255,255,0.1)',
             zIndex: 0
-          }} 
+          }}
         />
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             position: 'absolute',
             bottom: -150,
             left: -150,
@@ -190,7 +190,7 @@ const AboutPage = () => {
             borderRadius: '50%',
             background: 'rgba(255,255,255,0.05)',
             zIndex: 0
-          }} 
+          }}
         />
       </Box>
 
@@ -212,11 +212,11 @@ const AboutPage = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Box 
+            <Box
               component="img"
               src="https://cdn.pixabay.com/photo/2017/07/25/22/54/office-2539844_1280.jpg"
               alt="PayNext Office"
-              sx={{ 
+              sx={{
                 width: '100%',
                 borderRadius: 4,
                 boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
@@ -233,10 +233,10 @@ const AboutPage = () => {
             <Typography variant="h3" component="h2" sx={{ fontWeight: 'bold', mb: 3 }}>
               Our Values
             </Typography>
-            <Typography 
-              variant="h6" 
+            <Typography
+              variant="h6"
               color="text.secondary"
-              sx={{ 
+              sx={{
                 maxWidth: 700,
                 mx: 'auto',
                 lineHeight: 1.6
@@ -248,9 +248,9 @@ const AboutPage = () => {
 
           <Grid container spacing={4}>
             <Grid item xs={12} md={4}>
-              <Card 
+              <Card
                 elevation={2}
-                sx={{ 
+                sx={{
                   height: '100%',
                   borderRadius: 4,
                   p: 4,
@@ -258,8 +258,8 @@ const AboutPage = () => {
                   flexDirection: 'column'
                 }}
               >
-                <Box 
-                  sx={{ 
+                <Box
+                  sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -282,9 +282,9 @@ const AboutPage = () => {
               </Card>
             </Grid>
             <Grid item xs={12} md={4}>
-              <Card 
+              <Card
                 elevation={2}
-                sx={{ 
+                sx={{
                   height: '100%',
                   borderRadius: 4,
                   p: 4,
@@ -292,8 +292,8 @@ const AboutPage = () => {
                   flexDirection: 'column'
                 }}
               >
-                <Box 
-                  sx={{ 
+                <Box
+                  sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -316,9 +316,9 @@ const AboutPage = () => {
               </Card>
             </Grid>
             <Grid item xs={12} md={4}>
-              <Card 
+              <Card
                 elevation={2}
-                sx={{ 
+                sx={{
                   height: '100%',
                   borderRadius: 4,
                   p: 4,
@@ -326,8 +326,8 @@ const AboutPage = () => {
                   flexDirection: 'column'
                 }}
               >
-                <Box 
-                  sx={{ 
+                <Box
+                  sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -359,10 +359,10 @@ const AboutPage = () => {
           <Typography variant="h3" component="h2" sx={{ fontWeight: 'bold', mb: 3 }}>
             Meet Our Team
           </Typography>
-          <Typography 
-            variant="h6" 
+          <Typography
+            variant="h6"
             color="text.secondary"
-            sx={{ 
+            sx={{
               maxWidth: 700,
               mx: 'auto',
               lineHeight: 1.6
@@ -375,9 +375,9 @@ const AboutPage = () => {
         <Grid container spacing={4}>
           {teamMembers.map((member, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
-              <Card 
+              <Card
                 elevation={2}
-                sx={{ 
+                sx={{
                   height: '100%',
                   borderRadius: 4,
                   overflow: 'hidden',
@@ -417,10 +417,10 @@ const AboutPage = () => {
             <Typography variant="h3" component="h2" sx={{ fontWeight: 'bold', mb: 3 }}>
               Frequently Asked Questions
             </Typography>
-            <Typography 
-              variant="h6" 
+            <Typography
+              variant="h6"
               color="text.secondary"
-              sx={{ 
+              sx={{
                 maxWidth: 700,
                 mx: 'auto',
                 lineHeight: 1.6
@@ -432,12 +432,12 @@ const AboutPage = () => {
 
           <Box sx={{ maxWidth: 800, mx: 'auto' }}>
             {faqs.map((faq, index) => (
-              <Accordion 
-                key={index} 
+              <Accordion
+                key={index}
                 elevation={1}
-                sx={{ 
-                  mb: 2, 
-                  borderRadius: 2, 
+                sx={{
+                  mb: 2,
+                  borderRadius: 2,
                   overflow: 'hidden',
                   '&:before': {
                     display: 'none',
@@ -446,7 +446,7 @@ const AboutPage = () => {
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
-                  sx={{ 
+                  sx={{
                     backgroundColor: 'rgba(25, 118, 210, 0.04)',
                     '&:hover': {
                       backgroundColor: 'rgba(25, 118, 210, 0.08)',
@@ -478,15 +478,15 @@ const AboutPage = () => {
             <Typography variant="body1" color="text.secondary" sx={{ mb: 4, lineHeight: 1.7 }}>
               Have questions or feedback? We'd love to hear from you. Our team is ready to assist with any inquiries you may have.
             </Typography>
-            
+
             <List>
               <ListItem sx={{ px: 0, py: 1.5 }}>
                 <ListItemIcon>
                   <LocationOnIcon color="primary" />
                 </ListItemIcon>
-                <ListItemText 
-                  primary="Address" 
-                  secondary="123 Payment Street, Financial District, New York, NY 10004" 
+                <ListItemText
+                  primary="Address"
+                  secondary="123 Payment Street, Financial District, New York, NY 10004"
                   primaryTypographyProps={{ fontWeight: 'medium' }}
                   secondaryTypographyProps={{ lineHeight: 1.6 }}
                 />
@@ -495,9 +495,9 @@ const AboutPage = () => {
                 <ListItemIcon>
                   <EmailIcon color="primary" />
                 </ListItemIcon>
-                <ListItemText 
-                  primary="Email" 
-                  secondary="info@paynext.com" 
+                <ListItemText
+                  primary="Email"
+                  secondary="info@paynext.com"
                   primaryTypographyProps={{ fontWeight: 'medium' }}
                 />
               </ListItem>
@@ -505,9 +505,9 @@ const AboutPage = () => {
                 <ListItemIcon>
                   <PhoneIcon color="primary" />
                 </ListItemIcon>
-                <ListItemText 
-                  primary="Phone" 
-                  secondary="+1 (800) PAY-NEXT" 
+                <ListItemText
+                  primary="Phone"
+                  secondary="+1 (800) PAY-NEXT"
                   primaryTypographyProps={{ fontWeight: 'medium' }}
                 />
               </ListItem>
@@ -524,8 +524,8 @@ const AboutPage = () => {
                   <Typography variant="body1" color="text.secondary">
                     Thank you for contacting us. We'll get back to you as soon as possible.
                   </Typography>
-                  <Button 
-                    variant="contained" 
+                  <Button
+                    variant="contained"
                     color="primary"
                     sx={{ mt: 3 }}
                     onClick={() => setFormSubmitted(false)}

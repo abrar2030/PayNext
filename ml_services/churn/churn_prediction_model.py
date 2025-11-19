@@ -4,8 +4,7 @@ import os
 import joblib
 import lightgbm as lgb
 import pandas as pd
-from sklearn.metrics import (classification_report, confusion_matrix,
-                             roc_auc_score)
+from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.preprocessing import StandardScaler
 
@@ -97,11 +96,11 @@ def train_churn_model(data_path=os.path.join(os.path.dirname(__file__), \'..\', 
         'num_leaves': [20, 31, 40],
         'max_depth': [-1, 10, 20]
     }
-    
+
     lgbm = lgb.LGBMClassifier(random_state=42, class_weight='balanced') # Add class_weight for imbalanced data
     grid_search = GridSearchCV(lgbm, param_grid, cv=3, scoring='roc_auc', verbose=1, n_jobs=-1)
     grid_search.fit(X_train, y_train)
-    
+
     model_lgb = grid_search.best_estimator_
     print(f"Best LightGBM parameters: {grid_search.best_params_}")
 
@@ -122,4 +121,3 @@ def train_churn_model(data_path=os.path.join(os.path.dirname(__file__), \'..\', 
 
 if __name__ == \'__main__\':
     train_churn_model()
-

@@ -9,18 +9,18 @@ jest.mock('../../../services/PaymentService');
 describe('PaymentForm Component', () => {
   test('renders payment form correctly', () => {
     render(<PaymentForm />);
-    
+
     // Check if essential form elements are present
     expect(screen.getByLabelText(/recipient/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/amount/i)).toBeInTheDocument();
     // Assuming a currency selector might not have a direct label, find by role or testid if needed
-    // expect(screen.getByLabelText(/currency/i)).toBeInTheDocument(); 
+    // expect(screen.getByLabelText(/currency/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /send payment/i })).toBeInTheDocument();
   });
 
   test('allows user to input payment details', () => {
     render(<PaymentForm />);
-    
+
     const recipientInput = screen.getByLabelText(/recipient/i);
     const amountInput = screen.getByLabelText(/amount/i);
     // const currencySelect = screen.getByLabelText(/currency/i); // Adjust selector if needed
@@ -50,16 +50,15 @@ describe('PaymentForm Component', () => {
     fireEvent.click(screen.getByRole('button', { name: /send payment/i }));
 
     // Check if PaymentService.makePayment was called
-    expect(PaymentService.makePayment).toHaveBeenCalledWith(expect.objectContaining({ 
-      recipient: 'recipient@example.com', 
-      amount: '100', 
-      // currency: 'USD' 
+    expect(PaymentService.makePayment).toHaveBeenCalledWith(expect.objectContaining({
+      recipient: 'recipient@example.com',
+      amount: '100',
+      // currency: 'USD'
     }));
-    
+
     // Wait for potential async updates
     // await screen.findByText(/payment successful/i); // Example assertion
     // expect(mockPayment).toHaveBeenCalledWith('12345');
   });
   */
 });
-

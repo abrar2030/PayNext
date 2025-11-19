@@ -262,4 +262,3 @@ output "cluster_access_info" {
     kubectl_command = "aws eks update-kubeconfig --region ${data.aws_region.current.name} --name ${aws_eks_cluster.paynext_cluster.name}"
   }
 }
-

@@ -13,7 +13,7 @@ describe('Mobile HomePage', () => {
 
     // Example: Check for a welcome message or a key element
     // Replace 'Welcome to PayNext Mobile' with actual text content from your page
-    expect(screen.getByText(/Welcome to PayNext Mobile/i)).toBeInTheDocument(); 
+    expect(screen.getByText(/Welcome to PayNext Mobile/i)).toBeInTheDocument();
 
     // Example: Check if mocked components are rendered
     expect(screen.getByTestId('bottom-nav-mock')).toBeInTheDocument();
@@ -32,4 +32,3 @@ describe('Mobile HomePage', () => {
   });
   */
 });
-

@@ -36,7 +36,7 @@ public class JwtUtilTest {
         } catch (Exception e) {
             // If this fails, the test will fail anyway
         }
-        
+
         username = "testuser@example.com";
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", "USER");
@@ -47,7 +47,7 @@ public class JwtUtilTest {
     void extractUsername_ShouldReturnCorrectUsername() {
         // When
         String extractedUsername = jwtUtil.extractUsername(token);
-        
+
         // Then
         assertEquals(username, extractedUsername);
     }
@@ -56,7 +56,7 @@ public class JwtUtilTest {
     void validateToken_WithValidToken_ShouldReturnTrue() {
         // When
         boolean isValid = jwtUtil.validateToken(token, username);
-        
+
         // Then
         assertTrue(isValid);
     }
@@ -65,7 +65,7 @@ public class JwtUtilTest {
     void validateToken_WithInvalidUsername_ShouldReturnFalse() {
         // When
         boolean isValid = jwtUtil.validateToken(token, "wronguser@example.com");
-        
+
         // Then
         assertFalse(isValid);
     }
@@ -74,14 +74,14 @@ public class JwtUtilTest {
     void validateToken_WithExpiredToken_ShouldReturnFalse() {
         // Given
         String expiredToken = createExpiredToken(username);
-        
+
         // When
         boolean isValid = jwtUtil.validateToken(expiredToken, username);
-        
+
         // Then
         assertFalse(isValid);
     }
-    
+
     private String createExpiredToken(String username) {
         Map<String, Object> claims = new HashMap<>();
         return Jwts.builder()

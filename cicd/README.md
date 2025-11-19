@@ -42,4 +42,3 @@ The Jenkins pipeline structure has been streamlined to eliminate redundant files
     *   SonarQube Scanner
     *   HTML Publisher (for test reports)
     *   **Build with Parameters** (required for the new parameterized service jobs).
-

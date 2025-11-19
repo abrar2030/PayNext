@@ -7,7 +7,7 @@ resource "aws_kms_key" "paynext_key" {
   deletion_window_in_days  = var.kms_key_deletion_window
   enable_key_rotation     = true
   multi_region            = true
-  
+
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -101,12 +101,12 @@ resource "aws_kms_alias" "paynext_key_alias" {
 # Secrets Manager for secure credential storage
 resource "aws_secretsmanager_secret" "paynext_secrets" {
   count = var.enable_secrets_manager ? 1 : 0
-  
+
   name                    = "paynext/${var.environment}/application-secrets"
   description            = "PayNext application secrets for ${var.environment}"
   kms_key_id             = aws_kms_key.paynext_key.arn
   recovery_window_in_days = 30
-  
+
   replica {
     region = "us-east-1"
     kms_key_id = aws_kms_key.paynext_key.arn
@@ -122,7 +122,7 @@ resource "aws_secretsmanager_secret" "paynext_secrets" {
 # Initial secret version with placeholder values
 resource "aws_secretsmanager_secret_version" "paynext_secrets_version" {
   count = var.enable_secrets_manager ? 1 : 0
-  
+
   secret_id = aws_secretsmanager_secret.paynext_secrets[0].id
   secret_string = jsonencode({
     database_password     = "CHANGE_ME_IN_PRODUCTION"
@@ -132,7 +132,7 @@ resource "aws_secretsmanager_secret_version" "paynext_secrets_version" {
     payment_gateway_key  = "CHANGE_ME_IN_PRODUCTION"
     notification_api_key = "CHANGE_ME_IN_PRODUCTION"
   })
-  
+
   lifecycle {
     ignore_changes = [secret_string]
   }
@@ -141,10 +141,10 @@ resource "aws_secretsmanager_secret_version" "paynext_secrets_version" {
 # WAF Web ACL for application protection
 resource "aws_wafv2_web_acl" "paynext_waf" {
   count = var.enable_waf ? 1 : 0
-  
+
   name  = "paynext-waf-${var.environment}"
   scope = "REGIONAL"
-  
+
   default_action {
     allow {}
   }
@@ -279,7 +279,7 @@ resource "aws_wafv2_web_acl" "paynext_waf" {
 # WAF Logging Configuration
 resource "aws_wafv2_web_acl_logging_configuration" "paynext_waf_logging" {
   count = var.enable_waf ? 1 : 0
-  
+
   resource_arn            = aws_wafv2_web_acl.paynext_waf[0].arn
   log_destination_configs = [aws_cloudwatch_log_group.waf_log_group[0].arn]
 
@@ -299,7 +299,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "paynext_waf_logging" {
 # CloudWatch Log Group for WAF logs
 resource "aws_cloudwatch_log_group" "waf_log_group" {
   count = var.enable_waf ? 1 : 0
-  
+
   name              = "/aws/wafv2/paynext-${var.environment}"
   retention_in_days = 365
   kms_key_id        = aws_kms_key.paynext_key.arn
@@ -313,7 +313,7 @@ resource "aws_cloudwatch_log_group" "waf_log_group" {
 # IAM Role for WAF logging
 resource "aws_iam_role" "waf_logging_role" {
   count = var.enable_waf ? 1 : 0
-  
+
   name = "paynext-waf-logging-role-${var.environment}"
 
   assume_role_policy = jsonencode({
@@ -334,7 +334,7 @@ resource "aws_iam_role" "waf_logging_role" {
 
 resource "aws_iam_role_policy" "waf_logging_policy" {
   count = var.enable_waf ? 1 : 0
-  
+
   name = "paynext-waf-logging-policy-${var.environment}"
   role = aws_iam_role.waf_logging_role[0].id
 
@@ -478,4 +478,3 @@ resource "random_string" "bucket_suffix" {
 # Data sources
 data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
-

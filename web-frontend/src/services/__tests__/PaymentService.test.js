@@ -10,7 +10,7 @@ describe('PaymentService', () => {
     jest.clearAllMocks();
   });
 
-  // --- makePayment Tests --- 
+  // --- makePayment Tests ---
   it('should call the make payment API endpoint with correct payment data', async () => {
     const paymentData = { recipient: 'recipient@example.com', amount: 100, currency: 'USD' };
     const mockResponse = { success: true, transactionId: 'txn_123' };
@@ -40,7 +40,7 @@ describe('PaymentService', () => {
     await expect(PaymentService.makePayment(paymentData)).rejects.toThrow(errorMessage);
   });
 
-  // --- getPaymentHistory Tests --- 
+  // --- getPaymentHistory Tests ---
   it('should call the get payment history API endpoint', async () => {
     const mockResponse = { success: true, payments: [] };
     api.get.mockResolvedValue(mockResponse);
@@ -71,4 +71,3 @@ describe('PaymentService', () => {
     await expect(PaymentService.getPaymentHistory()).rejects.toThrow(errorMessage);
   });
 });
-

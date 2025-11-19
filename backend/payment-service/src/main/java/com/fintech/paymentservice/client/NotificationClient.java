@@ -28,7 +28,7 @@ public interface NotificationClient {
 
         @Override
         public void sendNotification(NotificationRequest notificationRequest) {
-            logger.warn("Notification service is down. Using fallback for notification: {}", 
+            logger.warn("Notification service is down. Using fallback for notification: {}",
                       notificationRequest.getSubject());
             // Could implement a fallback strategy like storing in a database for later retry
         }

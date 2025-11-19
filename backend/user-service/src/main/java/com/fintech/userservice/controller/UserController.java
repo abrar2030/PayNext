@@ -68,5 +68,3 @@ public class UserController {
 
   // Additional endpoints for profile management
 }
-
-

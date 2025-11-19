@@ -242,4 +242,3 @@ output "network_summary" {
     vpc_flow_logs_enabled   = var.enable_vpc_flow_logs
   }
 }
-

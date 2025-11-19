@@ -3,7 +3,7 @@
 variable "environment" {
   description = "Deployment environment (dev, staging, prod)"
   type        = string
-  
+
   validation {
     condition     = contains(["dev", "staging", "prod"], var.environment)
     error_message = "Environment must be one of: dev, staging, prod."
@@ -43,7 +43,7 @@ variable "data_retention_days" {
   description = "Number of days to retain data for compliance"
   type        = number
   default     = 2555  # 7 years for financial compliance
-  
+
   validation {
     condition     = var.data_retention_days >= 365
     error_message = "Data retention must be at least 365 days for financial compliance."
@@ -54,7 +54,7 @@ variable "backup_retention_days" {
   description = "Number of days to retain backups"
   type        = number
   default     = 90
-  
+
   validation {
     condition     = var.backup_retention_days >= 30
     error_message = "Backup retention must be at least 30 days."
@@ -71,7 +71,7 @@ variable "transition_to_ia_days" {
   description = "Number of days before transitioning to Infrequent Access"
   type        = number
   default     = 30
-  
+
   validation {
     condition     = var.transition_to_ia_days >= 30
     error_message = "Transition to IA must be at least 30 days."
@@ -82,7 +82,7 @@ variable "transition_to_glacier_days" {
   description = "Number of days before transitioning to Glacier"
   type        = number
   default     = 90
-  
+
   validation {
     condition     = var.transition_to_glacier_days >= 90
     error_message = "Transition to Glacier must be at least 90 days."
@@ -93,7 +93,7 @@ variable "transition_to_deep_archive_days" {
   description = "Number of days before transitioning to Deep Archive"
   type        = number
   default     = 365
-  
+
   validation {
     condition     = var.transition_to_deep_archive_days >= 180
     error_message = "Transition to Deep Archive must be at least 180 days."
@@ -161,7 +161,7 @@ variable "bucket_size_alarm_threshold" {
   description = "Threshold for S3 bucket size alarm (in bytes)"
   type        = number
   default     = 107374182400  # 100 GB
-  
+
   validation {
     condition     = var.bucket_size_alarm_threshold > 0
     error_message = "Bucket size alarm threshold must be greater than 0."
@@ -185,7 +185,7 @@ variable "efs_performance_mode" {
   description = "Performance mode for EFS"
   type        = string
   default     = "generalPurpose"
-  
+
   validation {
     condition     = contains(["generalPurpose", "maxIO"], var.efs_performance_mode)
     error_message = "EFS performance mode must be generalPurpose or maxIO."
@@ -196,7 +196,7 @@ variable "efs_throughput_mode" {
   description = "Throughput mode for EFS"
   type        = string
   default     = "provisioned"
-  
+
   validation {
     condition     = contains(["bursting", "provisioned"], var.efs_throughput_mode)
     error_message = "EFS throughput mode must be bursting or provisioned."
@@ -207,7 +207,7 @@ variable "efs_provisioned_throughput" {
   description = "Provisioned throughput for EFS (MiB/s)"
   type        = number
   default     = 100
-  
+
   validation {
     condition     = var.efs_provisioned_throughput >= 1 && var.efs_provisioned_throughput <= 1024
     error_message = "EFS provisioned throughput must be between 1 and 1024 MiB/s."
@@ -300,7 +300,7 @@ variable "multipart_upload_threshold" {
   description = "Threshold for multipart upload (in MB)"
   type        = number
   default     = 100
-  
+
   validation {
     condition     = var.multipart_upload_threshold >= 5 && var.multipart_upload_threshold <= 5000
     error_message = "Multipart upload threshold must be between 5 and 5000 MB."
@@ -350,4 +350,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-

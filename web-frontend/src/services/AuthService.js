@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Use environment variable or default to localhost API gateway
-const API_URL = process.env.REACT_APP_API_BASE_URL || 
+const API_URL = process.env.REACT_APP_API_BASE_URL ||
   'http://localhost:8002/auth/';
 
 const login = async (email, password) => {

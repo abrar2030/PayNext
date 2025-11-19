@@ -3,7 +3,7 @@ import { Box, CircularProgress, Typography, Fade, Backdrop } from '@mui/material
 
 const PageLoader = ({ loading, children }) => {
   const [showLoader, setShowLoader] = useState(true);
-  
+
   useEffect(() => {
     if (!loading) {
       const timer = setTimeout(() => {

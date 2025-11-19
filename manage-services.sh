@@ -235,7 +235,7 @@ run_frontend() {
 all_services() {
     ACTION=$1
 
-    echo "Performing 
+    echo "Performing
 $ACTION
  on all backend services..."
     for service in "${BACKEND_SERVICES[@]}"; do
@@ -250,7 +250,7 @@ $ACTION
                 run_backend "$service"
                 ;;
             *)
-                echo "Error: Invalid action 
+                echo "Error: Invalid action
 $ACTION
 ."
                 usage
@@ -258,7 +258,7 @@ $ACTION
         esac
     done
 
-    echo "Performing 
+    echo "Performing
 $ACTION
  on all ML services..."
     for service in "${ML_SERVICES[@]}"; do
@@ -270,7 +270,7 @@ $ACTION
                 run_ml_service "$service"
                 ;;
             *)
-                echo "Error: Invalid action 
+                echo "Error: Invalid action
 $ACTION
  for ML services (only build and run supported)."
                 usage

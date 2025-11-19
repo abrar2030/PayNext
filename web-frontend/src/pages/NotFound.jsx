@@ -90,7 +90,7 @@ const NotFound = () => {
                 mb: 5
               }}
             >
-              The page you're looking for doesn't exist or has been moved. 
+              The page you're looking for doesn't exist or has been moved.
               Let's get you back on track.
             </Typography>
           </motion.div>

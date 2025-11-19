@@ -3,7 +3,7 @@
 variable "cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
-  
+
   validation {
     condition     = can(regex("^[a-zA-Z][a-zA-Z0-9-]*$", var.cluster_name))
     error_message = "Cluster name must start with a letter and contain only alphanumeric characters and hyphens."
@@ -13,7 +13,7 @@ variable "cluster_name" {
 variable "environment" {
   description = "Deployment environment (dev, staging, prod)"
   type        = string
-  
+
   validation {
     condition     = contains(["dev", "staging", "prod"], var.environment)
     error_message = "Environment must be one of: dev, staging, prod."
@@ -28,7 +28,7 @@ variable "vpc_id" {
 variable "private_subnet_ids" {
   description = "List of private subnet IDs for the EKS cluster"
   type        = list(string)
-  
+
   validation {
     condition     = length(var.private_subnet_ids) >= 2
     error_message = "At least 2 private subnets are required for high availability."
@@ -38,7 +38,7 @@ variable "private_subnet_ids" {
 variable "public_subnet_ids" {
   description = "List of public subnet IDs for the EKS cluster"
   type        = list(string)
-  
+
   validation {
     condition     = length(var.public_subnet_ids) >= 2
     error_message = "At least 2 public subnets are required for high availability."
@@ -49,7 +49,7 @@ variable "kubernetes_version" {
   description = "Kubernetes version for the EKS cluster"
   type        = string
   default     = "1.27"
-  
+
   validation {
     condition     = can(regex("^1\\.(2[4-9]|[3-9][0-9])$", var.kubernetes_version))
     error_message = "Kubernetes version must be 1.24 or higher."
@@ -142,7 +142,7 @@ variable "node_disk_size" {
   description = "Disk size for EKS nodes (GB)"
   type        = number
   default     = 50
-  
+
   validation {
     condition     = var.node_disk_size >= 20
     error_message = "Node disk size must be at least 20 GB."
@@ -210,7 +210,7 @@ variable "cluster_log_retention_days" {
   description = "Number of days to retain cluster logs"
   type        = number
   default     = 365
-  
+
   validation {
     condition     = var.cluster_log_retention_days >= 30
     error_message = "Cluster log retention must be at least 30 days."
@@ -311,4 +311,3 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-

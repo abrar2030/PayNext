@@ -112,7 +112,7 @@ The PayNext project is a financial technology platform that handles sensitive us
 
 The PayNext project incorporates multiple layers of security across its architecture, from network isolation and secure communication to data encryption and access control. AWS services like VPC, IAM, CloudTrail, and Secrets Manager, combined with security best practices, ensure that the platform is resilient against common security threats and prepared for regulatory compliance.
 
---- 
+---
 
 ## Appendix: Technologies Used
 

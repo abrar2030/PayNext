@@ -10,7 +10,7 @@ describe("UserService", () => {
     jest.clearAllMocks();
   });
 
-  // --- getUserProfile Tests --- 
+  // --- getUserProfile Tests ---
   it("should call the get user profile API endpoint", async () => {
     const mockResponse = { success: true, user: { id: 1, username: "testuser" } };
     api.get.mockResolvedValue(mockResponse);
@@ -38,7 +38,7 @@ describe("UserService", () => {
     await expect(UserService.getUserProfile()).rejects.toThrow(errorMessage);
   });
 
-  // --- updateUserProfile Tests --- 
+  // --- updateUserProfile Tests ---
   it("should call the update user profile API endpoint with correct data", async () => {
     const profileData = { username: "updateduser", email: "updated@example.com" };
     const mockResponse = { success: true, user: { id: 1, ...profileData } };
@@ -68,4 +68,3 @@ describe("UserService", () => {
     await expect(UserService.updateUserProfile(profileData)).rejects.toThrow(errorMessage);
   });
 });
-

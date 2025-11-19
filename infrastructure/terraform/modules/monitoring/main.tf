@@ -57,7 +57,7 @@ resource "aws_cloudwatch_log_group" "performance_logs" {
 # CloudTrail for comprehensive API logging
 resource "aws_s3_bucket" "cloudtrail_bucket" {
   count = var.enable_cloudtrail ? 1 : 0
-  
+
   bucket        = "paynext-cloudtrail-${var.environment}-${random_string.bucket_suffix.result}"
   force_destroy = false
 
@@ -70,7 +70,7 @@ resource "aws_s3_bucket" "cloudtrail_bucket" {
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_bucket_encryption" {
   count = var.enable_cloudtrail ? 1 : 0
-  
+
   bucket = aws_s3_bucket.cloudtrail_bucket[0].id
 
   rule {
@@ -84,7 +84,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_bucket
 
 resource "aws_s3_bucket_public_access_block" "cloudtrail_bucket_pab" {
   count = var.enable_cloudtrail ? 1 : 0
-  
+
   bucket = aws_s3_bucket.cloudtrail_bucket[0].id
 
   block_public_acls       = true
@@ -95,7 +95,7 @@ resource "aws_s3_bucket_public_access_block" "cloudtrail_bucket_pab" {
 
 resource "aws_s3_bucket_versioning" "cloudtrail_bucket_versioning" {
   count = var.enable_cloudtrail ? 1 : 0
-  
+
   bucket = aws_s3_bucket.cloudtrail_bucket[0].id
   versioning_configuration {
     status = "Enabled"
@@ -104,7 +104,7 @@ resource "aws_s3_bucket_versioning" "cloudtrail_bucket_versioning" {
 
 resource "aws_s3_bucket_lifecycle_configuration" "cloudtrail_bucket_lifecycle" {
   count = var.enable_cloudtrail ? 1 : 0
-  
+
   bucket = aws_s3_bucket.cloudtrail_bucket[0].id
 
   rule {
@@ -127,7 +127,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "cloudtrail_bucket_lifecycle" {
 
 resource "aws_s3_bucket_policy" "cloudtrail_bucket_policy" {
   count = var.enable_cloudtrail ? 1 : 0
-  
+
   bucket = aws_s3_bucket.cloudtrail_bucket[0].id
 
   policy = jsonencode({
@@ -168,7 +168,7 @@ resource "aws_s3_bucket_policy" "cloudtrail_bucket_policy" {
 
 resource "aws_cloudtrail" "paynext_cloudtrail" {
   count = var.enable_cloudtrail ? 1 : 0
-  
+
   name           = "paynext-cloudtrail-${var.environment}"
   s3_bucket_name = aws_s3_bucket.cloudtrail_bucket[0].bucket
   s3_key_prefix  = "cloudtrail-logs"
@@ -214,7 +214,7 @@ resource "aws_cloudtrail" "paynext_cloudtrail" {
 # CloudWatch Log Group for CloudTrail
 resource "aws_cloudwatch_log_group" "cloudtrail_logs" {
   count = var.enable_cloudtrail ? 1 : 0
-  
+
   name              = "/aws/cloudtrail/paynext-${var.environment}"
   retention_in_days = var.data_retention_days
   kms_key_id        = var.kms_key_id
@@ -227,7 +227,7 @@ resource "aws_cloudwatch_log_group" "cloudtrail_logs" {
 # IAM Role for CloudTrail CloudWatch Logs
 resource "aws_iam_role" "cloudtrail_logs_role" {
   count = var.enable_cloudtrail ? 1 : 0
-  
+
   name = "paynext-cloudtrail-logs-role-${var.environment}"
 
   assume_role_policy = jsonencode({
@@ -248,7 +248,7 @@ resource "aws_iam_role" "cloudtrail_logs_role" {
 
 resource "aws_iam_role_policy" "cloudtrail_logs_policy" {
   count = var.enable_cloudtrail ? 1 : 0
-  
+
   name = "paynext-cloudtrail-logs-policy-${var.environment}"
   role = aws_iam_role.cloudtrail_logs_role[0].id
 
@@ -271,10 +271,10 @@ resource "aws_iam_role_policy" "cloudtrail_logs_policy" {
 # GuardDuty for threat detection
 resource "aws_guardduty_detector" "paynext_guardduty" {
   count = var.enable_guardduty ? 1 : 0
-  
+
   enable                       = true
   finding_publishing_frequency = "FIFTEEN_MINUTES"
-  
+
   datasources {
     s3_logs {
       enable = true
@@ -303,7 +303,7 @@ resource "aws_guardduty_detector" "paynext_guardduty" {
 # GuardDuty CloudWatch Event Rule for findings
 resource "aws_cloudwatch_event_rule" "guardduty_findings" {
   count = var.enable_guardduty ? 1 : 0
-  
+
   name        = "paynext-guardduty-findings-${var.environment}"
   description = "Capture GuardDuty findings"
 
@@ -317,7 +317,7 @@ resource "aws_cloudwatch_event_rule" "guardduty_findings" {
 
 resource "aws_cloudwatch_event_target" "guardduty_sns" {
   count = var.enable_guardduty ? 1 : 0
-  
+
   rule      = aws_cloudwatch_event_rule.guardduty_findings[0].name
   target_id = "SendToSNS"
   arn       = aws_sns_topic.security_alerts.arn
@@ -326,7 +326,7 @@ resource "aws_cloudwatch_event_target" "guardduty_sns" {
 # AWS Config for compliance monitoring
 resource "aws_config_configuration_recorder" "paynext_config" {
   count = var.enable_config ? 1 : 0
-  
+
   name     = "paynext-config-recorder-${var.environment}"
   role_arn = aws_iam_role.config_role[0].arn
 
@@ -348,7 +348,7 @@ resource "aws_config_configuration_recorder" "paynext_config" {
 
 resource "aws_config_delivery_channel" "paynext_config" {
   count = var.enable_config ? 1 : 0
-  
+
   name           = "paynext-config-delivery-channel-${var.environment}"
   s3_bucket_name = aws_s3_bucket.config_bucket[0].bucket
   s3_key_prefix  = "config"
@@ -361,7 +361,7 @@ resource "aws_config_delivery_channel" "paynext_config" {
 # S3 bucket for AWS Config
 resource "aws_s3_bucket" "config_bucket" {
   count = var.enable_config ? 1 : 0
-  
+
   bucket        = "paynext-config-${var.environment}-${random_string.bucket_suffix.result}"
   force_destroy = false
 
@@ -374,7 +374,7 @@ resource "aws_s3_bucket" "config_bucket" {
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "config_bucket_encryption" {
   count = var.enable_config ? 1 : 0
-  
+
   bucket = aws_s3_bucket.config_bucket[0].id
 
   rule {
@@ -387,7 +387,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "config_bucket_enc
 
 resource "aws_s3_bucket_public_access_block" "config_bucket_pab" {
   count = var.enable_config ? 1 : 0
-  
+
   bucket = aws_s3_bucket.config_bucket[0].id
 
   block_public_acls       = true
@@ -398,7 +398,7 @@ resource "aws_s3_bucket_public_access_block" "config_bucket_pab" {
 
 resource "aws_s3_bucket_versioning" "config_bucket_versioning" {
   count = var.enable_config ? 1 : 0
-  
+
   bucket = aws_s3_bucket.config_bucket[0].id
   versioning_configuration {
     status = "Enabled"
@@ -407,7 +407,7 @@ resource "aws_s3_bucket_versioning" "config_bucket_versioning" {
 
 resource "aws_s3_bucket_policy" "config_bucket_policy" {
   count = var.enable_config ? 1 : 0
-  
+
   bucket = aws_s3_bucket.config_bucket[0].id
 
   policy = jsonencode({
@@ -463,7 +463,7 @@ resource "aws_s3_bucket_policy" "config_bucket_policy" {
 # IAM Role for AWS Config
 resource "aws_iam_role" "config_role" {
   count = var.enable_config ? 1 : 0
-  
+
   name = "paynext-config-role-${var.environment}"
 
   assume_role_policy = jsonencode({
@@ -484,14 +484,14 @@ resource "aws_iam_role" "config_role" {
 
 resource "aws_iam_role_policy_attachment" "config_role_policy" {
   count = var.enable_config ? 1 : 0
-  
+
   role       = aws_iam_role.config_role[0].name
   policy_arn = "arn:aws:iam::aws:policy/service-role/ConfigRole"
 }
 
 resource "aws_iam_role_policy" "config_s3_policy" {
   count = var.enable_config ? 1 : 0
-  
+
   name = "paynext-config-s3-policy-${var.environment}"
   role = aws_iam_role.config_role[0].id
 
@@ -522,7 +522,7 @@ resource "aws_iam_role_policy" "config_s3_policy" {
 # Config Rules for compliance monitoring
 resource "aws_config_config_rule" "s3_bucket_public_access_prohibited" {
   count = var.enable_config ? 1 : 0
-  
+
   name = "s3-bucket-public-access-prohibited"
 
   source {
@@ -535,7 +535,7 @@ resource "aws_config_config_rule" "s3_bucket_public_access_prohibited" {
 
 resource "aws_config_config_rule" "encrypted_volumes" {
   count = var.enable_config ? 1 : 0
-  
+
   name = "encrypted-volumes"
 
   source {
@@ -548,7 +548,7 @@ resource "aws_config_config_rule" "encrypted_volumes" {
 
 resource "aws_config_config_rule" "rds_storage_encrypted" {
   count = var.enable_config ? 1 : 0
-  
+
   name = "rds-storage-encrypted"
 
   source {
@@ -561,7 +561,7 @@ resource "aws_config_config_rule" "rds_storage_encrypted" {
 
 resource "aws_config_config_rule" "cloudtrail_enabled" {
   count = var.enable_config ? 1 : 0
-  
+
   name = "cloudtrail-enabled"
 
   source {
@@ -716,4 +716,3 @@ resource "random_string" "bucket_suffix" {
   special = false
   upper   = false
 }
-

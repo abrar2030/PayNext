@@ -52,4 +52,3 @@ describe('Mobile RequestPage', () => {
   });
   */
 });
-

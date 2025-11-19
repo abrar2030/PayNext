@@ -3,7 +3,7 @@
 
 pipeline {
     agent any
-    
+
     parameters {
         string(name: 'SERVICE_DIR', defaultValue: 'backend/api-gateway', description: 'The directory of the microservice to build (e.g., backend/api-gateway)')
         string(name: 'SERVICE_NAME', defaultValue: 'api-gateway', description: 'The name of the microservice (e.g., api-gateway)')
@@ -15,7 +15,7 @@ pipeline {
         maven 'Maven 3.8.6'
         jdk 'JDK 17'
     }
-    
+
     environment {
         // Credentials should be defined in Jenkins Global Credentials
         DOCKER_CREDENTIALS = credentials('docker-credentials')
@@ -23,14 +23,14 @@ pipeline {
         KUBECONFIG_CREDENTIALS = credentials('kubeconfig')
         HELM_CHART_PATH = 'kubernetes'
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        
+
         stage('Build') {
             steps {
                 dir("${params.SERVICE_DIR}") {
@@ -38,7 +38,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Test') {
             steps {
                 dir("${params.SERVICE_DIR}") {
@@ -51,7 +51,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Code Quality (SonarQube)') {
             steps {
                 dir("${params.SERVICE_DIR}") {
@@ -61,7 +61,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Docker Build and Push') {
             steps {
                 script {
@@ -75,7 +75,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Deploy to Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {

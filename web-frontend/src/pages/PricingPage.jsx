@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { 
-  Container, 
-  Typography, 
-  Box, 
-  Grid, 
-  Paper, 
+import {
+  Container,
+  Typography,
+  Box,
+  Grid,
+  Paper,
   Button,
   Card,
   CardContent,
@@ -39,23 +39,23 @@ const PricingPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
-  
+
   const [billingCycle, setBillingCycle] = useState('monthly');
   const [selectedTab, setSelectedTab] = useState(0);
   const [expandedFaq, setExpandedFaq] = useState(null);
-  
+
   const handleBillingCycleChange = (event) => {
     setBillingCycle(event.target.checked ? 'annually' : 'monthly');
   };
-  
+
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
-  
+
   const handleFaqToggle = (index) => {
     setExpandedFaq(expandedFaq === index ? null : index);
   };
-  
+
   const pricingPlans = {
     personal: [
       {
@@ -170,7 +170,7 @@ const PricingPage = () => {
       }
     ]
   };
-  
+
   const comparisonFeatures = [
     {
       category: 'Core Features',
@@ -208,7 +208,7 @@ const PricingPage = () => {
       ]
     }
   ];
-  
+
   const faqs = [
     {
       question: 'What payment methods are accepted?',
@@ -235,10 +235,10 @@ const PricingPage = () => {
       answer: "You can cancel your subscription at any time from your account settings. If you cancel, you'll continue to have access to your paid features until the end of your current billing cycle. We don't offer refunds for partial billing periods."
     }
   ];
-  
+
   const formatPrice = (price) => {
     if (price === 'Custom') return 'Custom';
-    
+
     return (
       <>
         <Typography component="span" variant="h3" sx={{ fontWeight: 'bold' }}>
@@ -252,12 +252,12 @@ const PricingPage = () => {
       </>
     );
   };
-  
+
   return (
     <Box sx={{ overflow: 'hidden' }}>
       {/* Hero Section */}
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
           color: 'white',
           pt: { xs: 10, md: 12 },
@@ -269,10 +269,10 @@ const PricingPage = () => {
         <Container maxWidth="lg">
           <AnimatedElement>
             <Box sx={{ textAlign: 'center', maxWidth: 800, mx: 'auto' }}>
-              <Typography 
-                variant="h2" 
-                component="h1" 
-                sx={{ 
+              <Typography
+                variant="h2"
+                component="h1"
+                sx={{
                   fontWeight: 'bold',
                   mb: 2,
                   fontSize: { xs: '2.5rem', md: '3.5rem' }
@@ -280,9 +280,9 @@ const PricingPage = () => {
               >
                 Simple, Transparent Pricing
               </Typography>
-              <Typography 
-                variant="h5" 
-                sx={{ 
+              <Typography
+                variant="h5"
+                sx={{
                   mb: 5,
                   opacity: 0.9,
                   lineHeight: 1.5
@@ -290,10 +290,10 @@ const PricingPage = () => {
               >
                 Choose the perfect plan for your payment needs
               </Typography>
-              
+
               <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-                <Tabs 
-                  value={selectedTab} 
+                <Tabs
+                  value={selectedTab}
                   onChange={handleTabChange}
                   sx={{
                     bgcolor: 'rgba(255, 255, 255, 0.1)',
@@ -317,13 +317,13 @@ const PricingPage = () => {
                   <Tab label="Business" sx={{ py: 1.5, px: 3, borderRadius: 8 }} />
                 </Tabs>
               </Box>
-              
+
               <FormGroup sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }}>
                 <Typography variant="body1" sx={{ mr: 1 }}>Monthly</Typography>
                 <FormControlLabel
                   control={
-                    <Switch 
-                      checked={billingCycle === 'annually'} 
+                    <Switch
+                      checked={billingCycle === 'annually'}
                       onChange={handleBillingCycleChange}
                       sx={{
                         '& .MuiSwitch-switchBase.Mui-checked': {
@@ -357,10 +357,10 @@ const PricingPage = () => {
             </Box>
           </AnimatedElement>
         </Container>
-        
+
         {/* Decorative elements */}
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             position: 'absolute',
             top: -100,
             right: -100,
@@ -369,10 +369,10 @@ const PricingPage = () => {
             borderRadius: '50%',
             background: 'rgba(255,255,255,0.1)',
             zIndex: 0
-          }} 
+          }}
         />
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             position: 'absolute',
             bottom: -150,
             left: -150,
@@ -381,39 +381,39 @@ const PricingPage = () => {
             borderRadius: '50%',
             background: 'rgba(255,255,255,0.05)',
             zIndex: 0
-          }} 
+          }}
         />
       </Box>
 
       {/* Pricing Cards Section */}
-      <Container 
-        maxWidth="lg" 
-        sx={{ 
-          mt: -8, 
-          mb: 10, 
-          position: 'relative', 
-          zIndex: 1 
+      <Container
+        maxWidth="lg"
+        sx={{
+          mt: -8,
+          mb: 10,
+          position: 'relative',
+          zIndex: 1
         }}
       >
         <Grid container spacing={4} justifyContent="center">
           {pricingPlans[selectedTab === 0 ? 'personal' : 'business'].map((plan, index) => (
-            <Grid 
-              item 
-              xs={12} 
-              md={4} 
+            <Grid
+              item
+              xs={12}
+              md={4}
               key={index}
               sx={{
                 display: 'flex',
               }}
             >
-              <AnimatedElement 
-                animation="fadeInUp" 
+              <AnimatedElement
+                animation="fadeInUp"
                 delay={0.1 * index}
                 style={{ width: '100%', height: '100%', display: 'flex' }}
               >
-                <Card 
-                  elevation={plan.popular ? 8 : 2} 
-                  sx={{ 
+                <Card
+                  elevation={plan.popular ? 8 : 2}
+                  sx={{
                     width: '100%',
                     display: 'flex',
                     flexDirection: 'column',
@@ -450,22 +450,22 @@ const PricingPage = () => {
                       Most Popular
                     </Box>
                   )}
-                  
+
                   <CardHeader
                     title={plan.title}
-                    titleTypographyProps={{ 
-                      variant: 'h5', 
+                    titleTypographyProps={{
+                      variant: 'h5',
                       component: 'h2',
                       align: 'center',
                       fontWeight: 'bold'
                     }}
-                    sx={{ 
+                    sx={{
                       bgcolor: plan.popular ? 'primary.main' : 'transparent',
                       color: plan.popular ? 'white' : 'inherit',
                       pb: 0
                     }}
                   />
-                  
+
                   <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                     <Box sx={{ textAlign: 'center', mb: 3 }}>
                       {formatPrice(plan.price)}
@@ -473,9 +473,9 @@ const PricingPage = () => {
                         {plan.description}
                       </Typography>
                     </Box>
-                    
+
                     <Divider sx={{ my: 2 }} />
-                    
+
                     <List sx={{ flexGrow: 1 }}>
                       {plan.features.map((feature, featureIndex) => (
                         <ListItem key={featureIndex} sx={{ px: 0, py: 1 }}>
@@ -486,8 +486,8 @@ const PricingPage = () => {
                               <CloseIcon color="disabled" />
                             )}
                           </ListItemIcon>
-                          <ListItemText 
-                            primary={feature.text} 
+                          <ListItemText
+                            primary={feature.text}
                             primaryTypographyProps={{
                               variant: 'body2',
                               color: feature.included ? 'text.primary' : 'text.secondary'
@@ -496,14 +496,14 @@ const PricingPage = () => {
                         </ListItem>
                       ))}
                     </List>
-                    
+
                     <Box sx={{ mt: 3 }}>
                       <Button
                         fullWidth
                         variant={plan.buttonVariant}
                         color={plan.popular ? 'secondary' : 'primary'}
                         size="large"
-                        sx={{ 
+                        sx={{
                           py: 1.5,
                           borderRadius: 8
                         }}
@@ -527,7 +527,7 @@ const PricingPage = () => {
               Feature Comparison
             </Typography>
           </AnimatedElement>
-          
+
           <AnimatedElement animation="fadeInUp">
             <Paper elevation={2} sx={{ borderRadius: 4, overflow: 'hidden' }}>
               <Box sx={{ overflowX: 'auto' }}>
@@ -554,7 +554,7 @@ const PricingPage = () => {
                         Business
                       </Typography>
                     </Grid>
-                    
+
                     {/* Feature categories and rows */}
                     {comparisonFeatures.map((category, categoryIndex) => (
                       <React.Fragment key={categoryIndex}>
@@ -565,7 +565,7 @@ const PricingPage = () => {
                             </Typography>
                           </Box>
                         </Grid>
-                        
+
                         {category.features.map((feature, featureIndex) => (
                           <React.Fragment key={featureIndex}>
                             <Grid item xs={4}>
@@ -634,7 +634,7 @@ const PricingPage = () => {
             Find answers to common questions about our pricing and plans
           </Typography>
         </AnimatedElement>
-        
+
         <AnimatedElement animation="fadeInUp">
           <Paper elevation={2} sx={{ borderRadius: 4 }}>
             {faqs.map((faq, index) => (
@@ -671,8 +671,8 @@ const PricingPage = () => {
       </Container>
 
       {/* CTA Section */}
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
           color: 'white',
           py: { xs: 8, md: 10 },
@@ -681,19 +681,19 @@ const PricingPage = () => {
       >
         <Container maxWidth="md">
           <AnimatedElement>
-            <Typography 
-              variant="h3" 
-              component="h2" 
-              sx={{ 
+            <Typography
+              variant="h3"
+              component="h2"
+              sx={{
                 fontWeight: 'bold',
-                mb: 3 
+                mb: 3
               }}
             >
               Ready to Get Started?
             </Typography>
-            <Typography 
-              variant="h6" 
-              sx={{ 
+            <Typography
+              variant="h6"
+              sx={{
                 mb: 5,
                 opacity: 0.9,
                 maxWidth: 700,
@@ -703,13 +703,13 @@ const PricingPage = () => {
               Join thousands of users who trust PayNext for their payment needs. Sign up today and experience the future of payments.
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
-              <Button 
-                variant="contained" 
-                color="secondary" 
+              <Button
+                variant="contained"
+                color="secondary"
                 size="large"
                 onClick={() => navigate('/register')}
-                sx={{ 
-                  py: 1.5, 
+                sx={{
+                  py: 1.5,
                   px: 4,
                   fontSize: '1.1rem',
                   fontWeight: 'bold',
@@ -718,13 +718,13 @@ const PricingPage = () => {
               >
                 Create Account
               </Button>
-              <Button 
-                variant="outlined" 
+              <Button
+                variant="outlined"
                 size="large"
                 endIcon={<ArrowForwardIcon />}
                 onClick={() => navigate('/contact')}
-                sx={{ 
-                  py: 1.5, 
+                sx={{
+                  py: 1.5,
                   px: 4,
                   fontSize: '1.1rem',
                   color: 'white',

@@ -67,4 +67,3 @@ describe('PaymentHistory Component', () => {
     expect(screen.getByText(new RegExp(errorMessage, 'i'))).toBeInTheDocument();
   });
 });
-

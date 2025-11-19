@@ -225,12 +225,12 @@ tags = {
   Compliance  = "PCI-DSS,GDPR,SOX"
   Backup      = "Required"
   Monitoring  = "Enabled"
-  
+
   # Additional tags for cost allocation
   Application = "PayNext"
   Team        = "Platform"
   Department  = "Engineering"
-  
+
   # Compliance tags
   DataClassification = "Confidential"
   RetentionPeriod   = "7-years"
@@ -320,4 +320,3 @@ tags = {
 # 8. Monitor costs and adjust resources as needed
 # 9. Keep this file secure and do not commit sensitive values to version control
 # 10. Use AWS Secrets Manager or Parameter Store for sensitive configuration
-

@@ -78,7 +78,7 @@ export default function ProfilePage() {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Profile</h1>
-      
+
       <Card>
         <CardHeader className="items-center text-center">
           <Avatar className="w-24 h-24 mb-4">
@@ -141,7 +141,7 @@ export default function ProfilePage() {
           </Dialog>
 
           <Button variant="outline" className="w-full" onClick={() => toast.info("Settings page not implemented yet.")}>Settings</Button>
-          
+
           {/* Logout Confirmation Dialog */}
           <Dialog>
             <DialogTrigger asChild>
@@ -169,4 +169,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-

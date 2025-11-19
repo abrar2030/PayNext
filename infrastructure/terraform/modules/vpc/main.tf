@@ -13,10 +13,10 @@ data "aws_region" "current" {}
 # Local values
 locals {
   azs = length(var.availability_zones) > 0 ? var.availability_zones : slice(data.aws_availability_zones.available.names, 0, 3)
-  
+
   # Calculate subnet counts based on AZ count
   az_count = length(local.azs)
-  
+
   # Ensure we have enough subnet CIDRs for all AZs
   public_subnet_cidrs   = slice(var.public_subnet_cidrs, 0, local.az_count)
   private_subnet_cidrs  = slice(var.private_subnet_cidrs, 0, local.az_count)
@@ -28,7 +28,7 @@ resource "aws_vpc" "paynext_vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
   enable_dns_support   = true
-  
+
   tags = merge(var.tags, {
     Name                = "PayNext-VPC-${var.environment}"
     Environment         = var.environment
@@ -111,7 +111,7 @@ resource "aws_eip" "nat" {
   count = var.enable_multi_az ? local.az_count : 1
 
   domain = "vpc"
-  
+
   depends_on = [aws_internet_gateway.paynext_igw]
 
   tags = merge(var.tags, {
@@ -603,7 +603,7 @@ resource "aws_network_acl" "database" {
 resource "aws_vpc_endpoint" "s3" {
   vpc_id       = aws_vpc.paynext_vpc.id
   service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
-  
+
   tags = merge(var.tags, {
     Name = "PayNext-S3-VPC-Endpoint-${var.environment}"
   })
@@ -612,7 +612,7 @@ resource "aws_vpc_endpoint" "s3" {
 resource "aws_vpc_endpoint" "dynamodb" {
   vpc_id       = aws_vpc.paynext_vpc.id
   service_name = "com.amazonaws.${data.aws_region.current.name}.dynamodb"
-  
+
   tags = merge(var.tags, {
     Name = "PayNext-DynamoDB-VPC-Endpoint-${var.environment}"
   })
@@ -624,7 +624,7 @@ resource "aws_vpc_endpoint" "ec2" {
   vpc_endpoint_type   = "Interface"
   subnet_ids          = aws_subnet.private[*].id
   security_group_ids  = [aws_security_group.vpc_endpoints.id]
-  
+
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -636,7 +636,7 @@ resource "aws_vpc_endpoint" "ec2" {
       }
     ]
   })
-  
+
   tags = merge(var.tags, {
     Name = "PayNext-EC2-VPC-Endpoint-${var.environment}"
   })
@@ -672,4 +672,3 @@ resource "aws_security_group" "vpc_endpoints" {
     create_before_destroy = true
   }
 }
-

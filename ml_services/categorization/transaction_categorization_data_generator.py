@@ -33,7 +33,7 @@ def generate_categorization_data(num_transactions=10000):
         user_id = np.random.choice(user_ids)
         transaction_amount = round(np.random.uniform(5, 500), 2)
         transaction_time = start_date + timedelta(minutes=np.random.randint(0, 365 * 24 * 60))
-        
+
         # Randomly assign a category and pick a merchant/description
         category = np.random.choice(list(categories.keys()))
         merchant = np.random.choice(categories[category])
@@ -65,4 +65,3 @@ if __name__ == '__main__':
     print(f"Synthetic transaction categorization data generated and saved to {output_path}")
     print(df.head())
     print(df['category'].value_counts())
-

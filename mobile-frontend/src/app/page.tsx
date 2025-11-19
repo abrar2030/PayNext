@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardFooter, 
-  CardHeader, 
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
   CardTitle
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -109,7 +109,7 @@ export default function HomePage() {
               <span className="text-xs">Request</span>
             </Button>
           </Link>
-          
+
           {/* QR Scan Dialog Trigger */}
           <Dialog open={isScannerOpen} onOpenChange={setIsScannerOpen}>
             <DialogTrigger asChild>
@@ -125,9 +125,9 @@ export default function HomePage() {
               <div className="p-4">
                 {/* Render scanner only when dialog is open */}
                 {isScannerOpen && (
-                  <QrScanner 
-                    onScanSuccess={handleScanSuccess} 
-                    onScanFailure={handleScanFailure} 
+                  <QrScanner
+                    onScanSuccess={handleScanSuccess}
+                    onScanFailure={handleScanFailure}
                   />
                 )}
               </div>
@@ -161,8 +161,8 @@ export default function HomePage() {
               {transactions.map((tx) => (
                 <li key={tx.id} className="flex items-center space-x-4">
                   <div className={`p-2 rounded-full ${tx.amount < 0 ? 'bg-red-100 dark:bg-red-900' : 'bg-green-100 dark:bg-green-900'}`}>
-                    {tx.amount < 0 ? 
-                      <ArrowUpRight className="h-5 w-5 text-red-600 dark:text-red-400" /> : 
+                    {tx.amount < 0 ?
+                      <ArrowUpRight className="h-5 w-5 text-red-600 dark:text-red-400" /> :
                       <ArrowDownLeft className="h-5 w-5 text-green-600 dark:text-green-400" />
                     }
                   </div>
@@ -184,4 +184,3 @@ export default function HomePage() {
     </div>
   );
 }
-

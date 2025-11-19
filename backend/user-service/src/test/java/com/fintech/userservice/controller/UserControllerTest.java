@@ -100,4 +100,3 @@ class UserControllerTest {
     // Add tests for update profile endpoint
 
 }
-

@@ -128,16 +128,18 @@ if __name__ == "__main__":
     # Generate synthetic data (assuming anomaly_data_generator can be reused or adapted)
     # For this example, we'll use the anomaly_data_generator for transaction data
     try:
-        from ..anomaly_detection.anomaly_data_generator import \
-            generate_synthetic_transaction_data
+        from ..anomaly_detection.anomaly_data_generator import (
+            generate_synthetic_transaction_data,
+        )
     except ImportError:
         # Fallback for direct script execution
         import os
         import sys
 
         sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-        from anomaly_detection.anomaly_data_generator import \
-            generate_synthetic_transaction_data
+        from anomaly_detection.anomaly_data_generator import (
+            generate_synthetic_transaction_data,
+        )
     print("Generating synthetic transaction data for analytics...")
     synthetic_transactions_df = generate_synthetic_transaction_data(
         num_transactions=100000, num_users=500, anomaly_ratio=0.0

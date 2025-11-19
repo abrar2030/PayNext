@@ -360,7 +360,7 @@ resource "aws_s3_bucket_policy" "paynext_primary_policy" {
 # Cross-region replication for backup bucket
 resource "aws_s3_bucket" "paynext_backup_replica" {
   count = var.enable_cross_region_replication ? 1 : 0
-  
+
   provider      = aws.dr_region
   bucket        = "paynext-backup-replica-${var.environment}-${random_string.bucket_suffix.result}"
   force_destroy = false
@@ -374,7 +374,7 @@ resource "aws_s3_bucket" "paynext_backup_replica" {
 
 resource "aws_s3_bucket_versioning" "paynext_backup_replica_versioning" {
   count = var.enable_cross_region_replication ? 1 : 0
-  
+
   provider = aws.dr_region
   bucket   = aws_s3_bucket.paynext_backup_replica[0].id
   versioning_configuration {
@@ -384,7 +384,7 @@ resource "aws_s3_bucket_versioning" "paynext_backup_replica_versioning" {
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "paynext_backup_replica_encryption" {
   count = var.enable_cross_region_replication ? 1 : 0
-  
+
   provider = aws.dr_region
   bucket   = aws_s3_bucket.paynext_backup_replica[0].id
 
@@ -400,7 +400,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "paynext_backup_re
 # IAM role for S3 replication
 resource "aws_iam_role" "s3_replication_role" {
   count = var.enable_cross_region_replication ? 1 : 0
-  
+
   name = "paynext-s3-replication-role-${var.environment}"
 
   assume_role_policy = jsonencode({
@@ -421,7 +421,7 @@ resource "aws_iam_role" "s3_replication_role" {
 
 resource "aws_iam_role_policy" "s3_replication_policy" {
   count = var.enable_cross_region_replication ? 1 : 0
-  
+
   name = "paynext-s3-replication-policy-${var.environment}"
   role = aws_iam_role.s3_replication_role[0].id
 
@@ -474,7 +474,7 @@ resource "aws_iam_role_policy" "s3_replication_policy" {
 # S3 replication configuration
 resource "aws_s3_bucket_replication_configuration" "paynext_backup_replication" {
   count = var.enable_cross_region_replication ? 1 : 0
-  
+
   role   = aws_iam_role.s3_replication_role[0].arn
   bucket = aws_s3_bucket.paynext_backup.id
 
@@ -575,7 +575,7 @@ resource "aws_cloudwatch_metric_alarm" "s3_bucket_size" {
 # EFS file system for shared storage
 resource "aws_efs_file_system" "paynext_efs" {
   count = var.enable_efs ? 1 : 0
-  
+
   creation_token                  = "paynext-efs-${var.environment}"
   performance_mode               = "generalPurpose"
   throughput_mode               = "provisioned"
@@ -591,7 +591,7 @@ resource "aws_efs_file_system" "paynext_efs" {
 # EFS mount targets
 resource "aws_efs_mount_target" "paynext_efs_mount" {
   count = var.enable_efs ? length(var.private_subnet_ids) : 0
-  
+
   file_system_id  = aws_efs_file_system.paynext_efs[0].id
   subnet_id       = var.private_subnet_ids[count.index]
   security_groups = [aws_security_group.efs[0].id]
@@ -600,7 +600,7 @@ resource "aws_efs_mount_target" "paynext_efs_mount" {
 # Security group for EFS
 resource "aws_security_group" "efs" {
   count = var.enable_efs ? 1 : 0
-  
+
   name_prefix = "paynext-efs-${var.environment}-"
   vpc_id      = var.vpc_id
   description = "Security group for PayNext EFS"
@@ -636,4 +636,3 @@ resource "random_string" "bucket_suffix" {
   special = false
   upper   = false
 }
-

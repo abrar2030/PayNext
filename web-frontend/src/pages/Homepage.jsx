@@ -1,10 +1,10 @@
 import React from 'react';
-import { 
-  Container, 
-  Typography, 
-  Box, 
-  Grid, 
-  Paper, 
+import {
+  Container,
+  Typography,
+  Box,
+  Grid,
+  Paper,
   Button,
   Card,
   CardContent,
@@ -74,8 +74,8 @@ const Homepage = () => {
   return (
     <Box sx={{ overflow: 'hidden' }}>
       {/* Hero Section */}
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
           color: 'white',
           pt: { xs: 8, md: 12 },
@@ -87,10 +87,10 @@ const Homepage = () => {
         <Container maxWidth="lg">
           <Grid container spacing={4} alignItems="center">
             <Grid item xs={12} md={6}>
-              <Typography 
-                variant="h2" 
-                component="h1" 
-                sx={{ 
+              <Typography
+                variant="h2"
+                component="h1"
+                sx={{
                   fontWeight: 'bold',
                   mb: 2,
                   fontSize: { xs: '2.5rem', md: '3.5rem' }
@@ -98,9 +98,9 @@ const Homepage = () => {
               >
                 Next Generation Payment Solution
               </Typography>
-              <Typography 
-                variant="h5" 
-                sx={{ 
+              <Typography
+                variant="h5"
+                sx={{
                   mb: 4,
                   opacity: 0.9,
                   lineHeight: 1.5
@@ -109,13 +109,13 @@ const Homepage = () => {
                 Send, receive, and manage your money with ease. Fast, secure, and designed for the modern world.
               </Typography>
               <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-                <Button 
-                  variant="contained" 
-                  color="secondary" 
+                <Button
+                  variant="contained"
+                  color="secondary"
                   size="large"
                   onClick={() => navigate('/register')}
-                  sx={{ 
-                    py: 1.5, 
+                  sx={{
+                    py: 1.5,
                     px: 4,
                     fontSize: '1.1rem',
                     fontWeight: 'bold',
@@ -124,12 +124,12 @@ const Homepage = () => {
                 >
                   Get Started
                 </Button>
-                <Button 
-                  variant="outlined" 
+                <Button
+                  variant="outlined"
                   size="large"
                   onClick={() => navigate('/login')}
-                  sx={{ 
-                    py: 1.5, 
+                  sx={{
+                    py: 1.5,
                     px: 4,
                     fontSize: '1.1rem',
                     color: 'white',
@@ -146,11 +146,11 @@ const Homepage = () => {
               </Box>
             </Grid>
             <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Box 
+              <Box
                 component="img"
                 src="https://cdn.pixabay.com/photo/2019/04/26/07/14/transaction-4156934_1280.png"
                 alt="PayNext Dashboard Preview"
-                sx={{ 
+                sx={{
                   width: '100%',
                   maxWidth: 600,
                   borderRadius: 4,
@@ -161,10 +161,10 @@ const Homepage = () => {
             </Grid>
           </Grid>
         </Container>
-        
+
         {/* Decorative elements */}
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             position: 'absolute',
             top: -100,
             right: -100,
@@ -173,10 +173,10 @@ const Homepage = () => {
             borderRadius: '50%',
             background: 'rgba(255,255,255,0.1)',
             zIndex: 0
-          }} 
+          }}
         />
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             position: 'absolute',
             bottom: -150,
             left: -150,
@@ -185,27 +185,27 @@ const Homepage = () => {
             borderRadius: '50%',
             background: 'rgba(255,255,255,0.05)',
             zIndex: 0
-          }} 
+          }}
         />
       </Box>
 
       {/* Features Section */}
       <Container maxWidth="lg" sx={{ py: { xs: 8, md: 12 } }}>
         <Box sx={{ textAlign: 'center', mb: 8 }}>
-          <Typography 
-            variant="h3" 
-            component="h2" 
-            sx={{ 
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{
               fontWeight: 'bold',
-              mb: 2 
+              mb: 2
             }}
           >
             Why Choose PayNext
           </Typography>
-          <Typography 
-            variant="h6" 
+          <Typography
+            variant="h6"
             color="text.secondary"
-            sx={{ 
+            sx={{
               maxWidth: 700,
               mx: 'auto',
               lineHeight: 1.6
@@ -218,9 +218,9 @@ const Homepage = () => {
         <Grid container spacing={4}>
           {features.map((feature, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
-              <Card 
+              <Card
                 elevation={2}
-                sx={{ 
+                sx={{
                   height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
@@ -233,8 +233,8 @@ const Homepage = () => {
                 }}
               >
                 <CardContent sx={{ flexGrow: 1, textAlign: 'center', p: 3 }}>
-                  <Box 
-                    sx={{ 
+                  <Box
+                    sx={{
                       display: 'inline-flex',
                       p: 2,
                       borderRadius: '50%',
@@ -262,20 +262,20 @@ const Homepage = () => {
       <Box sx={{ backgroundColor: 'grey.50', py: { xs: 8, md: 12 } }}>
         <Container maxWidth="lg">
           <Box sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography 
-              variant="h3" 
-              component="h2" 
-              sx={{ 
+            <Typography
+              variant="h3"
+              component="h2"
+              sx={{
                 fontWeight: 'bold',
-                mb: 2 
+                mb: 2
               }}
             >
               How It Works
             </Typography>
-            <Typography 
-              variant="h6" 
+            <Typography
+              variant="h6"
               color="text.secondary"
-              sx={{ 
+              sx={{
                 maxWidth: 700,
                 mx: 'auto',
                 lineHeight: 1.6
@@ -287,11 +287,11 @@ const Homepage = () => {
 
           <Grid container spacing={5} alignItems="center">
             <Grid item xs={12} md={6}>
-              <Box 
+              <Box
                 component="img"
                 src="https://cdn.pixabay.com/photo/2017/10/24/07/12/hacker-2883632_1280.jpg"
                 alt="PayNext Mobile App"
-                sx={{ 
+                sx={{
                   width: '100%',
                   borderRadius: 4,
                   boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
@@ -301,14 +301,14 @@ const Homepage = () => {
             <Grid item xs={12} md={6}>
               <Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
-                  <Paper 
-                    elevation={2} 
-                    sx={{ 
-                      width: 50, 
-                      height: 50, 
-                      borderRadius: '50%', 
-                      display: 'flex', 
-                      alignItems: 'center', 
+                  <Paper
+                    elevation={2}
+                    sx={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
                       justifyContent: 'center',
                       backgroundColor: 'primary.main',
                       color: 'white',
@@ -330,14 +330,14 @@ const Homepage = () => {
                 </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
-                  <Paper 
-                    elevation={2} 
-                    sx={{ 
-                      width: 50, 
-                      height: 50, 
-                      borderRadius: '50%', 
-                      display: 'flex', 
-                      alignItems: 'center', 
+                  <Paper
+                    elevation={2}
+                    sx={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
                       justifyContent: 'center',
                       backgroundColor: 'primary.main',
                       color: 'white',
@@ -359,14 +359,14 @@ const Homepage = () => {
                 </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Paper 
-                    elevation={2} 
-                    sx={{ 
-                      width: 50, 
-                      height: 50, 
-                      borderRadius: '50%', 
-                      display: 'flex', 
-                      alignItems: 'center', 
+                  <Paper
+                    elevation={2}
+                    sx={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
                       justifyContent: 'center',
                       backgroundColor: 'primary.main',
                       color: 'white',
@@ -387,15 +387,15 @@ const Homepage = () => {
                   </Box>
                 </Box>
 
-                <Button 
-                  variant="contained" 
-                  color="primary" 
+                <Button
+                  variant="contained"
+                  color="primary"
                   size="large"
                   endIcon={<ArrowForwardIcon />}
                   onClick={() => navigate('/register')}
-                  sx={{ 
+                  sx={{
                     mt: 5,
-                    py: 1.5, 
+                    py: 1.5,
                     px: 4,
                     borderRadius: 8
                   }}
@@ -411,20 +411,20 @@ const Homepage = () => {
       {/* Testimonials Section */}
       <Container maxWidth="lg" sx={{ py: { xs: 8, md: 12 } }}>
         <Box sx={{ textAlign: 'center', mb: 8 }}>
-          <Typography 
-            variant="h3" 
-            component="h2" 
-            sx={{ 
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{
               fontWeight: 'bold',
-              mb: 2 
+              mb: 2
             }}
           >
             What Our Users Say
           </Typography>
-          <Typography 
-            variant="h6" 
+          <Typography
+            variant="h6"
             color="text.secondary"
-            sx={{ 
+            sx={{
               maxWidth: 700,
               mx: 'auto',
               lineHeight: 1.6
@@ -437,9 +437,9 @@ const Homepage = () => {
         <Grid container spacing={4}>
           {testimonials.map((testimonial, index) => (
             <Grid item xs={12} md={4} key={index}>
-              <Card 
+              <Card
                 elevation={2}
-                sx={{ 
+                sx={{
                   height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
@@ -450,9 +450,9 @@ const Homepage = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                   <CardMedia
                     component="img"
-                    sx={{ 
-                      width: 60, 
-                      height: 60, 
+                    sx={{
+                      width: 60,
+                      height: 60,
                       borderRadius: '50%',
                       mr: 2
                     }}
@@ -468,9 +468,9 @@ const Homepage = () => {
                     </Typography>
                   </Box>
                 </Box>
-                <Typography 
-                  variant="body1" 
-                  sx={{ 
+                <Typography
+                  variant="body1"
+                  sx={{
                     flexGrow: 1,
                     fontStyle: 'italic',
                     color: 'text.secondary',
@@ -486,8 +486,8 @@ const Homepage = () => {
       </Container>
 
       {/* CTA Section */}
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
           color: 'white',
           py: { xs: 8, md: 10 },
@@ -495,19 +495,19 @@ const Homepage = () => {
         }}
       >
         <Container maxWidth="md">
-          <Typography 
-            variant="h3" 
-            component="h2" 
-            sx={{ 
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{
               fontWeight: 'bold',
-              mb: 3 
+              mb: 3
             }}
           >
             Ready to Get Started?
           </Typography>
-          <Typography 
-            variant="h6" 
-            sx={{ 
+          <Typography
+            variant="h6"
+            sx={{
               mb: 5,
               opacity: 0.9,
               maxWidth: 700,
@@ -517,13 +517,13 @@ const Homepage = () => {
             Join thousands of users who trust PayNext for their payment needs. Sign up today and experience the future of payments.
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
-            <Button 
-              variant="contained" 
-              color="secondary" 
+            <Button
+              variant="contained"
+              color="secondary"
               size="large"
               onClick={() => navigate('/register')}
-              sx={{ 
-                py: 1.5, 
+              sx={{
+                py: 1.5,
                 px: 4,
                 fontSize: '1.1rem',
                 fontWeight: 'bold',
@@ -532,12 +532,12 @@ const Homepage = () => {
             >
               Create Account
             </Button>
-            <Button 
-              variant="outlined" 
+            <Button
+              variant="outlined"
               size="large"
               onClick={() => navigate('/login')}
-              sx={{ 
-                py: 1.5, 
+              sx={{
+                py: 1.5,
                 px: 4,
                 fontSize: '1.1rem',
                 color: 'white',
@@ -577,9 +577,9 @@ const Homepage = () => {
               <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
                 {['Features', 'Pricing', 'Integrations', 'Enterprise'].map((item) => (
                   <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Button 
-                      sx={{ 
-                        color: 'white', 
+                    <Button
+                      sx={{
+                        color: 'white',
                         opacity: 0.7,
                         p: 0,
                         textTransform: 'none',
@@ -600,9 +600,9 @@ const Homepage = () => {
               <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
                 {['About', 'Careers', 'Blog', 'Press'].map((item) => (
                   <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Button 
-                      sx={{ 
-                        color: 'white', 
+                    <Button
+                      sx={{
+                        color: 'white',
                         opacity: 0.7,
                         p: 0,
                         textTransform: 'none',
@@ -623,9 +623,9 @@ const Homepage = () => {
               <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
                 {['Documentation', 'Help Center', 'API', 'Status'].map((item) => (
                   <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Button 
-                      sx={{ 
-                        color: 'white', 
+                    <Button
+                      sx={{
+                        color: 'white',
                         opacity: 0.7,
                         p: 0,
                         textTransform: 'none',
@@ -646,9 +646,9 @@ const Homepage = () => {
               <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
                 {['Privacy', 'Terms', 'Security', 'Compliance'].map((item) => (
                   <Box component="li" key={item} sx={{ mb: 1 }}>
-                    <Button 
-                      sx={{ 
-                        color: 'white', 
+                    <Button
+                      sx={{
+                        color: 'white',
                         opacity: 0.7,
                         p: 0,
                         textTransform: 'none',

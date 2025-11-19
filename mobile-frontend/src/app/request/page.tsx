@@ -111,12 +111,12 @@ export default function RequestPage() {
             <CardTitle>Scan QR Code or Copy Link</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col items-center justify-center space-y-4">
-            <QRCodeCanvas 
-              value={qrValue} 
+            <QRCodeCanvas
+              value={qrValue}
               size={200} // Adjust size as needed
-              bgColor={"#ffffff"} 
-              fgColor={"#000000"} 
-              level={"L"} 
+              bgColor={"#ffffff"}
+              fgColor={"#000000"}
+              level={"L"}
               includeMargin={true}
             />
             <p className="text-xs text-muted-foreground break-all">{qrValue}</p>
@@ -131,4 +131,3 @@ export default function RequestPage() {
     </div>
   );
 }
-

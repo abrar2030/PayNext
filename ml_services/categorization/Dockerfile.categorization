@@ -14,4 +14,3 @@ COPY category_vectorizer.joblib .
 EXPOSE 5002
 
 CMD ["python", "categorization_api.py"]
-

@@ -17,4 +17,3 @@ COPY *.joblib .
 EXPOSE 5000
 
 CMD ["python", "fraud_detection_api.py"]
-

@@ -12,19 +12,18 @@ import java.util.Optional;
 
 @Repository
 public interface OTPVerificationRepository extends JpaRepository<OTPVerification, Long> {
-    
+
     Optional<OTPVerification> findByUserIdAndOtpTypeAndIsUsedFalse(Long userId, OTPVerification.OTPType otpType);
-    
+
     List<OTPVerification> findByUserIdAndOtpTypeAndIsUsedFalse(Long userId, OTPVerification.OTPType otpType);
-    
+
     List<OTPVerification> findByExpiresAtBefore(LocalDateTime dateTime);
-    
+
     @Query("SELECT o FROM OTPVerification o WHERE o.userId = :userId AND o.otpType = :otpType AND o.isUsed = false AND o.expiresAt > :now")
-    Optional<OTPVerification> findValidOTP(@Param("userId") Long userId, 
-                                          @Param("otpType") OTPVerification.OTPType otpType, 
+    Optional<OTPVerification> findValidOTP(@Param("userId") Long userId,
+                                          @Param("otpType") OTPVerification.OTPType otpType,
                                           @Param("now") LocalDateTime now);
-    
+
     @Query("SELECT COUNT(o) FROM OTPVerification o WHERE o.contactInfo = :contactInfo AND o.createdAt > :since")
     Long countOTPsSentToContact(@Param("contactInfo") String contactInfo, @Param("since") LocalDateTime since);
 }
-

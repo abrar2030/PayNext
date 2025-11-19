@@ -49,4 +49,3 @@ describe('Mobile ProfilePage', () => {
 
   // Add tests for interactions like clicking edit button, form submission if applicable
 });
-

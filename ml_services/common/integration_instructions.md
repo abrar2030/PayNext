@@ -237,10 +237,10 @@ These instructions provide a clear path for integrating the new ML capabilities 
     }
 
     // DTO for response
-    public class CategoryPredictionResponse { 
-        public String merchant; 
-        public String description; 
-        public String predicted_category; 
+    public class CategoryPredictionResponse {
+        public String merchant;
+        public String description;
+        public String predicted_category;
         // getters/setters
     }
     ```

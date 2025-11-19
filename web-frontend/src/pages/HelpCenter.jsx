@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Container, 
-  Typography, 
-  Box, 
-  Grid, 
-  Paper, 
+import {
+  Container,
+  Typography,
+  Box,
+  Grid,
+  Paper,
   Button,
   Card,
   CardContent,
@@ -142,13 +142,13 @@ const HelpCenter = () => {
       content: (
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <Button 
-              fullWidth 
-              variant="outlined" 
+            <Button
+              fullWidth
+              variant="outlined"
               onClick={handleNext}
-              sx={{ 
-                p: 2, 
-                justifyContent: 'flex-start', 
+              sx={{
+                p: 2,
+                justifyContent: 'flex-start',
                 textAlign: 'left',
                 height: '100%'
               }}
@@ -164,13 +164,13 @@ const HelpCenter = () => {
             </Button>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Button 
-              fullWidth 
-              variant="outlined" 
+            <Button
+              fullWidth
+              variant="outlined"
               onClick={handleNext}
-              sx={{ 
-                p: 2, 
-                justifyContent: 'flex-start', 
+              sx={{
+                p: 2,
+                justifyContent: 'flex-start',
                 textAlign: 'left',
                 height: '100%'
               }}
@@ -186,13 +186,13 @@ const HelpCenter = () => {
             </Button>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Button 
-              fullWidth 
-              variant="outlined" 
+            <Button
+              fullWidth
+              variant="outlined"
               onClick={handleNext}
-              sx={{ 
-                p: 2, 
-                justifyContent: 'flex-start', 
+              sx={{
+                p: 2,
+                justifyContent: 'flex-start',
                 textAlign: 'left',
                 height: '100%'
               }}
@@ -208,13 +208,13 @@ const HelpCenter = () => {
             </Button>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Button 
-              fullWidth 
-              variant="outlined" 
+            <Button
+              fullWidth
+              variant="outlined"
               onClick={handleNext}
-              sx={{ 
-                p: 2, 
-                justifyContent: 'flex-start', 
+              sx={{
+                p: 2,
+                justifyContent: 'flex-start',
                 textAlign: 'left',
                 height: '100%'
               }}
@@ -278,45 +278,45 @@ const HelpCenter = () => {
           <Alert severity="info" sx={{ mb: 3 }}>
             We've analyzed your issue and found some potential solutions.
           </Alert>
-          
+
           <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>
             Recommended Solutions:
           </Typography>
-          
+
           <List>
             <ListItem sx={{ pl: 0, pb: 2 }}>
               <ListItemIcon>
                 <CheckCircleIcon color="primary" />
               </ListItemIcon>
-              <ListItemText 
-                primary="Clear your browser cache and cookies" 
-                secondary="This resolves many common technical issues with the website." 
+              <ListItemText
+                primary="Clear your browser cache and cookies"
+                secondary="This resolves many common technical issues with the website."
               />
             </ListItem>
             <ListItem sx={{ pl: 0, pb: 2 }}>
               <ListItemIcon>
                 <CheckCircleIcon color="primary" />
               </ListItemIcon>
-              <ListItemText 
-                primary="Update to the latest app version" 
-                secondary="Make sure you're using the most recent version of our mobile app." 
+              <ListItemText
+                primary="Update to the latest app version"
+                secondary="Make sure you're using the most recent version of our mobile app."
               />
             </ListItem>
             <ListItem sx={{ pl: 0, pb: 2 }}>
               <ListItemIcon>
                 <CheckCircleIcon color="primary" />
               </ListItemIcon>
-              <ListItemText 
-                primary="Check your internet connection" 
-                secondary="Ensure you have a stable internet connection and try again." 
+              <ListItemText
+                primary="Check your internet connection"
+                secondary="Ensure you have a stable internet connection and try again."
               />
             </ListItem>
           </List>
-          
+
           <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mt: 3, mb: 2 }}>
             Did this solve your problem?
           </Typography>
-          
+
           <Box sx={{ display: 'flex', gap: 2 }}>
             <Button
               variant="contained"
@@ -345,15 +345,15 @@ const HelpCenter = () => {
           <Typography variant="body1" sx={{ mb: 3 }}>
             Our support team is available 24/7 to help resolve your issue. Please choose your preferred contact method:
           </Typography>
-          
+
           <Grid container spacing={3}>
             <Grid item xs={12} sm={4}>
               <Card elevation={2} sx={{ height: '100%', borderRadius: 2 }}>
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <IconButton 
-                    sx={{ 
-                      backgroundColor: 'primary.light', 
-                      color: 'white', 
+                  <IconButton
+                    sx={{
+                      backgroundColor: 'primary.light',
+                      color: 'white',
                       mb: 2,
                       '&:hover': {
                         backgroundColor: 'primary.main',
@@ -368,8 +368,8 @@ const HelpCenter = () => {
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                     Response within 24 hours
                   </Typography>
-                  <Button 
-                    variant="outlined" 
+                  <Button
+                    variant="outlined"
                     fullWidth
                     onClick={() => window.location.href = 'mailto:support@paynext.com'}
                   >
@@ -381,10 +381,10 @@ const HelpCenter = () => {
             <Grid item xs={12} sm={4}>
               <Card elevation={2} sx={{ height: '100%', borderRadius: 2 }}>
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <IconButton 
-                    sx={{ 
-                      backgroundColor: 'primary.light', 
-                      color: 'white', 
+                  <IconButton
+                    sx={{
+                      backgroundColor: 'primary.light',
+                      color: 'white',
                       mb: 2,
                       '&:hover': {
                         backgroundColor: 'primary.main',
@@ -399,8 +399,8 @@ const HelpCenter = () => {
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                     Available 24/7
                   </Typography>
-                  <Button 
-                    variant="outlined" 
+                  <Button
+                    variant="outlined"
                     fullWidth
                     onClick={() => window.location.href = 'tel:+18007296984'}
                   >
@@ -412,10 +412,10 @@ const HelpCenter = () => {
             <Grid item xs={12} sm={4}>
               <Card elevation={2} sx={{ height: '100%', borderRadius: 2 }}>
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <IconButton 
-                    sx={{ 
-                      backgroundColor: 'primary.light', 
-                      color: 'white', 
+                  <IconButton
+                    sx={{
+                      backgroundColor: 'primary.light',
+                      color: 'white',
                       mb: 2,
                       '&:hover': {
                         backgroundColor: 'primary.main',
@@ -430,8 +430,8 @@ const HelpCenter = () => {
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                     Instant assistance
                   </Typography>
-                  <Button 
-                    variant="outlined" 
+                  <Button
+                    variant="outlined"
                     fullWidth
                     onClick={() => console.log('Open chat')}
                   >
@@ -441,7 +441,7 @@ const HelpCenter = () => {
               </Card>
             </Grid>
           </Grid>
-          
+
           <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-start' }}>
             <Button
               onClick={handleReset}
@@ -458,8 +458,8 @@ const HelpCenter = () => {
   return (
     <Box sx={{ overflow: 'hidden' }}>
       {/* Hero Section */}
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
           color: 'white',
           pt: { xs: 8, md: 12 },
@@ -470,10 +470,10 @@ const HelpCenter = () => {
       >
         <Container maxWidth="lg">
           <Box sx={{ textAlign: 'center', maxWidth: 800, mx: 'auto' }}>
-            <Typography 
-              variant="h2" 
-              component="h1" 
-              sx={{ 
+            <Typography
+              variant="h2"
+              component="h1"
+              sx={{
                 fontWeight: 'bold',
                 mb: 2,
                 fontSize: { xs: '2.5rem', md: '3.5rem' }
@@ -481,9 +481,9 @@ const HelpCenter = () => {
             >
               How Can We Help You?
             </Typography>
-            <Typography 
-              variant="h5" 
-              sx={{ 
+            <Typography
+              variant="h5"
+              sx={{
                 mb: 5,
                 opacity: 0.9,
                 lineHeight: 1.5
@@ -491,12 +491,12 @@ const HelpCenter = () => {
             >
               Find answers to your questions and get the support you need
             </Typography>
-            
-            <Paper 
+
+            <Paper
               component="form"
               onSubmit={handleSearchSubmit}
-              elevation={3} 
-              sx={{ 
+              elevation={3}
+              sx={{
                 p: 0.5,
                 display: 'flex',
                 alignItems: 'center',
@@ -518,7 +518,7 @@ const HelpCenter = () => {
                 InputProps={{
                   disableUnderline: true,
                 }}
-                sx={{ 
+                sx={{
                   ml: 1,
                   flex: 1,
                   '& .MuiInputBase-input': {
@@ -526,10 +526,10 @@ const HelpCenter = () => {
                   }
                 }}
               />
-              <Button 
+              <Button
                 type="submit"
                 variant="contained"
-                sx={{ 
+                sx={{
                   borderRadius: 8,
                   px: 3,
                   py: 1.5,
@@ -542,10 +542,10 @@ const HelpCenter = () => {
             </Paper>
           </Box>
         </Container>
-        
+
         {/* Decorative elements */}
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             position: 'absolute',
             top: -100,
             right: -100,
@@ -554,10 +554,10 @@ const HelpCenter = () => {
             borderRadius: '50%',
             background: 'rgba(255,255,255,0.1)',
             zIndex: 0
-          }} 
+          }}
         />
-        <Box 
-          sx={{ 
+        <Box
+          sx={{
             position: 'absolute',
             bottom: -150,
             left: -150,
@@ -566,7 +566,7 @@ const HelpCenter = () => {
             borderRadius: '50%',
             background: 'rgba(255,255,255,0.05)',
             zIndex: 0
-          }} 
+          }}
         />
       </Box>
 
@@ -575,9 +575,9 @@ const HelpCenter = () => {
         <Grid container spacing={4}>
           {categories.map((category, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
-              <Card 
+              <Card
                 elevation={3}
-                sx={{ 
+                sx={{
                   height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
@@ -590,8 +590,8 @@ const HelpCenter = () => {
                   }
                 }}
               >
-                <Box 
-                  sx={{ 
+                <Box
+                  sx={{
                     p: 3,
                     backgroundColor: 'primary.light',
                     color: 'white',
@@ -613,8 +613,8 @@ const HelpCenter = () => {
                     <Typography variant="caption" color="text.secondary">
                       {category.articles} articles
                     </Typography>
-                    <Button 
-                      size="small" 
+                    <Button
+                      size="small"
                       endIcon={<ArrowForwardIcon />}
                       onClick={() => console.log(`Navigate to ${category.title}`)}
                     >
@@ -635,10 +635,10 @@ const HelpCenter = () => {
             <Typography variant="h3" component="h2" sx={{ fontWeight: 'bold', mb: 2 }}>
               Popular Articles
             </Typography>
-            <Typography 
-              variant="h6" 
+            <Typography
+              variant="h6"
               color="text.secondary"
-              sx={{ 
+              sx={{
                 maxWidth: 700,
                 mx: 'auto',
                 lineHeight: 1.6
@@ -651,9 +651,9 @@ const HelpCenter = () => {
           <Grid container spacing={4}>
             {popularArticles.map((article, index) => (
               <Grid item xs={12} md={6} key={index}>
-                <Card 
+                <Card
                   elevation={1}
-                  sx={{ 
+                  sx={{
                     display: 'flex',
                     borderRadius: 2,
                     transition: 'transform 0.2s',
@@ -676,10 +676,10 @@ const HelpCenter = () => {
                       </Typography>
                     </Box>
                   </CardContent>
-                  <Box 
-                    sx={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
                       pr: 2,
                       color: 'primary.main'
                     }}
@@ -690,15 +690,15 @@ const HelpCenter = () => {
               </Grid>
             ))}
           </Grid>
-          
+
           <Box sx={{ textAlign: 'center', mt: 6 }}>
-            <Button 
-              variant="outlined" 
+            <Button
+              variant="outlined"
               size="large"
               endIcon={<ArrowForwardIcon />}
               onClick={() => console.log('View all articles')}
-              sx={{ 
-                py: 1.5, 
+              sx={{
+                py: 1.5,
                 px: 4,
                 borderRadius: 8
               }}
@@ -719,7 +719,7 @@ const HelpCenter = () => {
             <Typography variant="body1" color="text.secondary" sx={{ mb: 4, lineHeight: 1.7 }}>
               Having an issue? Our step-by-step troubleshooter will help you identify and resolve common problems quickly.
             </Typography>
-            
+
             {success ? (
               <Box sx={{ textAlign: 'center', py: 4 }}>
                 <CheckCircleIcon color="success" sx={{ fontSize: 60, mb: 2 }} />
@@ -729,8 +729,8 @@ const HelpCenter = () => {
                 <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
                   We're glad we could help you resolve your issue.
                 </Typography>
-                <Button 
-                  variant="contained" 
+                <Button
+                  variant="contained"
                   color="primary"
                   onClick={handleReset}
                 >
@@ -758,11 +758,11 @@ const HelpCenter = () => {
             )}
           </Grid>
           <Grid item xs={12} md={7}>
-            <Box 
+            <Box
               component="img"
               src="https://cdn.pixabay.com/photo/2017/07/31/11/21/people-2557396_1280.jpg"
               alt="Customer Support"
-              sx={{ 
+              sx={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
@@ -781,10 +781,10 @@ const HelpCenter = () => {
             <Typography variant="h3" component="h2" sx={{ fontWeight: 'bold', mb: 2 }}>
               Still Need Help?
             </Typography>
-            <Typography 
-              variant="h6" 
+            <Typography
+              variant="h6"
               color="text.secondary"
-              sx={{ 
+              sx={{
                 maxWidth: 700,
                 mx: 'auto',
                 lineHeight: 1.6
@@ -797,8 +797,8 @@ const HelpCenter = () => {
           <Grid container spacing={4} justifyContent="center">
             <Grid item xs={12} sm={6} md={4}>
               <Card elevation={2} sx={{ height: '100%', borderRadius: 4, textAlign: 'center', p: 3 }}>
-                <Box 
-                  sx={{ 
+                <Box
+                  sx={{
                     width: 80,
                     height: 80,
                     borderRadius: '50%',
@@ -822,12 +822,12 @@ const HelpCenter = () => {
                 <Typography variant="body1" sx={{ fontWeight: 'medium', mb: 3 }}>
                   support@paynext.com
                 </Typography>
-                <Button 
-                  variant="outlined" 
+                <Button
+                  variant="outlined"
                   fullWidth
                   size="large"
                   onClick={() => window.location.href = 'mailto:support@paynext.com'}
-                  sx={{ 
+                  sx={{
                     py: 1.5,
                     borderRadius: 8
                   }}
@@ -838,8 +838,8 @@ const HelpCenter = () => {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <Card elevation={2} sx={{ height: '100%', borderRadius: 4, textAlign: 'center', p: 3 }}>
-                <Box 
-                  sx={{ 
+                <Box
+                  sx={{
                     width: 80,
                     height: 80,
                     borderRadius: '50%',
@@ -863,12 +863,12 @@ const HelpCenter = () => {
                 <Typography variant="body1" sx={{ fontWeight: 'medium', mb: 3 }}>
                   +1 (800) PAY-NEXT
                 </Typography>
-                <Button 
-                  variant="outlined" 
+                <Button
+                  variant="outlined"
                   fullWidth
                   size="large"
                   onClick={() => window.location.href = 'tel:+18007296984'}
-                  sx={{ 
+                  sx={{
                     py: 1.5,
                     borderRadius: 8
                   }}
@@ -882,8 +882,8 @@ const HelpCenter = () => {
       </Box>
 
       {/* CTA Section */}
-      <Box 
-        sx={{ 
+      <Box
+        sx={{
           background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
           color: 'white',
           py: { xs: 8, md: 10 },
@@ -891,19 +891,19 @@ const HelpCenter = () => {
         }}
       >
         <Container maxWidth="md">
-          <Typography 
-            variant="h3" 
-            component="h2" 
-            sx={{ 
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{
               fontWeight: 'bold',
-              mb: 3 
+              mb: 3
             }}
           >
             Ready to Get Started?
           </Typography>
-          <Typography 
-            variant="h6" 
-            sx={{ 
+          <Typography
+            variant="h6"
+            sx={{
               mb: 5,
               opacity: 0.9,
               maxWidth: 700,
@@ -913,13 +913,13 @@ const HelpCenter = () => {
             Join thousands of users who trust PayNext for their payment needs. Sign up today and experience the future of payments.
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
-            <Button 
-              variant="contained" 
-              color="secondary" 
+            <Button
+              variant="contained"
+              color="secondary"
               size="large"
               onClick={() => navigate('/register')}
-              sx={{ 
-                py: 1.5, 
+              sx={{
+                py: 1.5,
                 px: 4,
                 fontSize: '1.1rem',
                 fontWeight: 'bold',
@@ -928,12 +928,12 @@ const HelpCenter = () => {
             >
               Create Account
             </Button>
-            <Button 
-              variant="outlined" 
+            <Button
+              variant="outlined"
               size="large"
               onClick={() => navigate('/about')}
-              sx={{ 
-                py: 1.5, 
+              sx={{
+                py: 1.5,
                 px: 4,
                 fontSize: '1.1rem',
                 color: 'white',

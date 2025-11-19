@@ -178,7 +178,7 @@ jobs:
           kubectl apply -f kubernetes/user-service-deployment.yaml
           kubectl apply -f kubernetes/payment-service-deployment.yaml
           kubectl apply -f kubernetes/notification-service-deployment.yaml
-          
+
       - name: Verify deployments
         run: |
           kubectl rollout status deployment/eureka-server
