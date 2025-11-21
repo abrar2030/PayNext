@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useState } from "react";
-import { QRCodeCanvas } from 'qrcode.react';
+import { QRCodeCanvas } from "qrcode.react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { Copy } from "lucide-react";
 
 // Define the form schema using Zod
@@ -57,9 +63,10 @@ export default function RequestPage() {
 
   const copyToClipboard = () => {
     if (qrValue) {
-      navigator.clipboard.writeText(qrValue)
+      navigator.clipboard
+        .writeText(qrValue)
         .then(() => toast.success("Payment link copied to clipboard!"))
-        .catch(err => toast.error("Failed to copy link."));
+        .catch((err) => toast.error("Failed to copy link."));
     }
   };
 
@@ -80,7 +87,12 @@ export default function RequestPage() {
                   <FormItem>
                     <FormLabel>Amount ($)</FormLabel>
                     <FormControl>
-                      <Input type="number" step="0.01" placeholder="0.00" {...field} />
+                      <Input
+                        type="number"
+                        step="0.01"
+                        placeholder="0.00"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -99,7 +111,9 @@ export default function RequestPage() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">Generate Request QR Code</Button>
+              <Button type="submit" className="w-full">
+                Generate Request QR Code
+              </Button>
             </form>
           </Form>
         </CardContent>
@@ -122,7 +136,11 @@ export default function RequestPage() {
             <p className="text-xs text-muted-foreground break-all">{qrValue}</p>
           </CardContent>
           <CardFooter>
-            <Button variant="outline" className="w-full" onClick={copyToClipboard}>
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={copyToClipboard}
+            >
               <Copy className="mr-2 h-4 w-4" /> Copy Payment Link
             </Button>
           </CardFooter>

@@ -5,12 +5,14 @@ The frontend of PayNext is built using React and provides a user interface for u
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js (v14 or higher)
 - npm or yarn
 
 ### Installation
 
 1. Clone the repository:
+
    ```sh
    git clone https://github.com/abrar2030/PayNext.git
    cd PayNext/frontend
@@ -51,8 +53,8 @@ The production-ready files will be generated in the `build` folder.
 
 - `public/`: Static files such as HTML, manifest, and images.
 - `src/`: Contains all the main application files.
-    - `components/`: UI components grouped into different feature areas.
-    - `services/`: Utility services used for API calls.
+  - `components/`: UI components grouped into different feature areas.
+  - `services/`: Utility services used for API calls.
 
 ### Available Scripts
 

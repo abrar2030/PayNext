@@ -1,5 +1,4 @@
 ---
-
 motd_message: "Welcome to the PayNext Project!"
 packages:
   - git

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import UserService from '../../services/UserService';
-import './Profile.css';
+import React, { useState, useEffect } from "react";
+import UserService from "../../services/UserService";
+import "./Profile.css";
 
 const Profile = () => {
   const [user, setUser] = useState({});
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -13,7 +13,7 @@ const Profile = () => {
         const data = await UserService.getUserProfile();
         setUser(data);
       } catch (err) {
-        setErrorMessage('Failed to load user profile.');
+        setErrorMessage("Failed to load user profile.");
       }
     };
 
@@ -22,13 +22,13 @@ const Profile = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    setSuccessMessage('');
-    setErrorMessage('');
+    setSuccessMessage("");
+    setErrorMessage("");
     try {
       await UserService.updateUserProfile(user);
-      setSuccessMessage('Profile updated successfully!');
+      setSuccessMessage("Profile updated successfully!");
     } catch (err) {
-      setErrorMessage('Failed to update profile. Please try again.');
+      setErrorMessage("Failed to update profile. Please try again.");
     }
   };
 
@@ -44,7 +44,7 @@ const Profile = () => {
             <input
               type="text"
               className="form-input"
-              value={user.name || ''}
+              value={user.name || ""}
               onChange={(e) => setUser({ ...user, name: e.target.value })}
               required
               placeholder="Enter your name"
@@ -55,7 +55,7 @@ const Profile = () => {
             <input
               type="email"
               className="form-input"
-              value={user.email || ''}
+              value={user.email || ""}
               onChange={(e) => setUser({ ...user, email: e.target.value })}
               required
               placeholder="Enter your email"

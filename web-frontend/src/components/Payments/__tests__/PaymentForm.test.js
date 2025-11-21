@@ -1,13 +1,13 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import PaymentForm from '../PaymentForm';
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import PaymentForm from "../PaymentForm";
 
 // Mock the PaymentService if it's used for API calls
-jest.mock('../../../services/PaymentService');
+jest.mock("../../../services/PaymentService");
 
-describe('PaymentForm Component', () => {
-  test('renders payment form correctly', () => {
+describe("PaymentForm Component", () => {
+  test("renders payment form correctly", () => {
     render(<PaymentForm />);
 
     // Check if essential form elements are present
@@ -15,22 +15,26 @@ describe('PaymentForm Component', () => {
     expect(screen.getByLabelText(/amount/i)).toBeInTheDocument();
     // Assuming a currency selector might not have a direct label, find by role or testid if needed
     // expect(screen.getByLabelText(/currency/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /send payment/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /send payment/i }),
+    ).toBeInTheDocument();
   });
 
-  test('allows user to input payment details', () => {
+  test("allows user to input payment details", () => {
     render(<PaymentForm />);
 
     const recipientInput = screen.getByLabelText(/recipient/i);
     const amountInput = screen.getByLabelText(/amount/i);
     // const currencySelect = screen.getByLabelText(/currency/i); // Adjust selector if needed
 
-    fireEvent.change(recipientInput, { target: { value: 'recipient@example.com' } });
-    fireEvent.change(amountInput, { target: { value: '100' } });
+    fireEvent.change(recipientInput, {
+      target: { value: "recipient@example.com" },
+    });
+    fireEvent.change(amountInput, { target: { value: "100" } });
     // fireEvent.change(currencySelect, { target: { value: 'USD' } }); // Example for select
 
-    expect(recipientInput.value).toBe('recipient@example.com');
-    expect(amountInput.value).toBe('100');
+    expect(recipientInput.value).toBe("recipient@example.com");
+    expect(amountInput.value).toBe("100");
     // expect(currencySelect.value).toBe('USD');
   });
 

@@ -8,42 +8,42 @@ spec:
     matchLabels:
       app: api-gateway
   ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          app: frontend
-    ports:
-    - protocol: TCP
-      port: 8002
+    - from:
+        - podSelector:
+            matchLabels:
+              app: frontend
+      ports:
+        - protocol: TCP
+          port: 8002
   egress:
-  - to:
-    - podSelector:
-        matchLabels:
-          app: eureka-server
-    ports:
-    - protocol: TCP
-      port: 8001
-  - to:
-    - podSelector:
-        matchLabels:
-          app: user-service
-    ports:
-    - protocol: TCP
-      port: 8003
-  - to:
-    - podSelector:
-        matchLabels:
-          app: payment-service
-    ports:
-    - protocol: TCP
-      port: 8004
-  - to:
-    - podSelector:
-        matchLabels:
-          app: notification-service
-    ports:
-    - protocol: TCP
-      port: 8005
+    - to:
+        - podSelector:
+            matchLabels:
+              app: eureka-server
+      ports:
+        - protocol: TCP
+          port: 8001
+    - to:
+        - podSelector:
+            matchLabels:
+              app: user-service
+      ports:
+        - protocol: TCP
+          port: 8003
+    - to:
+        - podSelector:
+            matchLabels:
+              app: payment-service
+      ports:
+        - protocol: TCP
+          port: 8004
+    - to:
+        - podSelector:
+            matchLabels:
+              app: notification-service
+      ports:
+        - protocol: TCP
+          port: 8005
   policyTypes:
-  - Ingress
-  - Egress
+    - Ingress
+    - Egress

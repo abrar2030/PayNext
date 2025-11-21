@@ -1,12 +1,11 @@
 ---
-
 - name: Copy Payment Service application jar
   copy:
     src: /path/to/payment-service.jar
     dest: /opt/payment-service/payment-service.jar
     owner: root
     group: root
-    mode: '0755'
+    mode: "0755"
 - name: Install dependencies
   ansible.builtin.yum:
     name: "{{ item }}"
@@ -18,7 +17,7 @@
   template:
     src: payment-service.env.j2
     dest: /etc/payment-service.env
-    mode: '0644'
+    mode: "0644"
 - name: Create Payment Service systemd service file
   template:
     src: payment-service.service.j2

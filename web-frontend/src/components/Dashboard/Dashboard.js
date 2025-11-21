@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Dashboard.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Dashboard.css";
 
 const Dashboard = () => {
   return (

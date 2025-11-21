@@ -1,4 +1,3 @@
 ---
-
 eureka_server_hostname: "eureka-server"
 eureka_client_service_url: "http://eureka-server:8761/eureka"

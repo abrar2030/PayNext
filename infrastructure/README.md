@@ -59,18 +59,21 @@ The infrastructure follows a multi-tier architecture with the following componen
 ## Security Features
 
 ### Encryption
+
 - **At Rest**: All data encrypted using AWS KMS with customer-managed keys
 - **In Transit**: TLS 1.2+ enforced for all communications
 - **Database**: Aurora cluster encrypted with KMS
 - **Storage**: S3 buckets encrypted with KMS
 
 ### Access Control
+
 - **IAM**: Least privilege access with role-based permissions
 - **MFA**: Multi-factor authentication required for sensitive operations
 - **Network**: Private subnets for application and database tiers
 - **Security Groups**: Restrictive ingress/egress rules
 
 ### Monitoring & Compliance
+
 - **Audit Logging**: Comprehensive audit trail with CloudTrail
 - **Threat Detection**: GuardDuty for security monitoring
 - **Compliance**: AWS Config rules for compliance validation
@@ -176,6 +179,7 @@ The security module provides foundational security services:
 - **IAM**: Service roles with least privilege access
 
 **Usage:**
+
 ```hcl
 module "security" {
   source = "./modules/security"
@@ -196,6 +200,7 @@ The VPC module creates a secure network foundation:
 - **VPC Endpoints**: Private connectivity to AWS services
 
 **Usage:**
+
 ```hcl
 module "vpc" {
   source = "./modules/vpc"
@@ -218,6 +223,7 @@ The monitoring module provides comprehensive observability:
 - **CloudTrail**: API audit logging
 
 **Usage:**
+
 ```hcl
 module "monitoring" {
   source = "./modules/monitoring"
@@ -241,6 +247,7 @@ The Kubernetes module deploys a secure EKS cluster:
 - **Security**: Pod security policies and network policies
 
 **Usage:**
+
 ```hcl
 module "kubernetes" {
   source = "./modules/kubernetes"
@@ -266,6 +273,7 @@ The database module provides a secure, highly available database:
 - **Monitoring**: Performance Insights and Enhanced Monitoring
 
 **Usage:**
+
 ```hcl
 module "database" {
   source = "./modules/database"
@@ -291,6 +299,7 @@ The storage module provides secure, scalable storage:
 - **EFS**: Shared file storage for Kubernetes
 
 **Usage:**
+
 ```hcl
 module "storage" {
   source = "./modules/storage"
@@ -307,18 +316,21 @@ module "storage" {
 ## Deployment Environments
 
 ### Development Environment
+
 - Single AZ deployment for cost optimization
 - Smaller instance sizes
 - Reduced backup retention
 - Public access enabled for testing
 
 ### Staging Environment
+
 - Multi-AZ deployment
 - Production-like configuration
 - Extended backup retention
 - Private access only
 
 ### Production Environment
+
 - Multi-AZ deployment with maximum availability
 - Large instance sizes for performance
 - Maximum backup retention (7 years)
@@ -328,24 +340,28 @@ module "storage" {
 ## Security Best Practices
 
 ### Network Security
+
 1. **Private Subnets**: Application and database tiers in private subnets
 2. **Security Groups**: Restrictive rules with least privilege access
 3. **NACLs**: Additional layer of network security
 4. **VPC Flow Logs**: Network traffic monitoring
 
 ### Data Protection
+
 1. **Encryption**: All data encrypted at rest and in transit
 2. **Key Management**: Customer-managed KMS keys
 3. **Backup Encryption**: Encrypted backups with long-term retention
 4. **Access Logging**: Comprehensive audit trail
 
 ### Access Control
+
 1. **IAM Roles**: Service-specific roles with minimal permissions
 2. **MFA**: Multi-factor authentication for sensitive operations
 3. **Secrets Management**: Centralized credential management
 4. **Regular Rotation**: Automated credential rotation
 
 ### Monitoring & Alerting
+
 1. **Real-time Monitoring**: CloudWatch metrics and alarms
 2. **Security Monitoring**: GuardDuty threat detection
 3. **Compliance Monitoring**: Config rules and assessments
@@ -354,18 +370,21 @@ module "storage" {
 ## Disaster Recovery
 
 ### Backup Strategy
+
 - **RDS**: Automated backups with 35-day retention
 - **S3**: Cross-region replication to DR region
 - **EBS**: Automated snapshots
 - **Configuration**: Infrastructure as Code for rapid recovery
 
 ### Recovery Procedures
+
 1. **Database Recovery**: Point-in-time recovery from backups
 2. **Application Recovery**: Deploy from Infrastructure as Code
 3. **Data Recovery**: Restore from cross-region replicas
 4. **Network Recovery**: Recreate VPC and networking
 
 ### RTO/RPO Targets
+
 - **RTO (Recovery Time Objective)**: 4 hours
 - **RPO (Recovery Point Objective)**: 1 hour
 - **Data Retention**: 7 years for compliance
@@ -373,16 +392,19 @@ module "storage" {
 ## Cost Optimization
 
 ### Storage Optimization
+
 - **S3 Lifecycle Policies**: Automatic transition to cheaper storage classes
 - **Intelligent Tiering**: Automatic optimization based on access patterns
 - **EBS Optimization**: GP3 volumes for better price/performance
 
 ### Compute Optimization
+
 - **Auto Scaling**: Automatic scaling based on demand
 - **Spot Instances**: Use spot instances for non-critical workloads
 - **Reserved Instances**: Reserved capacity for predictable workloads
 
 ### Monitoring Costs
+
 - **Cost Allocation Tags**: Track costs by service and environment
 - **Budgets**: Set up billing alerts and budgets
 - **Cost Explorer**: Regular cost analysis and optimization
@@ -392,6 +414,7 @@ module "storage" {
 ### Common Issues
 
 #### Terraform Apply Fails
+
 ```bash
 # Check AWS credentials
 aws sts get-caller-identity
@@ -404,6 +427,7 @@ terraform init -upgrade
 ```
 
 #### EKS Cluster Access Issues
+
 ```bash
 # Update kubeconfig
 aws eks update-kubeconfig --region <region> --name <cluster-name>
@@ -413,6 +437,7 @@ kubectl get nodes
 ```
 
 #### Database Connection Issues
+
 ```bash
 # Check security groups
 aws ec2 describe-security-groups --group-ids <sg-id>
@@ -424,11 +449,13 @@ telnet <rds-endpoint> 5432
 ### Logs and Monitoring
 
 #### CloudWatch Logs
+
 - Application logs: `/aws/paynext/<env>/application`
 - Security logs: `/aws/paynext/<env>/security`
 - Audit logs: `/aws/paynext/<env>/audit`
 
 #### CloudTrail Events
+
 - API calls: CloudTrail console
 - Security events: GuardDuty console
 - Compliance: Config console
@@ -436,12 +463,14 @@ telnet <rds-endpoint> 5432
 ## Maintenance
 
 ### Regular Tasks
+
 1. **Security Updates**: Apply security patches monthly
 2. **Backup Verification**: Test backup restoration quarterly
 3. **Access Review**: Review IAM permissions quarterly
 4. **Cost Review**: Analyze costs monthly
 
 ### Automated Tasks
+
 1. **Backup Creation**: Daily automated backups
 2. **Log Rotation**: Automatic log retention policies
 3. **Certificate Renewal**: Automatic SSL certificate renewal
@@ -450,16 +479,19 @@ telnet <rds-endpoint> 5432
 ## Support
 
 ### Documentation
+
 - [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/)
 - [Terraform Documentation](https://www.terraform.io/docs/)
 - [Kubernetes Documentation](https://kubernetes.io/docs/)
 
 ### Monitoring Dashboards
+
 - CloudWatch Dashboard: `PayNext-<environment>-Dashboard`
 - Grafana Dashboard: Available after deployment
 - Cost Dashboard: AWS Cost Explorer
 
 ### Contact Information
+
 - **Security Issues**: security@yourcompany.com
 - **Compliance Questions**: compliance@yourcompany.com
 - **Technical Support**: platform-team@yourcompany.com

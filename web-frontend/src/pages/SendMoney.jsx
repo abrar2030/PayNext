@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -23,8 +23,8 @@ import {
   Alert,
   Divider,
   Avatar,
-  useTheme
-} from '@mui/material';
+  useTheme,
+} from "@mui/material";
 import {
   Person as PersonIcon,
   Search as SearchIcon,
@@ -32,11 +32,11 @@ import {
   Check as CheckIcon,
   AccountBalance as AccountBalanceIcon,
   CreditCard as CreditCardIcon,
-  AttachMoney as AttachMoneyIcon
-} from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import { paymentService, simulateApiCall } from '../services/api';
-import { AnimatedElement } from '../components/AnimationComponents';
+  AttachMoney as AttachMoneyIcon,
+} from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { paymentService, simulateApiCall } from "../services/api";
+import { AnimatedElement } from "../components/AnimationComponents";
 
 const SendMoney = () => {
   const theme = useTheme();
@@ -44,46 +44,71 @@ const SendMoney = () => {
 
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
-    recipient: '',
-    amount: '',
-    paymentMethod: 'card',
-    note: ''
+    recipient: "",
+    amount: "",
+    paymentMethod: "card",
+    note: "",
   });
 
   const [searchResults, setSearchResults] = useState([
-    { id: 'user1', name: 'John Smith', email: 'john.smith@example.com', avatar: 'JS' },
-    { id: 'user2', name: 'Sarah Johnson', email: 'sarah.j@example.com', avatar: 'SJ' },
-    { id: 'user3', name: 'Michael Chen', email: 'mchen@example.com', avatar: 'MC' }
+    {
+      id: "user1",
+      name: "John Smith",
+      email: "john.smith@example.com",
+      avatar: "JS",
+    },
+    {
+      id: "user2",
+      name: "Sarah Johnson",
+      email: "sarah.j@example.com",
+      avatar: "SJ",
+    },
+    {
+      id: "user3",
+      name: "Michael Chen",
+      email: "mchen@example.com",
+      avatar: "MC",
+    },
   ]);
 
   const [paymentMethods, setPaymentMethods] = useState([
-    { id: 'card1', type: 'card', name: 'Visa ending in 4242', icon: <CreditCardIcon /> },
-    { id: 'bank1', type: 'bank', name: 'Chase Bank ****6789', icon: <AccountBalanceIcon /> }
+    {
+      id: "card1",
+      type: "card",
+      name: "Visa ending in 4242",
+      icon: <CreditCardIcon />,
+    },
+    {
+      id: "bank1",
+      type: "bank",
+      name: "Chase Bank ****6789",
+      icon: <AccountBalanceIcon />,
+    },
   ]);
 
   const handleNext = () => {
     if (activeStep === 0 && !formData.recipient) {
-      setError('Please select a recipient');
+      setError("Please select a recipient");
       return;
     }
 
     if (activeStep === 1) {
       if (!formData.amount) {
-        setError('Please enter an amount');
+        setError("Please enter an amount");
         return;
       }
 
       if (isNaN(formData.amount) || parseFloat(formData.amount) <= 0) {
-        setError('Please enter a valid amount');
+        setError("Please enter a valid amount");
         return;
       }
     }
 
-    setError('');
+    setError("");
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -95,27 +120,27 @@ const SendMoney = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   const handleRecipientSelect = (recipient) => {
     setFormData({
       ...formData,
-      recipient: recipient
+      recipient: recipient,
     });
   };
 
   const handlePaymentMethodSelect = (method) => {
     setFormData({
       ...formData,
-      paymentMethod: method
+      paymentMethod: method,
     });
   };
 
   const handleSubmit = async () => {
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       // In a real implementation, this would call the backend
@@ -127,28 +152,28 @@ const SendMoney = () => {
       setSuccess(true);
       setLoading(false);
     } catch (err) {
-      setError('Failed to process payment. Please try again.');
+      setError("Failed to process payment. Please try again.");
       setLoading(false);
     }
   };
 
   const handleSearchChange = (e) => {
     // In a real implementation, this would search users from the backend
-    console.log('Searching for:', e.target.value);
+    console.log("Searching for:", e.target.value);
   };
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
     }).format(amount);
   };
 
   const steps = [
     {
-      label: 'Select Recipient',
-      description: 'Choose who you want to send money to.',
+      label: "Select Recipient",
+      description: "Choose who you want to send money to.",
       content: (
         <Box sx={{ mt: 2 }}>
           <TextField
@@ -166,7 +191,7 @@ const SendMoney = () => {
             sx={{ mb: 3 }}
           />
 
-          <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 'medium' }}>
+          <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: "medium" }}>
             Recent Recipients
           </Typography>
 
@@ -174,39 +199,56 @@ const SendMoney = () => {
             {searchResults.map((user) => (
               <Grid item xs={12} sm={6} md={4} key={user.id}>
                 <Card
-                  elevation={formData.recipient && formData.recipient.id === user.id ? 3 : 1}
+                  elevation={
+                    formData.recipient && formData.recipient.id === user.id
+                      ? 3
+                      : 1
+                  }
                   sx={{
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     borderRadius: 2,
-                    border: formData.recipient && formData.recipient.id === user.id ? `2px solid ${theme.palette.primary.main}` : 'none',
-                    transition: 'all 0.2s',
-                    '&:hover': {
-                      transform: 'translateY(-4px)',
-                      boxShadow: 3
-                    }
+                    border:
+                      formData.recipient && formData.recipient.id === user.id
+                        ? `2px solid ${theme.palette.primary.main}`
+                        : "none",
+                    transition: "all 0.2s",
+                    "&:hover": {
+                      transform: "translateY(-4px)",
+                      boxShadow: 3,
+                    },
                   }}
                   onClick={() => handleRecipientSelect(user)}
                 >
-                  <CardContent sx={{ display: 'flex', alignItems: 'center', p: 2 }}>
+                  <CardContent
+                    sx={{ display: "flex", alignItems: "center", p: 2 }}
+                  >
                     <Avatar
                       sx={{
-                        bgcolor: formData.recipient && formData.recipient.id === user.id ? 'primary.main' : 'primary.light',
-                        mr: 2
+                        bgcolor:
+                          formData.recipient &&
+                          formData.recipient.id === user.id
+                            ? "primary.main"
+                            : "primary.light",
+                        mr: 2,
                       }}
                     >
                       {user.avatar}
                     </Avatar>
                     <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 'medium' }}>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ fontWeight: "medium" }}
+                      >
                         {user.name}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {user.email}
                       </Typography>
                     </Box>
-                    {formData.recipient && formData.recipient.id === user.id && (
-                      <CheckIcon color="primary" sx={{ ml: 'auto' }} />
-                    )}
+                    {formData.recipient &&
+                      formData.recipient.id === user.id && (
+                        <CheckIcon color="primary" sx={{ ml: "auto" }} />
+                      )}
                   </CardContent>
                 </Card>
               </Grid>
@@ -219,7 +261,7 @@ const SendMoney = () => {
             </Alert>
           )}
 
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
+          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
             <Button
               variant="contained"
               onClick={handleNext}
@@ -230,11 +272,11 @@ const SendMoney = () => {
             </Button>
           </Box>
         </Box>
-      )
+      ),
     },
     {
-      label: 'Enter Amount',
-      description: 'Specify how much money you want to send.',
+      label: "Enter Amount",
+      description: "Specify how much money you want to send.",
       content: (
         <Box sx={{ mt: 2 }}>
           <TextField
@@ -247,9 +289,7 @@ const SendMoney = () => {
             type="number"
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">
-                  $
-                </InputAdornment>
+                <InputAdornment position="start">$</InputAdornment>
               ),
             }}
             sx={{ mb: 3 }}
@@ -273,12 +313,8 @@ const SendMoney = () => {
             </Alert>
           )}
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
-            <Button
-              onClick={handleBack}
-            >
-              Back
-            </Button>
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>
+            <Button onClick={handleBack}>Back</Button>
             <Button
               variant="contained"
               onClick={handleNext}
@@ -288,15 +324,17 @@ const SendMoney = () => {
             </Button>
           </Box>
         </Box>
-      )
+      ),
     },
     {
-      label: 'Select Payment Method',
-      description: 'Choose how you want to pay.',
+      label: "Select Payment Method",
+      description: "Choose how you want to pay.",
       content: (
         <Box sx={{ mt: 2 }}>
-          <FormControl component="fieldset" sx={{ width: '100%' }}>
-            <FormLabel component="legend" sx={{ mb: 2 }}>Payment Methods</FormLabel>
+          <FormControl component="fieldset" sx={{ width: "100%" }}>
+            <FormLabel component="legend" sx={{ mb: 2 }}>
+              Payment Methods
+            </FormLabel>
             <RadioGroup
               name="paymentMethod"
               value={formData.paymentMethod}
@@ -309,20 +347,25 @@ const SendMoney = () => {
                   sx={{
                     mb: 2,
                     borderRadius: 2,
-                    border: formData.paymentMethod === method.type ? `2px solid ${theme.palette.primary.main}` : 'none',
-                    transition: 'all 0.2s',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: 2
-                    }
+                    border:
+                      formData.paymentMethod === method.type
+                        ? `2px solid ${theme.palette.primary.main}`
+                        : "none",
+                    transition: "all 0.2s",
+                    "&:hover": {
+                      transform: "translateY(-2px)",
+                      boxShadow: 2,
+                    },
                   }}
                 >
                   <FormControlLabel
                     value={method.type}
                     control={<Radio />}
                     label={
-                      <Box sx={{ display: 'flex', alignItems: 'center', py: 1 }}>
-                        <Avatar sx={{ bgcolor: 'primary.light', mr: 2 }}>
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", py: 1 }}
+                      >
+                        <Avatar sx={{ bgcolor: "primary.light", mr: 2 }}>
                           {method.icon}
                         </Avatar>
                         <Typography variant="subtitle1">
@@ -330,18 +373,14 @@ const SendMoney = () => {
                         </Typography>
                       </Box>
                     }
-                    sx={{ width: '100%', m: 0, p: 1 }}
+                    sx={{ width: "100%", m: 0, p: 1 }}
                   />
                 </Paper>
               ))}
             </RadioGroup>
           </FormControl>
 
-          <Button
-            variant="text"
-            color="primary"
-            sx={{ mt: 1, mb: 3 }}
-          >
+          <Button variant="text" color="primary" sx={{ mt: 1, mb: 3 }}>
             + Add New Payment Method
           </Button>
 
@@ -351,12 +390,8 @@ const SendMoney = () => {
             </Alert>
           )}
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
-            <Button
-              onClick={handleBack}
-            >
-              Back
-            </Button>
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>
+            <Button onClick={handleBack}>Back</Button>
             <Button
               variant="contained"
               onClick={handleNext}
@@ -366,15 +401,15 @@ const SendMoney = () => {
             </Button>
           </Box>
         </Box>
-      )
+      ),
     },
     {
-      label: 'Review & Confirm',
-      description: 'Verify the payment details before sending.',
+      label: "Review & Confirm",
+      description: "Verify the payment details before sending.",
       content: (
         <Box sx={{ mt: 2 }}>
           <Paper elevation={1} sx={{ p: 3, borderRadius: 2, mb: 3 }}>
-            <Typography variant="h6" sx={{ mb: 3, fontWeight: 'medium' }}>
+            <Typography variant="h6" sx={{ mb: 3, fontWeight: "medium" }}>
               Payment Summary
             </Typography>
 
@@ -385,11 +420,11 @@ const SendMoney = () => {
                 </Typography>
               </Grid>
               <Grid item xs={8}>
-                <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
-                  {formData.recipient ? formData.recipient.name : ''}
+                <Typography variant="body1" sx={{ fontWeight: "medium" }}>
+                  {formData.recipient ? formData.recipient.name : ""}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {formData.recipient ? formData.recipient.email : ''}
+                  {formData.recipient ? formData.recipient.email : ""}
                 </Typography>
               </Grid>
 
@@ -403,8 +438,8 @@ const SendMoney = () => {
                 </Typography>
               </Grid>
               <Grid item xs={8}>
-                <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
-                  {formData.amount ? formatCurrency(formData.amount) : '$0.00'}
+                <Typography variant="body1" sx={{ fontWeight: "medium" }}>
+                  {formData.amount ? formatCurrency(formData.amount) : "$0.00"}
                 </Typography>
               </Grid>
 
@@ -418,8 +453,9 @@ const SendMoney = () => {
                 </Typography>
               </Grid>
               <Grid item xs={8}>
-                <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
-                  {paymentMethods.find(m => m.type === formData.paymentMethod)?.name || ''}
+                <Typography variant="body1" sx={{ fontWeight: "medium" }}>
+                  {paymentMethods.find((m) => m.type === formData.paymentMethod)
+                    ?.name || ""}
                 </Typography>
               </Grid>
 
@@ -435,9 +471,7 @@ const SendMoney = () => {
                     </Typography>
                   </Grid>
                   <Grid item xs={8}>
-                    <Typography variant="body1">
-                      {formData.note}
-                    </Typography>
+                    <Typography variant="body1">{formData.note}</Typography>
                   </Grid>
                 </>
               )}
@@ -450,31 +484,33 @@ const SendMoney = () => {
             </Alert>
           )}
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
-            <Button
-              onClick={handleBack}
-            >
-              Back
-            </Button>
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>
+            <Button onClick={handleBack}>Back</Button>
             <Button
               variant="contained"
               color="primary"
               onClick={handleSubmit}
               disabled={loading}
-              startIcon={loading ? <CircularProgress size={20} /> : <SendIcon />}
+              startIcon={
+                loading ? <CircularProgress size={20} /> : <SendIcon />
+              }
             >
-              {loading ? 'Processing...' : 'Send Money'}
+              {loading ? "Processing..." : "Send Money"}
             </Button>
           </Box>
         </Box>
-      )
-    }
+      ),
+    },
   ];
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <AnimatedElement>
-        <Typography variant="h4" component="h1" sx={{ mb: 4, fontWeight: 'bold' }}>
+        <Typography
+          variant="h4"
+          component="h1"
+          sx={{ mb: 4, fontWeight: "bold" }}
+        >
           Send Money
         </Typography>
       </AnimatedElement>
@@ -486,34 +522,34 @@ const SendMoney = () => {
             sx={{
               p: 4,
               borderRadius: 4,
-              textAlign: 'center'
+              textAlign: "center",
             }}
           >
             <Avatar
               sx={{
-                bgcolor: 'success.main',
+                bgcolor: "success.main",
                 width: 80,
                 height: 80,
-                mx: 'auto',
-                mb: 3
+                mx: "auto",
+                mb: 3,
               }}
             >
               <CheckIcon sx={{ fontSize: 40 }} />
             </Avatar>
 
-            <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
+            <Typography variant="h5" sx={{ fontWeight: "bold", mb: 2 }}>
               Payment Successful!
             </Typography>
 
             <Typography variant="body1" sx={{ mb: 3 }}>
-              You have successfully sent {formatCurrency(formData.amount)} to {formData.recipient.name}.
+              You have successfully sent {formatCurrency(formData.amount)} to{" "}
+              {formData.recipient.name}.
             </Typography>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 4 }}>
-              <Button
-                variant="outlined"
-                onClick={() => navigate('/dashboard')}
-              >
+            <Box
+              sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 4 }}
+            >
+              <Button variant="outlined" onClick={() => navigate("/dashboard")}>
                 Back to Dashboard
               </Button>
               <Button
@@ -522,10 +558,10 @@ const SendMoney = () => {
                   setSuccess(false);
                   setActiveStep(0);
                   setFormData({
-                    recipient: '',
-                    amount: '',
-                    paymentMethod: 'card',
-                    note: ''
+                    recipient: "",
+                    amount: "",
+                    paymentMethod: "card",
+                    note: "",
                   });
                 }}
               >
@@ -540,19 +576,26 @@ const SendMoney = () => {
             elevation={2}
             sx={{
               p: 3,
-              borderRadius: 4
+              borderRadius: 4,
             }}
           >
             <Stepper activeStep={activeStep} orientation="vertical">
               {steps.map((step, index) => (
                 <Step key={step.label}>
                   <StepLabel>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'medium' }}>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ fontWeight: "medium" }}
+                    >
                       {step.label}
                     </Typography>
                   </StepLabel>
                   <StepContent>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ mb: 2 }}
+                    >
                       {step.description}
                     </Typography>
                     {step.content}

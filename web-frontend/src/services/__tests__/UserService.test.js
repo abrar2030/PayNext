@@ -12,7 +12,10 @@ describe("UserService", () => {
 
   // --- getUserProfile Tests ---
   it("should call the get user profile API endpoint", async () => {
-    const mockResponse = { success: true, user: { id: 1, username: "testuser" } };
+    const mockResponse = {
+      success: true,
+      user: { id: 1, username: "testuser" },
+    };
     api.get.mockResolvedValue(mockResponse);
 
     await UserService.getUserProfile();
@@ -40,7 +43,10 @@ describe("UserService", () => {
 
   // --- updateUserProfile Tests ---
   it("should call the update user profile API endpoint with correct data", async () => {
-    const profileData = { username: "updateduser", email: "updated@example.com" };
+    const profileData = {
+      username: "updateduser",
+      email: "updated@example.com",
+    };
     const mockResponse = { success: true, user: { id: 1, ...profileData } };
     api.put.mockResolvedValue(mockResponse); // Assuming PUT request for update
 
@@ -52,7 +58,10 @@ describe("UserService", () => {
 
   it("should return updated user profile data on successful update", async () => {
     const profileData = { username: "updateduser" };
-    const mockResponse = { success: true, user: { id: 1, email: "test@example.com", ...profileData } };
+    const mockResponse = {
+      success: true,
+      user: { id: 1, email: "test@example.com", ...profileData },
+    };
     api.put.mockResolvedValue(mockResponse);
 
     const result = await UserService.updateUserProfile(profileData);
@@ -65,6 +74,8 @@ describe("UserService", () => {
     const errorMessage = "Failed to update profile";
     api.put.mockRejectedValue(new Error(errorMessage));
 
-    await expect(UserService.updateUserProfile(profileData)).rejects.toThrow(errorMessage);
+    await expect(UserService.updateUserProfile(profileData)).rejects.toThrow(
+      errorMessage,
+    );
   });
 });

@@ -1,5 +1,4 @@
 ---
-
 - name: Restart user-service
   service:
     name: user-service

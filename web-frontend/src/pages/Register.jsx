@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -13,37 +13,37 @@ import {
   Alert,
   Stepper,
   Step,
-  StepLabel
-} from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import { CircularProgress } from '@mui/material';
+  StepLabel,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
-import { authService } from '../services/api';
+import { authService } from "../services/api";
 
 const Register = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phoneNumber: '',
-    address: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: "",
+    address: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const steps = ['Personal Information', 'Account Details', 'Confirmation'];
+  const steps = ["Personal Information", "Account Details", "Confirmation"];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -54,32 +54,32 @@ const Register = () => {
   const handleNext = () => {
     if (activeStep === 0) {
       if (!formData.firstName || !formData.lastName) {
-        setError('Please fill in all required fields');
+        setError("Please fill in all required fields");
         return;
       }
     } else if (activeStep === 1) {
       if (!formData.email || !formData.password || !formData.confirmPassword) {
-        setError('Please fill in all required fields');
+        setError("Please fill in all required fields");
         return;
       }
       if (formData.password !== formData.confirmPassword) {
-        setError('Passwords do not match');
+        setError("Passwords do not match");
         return;
       }
     }
 
-    setError('');
+    setError("");
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    setError('');
+    setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     try {
       setLoading(true);
@@ -96,13 +96,14 @@ const Register = () => {
       await authService.register(userRegistrationData);
 
       // On successful registration, redirect to login
-      navigate('/login');
+      navigate("/login");
     } catch (err) {
-      const errorMessage = err.response && err.response.data
-        ? err.response.data
-        : 'Registration failed. Please try again.';
+      const errorMessage =
+        err.response && err.response.data
+          ? err.response.data
+          : "Registration failed. Please try again.";
       setError(errorMessage);
-      console.error('Registration error:', err);
+      console.error("Registration error:", err);
     } finally {
       setLoading(false);
     }
@@ -169,7 +170,7 @@ const Register = () => {
               fullWidth
               name="password"
               label="Password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               id="password"
               value={formData.password}
               onChange={handleChange}
@@ -185,7 +186,7 @@ const Register = () => {
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
-                )
+                ),
               }}
             />
             <TextField
@@ -194,7 +195,7 @@ const Register = () => {
               fullWidth
               name="confirmPassword"
               label="Confirm Password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               id="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
@@ -243,19 +244,23 @@ const Register = () => {
                 <Typography variant="subtitle1">Phone Number:</Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1">{formData.phoneNumber || 'Not provided'}</Typography>
+                <Typography variant="body1">
+                  {formData.phoneNumber || "Not provided"}
+                </Typography>
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="subtitle1">Address:</Typography>
               </Grid>
               <Grid item xs={6}>
-                <Typography variant="body1">{formData.address || 'Not provided'}</Typography>
+                <Typography variant="body1">
+                  {formData.address || "Not provided"}
+                </Typography>
               </Grid>
             </Grid>
           </Box>
         );
       default:
-        return 'Unknown step';
+        return "Unknown step";
     }
   };
 
@@ -264,13 +269,21 @@ const Register = () => {
       <Box
         sx={{
           marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <Paper elevation={3} sx={{ padding: 4, width: '100%', borderRadius: 2 }}>
-          <Typography component="h1" variant="h5" align="center" sx={{ mb: 3, fontWeight: 'bold' }}>
+        <Paper
+          elevation={3}
+          sx={{ padding: 4, width: "100%", borderRadius: 2 }}
+        >
+          <Typography
+            component="h1"
+            variant="h5"
+            align="center"
+            sx={{ mb: 3, fontWeight: "bold" }}
+          >
             Create Your PayNext Account
           </Typography>
 
@@ -291,7 +304,9 @@ const Register = () => {
           <Box component="form" noValidate>
             {getStepContent(activeStep)}
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+            <Box
+              sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}
+            >
               <Button
                 disabled={activeStep === 0}
                 onClick={handleBack}
@@ -301,19 +316,23 @@ const Register = () => {
               </Button>
 
               {activeStep === steps.length - 1 ? (
-	              <Button
-	                variant="contained"
-	                onClick={handleSubmit}
-	                sx={{ backgroundColor: '#1976d2' }}
-	                disabled={loading}
-	              >
-	                {loading ? <CircularProgress size={24} color="inherit" /> : 'Complete Registration'}
-	              </Button>
+                <Button
+                  variant="contained"
+                  onClick={handleSubmit}
+                  sx={{ backgroundColor: "#1976d2" }}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    "Complete Registration"
+                  )}
+                </Button>
               ) : (
                 <Button
                   variant="contained"
                   onClick={handleNext}
-                  sx={{ backgroundColor: '#1976d2' }}
+                  sx={{ backgroundColor: "#1976d2" }}
                 >
                   Next
                 </Button>

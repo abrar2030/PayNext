@@ -44,13 +44,15 @@ export default function SendPage() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Simulate API call
     console.log("Sending money:", values);
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Simulate success/failure
     const success = Math.random() > 0.2; // 80% success rate
 
     if (success) {
-      toast.success(`Successfully sent $${values.amount.toFixed(2)} to ${values.recipient}!`);
+      toast.success(
+        `Successfully sent $${values.amount.toFixed(2)} to ${values.recipient}!`,
+      );
       form.reset(); // Reset form on success
     } else {
       toast.error("Failed to send money. Please try again.");
@@ -74,10 +76,14 @@ export default function SendPage() {
                   <FormItem>
                     <FormLabel>Recipient</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter recipient name or ID" {...field} />
+                      <Input
+                        placeholder="Enter recipient name or ID"
+                        {...field}
+                      />
                     </FormControl>
                     <FormDescription>
-                      Enter the username, email, or phone number of the recipient.
+                      Enter the username, email, or phone number of the
+                      recipient.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -90,7 +96,12 @@ export default function SendPage() {
                   <FormItem>
                     <FormLabel>Amount ($)</FormLabel>
                     <FormControl>
-                      <Input type="number" step="0.01" placeholder="0.00" {...field} />
+                      <Input
+                        type="number"
+                        step="0.01"
+                        placeholder="0.00"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -109,7 +120,9 @@ export default function SendPage() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">Send Money</Button>
+              <Button type="submit" className="w-full">
+                Send Money
+              </Button>
             </form>
           </Form>
         </CardContent>

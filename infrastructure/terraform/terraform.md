@@ -48,10 +48,10 @@ The IaC directory has the following structure:
 The `main.tf` file serves as the primary entry point for the Terraform configuration. It includes module declarations for VPC, Kubernetes, storage, and services.
 
 - **Modules Included**:
-   - VPC
-   - Kubernetes (EKS Cluster)
-   - Storage (S3 Bucket)
-   - Services (API Gateway, Eureka Server, Notification Service, etc.)
+  - VPC
+  - Kubernetes (EKS Cluster)
+  - Storage (S3 Bucket)
+  - Services (API Gateway, Eureka Server, Notification Service, etc.)
 
 ### 2. `providers.tf`
 
@@ -62,24 +62,24 @@ Defines all the cloud providers that are used in the project, such as AWS, Kuber
 This file contains all the variables required across the Terraform code. Variables make the code more flexible and easier to manage by parameterizing key configuration settings.
 
 - **Example Variables**:
-   - `aws_region`: Defines the AWS region to deploy resources.
-   - `cluster_name`: Defines the EKS cluster name.
+  - `aws_region`: Defines the AWS region to deploy resources.
+  - `cluster_name`: Defines the EKS cluster name.
 
 ### 4. `terraform.tfvars`
 
 This file contains the values assigned to the variables defined in `variables.tf`. It is used to customize the infrastructure configuration.
 
 - **Example Variables Set**:
-   - `aws_region = "us-west-2"`
-   - `cluster_name = "paynext-cluster"`
+  - `aws_region = "us-west-2"`
+  - `cluster_name = "paynext-cluster"`
 
 ### 5. `outputs.tf`
 
 Defines outputs for the infrastructure, allowing values like VPC ID and EKS cluster name to be easily queried after deployment.
 
 - **Example Outputs**:
-   - `vpc_id`: Outputs the ID of the created VPC.
-   - `eks_cluster_name`: Outputs the name of the EKS cluster.
+  - `vpc_id`: Outputs the ID of the created VPC.
+  - `eks_cluster_name`: Outputs the name of the EKS cluster.
 
 ### 6. `vpc/`
 
@@ -102,11 +102,11 @@ Contains the files for configuring the Kubernetes infrastructure.
 Contains separate folders for each microservice in the PayNext project. Each folder includes a `main.tf` file that defines the deployment and service configuration for the corresponding service.
 
 - **Microservices**:
-   - **API Gateway** (`api-gateway/main.tf`)
-   - **Eureka Server** (`eureka-server/main.tf`)
-   - **Notification Service** (`notification-service/main.tf`)
-   - **Payment Service** (`payment-service/main.tf`)
-   - **User Service** (`user-service/main.tf`)
+  - **API Gateway** (`api-gateway/main.tf`)
+  - **Eureka Server** (`eureka-server/main.tf`)
+  - **Notification Service** (`notification-service/main.tf`)
+  - **Payment Service** (`payment-service/main.tf`)
+  - **User Service** (`user-service/main.tf`)
 
 ### 9. `storage/s3_bucket.tf`
 
@@ -115,16 +115,19 @@ Defines an S3 bucket for storing application data or configuration files require
 ## Deployment Process
 
 1. **Initialize Terraform**: Run the following command to initialize Terraform and download the necessary provider plugins.
+
    ```sh
    terraform init
    ```
 
 2. **Validate Configuration**: Validate the Terraform configuration files to ensure everything is correct.
+
    ```sh
    terraform validate
    ```
 
 3. **Plan the Infrastructure**: Create an execution plan to see what actions Terraform will take to create the infrastructure.
+
    ```sh
    terraform plan
    ```

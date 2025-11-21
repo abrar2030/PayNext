@@ -17,9 +17,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 // Define the form schema for editing profile
 const profileFormSchema = z.object({
@@ -52,13 +67,17 @@ export default function ProfilePage() {
   // Define a submit handler for profile edit
   async function onProfileSubmit(values: z.infer<typeof profileFormSchema>) {
     console.log("Updating profile:", values);
-    await new Promise(resolve => setTimeout(resolve, 500)); // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate API call
 
     // Simulate success/failure
     const success = Math.random() > 0.2; // 80% success rate
 
     if (success) {
-      setUser((prevUser) => ({ ...prevUser, name: values.name, email: values.email }));
+      setUser((prevUser) => ({
+        ...prevUser,
+        name: values.name,
+        email: values.email,
+      }));
       toast.success("Profile updated successfully!");
       setIsEditing(false); // Close the dialog/form on success
     } else {
@@ -83,7 +102,12 @@ export default function ProfilePage() {
         <CardHeader className="items-center text-center">
           <Avatar className="w-24 h-24 mb-4">
             <AvatarImage src={user.avatarUrl} alt={user.name} />
-            <AvatarFallback>{user.name.split(" ").map(n => n[0]).join("")}</AvatarFallback>
+            <AvatarFallback>
+              {user.name
+                .split(" ")
+                .map((n) => n[0])
+                .join("")}
+            </AvatarFallback>
           </Avatar>
           <CardTitle>{user.name}</CardTitle>
           <p className="text-muted-foreground">{user.email}</p>
@@ -92,17 +116,23 @@ export default function ProfilePage() {
           {/* Edit Profile Dialog */}
           <Dialog open={isEditing} onOpenChange={setIsEditing}>
             <DialogTrigger asChild>
-              <Button variant="outline" className="w-full">Edit Profile</Button>
+              <Button variant="outline" className="w-full">
+                Edit Profile
+              </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>Edit Profile</DialogTitle>
                 <DialogDescription>
-                  Make changes to your profile here. Click save when you're done.
+                  Make changes to your profile here. Click save when you're
+                  done.
                 </DialogDescription>
               </DialogHeader>
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onProfileSubmit)} className="space-y-4 py-4">
+                <form
+                  onSubmit={form.handleSubmit(onProfileSubmit)}
+                  className="space-y-4 py-4"
+                >
                   <FormField
                     control={form.control}
                     name="name"
@@ -123,7 +153,11 @@ export default function ProfilePage() {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="your@email.com" {...field} />
+                          <Input
+                            type="email"
+                            placeholder="your@email.com"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -131,7 +165,9 @@ export default function ProfilePage() {
                   />
                   <DialogFooter>
                     <DialogClose asChild>
-                       <Button type="button" variant="secondary">Cancel</Button>
+                      <Button type="button" variant="secondary">
+                        Cancel
+                      </Button>
                     </DialogClose>
                     <Button type="submit">Save changes</Button>
                   </DialogFooter>
@@ -140,12 +176,20 @@ export default function ProfilePage() {
             </DialogContent>
           </Dialog>
 
-          <Button variant="outline" className="w-full" onClick={() => toast.info("Settings page not implemented yet.")}>Settings</Button>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => toast.info("Settings page not implemented yet.")}
+          >
+            Settings
+          </Button>
 
           {/* Logout Confirmation Dialog */}
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="destructive" className="w-full">Log Out</Button>
+              <Button variant="destructive" className="w-full">
+                Log Out
+              </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
@@ -155,12 +199,20 @@ export default function ProfilePage() {
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter>
-                 <DialogClose asChild>
-                    <Button type="button" variant="secondary">Cancel</Button>
-                 </DialogClose>
-                 <DialogClose asChild>
-                    <Button type="button" variant="destructive" onClick={handleLogout}>Log Out</Button>
-                 </DialogClose>
+                <DialogClose asChild>
+                  <Button type="button" variant="secondary">
+                    Cancel
+                  </Button>
+                </DialogClose>
+                <DialogClose asChild>
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </Button>
+                </DialogClose>
               </DialogFooter>
             </DialogContent>
           </Dialog>

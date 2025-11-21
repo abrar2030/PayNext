@@ -1,5 +1,4 @@
 ---
-
 - name: restart api-gateway
   systemd:
     name: api-gateway

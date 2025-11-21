@@ -1,5 +1,4 @@
 ---
-
 motd_message: "Default Message for PayNext Server"
 packages:
   - git

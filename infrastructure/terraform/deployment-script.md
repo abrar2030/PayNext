@@ -51,6 +51,7 @@ terraform apply
 ```
 
 Terraform will create:
+
 - VPC and Security Groups
 - EKS Cluster
 - S3 Bucket

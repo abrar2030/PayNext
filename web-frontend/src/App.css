@@ -30,7 +30,8 @@
   margin: 0 auto;
 }
 
-h1, h2 {
+h1,
+h2 {
   color: #007bff;
   margin-bottom: 20px;
 }

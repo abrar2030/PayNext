@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import AuthService from '../../services/AuthService';
-import './Login.css'; // Import the CSS file
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import AuthService from "../../services/AuthService";
+import "./Login.css"; // Import the CSS file
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await AuthService.login(email, password);
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (err) {
-      setError('Invalid email or password');
+      setError("Invalid email or password");
     }
   };
 
@@ -57,7 +57,7 @@ const Login = () => {
             </button>
           </form>
           <p className="redirect-message">
-            Don&apos;t have an account?{' '}
+            Don&apos;t have an account?{" "}
             <Link to="/register" className="redirect-link">
               Register here
             </Link>

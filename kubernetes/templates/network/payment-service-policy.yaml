@@ -8,26 +8,26 @@ spec:
     matchLabels:
       app: payment-service
   ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          app: api-gateway
-    ports:
-    - protocol: TCP
-      port: 8004
+    - from:
+        - podSelector:
+            matchLabels:
+              app: api-gateway
+      ports:
+        - protocol: TCP
+          port: 8004
   egress:
-  - to:
-    - podSelector:
-        matchLabels:
-          app: eureka-server
-    ports:
-    - protocol: TCP
-      port: 8001
-  # Allow egress to payment gateway (external)
-  - to: []
-    ports:
-    - protocol: TCP
-      port: 443
+    - to:
+        - podSelector:
+            matchLabels:
+              app: eureka-server
+      ports:
+        - protocol: TCP
+          port: 8001
+    # Allow egress to payment gateway (external)
+    - to: []
+      ports:
+        - protocol: TCP
+          port: 443
   policyTypes:
-  - Ingress
-  - Egress
+    - Ingress
+    - Egress

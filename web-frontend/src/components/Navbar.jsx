@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -18,14 +18,14 @@ import {
   Avatar,
   Menu,
   MenuItem,
-  Divider
-} from '@mui/material';
+  Divider,
+} from "@mui/material";
 import {
   Menu as MenuIcon,
   KeyboardArrowDown as KeyboardArrowDownIcon,
-  AccountCircle as AccountCircleIcon
-} from '@mui/icons-material';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+  AccountCircle as AccountCircleIcon,
+} from "@mui/icons-material";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 // Hide AppBar on scroll down
 function HideOnScroll(props) {
@@ -41,7 +41,7 @@ function HideOnScroll(props) {
 
 const Navbar = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -53,8 +53,8 @@ const Navbar = () => {
 
   useEffect(() => {
     // Check if user is authenticated
-    const authStatus = localStorage.getItem('isAuthenticated');
-    setIsAuthenticated(authStatus === 'true');
+    const authStatus = localStorage.getItem("isAuthenticated");
+    setIsAuthenticated(authStatus === "true");
   }, [location]);
 
   const handleDrawerToggle = () => {
@@ -80,10 +80,10 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem("isAuthenticated");
     setIsAuthenticated(false);
     handleMenuClose();
-    navigate('/');
+    navigate("/");
   };
 
   const handleNavigation = (path) => {
@@ -98,34 +98,37 @@ const Navbar = () => {
 
   const navItems = [
     {
-      label: 'Products',
+      label: "Products",
       path: null,
       hasSubmenu: true,
       submenuItems: [
-        { label: 'Personal Payments', path: '/products/personal' },
-        { label: 'Business Solutions', path: '/products/business' },
-        { label: 'Enterprise API', path: '/products/enterprise' }
+        { label: "Personal Payments", path: "/products/personal" },
+        { label: "Business Solutions", path: "/products/business" },
+        { label: "Enterprise API", path: "/products/enterprise" },
       ],
-      handleClick: handleProductsMenuOpen
+      handleClick: handleProductsMenuOpen,
     },
-    { label: 'Pricing', path: '/pricing', hasSubmenu: false },
+    { label: "Pricing", path: "/pricing", hasSubmenu: false },
     {
-      label: 'Company',
+      label: "Company",
       path: null,
       hasSubmenu: true,
       submenuItems: [
-        { label: 'About Us', path: '/about' },
-        { label: 'Careers', path: '/careers' },
-        { label: 'Blog', path: '/blog' }
+        { label: "About Us", path: "/about" },
+        { label: "Careers", path: "/careers" },
+        { label: "Blog", path: "/blog" },
       ],
-      handleClick: handleCompanyMenuOpen
+      handleClick: handleCompanyMenuOpen,
     },
-    { label: 'Help', path: '/help', hasSubmenu: false }
+    { label: "Help", path: "/help", hasSubmenu: false },
   ];
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', py: 2 }}>
-      <Typography variant="h6" sx={{ my: 2, fontWeight: 'bold', color: 'primary.main' }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", py: 2 }}>
+      <Typography
+        variant="h6"
+        sx={{ my: 2, fontWeight: "bold", color: "primary.main" }}
+      >
         PayNext
       </Typography>
       <Divider />
@@ -138,8 +141,8 @@ const Navbar = () => {
                   <ListItemText
                     primary={item.label}
                     primaryTypographyProps={{
-                      fontWeight: 'medium',
-                      color: 'text.primary'
+                      fontWeight: "medium",
+                      color: "text.primary",
                     }}
                   />
                 </ListItem>
@@ -154,8 +157,8 @@ const Navbar = () => {
                       <ListItemText
                         primary={subItem.label}
                         primaryTypographyProps={{
-                          fontSize: '0.9rem',
-                          color: 'text.secondary'
+                          fontSize: "0.9rem",
+                          color: "text.secondary",
                         }}
                       />
                     </ListItem>
@@ -171,8 +174,10 @@ const Navbar = () => {
                 <ListItemText
                   primary={item.label}
                   primaryTypographyProps={{
-                    fontWeight: isActive(item.path) ? 'bold' : 'medium',
-                    color: isActive(item.path) ? 'primary.main' : 'text.primary'
+                    fontWeight: isActive(item.path) ? "bold" : "medium",
+                    color: isActive(item.path)
+                      ? "primary.main"
+                      : "text.primary",
                   }}
                 />
               </ListItem>
@@ -182,10 +187,10 @@ const Navbar = () => {
         <Divider sx={{ my: 2 }} />
         {isAuthenticated ? (
           <>
-            <ListItem button onClick={() => handleNavigation('/dashboard')}>
+            <ListItem button onClick={() => handleNavigation("/dashboard")}>
               <ListItemText primary="Dashboard" />
             </ListItem>
-            <ListItem button onClick={() => handleNavigation('/profile')}>
+            <ListItem button onClick={() => handleNavigation("/profile")}>
               <ListItemText primary="Profile" />
             </ListItem>
             <ListItem button onClick={handleLogout}>
@@ -194,10 +199,10 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <ListItem button onClick={() => handleNavigation('/login')}>
+            <ListItem button onClick={() => handleNavigation("/login")}>
               <ListItemText primary="Login" />
             </ListItem>
-            <ListItem button onClick={() => handleNavigation('/register')}>
+            <ListItem button onClick={() => handleNavigation("/register")}>
               <ListItemText primary="Register" />
             </ListItem>
           </>
@@ -214,9 +219,9 @@ const Navbar = () => {
           color="default"
           elevation={0}
           sx={{
-            backgroundColor: 'background.paper',
-            borderBottom: '1px solid',
-            borderColor: 'divider',
+            backgroundColor: "background.paper",
+            borderBottom: "1px solid",
+            borderColor: "divider",
           }}
         >
           <Container maxWidth="lg">
@@ -229,18 +234,18 @@ const Navbar = () => {
                 to="/"
                 sx={{
                   mr: 2,
-                  display: { xs: 'none', md: 'flex' },
+                  display: { xs: "none", md: "flex" },
                   fontWeight: 700,
-                  color: 'primary.main',
-                  textDecoration: 'none',
-                  letterSpacing: '.1rem',
+                  color: "primary.main",
+                  textDecoration: "none",
+                  letterSpacing: ".1rem",
                 }}
               >
                 PayNext
               </Typography>
 
               {/* Mobile menu icon */}
-              <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
+              <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
                   aria-label="menu"
@@ -261,18 +266,20 @@ const Navbar = () => {
                 to="/"
                 sx={{
                   flexGrow: 1,
-                  display: { xs: 'flex', md: 'none' },
+                  display: { xs: "flex", md: "none" },
                   fontWeight: 700,
-                  color: 'primary.main',
-                  textDecoration: 'none',
-                  letterSpacing: '.1rem',
+                  color: "primary.main",
+                  textDecoration: "none",
+                  letterSpacing: ".1rem",
                 }}
               >
                 PayNext
               </Typography>
 
               {/* Desktop navigation */}
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 4 }}>
+              <Box
+                sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, ml: 4 }}
+              >
                 {navItems.map((item) => (
                   <React.Fragment key={item.label}>
                     {item.hasSubmenu ? (
@@ -282,46 +289,54 @@ const Navbar = () => {
                           sx={{
                             my: 2,
                             mx: 1,
-                            color: 'text.primary',
-                            display: 'flex',
-                            alignItems: 'center',
-                            '&:hover': {
-                              backgroundColor: 'rgba(0, 0, 0, 0.04)'
-                            }
+                            color: "text.primary",
+                            display: "flex",
+                            alignItems: "center",
+                            "&:hover": {
+                              backgroundColor: "rgba(0, 0, 0, 0.04)",
+                            },
                           }}
                           endIcon={<KeyboardArrowDownIcon />}
                         >
                           {item.label}
                         </Button>
                         <Menu
-                          anchorEl={item.label === 'Products' ? productsAnchorEl : companyAnchorEl}
-                          open={item.label === 'Products' ? Boolean(productsAnchorEl) : Boolean(companyAnchorEl)}
+                          anchorEl={
+                            item.label === "Products"
+                              ? productsAnchorEl
+                              : companyAnchorEl
+                          }
+                          open={
+                            item.label === "Products"
+                              ? Boolean(productsAnchorEl)
+                              : Boolean(companyAnchorEl)
+                          }
                           onClose={handleMenuClose}
                           sx={{ mt: 1 }}
                           anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
+                            vertical: "bottom",
+                            horizontal: "left",
                           }}
                           transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'left',
+                            vertical: "top",
+                            horizontal: "left",
                           }}
                           PaperProps={{
                             elevation: 2,
                             sx: {
                               borderRadius: 2,
                               minWidth: 180,
-                              overflow: 'visible',
-                              '&:before': {
+                              overflow: "visible",
+                              "&:before": {
                                 content: '""',
-                                display: 'block',
-                                position: 'absolute',
+                                display: "block",
+                                position: "absolute",
                                 top: 0,
                                 left: 14,
                                 width: 10,
                                 height: 10,
-                                bgcolor: 'background.paper',
-                                transform: 'translateY(-50%) rotate(45deg)',
+                                bgcolor: "background.paper",
+                                transform: "translateY(-50%) rotate(45deg)",
                                 zIndex: 0,
                               },
                             },
@@ -333,9 +348,9 @@ const Navbar = () => {
                               onClick={() => handleNavigation(subItem.path)}
                               sx={{
                                 py: 1.5,
-                                '&:hover': {
-                                  backgroundColor: 'rgba(25, 118, 210, 0.08)'
-                                }
+                                "&:hover": {
+                                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                                },
                               }}
                             >
                               {subItem.label}
@@ -349,15 +364,19 @@ const Navbar = () => {
                         sx={{
                           my: 2,
                           mx: 1,
-                          color: isActive(item.path) ? 'primary.main' : 'text.primary',
-                          fontWeight: isActive(item.path) ? 'bold' : 'medium',
-                          borderBottom: isActive(item.path) ? '2px solid' : 'none',
-                          borderColor: 'primary.main',
+                          color: isActive(item.path)
+                            ? "primary.main"
+                            : "text.primary",
+                          fontWeight: isActive(item.path) ? "bold" : "medium",
+                          borderBottom: isActive(item.path)
+                            ? "2px solid"
+                            : "none",
+                          borderColor: "primary.main",
                           borderRadius: 0,
-                          '&:hover': {
-                            backgroundColor: 'transparent',
-                            color: 'primary.main'
-                          }
+                          "&:hover": {
+                            backgroundColor: "transparent",
+                            color: "primary.main",
+                          },
                         }}
                       >
                         {item.label}
@@ -368,13 +387,13 @@ const Navbar = () => {
               </Box>
 
               {/* Auth buttons or user menu */}
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 {isAuthenticated ? (
                   <>
                     <Button
                       variant="text"
                       color="primary"
-                      onClick={() => handleNavigation('/dashboard')}
+                      onClick={() => handleNavigation("/dashboard")}
                       sx={{ mr: 1 }}
                     >
                       Dashboard
@@ -386,7 +405,9 @@ const Navbar = () => {
                       onClick={handleProfileMenuOpen}
                       color="inherit"
                     >
-                      <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }}>
+                      <Avatar
+                        sx={{ width: 32, height: 32, bgcolor: "primary.main" }}
+                      >
                         <AccountCircleIcon />
                       </Avatar>
                     </IconButton>
@@ -403,16 +424,14 @@ const Navbar = () => {
                         },
                       }}
                     >
-                      <MenuItem onClick={() => handleNavigation('/profile')}>
+                      <MenuItem onClick={() => handleNavigation("/profile")}>
                         Profile
                       </MenuItem>
-                      <MenuItem onClick={() => handleNavigation('/settings')}>
+                      <MenuItem onClick={() => handleNavigation("/settings")}>
                         Settings
                       </MenuItem>
                       <Divider />
-                      <MenuItem onClick={handleLogout}>
-                        Logout
-                      </MenuItem>
+                      <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>
                   </>
                 ) : (
@@ -420,7 +439,7 @@ const Navbar = () => {
                     <Button
                       variant="text"
                       color="primary"
-                      onClick={() => handleNavigation('/login')}
+                      onClick={() => handleNavigation("/login")}
                       sx={{ mr: 1 }}
                     >
                       Login
@@ -428,7 +447,7 @@ const Navbar = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => handleNavigation('/register')}
+                      onClick={() => handleNavigation("/register")}
                     >
                       Register
                     </Button>
@@ -449,8 +468,8 @@ const Navbar = () => {
           keepMounted: true, // Better open performance on mobile
         }}
         sx={{
-          display: { xs: 'block', md: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 280 },
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: 280 },
         }}
       >
         {drawer}

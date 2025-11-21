@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Box } from '@mui/material';
+import React, { useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { Box } from "@mui/material";
 
 // Animation variants for different entrance effects
 const fadeInUp = {
@@ -11,9 +11,9 @@ const fadeInUp = {
     y: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
-    }
-  }
+      ease: "easeOut",
+    },
+  },
 };
 
 const fadeInLeft = {
@@ -23,9 +23,9 @@ const fadeInLeft = {
     x: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
-    }
-  }
+      ease: "easeOut",
+    },
+  },
 };
 
 const fadeInRight = {
@@ -35,9 +35,9 @@ const fadeInRight = {
     x: 0,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
-    }
-  }
+      ease: "easeOut",
+    },
+  },
 };
 
 const fadeIn = {
@@ -46,9 +46,9 @@ const fadeIn = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
-    }
-  }
+      ease: "easeOut",
+    },
+  },
 };
 
 const scaleUp = {
@@ -58,9 +58,9 @@ const scaleUp = {
     scale: 1,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
-    }
-  }
+      ease: "easeOut",
+    },
+  },
 };
 
 // Animation component that triggers when element comes into view
@@ -76,7 +76,7 @@ const AnimatedElement = ({
 
   // Select the appropriate animation variant
   const getVariant = () => {
-    switch(animation) {
+    switch (animation) {
       case "fadeInLeft":
         return fadeInLeft;
       case "fadeInRight":
@@ -103,7 +103,7 @@ const AnimatedElement = ({
       initial="hidden"
       animate={controls}
       variants={getVariant()}
-      style={{ width: '100%' }}
+      style={{ width: "100%" }}
       transition={{ delay }}
       {...props}
     >
@@ -119,9 +119,9 @@ const StaggeredList = ({ children, staggerDelay = 0.1, ...props }) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: staggerDelay
-      }
-    }
+        staggerChildren: staggerDelay,
+      },
+    },
   };
 
   const itemVariants = {
@@ -130,19 +130,20 @@ const StaggeredList = ({ children, staggerDelay = 0.1, ...props }) => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   };
 
   return (
-    <Box component={motion.div}
+    <Box
+      component={motion.div}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
       {...props}
     >
-      {React.Children.map(children, child => (
+      {React.Children.map(children, (child) => (
         <Box component={motion.div} variants={itemVariants}>
           {child}
         </Box>

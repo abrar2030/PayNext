@@ -11,22 +11,24 @@ This document provides instructions on how to integrate the existing PayNext bac
 **Request Method:** `POST`
 
 **Request Body (JSON):**
+
 ```json
 {
-    "user_id": "string",
-    "transaction_amount": "float",
-    "transaction_time": "ISO 8601 string (e.g., 2024-10-21T10:30:00)",
-    "location": "string",
-    "merchant": "string",
-    "transaction_type": "string"
+  "user_id": "string",
+  "transaction_amount": "float",
+  "transaction_time": "ISO 8601 string (e.g., 2024-10-21T10:30:00)",
+  "location": "string",
+  "merchant": "string",
+  "transaction_type": "string"
 }
 ```
 
 **Response Body (JSON):**
+
 ```json
 {
-    "is_fraud": "boolean",
-    "fraud_probability": "float"
+  "is_fraud": "boolean",
+  "fraud_probability": "float"
 }
 ```
 
@@ -40,6 +42,7 @@ This document provides instructions on how to integrate the existing PayNext bac
     </dependency>
     ```
 2.  **Create a Service Class:** Develop a new Java service (e.g., `FraudDetectionService.java`) that handles the communication with the Python API.
+
     ```java
     // Example using WebClient
     @Service
@@ -74,6 +77,7 @@ This document provides instructions on how to integrate the existing PayNext bac
     public class TransactionDetails { /* fields and getters/setters */ }
     public class FraudPredictionResponse { boolean is_fraud; double fraud_probability; /* getters/setters */ }
     ```
+
 3.  **Integrate into Transaction Flow:** In your existing payment processing logic (e.g., in `PaymentService.java` or `PaymentController.java`), call the `FraudDetectionService` before approving a transaction.
     ```java
     // Inside your payment processing method
@@ -96,13 +100,15 @@ This document provides instructions on how to integrate the existing PayNext bac
 **Request Method:** `POST`
 
 **Request Body (JSON):**
+
 ```json
 {
-    "user_id": "string"
+  "user_id": "string"
 }
 ```
 
 **Response Body (JSON):**
+
 ```json
 {
     "user_id": "string",
@@ -117,59 +123,63 @@ This document provides instructions on how to integrate the existing PayNext bac
     ```javascript
     // PayNext/mobile-frontend/src/services/recommendationApi.js or similar
     export const getRecommendations = async (userId) => {
-        try {
-            const response = await fetch("http://localhost:5001/get_recommendations", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ user_id: userId }),
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return await response.json();
-        } catch (error) {
-            console.error("Error fetching recommendations:", error);
-            return null;
+      try {
+        const response = await fetch(
+          "http://localhost:5001/get_recommendations",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user_id: userId }),
+          },
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+        return await response.json();
+      } catch (error) {
+        console.error("Error fetching recommendations:", error);
+        return null;
+      }
     };
     ```
 2.  **Integrate into UI Component:** Call this utility function from a relevant UI component (e.g., a dashboard or profile page) to display recommendations.
+
     ```javascript
     // PayNext/mobile-frontend/src/app/profile/page.tsx or similar
-    import React, { useEffect, useState } from 'react';
-    import { getRecommendations } from '../../services/recommendationApi'; // Adjust path as needed
+    import React, { useEffect, useState } from "react";
+    import { getRecommendations } from "../../services/recommendationApi"; // Adjust path as needed
 
     const UserProfilePage = () => {
-        const [recommendations, setRecommendations] = useState([]);
-        const userId = 'user_0001'; // Replace with actual logged-in user ID
+      const [recommendations, setRecommendations] = useState([]);
+      const userId = "user_0001"; // Replace with actual logged-in user ID
 
-        useEffect(() => {
-            const fetchRecommendations = async () => {
-                const data = await getRecommendations(userId);
-                if (data && data.recommendations) {
-                    setRecommendations(data.recommendations);
-                }
-            };
-            fetchRecommendations();
-        }, [userId]);
+      useEffect(() => {
+        const fetchRecommendations = async () => {
+          const data = await getRecommendations(userId);
+          if (data && data.recommendations) {
+            setRecommendations(data.recommendations);
+          }
+        };
+        fetchRecommendations();
+      }, [userId]);
 
-        return (
-            <div>
-                <h1>Your Profile</h1>
-                <h2>Personalized Recommendations:</h2>
-                {recommendations.length > 0 ? (
-                    <ul>
-                        {recommendations.map((rec, index) => (
-                            <li key={index}>{rec}</li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No recommendations available at this time.</p>
-                )}
-            </div>
-        );
+      return (
+        <div>
+          <h1>Your Profile</h1>
+          <h2>Personalized Recommendations:</h2>
+          {recommendations.length > 0 ? (
+            <ul>
+              {recommendations.map((rec, index) => (
+                <li key={index}>{rec}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No recommendations available at this time.</p>
+          )}
+        </div>
+      );
     };
 
     export default UserProfilePage;
@@ -177,12 +187,11 @@ This document provides instructions on how to integrate the existing PayNext bac
 
 ## 3. Deployment Considerations
 
-*   **Environment Variables:** Replace `http://localhost:5000` and `http://localhost:5001` with actual deployed service URLs using environment variables.
-*   **Security:** Implement API keys or other authentication mechanisms for secure communication between services.
-*   **Scalability:** Consider deploying the Python microservices using Docker and Kubernetes for better scalability and management, similar to the existing PayNext architecture.
+- **Environment Variables:** Replace `http://localhost:5000` and `http://localhost:5001` with actual deployed service URLs using environment variables.
+- **Security:** Implement API keys or other authentication mechanisms for secure communication between services.
+- **Scalability:** Consider deploying the Python microservices using Docker and Kubernetes for better scalability and management, similar to the existing PayNext architecture.
 
 These instructions provide a clear path for integrating the new ML capabilities into the PayNext application, enhancing its functionality and user experience.
-
 
 ## 3. Transaction Categorization Service Integration
 
@@ -193,25 +202,28 @@ These instructions provide a clear path for integrating the new ML capabilities 
 **Request Method:** `POST`
 
 **Request Body (JSON):**
+
 ```json
 {
-    "merchant": "string",
-    "description": "string"
+  "merchant": "string",
+  "description": "string"
 }
 ```
 
 **Response Body (JSON):**
+
 ```json
 {
-    "merchant": "string",
-    "description": "string",
-    "predicted_category": "string"
+  "merchant": "string",
+  "description": "string",
+  "predicted_category": "string"
 }
 ```
 
 **Backend (Java Spring Boot) Integration Steps:**
 
 1.  **Create a Service Class:** Develop a new Java service (e.g., `TransactionCategorizationService.java`) that handles communication with the Python API.
+
     ```java
     @Service
     public class TransactionCategorizationService {
@@ -244,6 +256,7 @@ These instructions provide a clear path for integrating the new ML capabilities 
         // getters/setters
     }
     ```
+
 2.  **Integrate into Transaction Processing:** After a transaction is processed, call this service to get its category and store it.
 
 ## 4. Churn Prediction Service Integration
@@ -255,26 +268,29 @@ These instructions provide a clear path for integrating the new ML capabilities 
 **Request Method:** `POST`
 
 **Request Body (JSON):**
+
 ```json
 {
-    "avg_transactions_per_month": "float",
-    "avg_logins_per_month": "float",
-    "avg_feature_usage_score": "float",
-    "total_months_active": "integer"
+  "avg_transactions_per_month": "float",
+  "avg_logins_per_month": "float",
+  "avg_feature_usage_score": "float",
+  "total_months_active": "integer"
 }
 ```
 
 **Response Body (JSON):**
+
 ```json
 {
-    "is_churn_risk": "boolean",
-    "churn_probability": "float"
+  "is_churn_risk": "boolean",
+  "churn_probability": "float"
 }
 ```
 
 **Backend (Java Spring Boot) Integration Steps:**
 
 1.  **Create a Service Class:** Develop a new Java service (e.g., `ChurnPredictionService.java`) that handles communication with the Python API.
+
     ```java
     @Service
     public class ChurnPredictionService {
@@ -305,10 +321,11 @@ These instructions provide a clear path for integrating the new ML capabilities 
     public class UserBehaviorData { /* fields and getters/setters */ }
     public class ChurnPredictionResponse { boolean is_churn_risk; double churn_probability; /* getters/setters */ }
     ```
+
 2.  **Schedule Batch Prediction:** Implement a scheduled task in the Java backend to periodically gather user behavior data, call the `ChurnPredictionService`, and store the churn probabilities. This can then be used by an admin dashboard or for triggering retention campaigns.
 
 ## 5. Updated Deployment Considerations
 
-*   **Environment Variables:** Replace `http://localhost:5000`, `http://localhost:5001`, `http://localhost:5002`, and `http://localhost:5003` with actual deployed service URLs using environment variables.
-*   **Security:** Implement API keys or other authentication mechanisms for secure communication between services.
-*   **Scalability:** Consider deploying all Python microservices using Docker and Kubernetes for better scalability and management, similar to the existing PayNext architecture.
+- **Environment Variables:** Replace `http://localhost:5000`, `http://localhost:5001`, `http://localhost:5002`, and `http://localhost:5003` with actual deployed service URLs using environment variables.
+- **Security:** Implement API keys or other authentication mechanisms for secure communication between services.
+- **Scalability:** Consider deploying all Python microservices using Docker and Kubernetes for better scalability and management, similar to the existing PayNext architecture.

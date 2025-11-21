@@ -1,39 +1,39 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { BrowserRouter as Router } from 'react-router-dom'; // Import Router
-import Login from '../Login';
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { BrowserRouter as Router } from "react-router-dom"; // Import Router
+import Login from "../Login";
 
 // Mock the AuthService if it's used for API calls
-jest.mock('../../../services/AuthService');
+jest.mock("../../../services/AuthService");
 
 // Helper function to render with Router
-const renderWithRouter = (ui, { route = '/' } = {}) => {
-  window.history.pushState({}, 'Test page', route)
-  return render(ui, { wrapper: Router })
-}
+const renderWithRouter = (ui, { route = "/" } = {}) => {
+  window.history.pushState({}, "Test page", route);
+  return render(ui, { wrapper: Router });
+};
 
-describe('Login Component', () => {
-  test('renders login form correctly', () => {
+describe("Login Component", () => {
+  test("renders login form correctly", () => {
     renderWithRouter(<Login />);
 
     // Check if essential elements are present
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument();
   });
 
-  test('allows user to input email and password', () => {
+  test("allows user to input email and password", () => {
     renderWithRouter(<Login />);
 
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);
 
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.change(emailInput, { target: { value: "test@example.com" } });
+    fireEvent.change(passwordInput, { target: { value: "password123" } });
 
-    expect(emailInput.value).toBe('test@example.com');
-    expect(passwordInput.value).toBe('password123');
+    expect(emailInput.value).toBe("test@example.com");
+    expect(passwordInput.value).toBe("password123");
   });
 
   // Add more tests for form submission, error handling, etc.

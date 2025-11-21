@@ -1,6 +1,6 @@
-import React from 'react';
-import { Box, Container, Typography, Button, useTheme } from '@mui/material';
-import { motion } from 'framer-motion';
+import React from "react";
+import { Box, Container, Typography, Button, useTheme } from "@mui/material";
+import { motion } from "framer-motion";
 
 const NotFound = () => {
   const theme = useTheme();
@@ -13,9 +13,9 @@ const NotFound = () => {
       transition: {
         delay: 0.2,
         when: "beforeChildren",
-        staggerChildren: 0.2
-      }
-    }
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -25,20 +25,20 @@ const NotFound = () => {
       opacity: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
-      }
-    }
+        ease: "easeOut",
+      },
+    },
   };
 
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: 'calc(100vh - 140px)', // Account for header and footer
-        textAlign: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "calc(100vh - 140px)", // Account for header and footer
+        textAlign: "center",
         py: 8,
         background: `linear-gradient(135deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`,
       }}
@@ -55,11 +55,11 @@ const NotFound = () => {
               variant="h1"
               component="h1"
               sx={{
-                fontSize: { xs: '6rem', md: '10rem' },
+                fontSize: { xs: "6rem", md: "10rem" },
                 fontWeight: 700,
-                color: 'primary.main',
+                color: "primary.main",
                 lineHeight: 1,
-                mb: 2
+                mb: 2,
               }}
             >
               404
@@ -72,7 +72,7 @@ const NotFound = () => {
               component="h2"
               sx={{
                 fontWeight: 600,
-                mb: 3
+                mb: 3,
               }}
             >
               Page Not Found
@@ -84,14 +84,14 @@ const NotFound = () => {
               variant="body1"
               color="text.secondary"
               sx={{
-                fontSize: '1.1rem',
+                fontSize: "1.1rem",
                 maxWidth: 500,
-                mx: 'auto',
-                mb: 5
+                mx: "auto",
+                mb: 5,
               }}
             >
-              The page you're looking for doesn't exist or has been moved.
-              Let's get you back on track.
+              The page you're looking for doesn't exist or has been moved. Let's
+              get you back on track.
             </Typography>
           </motion.div>
 
@@ -105,7 +105,7 @@ const NotFound = () => {
                 py: 1.5,
                 px: 4,
                 borderRadius: 8,
-                fontSize: '1.1rem'
+                fontSize: "1.1rem",
               }}
             >
               Back to Home

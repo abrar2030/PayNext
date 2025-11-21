@@ -21,67 +21,67 @@ spec:
             runAsNonRoot: true
             runAsUser: 10001
           containers:
-          - name: backup
-            image: bitnami/kubectl:latest
-            command:
-            - /bin/sh
-            - -c
-            - |
-              # Create timestamp for backup
-              TIMESTAMP=$(date +%Y%m%d%H%M%S)
+            - name: backup
+              image: bitnami/kubectl:latest
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  # Create timestamp for backup
+                  TIMESTAMP=$(date +%Y%m%d%H%M%S)
 
-              # Backup all ConfigMaps
-              echo "Backing up ConfigMaps..."
-              kubectl get configmaps -n paynext -o yaml > /backup/configmaps-${TIMESTAMP}.yaml
+                  # Backup all ConfigMaps
+                  echo "Backing up ConfigMaps..."
+                  kubectl get configmaps -n paynext -o yaml > /backup/configmaps-${TIMESTAMP}.yaml
 
-              # Backup all Secrets (encrypted)
-              echo "Backing up Secrets..."
-              kubectl get secrets -n paynext -o yaml > /backup/secrets-${TIMESTAMP}.yaml
+                  # Backup all Secrets (encrypted)
+                  echo "Backing up Secrets..."
+                  kubectl get secrets -n paynext -o yaml > /backup/secrets-${TIMESTAMP}.yaml
 
-              # Backup all PVCs
-              echo "Backing up PVCs..."
-              kubectl get pvc -n paynext -o yaml > /backup/pvcs-${TIMESTAMP}.yaml
+                  # Backup all PVCs
+                  echo "Backing up PVCs..."
+                  kubectl get pvc -n paynext -o yaml > /backup/pvcs-${TIMESTAMP}.yaml
 
-              # Backup all Deployments
-              echo "Backing up Deployments..."
-              kubectl get deployments -n paynext -o yaml > /backup/deployments-${TIMESTAMP}.yaml
+                  # Backup all Deployments
+                  echo "Backing up Deployments..."
+                  kubectl get deployments -n paynext -o yaml > /backup/deployments-${TIMESTAMP}.yaml
 
-              # Backup all Services
-              echo "Backing up Services..."
-              kubectl get services -n paynext -o yaml > /backup/services-${TIMESTAMP}.yaml
+                  # Backup all Services
+                  echo "Backing up Services..."
+                  kubectl get services -n paynext -o yaml > /backup/services-${TIMESTAMP}.yaml
 
-              # Backup all Ingresses
-              echo "Backing up Ingresses..."
-              kubectl get ingresses -n paynext -o yaml > /backup/ingresses-${TIMESTAMP}.yaml
+                  # Backup all Ingresses
+                  echo "Backing up Ingresses..."
+                  kubectl get ingresses -n paynext -o yaml > /backup/ingresses-${TIMESTAMP}.yaml
 
-              # Create archive
-              echo "Creating archive..."
-              tar -czf /backup/paynext-backup-${TIMESTAMP}.tar.gz -C /backup .
+                  # Create archive
+                  echo "Creating archive..."
+                  tar -czf /backup/paynext-backup-${TIMESTAMP}.tar.gz -C /backup .
 
-              # Cleanup individual files
-              rm /backup/configmaps-${TIMESTAMP}.yaml
-              rm /backup/secrets-${TIMESTAMP}.yaml
-              rm /backup/pvcs-${TIMESTAMP}.yaml
-              rm /backup/deployments-${TIMESTAMP}.yaml
-              rm /backup/services-${TIMESTAMP}.yaml
-              rm /backup/ingresses-${TIMESTAMP}.yaml
+                  # Cleanup individual files
+                  rm /backup/configmaps-${TIMESTAMP}.yaml
+                  rm /backup/secrets-${TIMESTAMP}.yaml
+                  rm /backup/pvcs-${TIMESTAMP}.yaml
+                  rm /backup/deployments-${TIMESTAMP}.yaml
+                  rm /backup/services-${TIMESTAMP}.yaml
+                  rm /backup/ingresses-${TIMESTAMP}.yaml
 
-              # Cleanup old backups (keep only the last N days)
-              find /backup -name "paynext-backup-*.tar.gz" -type f -mtime +30 -delete
+                  # Cleanup old backups (keep only the last N days)
+                  find /backup -name "paynext-backup-*.tar.gz" -type f -mtime +30 -delete
 
-              echo "Backup completed successfully."
-            volumeMounts:
-            - name: backup-storage
-              mountPath: /backup
-            resources:
-              requests:
-                memory: "256Mi"
-                cpu: "100m"
-              limits:
-                memory: "512Mi"
-                cpu: "200m"
+                  echo "Backup completed successfully."
+              volumeMounts:
+                - name: backup-storage
+                  mountPath: /backup
+              resources:
+                requests:
+                  memory: "256Mi"
+                  cpu: "100m"
+                limits:
+                  memory: "512Mi"
+                  cpu: "200m"
           volumes:
-          - name: backup-storage
-            persistentVolumeClaim:
-              claimName: paynext-backup-pvc
+            - name: backup-storage
+              persistentVolumeClaim:
+                claimName: paynext-backup-pvc
           restartPolicy: OnFailure

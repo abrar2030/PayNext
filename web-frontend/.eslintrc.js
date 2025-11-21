@@ -5,10 +5,7 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-  ],
+  extends: ["eslint:recommended", "plugin:react/recommended"],
   parserOptions: {
     ecmaVersion: 12,
     sourceType: "module",
@@ -16,9 +13,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: [
-    "react",
-  ],
+  plugins: ["react"],
   settings: {
     react: {
       version: "detect",
@@ -29,9 +24,9 @@ module.exports = {
     "no-undef": "off",
     "react/react-in-jsx-scope": "off",
     "linebreak-style": "off",
-    "max-len": ["error", { "code": 80 }],
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "max-len": ["error", { code: 80 }],
+    "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
     "react/function-component-definition": "off", // Allows both arrow and function components
     "jsx-a11y/label-has-associated-control": "off",
     "react/button-has-type": "off",

@@ -15,6 +15,7 @@ This guide provides commands to build, tag, push Docker images, and deploy Kuber
 ## Docker Commands for Each Service
 
 ### Eureka Server
+
 ```bash
 docker buildx build -t eureka-server ./backend/eureka-server
 docker tag eureka-server abrar2030/backend:eureka-server
@@ -23,6 +24,7 @@ kubectl apply -f kubernetes/templates/deployment-eureka-server.yaml -f kubernete
 ```
 
 ### API Gateway
+
 ```bash
 docker buildx build -t api-gateway ./backend/api-gateway
 docker tag api-gateway abrar2030/backend:api-gateway
@@ -31,6 +33,7 @@ kubectl apply -f kubernetes/templates/deployment-api-gateway.yaml -f kubernetes/
 ```
 
 ### User Service
+
 ```bash
 docker buildx build -t user-service ./backend/user-service
 docker tag user-service abrar2030/backend:user-service
@@ -39,6 +42,7 @@ kubectl apply -f kubernetes/templates/deployment-user-service.yaml -f kubernetes
 ```
 
 ### Payment Service
+
 ```bash
 docker buildx build -t payment-service ./backend/payment-service
 docker tag payment-service abrar2030/backend:payment-service
@@ -47,6 +51,7 @@ kubectl apply -f kubernetes/templates/deployment-payment-service.yaml -f kuberne
 ```
 
 ### Notification Service
+
 ```bash
 docker buildx build -t notification-service ./backend/notification-service
 docker tag notification-service abrar2030/backend:notification-service
@@ -55,6 +60,7 @@ kubectl apply -f kubernetes/templates/deployment-notification-service.yaml -f ku
 ```
 
 ### Fintech Payment Frontend
+
 ```bash
 docker buildx build -t PayNext-frontend ./frontend/PayNext-frontend
 docker tag PayNext-frontend abrar2030/frontend:PayNext-frontend

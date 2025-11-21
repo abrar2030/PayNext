@@ -15,6 +15,7 @@ A unified script that automates the complete setup process for the PayNext devel
 - Frontend applications build and startup
 
 **Usage:**
+
 ```bash
 ./dev_environment_setup.sh
 ```
@@ -29,6 +30,7 @@ An enhanced testing script that provides comprehensive test execution across all
 - Selective component testing
 
 **Usage:**
+
 ```bash
 # Run all tests
 ./run_tests.sh
@@ -61,6 +63,7 @@ A comprehensive database management script for development databases:
 - Database reset
 
 **Usage:**
+
 ```bash
 # MySQL operations
 ./db_manager.sh mysql-init
@@ -107,16 +110,19 @@ The scripts will check for and inform you about any missing prerequisites, which
 ## Getting Started
 
 1. Make the scripts executable:
+
    ```bash
    chmod +x dev_environment_setup.sh run_tests.sh db_manager.sh
    ```
 
 2. Run the developer environment setup:
+
    ```bash
    ./dev_environment_setup.sh
    ```
 
 3. Run tests:
+
    ```bash
    ./run_tests.sh
    ```

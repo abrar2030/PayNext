@@ -23,9 +23,10 @@ The Eureka Server provides service discovery functionality, allowing microservic
 ### User Service
 
 The User Service manages user-related operations including registration, authentication, profile management, and user preferences. It has been enhanced with:
-*   **Strong Password Policy:** User registration now enforces a robust password policy (8-20 characters, requiring a mix of uppercase, lowercase, digits, and special characters) to improve security.
-*   **Code Quality:** Refactored to use Lombok for reduced boilerplate code and includes improved error logging and handling for better maintainability.
-*   **Security:** JWT handling has been hardened with specific exception logging for invalid, expired, or malformed tokens.
+
+- **Strong Password Policy:** User registration now enforces a robust password policy (8-20 characters, requiring a mix of uppercase, lowercase, digits, and special characters) to improve security.
+- **Code Quality:** Refactored to use Lombok for reduced boilerplate code and includes improved error logging and handling for better maintainability.
+- **Security:** JWT handling has been hardened with specific exception logging for invalid, expired, or malformed tokens.
 
 The service implements secure password handling, role-based access control, and integrates with the Payment Service for user transaction history. It uses Spring Data JPA for database interactions and includes comprehensive validation for user inputs.
 

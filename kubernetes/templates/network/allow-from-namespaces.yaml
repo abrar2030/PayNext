@@ -6,12 +6,12 @@ metadata:
 spec:
   podSelector: {}
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          kubernetes.io/metadata.name: kube-system
-    - namespaceSelector:
-        matchLabels:
-          kubernetes.io/metadata.name: monitoring
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitoring
   policyTypes:
-  - Ingress
+    - Ingress

@@ -1,10 +1,9 @@
 ---
-
 - name: Create a user-service directory
   file:
     path: "/opt/paynext/user-service"
     state: directory
-    mode: '0755'
+    mode: "0755"
 - name: Copy application files to user-service directory
   copy:
     src: "{{ playbook_dir }}/files/user-service/"

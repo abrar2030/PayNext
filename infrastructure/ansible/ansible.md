@@ -3,6 +3,7 @@
 This documentation provides an overview of the Ansible playbooks, roles, and configurations used in the PayNext project to automate the deployment and configuration of various services. The directory structure, individual roles, and files are outlined for better understanding.
 
 ## Table of Contents
+
 - [Directory Structure](#directory-structure)
 - [Inventories](#inventories)
 - [Roles](#roles)
@@ -10,6 +11,7 @@ This documentation provides an overview of the Ansible playbooks, roles, and con
 - [Playbooks](#playbooks)
 
 ## Directory Structure
+
 The directory structure for Ansible in the PayNext project is as follows:
 
 ```
@@ -89,6 +91,7 @@ ansible/
 ```
 
 ## Inventories
+
 The inventories are divided into three environments:
 
 - **Development (dev)**: Contains inventory files and variables specific to the development environment.
@@ -98,9 +101,11 @@ The inventories are divided into three environments:
 Each inventory folder includes a `hosts` file that lists the hosts in that environment, and a `group_vars` directory that contains global variables for the hosts.
 
 ## Roles
+
 Roles are used to encapsulate the tasks, handlers, templates, and variables required to configure and deploy each service in the PayNext project.
 
 ### Common Role
+
 The `common` role contains tasks, handlers, templates, and variables that are common across all services, such as setting up a common environment and installing dependencies.
 
 - **Tasks**: The `main.yml` file in `tasks/` defines the common setup actions.
@@ -109,6 +114,7 @@ The `common` role contains tasks, handlers, templates, and variables that are co
 - **Vars**: The `main.yml` file in `vars/` defines variables shared across all services.
 
 ### API Gateway Role
+
 The `api-gateway` role manages the deployment and configuration of the API Gateway service.
 
 - **Tasks**: Defined in `tasks/main.yml`.
@@ -117,6 +123,7 @@ The `api-gateway` role manages the deployment and configuration of the API Gatew
 - **Vars**: Variables specific to the API Gateway are defined in `vars/main.yml`.
 
 ### Eureka Server Role
+
 The `eureka-server` role is responsible for the Eureka server configuration and deployment.
 
 - **Tasks**: The main deployment tasks are defined in `tasks/main.yml`.
@@ -125,12 +132,15 @@ The `eureka-server` role is responsible for the Eureka server configuration and 
 - **Vars**: Variables specific to the Eureka server are defined in `vars/main.yml`.
 
 ### Notification, Payment, and User Service Roles
+
 These roles follow a similar structure to the `api-gateway` and `eureka-server` roles, with their own tasks, handlers, templates, and variables for deploying and configuring each service.
 
 ## Ansible Configuration
+
 The `ansible.cfg` file contains the Ansible configuration for the PayNext project. This includes inventory paths, logging settings, and SSH options for the deployment.
 
 Example `ansible.cfg`:
+
 ```ini
 [defaults]
 inventory      = ./inventories/dev/hosts
@@ -139,13 +149,17 @@ host_key_checking = False
 ```
 
 ## Playbooks
+
 ### deploy.yml
+
 The `deploy.yml` playbook is used to deploy all services in the PayNext project. It runs the necessary roles to set up the infrastructure, configure each service, and ensure everything is running correctly.
 
 ### rollback.yml
+
 The `rollback.yml` playbook is used to roll back deployments if any issues occur. It reverts services to the previous stable state.
 
 ## Usage Instructions
+
 1. **Set Up Inventories**: Update the `hosts` and `group_vars` files in each inventory folder to reflect your environment's servers and settings.
 2. **Run Playbook**: Use the following command to deploy:
    ```bash
@@ -157,4 +171,5 @@ The `rollback.yml` playbook is used to roll back deployments if any issues occur
    ```
 
 ## Summary
+
 The Ansible setup for the PayNext project is designed to facilitate easy deployment and configuration of all services. Each role is tailored to a specific microservice, ensuring modularity and ease of maintenance.

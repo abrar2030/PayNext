@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import PaymentService from '../../services/PaymentService';
-import './PaymentHistory.css';
+import React, { useEffect, useState } from "react";
+import PaymentService from "../../services/PaymentService";
+import "./PaymentHistory.css";
 
 const PaymentHistory = () => {
   const [payments, setPayments] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -12,7 +12,7 @@ const PaymentHistory = () => {
         const data = await PaymentService.getPaymentHistory();
         setPayments(data);
       } catch (err) {
-        setErrorMessage('Failed to fetch payment history. Please try again.');
+        setErrorMessage("Failed to fetch payment history. Please try again.");
       }
     };
 

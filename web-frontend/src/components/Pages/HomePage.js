@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './HomePage.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./HomePage.css";
 
 const HomePage = () => {
   return (
@@ -39,10 +39,7 @@ const HomePage = () => {
         <section className="hero">
           <div className="hero-content">
             <h1>Next-Gen Digital Payments</h1>
-            <p>
-              Seamless transactions. Secure payments.
-              All in one place.
-            </p>
+            <p>Seamless transactions. Secure payments. All in one place.</p>
             <Link to="/register" className="cta-button">
               Get Started
             </Link>
@@ -52,23 +49,19 @@ const HomePage = () => {
         <section className="features">
           <div className="feature">
             <h2>Fast Transactions</h2>
-            <p>
-              Experience lightning-fast payment processing
-              with PayNext.
-            </p>
+            <p>Experience lightning-fast payment processing with PayNext.</p>
           </div>
           <div className="feature">
             <h2>Secure Platform</h2>
             <p>
-              Your security is our priority. Transactions
-              are encrypted end-to-end.
+              Your security is our priority. Transactions are encrypted
+              end-to-end.
             </p>
           </div>
           <div className="feature">
             <h2>User-Friendly Interface</h2>
             <p>
-              Manage your finances with our intuitive and
-              easy-to-use platform.
+              Manage your finances with our intuitive and easy-to-use platform.
             </p>
           </div>
         </section>

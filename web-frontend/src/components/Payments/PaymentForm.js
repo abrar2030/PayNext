@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import PaymentService from '../../services/PaymentService';
-import './PaymentForm.css';
+import React, { useState } from "react";
+import PaymentService from "../../services/PaymentService";
+import "./PaymentForm.css";
 
 const PaymentForm = () => {
-  const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccessMessage('');
-    setErrorMessage('');
+    setSuccessMessage("");
+    setErrorMessage("");
     try {
       await PaymentService.createPayment({ amount, description });
-      setSuccessMessage('Payment successfully created!');
-      setAmount('');
-      setDescription('');
+      setSuccessMessage("Payment successfully created!");
+      setAmount("");
+      setDescription("");
     } catch (err) {
-      setErrorMessage('Failed to create payment. Please try again.');
+      setErrorMessage("Failed to create payment. Please try again.");
     }
   };
 

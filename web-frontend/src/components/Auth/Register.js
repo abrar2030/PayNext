@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import AuthService from '../../services/AuthService';
-import './Register.css';
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import AuthService from "../../services/AuthService";
+import "./Register.css";
 
 const Register = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     if (password !== confirmPassword) {
       setError("Passwords don't match");
@@ -23,12 +23,12 @@ const Register = () => {
 
     try {
       await AuthService.register(email, password);
-      setSuccess('Registration successful! Redirecting to login...');
+      setSuccess("Registration successful! Redirecting to login...");
       setTimeout(() => {
-        navigate('/login');
+        navigate("/login");
       }, 2000);
     } catch (err) {
-      setError('Registration failed. Please try again.');
+      setError("Registration failed. Please try again.");
     }
   };
 
@@ -81,7 +81,7 @@ const Register = () => {
             </button>
           </form>
           <p className="redirect-message">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Link to="/login" className="redirect-link">
               Login here
             </Link>

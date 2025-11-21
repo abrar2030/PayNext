@@ -1,5 +1,4 @@
 ---
-
 service_name: "user-service"
 service_port: 8003
 image_repository: "abrar2030/backend:user-service"

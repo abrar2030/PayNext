@@ -7,12 +7,12 @@ The **PayNext** project follows a modern microservices-based architecture design
 - [Overview](#overview)
 - [Microservices Architecture](#microservices-architecture)
 - [Components](#components)
-    - [Eureka Server](#eureka-server)
-    - [API Gateway](#api-gateway)
-    - [User Service](#user-service)
-    - [Payment Service](#payment-service)
-    - [Notification Service](#notification-service)
-    - [Frontend](#frontend)
+  - [Eureka Server](#eureka-server)
+  - [API Gateway](#api-gateway)
+  - [User Service](#user-service)
+  - [Payment Service](#payment-service)
+  - [Notification Service](#notification-service)
+  - [Frontend](#frontend)
 - [Data Flow](#data-flow)
 - [Security](#security)
 - [Deployment](#deployment)
@@ -40,36 +40,36 @@ Each of these services communicates with the **API Gateway** to route external r
 - **Purpose**: Acts as a service registry for managing microservices within the system.
 - **Technology**: Built using **Spring Cloud Netflix Eureka**.
 - **Responsibilities**:
-    - Registers all the microservices.
-    - Ensures that each service can discover other services for communication.
-    - Provides resiliency by maintaining service instance information.
+  - Registers all the microservices.
+  - Ensures that each service can discover other services for communication.
+  - Provides resiliency by maintaining service instance information.
 
 ### API Gateway
 
 - **Purpose**: Acts as the entry point for all external requests to the microservices.
 - **Technology**: Uses **Spring Cloud Gateway**.
 - **Responsibilities**:
-    - Manages and routes requests to different microservices.
-    - Handles **JWT authentication** for securing access.
-    - Implements rate limiting and load balancing.
+  - Manages and routes requests to different microservices.
+  - Handles **JWT authentication** for securing access.
+  - Implements rate limiting and load balancing.
 
 ### User Service
 
 - **Purpose**: Manages user information, including registration, login, and profile.
 - **Technology**: Developed with **Spring Boot** and connects to a **PostgreSQL** database.
 - **Key Features**:
-    - User registration and authentication.
-    - JWT token generation for securing requests.
-    - CRUD operations for user profiles.
+  - User registration and authentication.
+  - JWT token generation for securing requests.
+  - CRUD operations for user profiles.
 
 ### Payment Service
 
 - **Purpose**: Facilitates financial transactions.
 - **Technology**: Built using **Spring Boot**, communicates with the **User Service** to validate users, and stores transactions in a **PostgreSQL** database.
 - **Key Features**:
-    - Initiates payments between users.
-    - Manages different payment methods.
-    - Stores transaction history.
+  - Initiates payments between users.
+  - Manages different payment methods.
+  - Stores transaction history.
 
 ### Notification Service
 
@@ -77,17 +77,17 @@ Each of these services communicates with the **API Gateway** to route external r
 - **Technology**: Developed with **Spring Boot**.
 - **Communication**: Integrates with the **User Service** and **Payment Service** to send appropriate notifications.
 - **Key Features**:
-    - Email and SMS notifications.
-    - Real-time alerts for payment-related events.
+  - Email and SMS notifications.
+  - Real-time alerts for payment-related events.
 
 ### Frontend
 
 - **Purpose**: User interface to access the PayNext platform.
 - **Technology**: Built with **React.js**.
 - **Key Features**:
-    - Registration, login, and payment initiation.
-    - Dashboard for viewing account details and payment history.
-    - Responsive design to ensure usability across devices.
+  - Registration, login, and payment initiation.
+  - Dashboard for viewing account details and payment history.
+  - Responsive design to ensure usability across devices.
 
 ## Data Flow
 
@@ -96,9 +96,9 @@ Each of these services communicates with the **API Gateway** to route external r
 2. **Authentication**: When a user logs in, the **User Service** authenticates the credentials and generates a **JWT token**, which is used for all subsequent requests to secure the communication.
 
 3. **Payment Process**:
-    - The user initiates a payment from the frontend, and the request is routed through the **API Gateway**.
-    - The **Payment Service** validates the request and processes the payment if the user is authenticated.
-    - After processing, the **Notification Service** sends a notification to the user.
+   - The user initiates a payment from the frontend, and the request is routed through the **API Gateway**.
+   - The **Payment Service** validates the request and processes the payment if the user is authenticated.
+   - After processing, the **Notification Service** sends a notification to the user.
 
 4. **Service Discovery**: All services are registered with the **Eureka Server** for discovery. For example, if the **Payment Service** needs to communicate with the **User Service**, it discovers the appropriate instance via Eureka.
 

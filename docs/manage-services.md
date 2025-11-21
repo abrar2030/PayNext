@@ -3,31 +3,37 @@
 ## 1. Cleaning Services
 
 ### Clean a Specific Backend Service (`eureka-server`)
+
 ```bash
 cd PayNext && ./manage-services.sh clean eureka-server
 ```
 
 ### Clean a Specific Backend Service (`api-gateway`)
+
 ```bash
 cd PayNext && ./manage-services.sh clean api-gateway
 ```
 
 ### Clean a Specific Backend Service (`payment-service`)
+
 ```bash
 cd PayNext && ./manage-services.sh clean payment-service
 ```
 
 ### Clean a Specific Backend Service (`notification-service`)
+
 ```bash
 cd PayNext && ./manage-services.sh clean notification-service
 ```
 
 ### Clean a Specific Frontend Service (`frontend`)
+
 ```bash
 cd PayNext && ./manage-services.sh clean frontend
 ```
 
 ### Clean All Backend and Frontend Services
+
 ```bash
 cd PayNext && ./manage-services.sh clean all
 ```
@@ -37,31 +43,37 @@ cd PayNext && ./manage-services.sh clean all
 ## 2. Building Services
 
 ### Build a Specific Backend Service (`eureka-server`)
+
 ```bash
 cd PayNext && ./manage-services.sh build eureka-server
 ```
 
 ### Build a Specific Backend Service (`api-gateway`)
+
 ```bash
 cd PayNext && ./manage-services.sh build api-gateway
 ```
 
 ### Build a Specific Backend Service (`payment-service`)
+
 ```bash
 cd PayNext && ./manage-services.sh build payment-service
 ```
 
 ### Build a Specific Backend Service (`notification-service`)
+
 ```bash
 cd PayNext && ./manage-services.sh build notification-service
 ```
 
 ### Build a Specific Frontend Service (`frontend`)
+
 ```bash
 cd PayNext && ./manage-services.sh build frontend
 ```
 
 ### Build All Backend and Frontend Services
+
 ```bash
 cd PayNext && ./manage-services.sh build all
 ```
@@ -71,31 +83,37 @@ cd PayNext && ./manage-services.sh build all
 ## 3. Running Services
 
 ### Run a Specific Backend Service (`eureka-server`)
+
 ```bash
 cd PayNext && ./manage-services.sh run eureka-server
 ```
 
 ### Run a Specific Backend Service (`api-gateway`)
+
 ```bash
 cd PayNext && ./manage-services.sh run api-gateway
 ```
 
 ### Run a Specific Backend Service (`payment-service`)
+
 ```bash
 cd PayNext && ./manage-services.sh run payment-service
 ```
 
 ### Run a Specific Backend Service (`notification-service`)
+
 ```bash
 cd PayNext && ./manage-services.sh run notification-service
 ```
 
 ### Run a Specific Frontend Service (`frontend`)
+
 ```bash
 cd PayNext && ./manage-services.sh run frontend
 ```
 
 ### Run All Backend and Frontend Services
+
 ```bash
 cd PayNext && ./manage-services.sh run all
 ```
@@ -105,6 +123,7 @@ cd PayNext && ./manage-services.sh run all
 ## 4. Setting Up All Services
 
 ### Perform a Full Setup (Clean, Build, Run) for All Services
+
 ```bash
 cd PayNext && ./manage-services.sh setup all
 ```
@@ -114,6 +133,7 @@ cd PayNext && ./manage-services.sh setup all
 ## 5. Cleaning, Building and Running Services
 
 ### Clean, Build, and Run the `eureka-server` Backend
+
 ```bash
 cd PayNext && ./manage-services.sh clean eureka-server
 cd PayNext && ./manage-services.sh build eureka-server
@@ -121,6 +141,7 @@ cd PayNext && ./manage-services.sh run eureka-server
 ```
 
 ### Clean, Build, and Run the `api-gateway` Backend
+
 ```bash
 cd PayNext && ./manage-services.sh clean api-gateway
 cd PayNext && ./manage-services.sh build api-gateway
@@ -128,6 +149,7 @@ cd PayNext && ./manage-services.sh run api-gateway
 ```
 
 ### Clean, Build, and Run the `payment-service` Backend
+
 ```bash
 cd PayNext && ./manage-services.sh clean payment-service
 cd PayNext && ./manage-services.sh build payment-service
@@ -135,6 +157,7 @@ cd PayNext && ./manage-services.sh run payment-service
 ```
 
 ### Clean, Build, and Run the `notification-service` Backend
+
 ```bash
 cd PayNext && ./manage-services.sh clean notification-service
 cd PayNext && ./manage-services.sh build notification-service
@@ -142,6 +165,7 @@ cd PayNext && ./manage-services.sh run notification-service
 ```
 
 ### Clean, Build, and Run the `frontend`
+
 ```bash
 cd PayNext && ./manage-services.sh clean frontend
 cd PayNext && ./manage-services.sh build frontend
@@ -149,6 +173,7 @@ cd PayNext && ./manage-services.sh run frontend
 ```
 
 ### Clean, Build, and Run All Services in One Go
+
 ```bash
 cd PayNext && ./manage-services.sh clean all
 cd PayNext && ./manage-services.sh build all
@@ -156,6 +181,7 @@ cd PayNext && ./manage-services.sh run all
 ```
 
 ### Setup All Services (Clean, Build, Run) with a Single Command
+
 ```bash
 cd PayNext && ./manage-services.sh setup all
 ```

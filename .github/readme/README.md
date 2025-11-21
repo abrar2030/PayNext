@@ -23,6 +23,7 @@ The workflow architecture is designed with a modular approach, allowing for inde
 This workflow handles the continuous integration and continuous deployment pipeline for the Java-based backend microservices.
 
 **Triggers:**
+
 - Push to `main` or `develop` branches with changes in the `backend/` directory or the workflow file itself
 - Pull requests targeting `main` or `develop` branches with changes in the `backend/` directory or the workflow file itself
 
@@ -61,6 +62,7 @@ This workflow handles the continuous integration and continuous deployment pipel
    - Verifies successful deployment with rollout status checks
 
 **Environment Variables and Secrets:**
+
 - `GITHUB_TOKEN`: Used for GitHub Actions authentication
 - `SONAR_TOKEN`: Authentication token for SonarQube
 - `SONAR_HOST_URL`: URL of the SonarQube server
@@ -73,6 +75,7 @@ This workflow handles the continuous integration and continuous deployment pipel
 This workflow handles the continuous integration and continuous deployment pipeline for the React-based frontend application.
 
 **Triggers:**
+
 - Push to `main` or `develop` branches with changes in the `frontend/` directory or the workflow file itself
 - Pull requests targeting `main` or `develop` branches with changes in the `frontend/` directory or the workflow file itself
 
@@ -101,6 +104,7 @@ This workflow handles the continuous integration and continuous deployment pipel
    - Verifies successful deployment with rollout status check
 
 **Environment Variables and Secrets:**
+
 - `DOCKER_USERNAME`: Username for Docker registry authentication
 - `DOCKER_PASSWORD`: Password for Docker registry authentication
 - `KUBECONFIG`: Kubernetes configuration for deployment
@@ -110,6 +114,7 @@ This workflow handles the continuous integration and continuous deployment pipel
 This orchestrator workflow coordinates the execution of both backend and frontend workflows and adds additional deployment verification steps.
 
 **Triggers:**
+
 - Push to `main` or `develop` branches
 - Pull requests targeting `main` or `develop` branches
 - Manual trigger via workflow dispatch
@@ -133,6 +138,7 @@ This orchestrator workflow coordinates the execution of both backend and fronten
    - Sends a deployment notification to Slack
 
 **Environment Variables and Secrets:**
+
 - All secrets from backend and frontend workflows
 - `SLACK_WEBHOOK_URL`: Webhook URL for Slack notifications
 
@@ -149,6 +155,7 @@ The workflows in this project are designed with the following dependencies:
    - Adds final verification and notification: backend + frontend → deploy-all
 
 This architecture ensures that:
+
 - Components can be built and tested independently
 - Code quality is verified before building Docker images
 - Docker images are built before deployment
@@ -229,6 +236,7 @@ The project implements a reusable workflow pattern through the complete-workflow
 3. Adds additional deployment verification and notification steps
 
 This pattern provides several benefits:
+
 - Reduces duplication of workflow configuration
 - Centralizes orchestration of the CI/CD pipeline
 - Allows for independent execution of component workflows

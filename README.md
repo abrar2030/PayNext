@@ -22,18 +22,18 @@ PayNext is a robust, scalable payment processing platform built on a **microserv
 
 ## Table of Contents
 
-*   [Overview](#overview)
-*   [Key Features](#key-features)
-*   [Architecture](#architecture)
-*   [Technology Stack](#technology-stack)
-*   [Services](#services)
-*   [Getting Started](#getting-started)
-*   [API Endpoints](#api-endpoints)
-*   [Testing](#testing)
-*   [CI/CD Pipeline](#cicd-pipeline)
-*   [Deployment with Kubernetes](#deployment-with-kubernetes)
-*   [Contributing](#contributing)
-*   [License](#license)
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Architecture](#architecture)
+- [Technology Stack](#technology-stack)
+- [Services](#services)
+- [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)
+- [Testing](#testing)
+- [CI/CD Pipeline](#cicd-pipeline)
+- [Deployment with Kubernetes](#deployment-with-kubernetes)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
@@ -73,14 +73,14 @@ PayNext follows a microservices architecture, leveraging Spring Cloud components
 
 The system is composed of the following key components:
 
-| Component | Primary Function |
-| :--- | :--- |
-| **API Gateway** | Routes client requests, handles authentication, rate limiting, and circuit breaking. |
-| **Service Registry** | Manages service discovery, allowing services to find and communicate with each other. |
-| **Config Server** | Centralizes configuration management for all microservices. |
-| **Core Services** | User, Payment, Transaction, Notification, and Reporting services handle core business logic. |
-| **Frontend** | Web Dashboard and Mobile App provide user interfaces. |
-| **Infrastructure** | Database Cluster, Message Queue (RabbitMQ/Kafka), Cache Layer (Redis), and Monitoring Stack. |
+| Component            | Primary Function                                                                             |
+| :------------------- | :------------------------------------------------------------------------------------------- |
+| **API Gateway**      | Routes client requests, handles authentication, rate limiting, and circuit breaking.         |
+| **Service Registry** | Manages service discovery, allowing services to find and communicate with each other.        |
+| **Config Server**    | Centralizes configuration management for all microservices.                                  |
+| **Core Services**    | User, Payment, Transaction, Notification, and Reporting services handle core business logic. |
+| **Frontend**         | Web Dashboard and Mobile App provide user interfaces.                                        |
+| **Infrastructure**   | Database Cluster, Message Queue (RabbitMQ/Kafka), Cache Layer (Redis), and Monitoring Stack. |
 
 ### Request Flow
 
@@ -97,24 +97,24 @@ PayNext is built using a modern, enterprise-grade technology stack, primarily le
 
 ### Core Technologies
 
-| Category | Key Technologies | Description |
-| :--- | :--- | :--- |
-| **Backend** | Spring Boot, Spring Cloud, Java 17 | Robust framework for microservices development, utilizing Java for performance and stability. |
-| **Databases** | MySQL, MongoDB | MySQL for transactional data; MongoDB for flexible data storage. |
-| **Messaging** | RabbitMQ, Kafka | Message queues for reliable asynchronous communication and event streaming. |
-| **Cache & Discovery** | Redis, Netflix Eureka | Redis for fast caching; Eureka for dynamic service discovery. |
-| **API Gateway** | Spring Cloud Gateway | High-performance, reactive API gateway. |
-| **Web Frontend** | React, TypeScript, Redux Toolkit, Material-UI, Recharts | Modern stack for a responsive web dashboard with advanced data visualization. |
-| **Mobile Frontend** | React Native, Redux Toolkit | Cross-platform framework for native mobile application development. |
+| Category              | Key Technologies                                        | Description                                                                                   |
+| :-------------------- | :------------------------------------------------------ | :-------------------------------------------------------------------------------------------- |
+| **Backend**           | Spring Boot, Spring Cloud, Java 17                      | Robust framework for microservices development, utilizing Java for performance and stability. |
+| **Databases**         | MySQL, MongoDB                                          | MySQL for transactional data; MongoDB for flexible data storage.                              |
+| **Messaging**         | RabbitMQ, Kafka                                         | Message queues for reliable asynchronous communication and event streaming.                   |
+| **Cache & Discovery** | Redis, Netflix Eureka                                   | Redis for fast caching; Eureka for dynamic service discovery.                                 |
+| **API Gateway**       | Spring Cloud Gateway                                    | High-performance, reactive API gateway.                                                       |
+| **Web Frontend**      | React, TypeScript, Redux Toolkit, Material-UI, Recharts | Modern stack for a responsive web dashboard with advanced data visualization.                 |
+| **Mobile Frontend**   | React Native, Redux Toolkit                             | Cross-platform framework for native mobile application development.                           |
 
 ### Infrastructure & DevOps
 
-| Category | Key Technologies | Description |
-| :--- | :--- | :--- |
-| **Containerization** | Docker, Kubernetes | Docker for containerization; Kubernetes for orchestration and scaling. |
-| **CI/CD** | GitHub Actions | Automated continuous integration and deployment pipelines. |
-| **Observability** | Prometheus, Grafana, ELK Stack | Comprehensive monitoring, alerting, and centralized logging. |
-| **IaC** | Terraform, Helm | Infrastructure as Code for provisioning and managing cloud resources. |
+| Category             | Key Technologies               | Description                                                            |
+| :------------------- | :----------------------------- | :--------------------------------------------------------------------- |
+| **Containerization** | Docker, Kubernetes             | Docker for containerization; Kubernetes for orchestration and scaling. |
+| **CI/CD**            | GitHub Actions                 | Automated continuous integration and deployment pipelines.             |
+| **Observability**    | Prometheus, Grafana, ELK Stack | Comprehensive monitoring, alerting, and centralized logging.           |
+| **IaC**              | Terraform, Helm                | Infrastructure as Code for provisioning and managing cloud resources.  |
 
 ---
 
@@ -122,14 +122,14 @@ PayNext is built using a modern, enterprise-grade technology stack, primarily le
 
 The platform is composed of dedicated microservices, each handling a specific domain:
 
-| Service | Responsibilities |
-| :--- | :--- |
-| **API Gateway** | Request routing, authentication, rate limiting, circuit breaking, and Swagger documentation. |
-| **User Service** | User registration, authentication, profile management, and role-based access control. |
-| **Payment Service** | Processing transactions, integrating payment gateways, and managing payment methods. |
-| **Transaction Service** | Recording transaction history, tracking status, handling refunds/chargebacks, and reconciliation. |
+| Service                  | Responsibilities                                                                                      |
+| :----------------------- | :---------------------------------------------------------------------------------------------------- |
+| **API Gateway**          | Request routing, authentication, rate limiting, circuit breaking, and Swagger documentation.          |
+| **User Service**         | User registration, authentication, profile management, and role-based access control.                 |
+| **Payment Service**      | Processing transactions, integrating payment gateways, and managing payment methods.                  |
+| **Transaction Service**  | Recording transaction history, tracking status, handling refunds/chargebacks, and reconciliation.     |
 | **Notification Service** | Sending transaction alerts via email, SMS, and push; managing notification preferences and templates. |
-| **Reporting Service** | Generating financial and transaction reports, providing analytics, and handling data export. |
+| **Reporting Service**    | Generating financial and transaction reports, providing analytics, and handling data export.          |
 
 ---
 
@@ -138,26 +138,28 @@ The platform is composed of dedicated microservices, each handling a specific do
 ### Prerequisites
 
 To set up the platform, ensure you have the following installed:
-*   **Java 17** and **Maven**
-*   **Node.js** and **npm**
-*   **Docker** and Docker Compose
-*   **Kubernetes** (for production deployment)
+
+- **Java 17** and **Maven**
+- **Node.js** and **npm**
+- **Docker** and Docker Compose
+- **Kubernetes** (for production deployment)
 
 ### Local Development Setup
 
 Follow these steps to set up the local development environment:
 
-| Step | Command | Description |
-| :--- | :--- | :--- |
-| **1. Clone Repository** | `git clone https://github.com/abrar2030/PayNext.git && cd PayNext` | Download the source code and navigate to the project directory. |
-| **2. Start Infrastructure** | `docker-compose up -d mysql rabbitmq redis` | Start core infrastructure services (database, message queue, cache). |
-| **3. Build & Run Backend** | `./paynext.sh build-run-backend` | Build and start all Spring Boot microservices. |
-| **4. Run Frontend** | `cd web-frontend && npm install && npm start` | Install dependencies and start the web dashboard. |
+| Step                        | Command                                                            | Description                                                          |
+| :-------------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------- |
+| **1. Clone Repository**     | `git clone https://github.com/abrar2030/PayNext.git && cd PayNext` | Download the source code and navigate to the project directory.      |
+| **2. Start Infrastructure** | `docker-compose up -d mysql rabbitmq redis`                        | Start core infrastructure services (database, message queue, cache). |
+| **3. Build & Run Backend**  | `./paynext.sh build-run-backend`                                   | Build and start all Spring Boot microservices.                       |
+| **4. Run Frontend**         | `cd web-frontend && npm install && npm start`                      | Install dependencies and start the web dashboard.                    |
 
 **Access Points:**
-*   **Web Dashboard**: `http://localhost:3000`
-*   **API Gateway**: `http://localhost:8080`
-*   **Swagger UI**: `http://localhost:8080/swagger-ui.html`
+
+- **Web Dashboard**: `http://localhost:3000`
+- **API Gateway**: `http://localhost:8080`
+- **Swagger UI**: `http://localhost:8080/swagger-ui.html`
 
 ---
 
@@ -165,12 +167,12 @@ Follow these steps to set up the local development environment:
 
 The API Gateway provides a unified entry point for accessing the various service APIs.
 
-| Service | Endpoint | Method | Description |
-| :--- | :--- | :--- | :--- |
-| **User** | `/api/users/register` | `POST` | Register a new user. |
-| **Payment** | `/api/payments` | `POST` | Initiate a new payment. |
-| **Payment** | `/api/payments/history` | `GET` | Retrieve payment history. |
-| **Transaction** | `/api/transactions` | `GET` | List transactions. |
+| Service         | Endpoint                        | Method | Description                         |
+| :-------------- | :------------------------------ | :----- | :---------------------------------- |
+| **User**        | `/api/users/register`           | `POST` | Register a new user.                |
+| **Payment**     | `/api/payments`                 | `POST` | Initiate a new payment.             |
+| **Payment**     | `/api/payments/history`         | `GET`  | Retrieve payment history.           |
+| **Transaction** | `/api/transactions`             | `GET`  | List transactions.                  |
 | **Transaction** | `/api/transactions/{id}/refund` | `POST` | Process a refund for a transaction. |
 
 ---
@@ -181,20 +183,21 @@ The project maintains an overall test coverage of **87%** across all components,
 
 ### Test Coverage Summary
 
-| Component | Coverage | Status |
-| :--- | :--- | :--- |
-| **Payment Service** | 92% | ✅ |
-| **User Service** | 90% | ✅ |
-| **Transaction Service** | 88% | ✅ |
-| **API Gateway** | 85% | ✅ |
-| **Web Frontend** | 85% | ✅ |
-| **Mobile Frontend** | 80% | ✅ |
+| Component               | Coverage | Status |
+| :---------------------- | :------- | :----- |
+| **Payment Service**     | 92%      | ✅     |
+| **User Service**        | 90%      | ✅     |
+| **Transaction Service** | 88%      | ✅     |
+| **API Gateway**         | 85%      | ✅     |
+| **Web Frontend**        | 85%      | ✅     |
+| **Mobile Frontend**     | 80%      | ✅     |
 
 ### Testing Types
 
 The comprehensive testing strategy includes:
-*   **Backend Tests**: Unit tests for service and repository layers, integration tests for API endpoints, contract tests for service interactions, and performance tests for critical operations.
-*   **Frontend Tests**: Component tests with React Testing Library, integration tests with Cypress, end-to-end tests for critical user flows, and snapshot tests for UI components.
+
+- **Backend Tests**: Unit tests for service and repository layers, integration tests for API endpoints, contract tests for service interactions, and performance tests for critical operations.
+- **Frontend Tests**: Component tests with React Testing Library, integration tests with Cypress, end-to-end tests for critical user flows, and snapshot tests for UI components.
 
 **Running Tests:** All tests can be run using the convenience script `./run-all-tests.sh` from the root directory, or individually for backend (`./mvnw test`) and frontend (`npm test`).
 
@@ -203,15 +206,17 @@ The comprehensive testing strategy includes:
 ## CI/CD Pipeline
 
 PayNext uses **GitHub Actions** for continuous integration and deployment:
-*   **Continuous Integration**: Automated testing on each pull request, code quality checks with SonarQube, and security scanning with OWASP Dependency Check.
-*   **Continuous Deployment**: Automated Docker image building and publishing, followed by deployment to staging and production environments.
+
+- **Continuous Integration**: Automated testing on each pull request, code quality checks with SonarQube, and security scanning with OWASP Dependency Check.
+- **Continuous Deployment**: Automated Docker image building and publishing, followed by deployment to staging and production environments.
 
 ---
 
 ## Deployment with Kubernetes
 
 PayNext is designed for cloud-native deployment using Kubernetes. Deployment can be managed using the provided manifests or a **Helm chart**:
-*   The deployment includes features like Horizontal Pod Autoscaling, Ingress configuration, persistent volume claims, and comprehensive readiness/liveness probes.
+
+- The deployment includes features like Horizontal Pod Autoscaling, Ingress configuration, persistent volume claims, and comprehensive readiness/liveness probes.
 
 ---
 

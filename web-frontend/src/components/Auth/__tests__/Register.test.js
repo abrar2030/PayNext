@@ -1,20 +1,20 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { BrowserRouter as Router } from 'react-router-dom'; // Import Router
-import Register from '../Register';
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { BrowserRouter as Router } from "react-router-dom"; // Import Router
+import Register from "../Register";
 
 // Mock the AuthService if it's used for API calls
-jest.mock('../../../services/AuthService');
+jest.mock("../../../services/AuthService");
 
 // Helper function to render with Router
-const renderWithRouter = (ui, { route = '/' } = {}) => {
-  window.history.pushState({}, 'Test page', route)
-  return render(ui, { wrapper: Router })
-}
+const renderWithRouter = (ui, { route = "/" } = {}) => {
+  window.history.pushState({}, "Test page", route);
+  return render(ui, { wrapper: Router });
+};
 
-describe('Register Component', () => {
-  test('renders registration form correctly', () => {
+describe("Register Component", () => {
+  test("renders registration form correctly", () => {
     renderWithRouter(<Register />);
 
     // Check if essential elements are present
@@ -22,10 +22,12 @@ describe('Register Component', () => {
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/^password$/i)).toBeInTheDocument(); // Use regex for exact match
     expect(screen.getByLabelText(/confirm password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /register/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /register/i }),
+    ).toBeInTheDocument();
   });
 
-  test('allows user to input registration details', () => {
+  test("allows user to input registration details", () => {
     renderWithRouter(<Register />);
 
     const usernameInput = screen.getByLabelText(/username/i);
@@ -33,15 +35,17 @@ describe('Register Component', () => {
     const passwordInput = screen.getByLabelText(/^password$/i);
     const confirmPasswordInput = screen.getByLabelText(/confirm password/i);
 
-    fireEvent.change(usernameInput, { target: { value: 'testuser' } });
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    fireEvent.change(confirmPasswordInput, { target: { value: 'password123' } });
+    fireEvent.change(usernameInput, { target: { value: "testuser" } });
+    fireEvent.change(emailInput, { target: { value: "test@example.com" } });
+    fireEvent.change(passwordInput, { target: { value: "password123" } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: "password123" },
+    });
 
-    expect(usernameInput.value).toBe('testuser');
-    expect(emailInput.value).toBe('test@example.com');
-    expect(passwordInput.value).toBe('password123');
-    expect(confirmPasswordInput.value).toBe('password123');
+    expect(usernameInput.value).toBe("testuser");
+    expect(emailInput.value).toBe("test@example.com");
+    expect(passwordInput.value).toBe("password123");
+    expect(confirmPasswordInput.value).toBe("password123");
   });
 
   // Add more tests for form submission, validation, error handling, etc.

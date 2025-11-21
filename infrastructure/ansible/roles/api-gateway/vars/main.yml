@@ -1,4 +1,3 @@
 ---
-
 eureka_server_url: "http://eureka-server:8761/eureka"
 jwt_secret: "your_jwt_secret"

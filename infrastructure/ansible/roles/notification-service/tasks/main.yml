@@ -1,12 +1,11 @@
 ---
-
 - name: Copy Notification Service application jar
   copy:
     src: /path/to/notification-service.jar
     dest: /opt/notification-service/notification-service.jar
     owner: root
     group: root
-    mode: '0755'
+    mode: "0755"
 - name: Install dependencies
   ansible.builtin.yum:
     name: "{{ item }}"
@@ -18,7 +17,7 @@
   template:
     src: notification-service.env.j2
     dest: /etc/notification-service.env
-    mode: '0644'
+    mode: "0644"
 - name: Create Notification Service systemd service file
   template:
     src: notification-service.service.j2

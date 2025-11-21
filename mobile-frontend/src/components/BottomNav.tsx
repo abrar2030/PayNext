@@ -1,16 +1,16 @@
 "use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React from 'react';
-import { Home, Send, Landmark, User } from 'lucide-react'; // Import Lucide icons
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React from "react";
+import { Home, Send, Landmark, User } from "lucide-react"; // Import Lucide icons
 import { cn } from "@/lib/utils"; // Import utility for conditional classes
 
 const navItems = [
-  { href: '/', label: 'Home', icon: Home },
-  { href: '/send', label: 'Send', icon: Send },
-  { href: '/request', label: 'Request', icon: Landmark }, // Using Landmark as a placeholder for Request
-  { href: '/profile', label: 'Profile', icon: User },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/send", label: "Send", icon: Send },
+  { href: "/request", label: "Request", icon: Landmark }, // Using Landmark as a placeholder for Request
+  { href: "/profile", label: "Profile", icon: User },
 ];
 
 const BottomNav = () => {
@@ -28,10 +28,15 @@ const BottomNav = () => {
               href={item.href}
               className={cn(
                 "flex flex-col items-center justify-center flex-1 h-full text-muted-foreground hover:text-primary transition-colors",
-                isActive && "text-primary"
+                isActive && "text-primary",
               )}
             >
-              <Icon className={cn("h-5 w-5", isActive ? "text-primary" : "text-muted-foreground")} />
+              <Icon
+                className={cn(
+                  "h-5 w-5",
+                  isActive ? "text-primary" : "text-muted-foreground",
+                )}
+              />
               <span className="text-xs mt-1">{item.label}</span>
             </Link>
           );
