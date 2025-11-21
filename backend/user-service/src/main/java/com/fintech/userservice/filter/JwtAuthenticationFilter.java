@@ -1,12 +1,12 @@
 package com.fintech.userservice.filter;
 
-import com.fintech.userservice.service.UserDetailsServiceImpl;
 import com.fintech.common.util.JwtUtil;
-import java.io.IOException;
+import com.fintech.userservice.service.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

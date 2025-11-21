@@ -1,12 +1,11 @@
 package com.fintech.apigateway.security;
 
-import com.fintech.common.util.JwtUtil;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,13 +18,10 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
-
 @Component
 public class JwtAuthenticationFilter implements WebFilter {
 
-  @Autowired
-  private com.fintech.common.util.JwtUtil jwtUtil;
+  @Autowired private com.fintech.common.util.JwtUtil jwtUtil;
 
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
@@ -55,11 +51,15 @@ public class JwtAuthenticationFilter implements WebFilter {
       UsernamePasswordAuthenticationToken authentication =
           new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
 
-      return chain.filter(exchange)
+      return chain
+          .filter(exchange)
           .contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication));
 
-    } catch (SignatureException | MalformedJwtException | ExpiredJwtException |
-             UnsupportedJwtException | IllegalArgumentException e) {
+    } catch (SignatureException
+        | MalformedJwtException
+        | ExpiredJwtException
+        | UnsupportedJwtException
+        | IllegalArgumentException e) {
       exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
       return exchange.getResponse().setComplete();
     }

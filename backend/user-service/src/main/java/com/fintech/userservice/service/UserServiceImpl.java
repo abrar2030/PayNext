@@ -21,11 +21,11 @@ public class UserServiceImpl implements UserService {
   public User saveUser(User user) {
     // Encrypt the password before saving
     if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+      user.setPassword(passwordEncoder.encode(user.getPassword()));
     } else {
-        // Handle case where password is null or empty, maybe throw an exception or log a warning
-        // For now, let's just log and skip encoding, which will likely fail later.
-        // A better approach would be to enforce validation in the controller/model.
+      // Handle case where password is null or empty, maybe throw an exception or log a warning
+      // For now, let's just log and skip encoding, which will likely fail later.
+      // A better approach would be to enforce validation in the controller/model.
     }
     return userRepository.save(user);
   }

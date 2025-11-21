@@ -1,9 +1,10 @@
 package com.fintech.userservice.controller;
 
-import com.fintech.userservice.model.User;
-import com.fintech.userservice.service.UserService;
 import com.fintech.common.util.JwtUtil;
 import com.fintech.common.util.PasswordValidator;
+import com.fintech.userservice.model.User;
+import com.fintech.userservice.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -35,9 +35,9 @@ public class UserController {
   @PostMapping("/register")
   public ResponseEntity<?> registerUser(@RequestBody User user) {
     try {
-        PasswordValidator.validate(user.getPassword());
+      PasswordValidator.validate(user.getPassword());
     } catch (IllegalArgumentException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
+      return ResponseEntity.badRequest().body(e.getMessage());
     }
 
     if (userService.findByUsername(user.getUsername()) != null) {
@@ -61,8 +61,10 @@ public class UserController {
       log.warn("Authentication failed for user: {}", loginRequest.getUsername());
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     } catch (Exception e) {
-      log.error("An unexpected error occurred during login for user: {}", loginRequest.getUsername(), e);
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
+      log.error(
+          "An unexpected error occurred during login for user: {}", loginRequest.getUsername(), e);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .body("An unexpected error occurred");
     }
   }
 

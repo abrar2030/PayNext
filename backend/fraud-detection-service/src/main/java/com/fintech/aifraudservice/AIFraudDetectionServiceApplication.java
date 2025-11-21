@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAsync
 @EnableScheduling
 public class AIFraudDetectionServiceApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(AIFraudDetectionServiceApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(AIFraudDetectionServiceApplication.class, args);
+  }
 }

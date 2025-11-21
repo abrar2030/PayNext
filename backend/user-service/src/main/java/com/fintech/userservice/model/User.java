@@ -1,9 +1,9 @@
 package com.fintech.userservice.model;
 
 import javax.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +16,9 @@ public class User {
   private Long id;
 
   private String username;
-  private String password; // Note: Lombok's @Data will generate a setter, which is fine for JPA, but be careful when setting it directly.
+  private String
+      password; // Note: Lombok's @Data will generate a setter, which is fine for JPA, but be
+                // careful when setting it directly.
   private String email;
   private String role;
 }
