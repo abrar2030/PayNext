@@ -476,30 +476,8 @@ telnet <rds-endpoint> 5432
 3. **Certificate Renewal**: Automatic SSL certificate renewal
 4. **Security Scanning**: Continuous security monitoring
 
-## Support
-
-### Documentation
-
-- [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/)
-- [Terraform Documentation](https://www.terraform.io/docs/)
-- [Kubernetes Documentation](https://kubernetes.io/docs/)
-
-### Monitoring Dashboards
-
-- CloudWatch Dashboard: `PayNext-<environment>-Dashboard`
-- Grafana Dashboard: Available after deployment
-- Cost Dashboard: AWS Cost Explorer
-
-### Contact Information
-
-- **Security Issues**: security@yourcompany.com
-- **Compliance Questions**: compliance@yourcompany.com
-- **Technical Support**: platform-team@yourcompany.com
-
 ## License
 
 This infrastructure code is proprietary and confidential. Unauthorized use, distribution, or modification is strictly prohibited.
 
 ---
-
-**Note**: This infrastructure is designed for financial applications and includes comprehensive security and compliance features. Always review and test thoroughly before deploying to production environments.
