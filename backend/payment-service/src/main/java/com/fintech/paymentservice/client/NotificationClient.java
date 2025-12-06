@@ -20,7 +20,7 @@ public interface NotificationClient {
 
   default void sendNotificationFallback(NotificationRequest notificationRequest, Exception e) {
     // Fallback implementation when notification service is down
-    System.out.println("Fallback: Unable to send notification. Will retry later.");
+    logger.info("Fallback: Unable to send notification. Will retry later.");
     // Here you could queue the notification for later retry
   }
 

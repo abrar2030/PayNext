@@ -18,7 +18,7 @@ public interface UserClient {
 
   default UserDTO getUserByIdFallback(Long id, Exception e) {
     // Fallback implementation when user service is down
-    System.out.println("Fallback: Unable to get user with ID: " + id);
+    logger.info("Fallback: Unable to get user with ID: " + id);
     return new UserDTO(id, "Unknown", "User", "unknown@example.com");
   }
 
