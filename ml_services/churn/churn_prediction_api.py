@@ -6,6 +6,10 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 app = FastAPI(title="Churn Prediction API")
 
 # Define the path to the models relative to the current file
@@ -24,13 +28,13 @@ try:
     churn_model = joblib.load(churn_model_path)
     churn_scaler = joblib.load(churn_scaler_path)
     churn_model_features = joblib.load(churn_model_features_path)
-    print("Churn Prediction Model, Scaler, and Features loaded successfully.")
+    logger.info("Churn Prediction Model, Scaler, and Features loaded successfully.")
 except FileNotFoundError:
-    print(
+    logger.info(
         f"Churn model, scaler, or features file not found at {model_dir}. Please train the model first."
     )
 except Exception as e:
-    print(f"Error loading Churn Prediction Model components: {e}")
+    logger.info(f"Error loading Churn Prediction Model components: {e}")
 
 
 class ChurnPredictionInput(BaseModel):

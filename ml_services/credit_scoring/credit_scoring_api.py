@@ -5,6 +5,10 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 app = FastAPI(title="Credit Scoring API")
 
 # Define the path to the models relative to the current file
@@ -23,13 +27,13 @@ try:
     credit_scoring_model = joblib.load(credit_scoring_model_path)
     credit_scoring_scaler = joblib.load(credit_scoring_scaler_path)
     credit_scoring_features = joblib.load(credit_scoring_features_path)
-    print("Credit Scoring Model, Scaler, and Features loaded successfully.")
+    logger.info("Credit Scoring Model, Scaler, and Features loaded successfully.")
 except FileNotFoundError:
-    print(
+    logger.info(
         f"Credit scoring model, scaler, or features file not found at {model_dir}. Please train the model first."
     )
 except Exception as e:
-    print(f"Error loading Credit Scoring Model components: {e}")
+    logger.info(f"Error loading Credit Scoring Model components: {e}")
 
 
 class CreditScoringInput(BaseModel):

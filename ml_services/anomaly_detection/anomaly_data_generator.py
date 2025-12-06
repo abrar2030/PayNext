@@ -3,6 +3,10 @@ from datetime import datetime, timedelta
 import numpy as np
 import pandas as pd
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 
 def generate_synthetic_transaction_data(
     num_transactions=10000, num_users=100, anomaly_ratio=0.02
@@ -88,6 +92,6 @@ if __name__ == "__main__":
         num_transactions=100000, num_users=500, anomaly_ratio=0.01
     )
     df.to_csv("synthetic_transaction_anomalies.csv", index=False)
-    print("Generated synthetic_transaction_anomalies.csv")
-    print(df.head())
-    print(df["is_anomaly"].value_counts())
+    logger.info("Generated synthetic_transaction_anomalies.csv")
+    logger.info(df.head())
+    logger.info(df["is_anomaly"].value_counts())

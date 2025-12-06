@@ -5,6 +5,10 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 app = FastAPI(title="Transaction Categorization API")
 
 # Define the path to the models relative to the current file
@@ -20,13 +24,13 @@ category_vectorizer = None
 try:
     category_model = joblib.load(category_model_path)
     category_vectorizer = joblib.load(category_vectorizer_path)
-    print("Categorization Model and Vectorizer loaded successfully.")
+    logger.info("Categorization Model and Vectorizer loaded successfully.")
 except FileNotFoundError:
-    print(
+    logger.info(
         f"Categorization model or vectorizer file not found at {model_dir}. Please train the model first."
     )
 except Exception as e:
-    print(f"Error loading Categorization Model or Vectorizer: {e}")
+    logger.info(f"Error loading Categorization Model or Vectorizer: {e}")
 
 
 class TransactionCategorizationInput(BaseModel):

@@ -4,6 +4,10 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 
 class DataAnalyticsService:
     def __init__(self):
@@ -140,58 +144,52 @@ if __name__ == "__main__":
         from anomaly_detection.anomaly_data_generator import (
             generate_synthetic_transaction_data,
         )
-    print("Generating synthetic transaction data for analytics...")
+    logger.info("Generating synthetic transaction data for analytics...")
     synthetic_transactions_df = generate_synthetic_transaction_data(
         num_transactions=100000, num_users=500, anomaly_ratio=0.0
     )
-    print("Synthetic data generated.")
-
+    logger.info("Synthetic data generated.")
     analytics_service = DataAnalyticsService()
 
     # --- User Segmentation ---
-    print("\nTraining User Segmentation model...")
+    logger.info("\nTraining User Segmentation model...")
     user_segments_df = analytics_service.train_user_segmentation_model(
         synthetic_transactions_df, n_clusters=4
     )
-    print("User Segmentation trained and segments assigned.")
-    print("User segments head:")
-    print(user_segments_df.head())
-    print("Segment distribution:")
-    print(user_segments_df["segment"].value_counts())
-
+    logger.info("User Segmentation trained and segments assigned.")
+    logger.info("User segments head:")
+    logger.info(user_segments_df.head())
+    logger.info("Segment distribution:")
+    logger.info(user_segments_df["segment"].value_counts())
     # Save and load segmentation model
     analytics_service.save_models("analytics_models.joblib")
     loaded_analytics_service = DataAnalyticsService.load_models(
         "analytics_models.joblib"
     )
-    print("Analytics models saved and loaded.")
-
+    logger.info("Analytics models saved and loaded.")
     # Predict segments for new data (or same data for demo)
     predicted_segments = loaded_analytics_service.predict_user_segment(
         synthetic_transactions_df.sample(100)
     )
-    print("\nPredicted segments for a sample of users:")
-    print(predicted_segments.head())
-
+    logger.info("\nPredicted segments for a sample of users:")
+    logger.info(predicted_segments.head())
     # --- Transaction Trend Analysis ---
-    print("\nPerforming Daily Transaction Trend Analysis...")
+    logger.info("\nPerforming Daily Transaction Trend Analysis...")
     daily_trends = analytics_service.analyze_transaction_trends(
         synthetic_transactions_df, time_granularity="daily"
     )
-    print("Daily Trends head:")
-    print(daily_trends.head())
-
-    print("\nPerforming Monthly Transaction Trend Analysis...")
+    logger.info("Daily Trends head:")
+    logger.info(daily_trends.head())
+    logger.info("\nPerforming Monthly Transaction Trend Analysis...")
     monthly_trends = analytics_service.analyze_transaction_trends(
         synthetic_transactions_df, time_granularity="monthly"
     )
-    print("Monthly Trends head:")
-    print(monthly_trends.head())
-
+    logger.info("Monthly Trends head:")
+    logger.info(monthly_trends.head())
     # --- Geospatial Pattern Analysis ---
-    print("\nPerforming Geospatial Pattern Analysis...")
+    logger.info("\nPerforming Geospatial Pattern Analysis...")
     geospatial_summary = analytics_service.analyze_geospatial_patterns(
         synthetic_transactions_df
     )
-    print("Geospatial Summary head:")
-    print(geospatial_summary.head())
+    logger.info("Geospatial Summary head:")
+    logger.info(geospatial_summary.head())

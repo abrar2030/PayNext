@@ -3,6 +3,10 @@ from datetime import datetime, timedelta
 import numpy as np
 import pandas as pd
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 
 def generate_synthetic_data(num_transactions=10000):
     np.random.seed(42)
@@ -78,8 +82,8 @@ def generate_synthetic_data(num_transactions=10000):
 if __name__ == "__main__":
     df = generate_synthetic_data(num_transactions=50000)
     df.to_csv("PayNext/ml_services/synthetic_transactions.csv", index=False)
-    print(
+    logger.info(
         "Synthetic transaction data generated and saved to PayNext/ml_services/synthetic_transactions.csv"
     )
-    print(df.head())
-    print(df["is_fraud"].value_counts())
+    logger.info(df.head())
+    logger.info(df["is_fraud"].value_counts())

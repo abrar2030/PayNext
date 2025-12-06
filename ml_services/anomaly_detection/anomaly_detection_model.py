@@ -6,6 +6,10 @@ import pandas as pd
 from sklearn.ensemble import IsolationForest
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 
 class AnomalyDetector:
     def __init__(self, contamination=0.01, random_state=42):
@@ -121,52 +125,46 @@ if __name__ == "__main__":
     # Generate some synthetic data for demonstration
     from anomaly_data_generator import generate_synthetic_transaction_data
 
-    print("Generating synthetic data...")
+    logger.info("Generating synthetic data...")
     synthetic_df = generate_synthetic_transaction_data(
         num_transactions=50000, num_users=200, anomaly_ratio=0.005
     )
-    print("Synthetic data generated.")
-
+    logger.info("Synthetic data generated.")
     # Train the model
     detector = AnomalyDetector(
         contamination=0.005
     )  # Set contamination based on expected anomaly ratio
     X_train = detector.preprocess(synthetic_df)
-    print("Training Anomaly Detection model...")
+    logger.info("Training Anomaly Detection model...")
     detector.train(X_train)
-    print("Model trained.")
-
+    logger.info("Model trained.")
     # Save the model
     model_path = "anomaly_detector_model.joblib"
     detector.save_model(model_path)
-    print(f"Model saved to {model_path}")
-
+    logger.info(f"Model saved to {model_path}")
     # Load and test the model
     loaded_detector = AnomalyDetector.load_model(model_path)
-    print("Model loaded.")
-
+    logger.info("Model loaded.")
     # Make predictions on new data (can be the same synthetic data for testing)
     X_test = loaded_detector.preprocess(synthetic_df)
     predictions = loaded_detector.predict(X_test)
 
-    print("Predictions made.")
-    print(f"Total transactions: {len(predictions)}")
-    print(f"Detected anomalies: {np.sum(predictions)}")
-
+    logger.info("Predictions made.")
+    logger.info(f"Total transactions: {len(predictions)}")
+    logger.info(f"Detected anomalies: {np.sum(predictions)}")
     # Evaluate (simple check)
     true_anomalies = synthetic_df["is_anomaly"].sum()
     detected_anomalies_correctly = np.sum(predictions[synthetic_df["is_anomaly"] == 1])
 
-    print(f"True anomalies in data: {true_anomalies}")
-    print(
+    logger.info(f"True anomalies in data: {true_anomalies}")
+    logger.info(
         f"Anomalies detected that were true anomalies: {detected_anomalies_correctly}"
     )
-    print(
+    logger.info(
         f"False positives (normal transactions predicted as anomaly): {np.sum(predictions[synthetic_df['is_anomaly'] == 0])}"
     )
-
     # Example of a single transaction prediction
-    print("\nPredicting a single transaction:")
+    logger.info("\nPredicting a single transaction:")
     sample_normal_transaction = pd.DataFrame(
         [
             {
@@ -201,5 +199,9 @@ if __name__ == "__main__":
     normal_pred = loaded_detector.predict(processed_normal)
     anomaly_pred = loaded_detector.predict(processed_anomaly)
 
-    print(f"Normal transaction prediction: {normal_pred[0]} (0=Normal, 1=Anomaly)")
-    print(f"Anomaly transaction prediction: {anomaly_pred[0]} (0=Normal, 1=Anomaly)")
+    logger.info(
+        f"Normal transaction prediction: {normal_pred[0]} (0=Normal, 1=Anomaly)"
+    )
+    logger.info(
+        f"Anomaly transaction prediction: {anomaly_pred[0]} (0=Normal, 1=Anomaly)"
+    )

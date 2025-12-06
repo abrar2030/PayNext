@@ -6,6 +6,10 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 app = FastAPI(title="Recommendation API")
 
 # Define the path to the models and data relative to the current file
@@ -28,7 +32,7 @@ try:
     scaler = joblib.load(scaler_path)
     user_spending_clusters = pd.read_csv(user_spending_clusters_path)
     recommendation_features = joblib.load(recommendation_features_path)
-    print("Recommendation Model, Scaler, and Data loaded successfully.")
+    logger.info("Recommendation Model, Scaler, and Data loaded successfully.")
 
     # Pre-compute cluster characteristics for more dynamic recommendations
     def get_cluster_characteristics(df):
@@ -40,11 +44,11 @@ try:
     cluster_characteristics = get_cluster_characteristics(user_spending_clusters)
 
 except FileNotFoundError as e:
-    print(
+    logger.info(
         f"Recommendation model or data file not found: {e}. Please train the model first."
     )
 except Exception as e:
-    print(f"Error loading Recommendation Model components: {e}")
+    logger.info(f"Error loading Recommendation Model components: {e}")
 
 
 class UserRecommendationInput(BaseModel):

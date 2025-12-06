@@ -7,6 +7,10 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.svm import SVC
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 
 def train_categorization_model(
     data_path=os.path.join(
@@ -46,16 +50,14 @@ def train_categorization_model(
     grid_search.fit(X_train_vec, y_train)
 
     best_model = grid_search.best_estimator_
-    print(f"Best SVC parameters: {grid_search.best_params_}")
-
+    logger.info(f"Best SVC parameters: {grid_search.best_params_}")
     # Evaluate the best model
     y_pred = best_model.predict(X_test_vec)
-    print("\nTransaction Categorization Model Report (SVC):")
-    print(classification_report(y_test, y_pred))
-
+    logger.info("\nTransaction Categorization Model Report (SVC):")
+    logger.info(classification_report(y_test, y_pred))
     # Save the best model
     joblib.dump(best_model, os.path.join(model_dir, "category_model.joblib"))
-    print(
+    logger.info(
         f"Transaction categorization model (SVC) trained and saved to {os.path.join(model_dir, 'category_model.joblib')}"
     )
 

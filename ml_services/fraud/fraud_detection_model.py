@@ -11,6 +11,10 @@ from tensorflow.keras.layers import Dense, Input
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 
 def train_fraud_model(
     data_path=os.path.join(
@@ -119,11 +123,10 @@ def train_fraud_model(
     # Evaluate RandomForest model
     y_pred_rf = model_rf.predict(X_test)
     y_proba_rf = model_rf.predict_proba(X_test)[:, 1]
-    print("\nRandomForest Fraud Detection Model Report:")
-    print(classification_report(y_test, y_pred_rf))
-    print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_rf))
-    print("ROC AUC Score:", roc_auc_score(y_test, y_proba_rf))
-
+    logger.info("\nRandomForest Fraud Detection Model Report:")
+    logger.info(classification_report(y_test, y_pred_rf))
+    logger.info("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_rf))
+    logger.info("ROC AUC Score:", roc_auc_score(y_test, y_proba_rf))
     # Train an Isolation Forest for anomaly detection (unsupervised, good for fraud)
     # Note: Isolation Forest doesn't use 'y' for training, but we can evaluate its performance
     # by treating 'is_fraud' as the anomaly label for evaluation purposes.
@@ -138,27 +141,25 @@ def train_fraud_model(
     y_pred_if_binary = np.where(
         y_pred_if == -1, 1, 0
     )  # Convert -1/1 to 1/0 for fraud/non-fraud
-    print("\nIsolation Forest Anomaly Detection Report:")
-    print(classification_report(y_test, y_pred_if_binary))
-    print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_if_binary))
+    logger.info("\nIsolation Forest Anomaly Detection Report:")
+    logger.info(classification_report(y_test, y_pred_if_binary))
+    logger.info("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_if_binary))
     # For Isolation Forest, decision_function gives anomaly score. Lower score is more anomalous.
     # We can use negative of decision_function as a 'fraud probability' for ROC AUC.
     y_proba_if = -model_if.decision_function(X_test)
-    print("ROC AUC Score:", roc_auc_score(y_test, y_proba_if))
-
+    logger.info("ROC AUC Score:", roc_auc_score(y_test, y_proba_if))
     # Save the best performing model (e.g., RandomForest if ROC AUC is higher, or Isolation Forest for pure anomaly detection)
     # For this example, we'll save RandomForest, but in a real scenario, a meta-learner or ensemble could combine both.
     joblib.dump(model_rf, os.path.join(model_dir, "fraud_model.joblib"))
     joblib.dump(
         model_if, os.path.join(model_dir, "fraud_isolation_forest_model.joblib")
     )  # Save IF model as well
-    print(
+    logger.info(
         "Fraud detection RandomForest model trained and saved to PayNext/ml_services/fraud_model.joblib"
     )
-    print(
+    logger.info(
         "Fraud detection Isolation Forest model trained and saved to PayNext/ml_services/fraud_isolation_forest_model.joblib"
     )
-
     # Save feature columns and scaler for consistent input during inference
     joblib.dump(features, os.path.join(model_dir, "fraud_model_features.joblib"))
 
@@ -174,7 +175,7 @@ def train_fraud_model(
     autoencoder = Model(inputs=input_layer, outputs=decoder)
     autoencoder.compile(optimizer=Adam(learning_rate=0.001), loss="mean_squared_error")
 
-    print("\nTraining Autoencoder for Anomaly Detection...")
+    logger.info("\nTraining Autoencoder for Anomaly Detection...")
     autoencoder.fit(
         X_train,
         X_train,
@@ -184,8 +185,7 @@ def train_fraud_model(
         validation_split=0.1,
         verbose=0,
     )
-    print("Autoencoder training complete.")
-
+    logger.info("Autoencoder training complete.")
     # Predict reconstruction errors for anomaly scoring
     reconstructions = autoencoder.predict(X)
     mse = np.mean(np.power(X - reconstructions, 2), axis=1)
@@ -193,7 +193,7 @@ def train_fraud_model(
     # Determine a threshold for anomalies (e.g., based on a percentile of MSE on training data)
     # For simplicity, we'll save the model and let the API determine the threshold dynamically or use a fixed one.
     joblib.dump(autoencoder, os.path.join(model_dir, "fraud_autoencoder_model.joblib"))
-    print(
+    logger.info(
         "Fraud detection Autoencoder model trained and saved to PayNext/ml_services/fraud_autoencoder_model.joblib"
     )
 

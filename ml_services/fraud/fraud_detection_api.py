@@ -8,6 +8,10 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 app = FastAPI(title="Fraud Detection API")
 
 # Define the path to the models relative to the current file
@@ -49,13 +53,13 @@ try:
     merchant_encoder = joblib.load(merchant_encoder_path)
     transaction_type_encoder = joblib.load(transaction_type_encoder_path)
     user_id_encoder = joblib.load(user_id_encoder_path)
-    print("Fraud Detection Models and Encoders loaded successfully.")
+    logger.info("Fraud Detection Models and Encoders loaded successfully.")
 except FileNotFoundError as e:
-    print(
+    logger.info(
         f"Fraud detection model or encoder file not found: {e}. Please train the models first."
     )
 except Exception as e:
-    print(f"Error loading Fraud Detection Model components: {e}")
+    logger.info(f"Error loading Fraud Detection Model components: {e}")
 
 
 class FraudPredictionInput(BaseModel):

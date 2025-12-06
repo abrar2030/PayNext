@@ -14,6 +14,10 @@ from ..anomaly_detection.anomaly_data_generator import (  # For initial data
 # Assuming data_analytics_service.py is in the same directory or accessible
 from .data_analytics.data_analytics_service import DataAnalyticsService
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 app = FastAPI(title="Data Analytics API")
 
 
@@ -27,9 +31,9 @@ model_path = os.path.join(os.path.dirname(__file__), "analytics_models.joblib")
 
 try:
     analytics_service = DataAnalyticsService.load_models(model_path)
-    print("Data Analytics Models loaded successfully.")
+    logger.info("Data Analytics Models loaded successfully.")
 except FileNotFoundError:
-    print(
+    logger.info(
         f"Analytics model file not found at {model_path}. Training a new model for demonstration."
     )
     # If model not found, train a dummy one for demonstration purposes
@@ -39,9 +43,9 @@ except FileNotFoundError:
     analytics_service = DataAnalyticsService()
     analytics_service.train_user_segmentation_model(synthetic_df, n_clusters=4)
     analytics_service.save_models(model_path)  # Save it for future runs
-    print("New Data Analytics Models trained and saved.")
+    logger.info("New Data Analytics Models trained and saved.")
 except Exception as e:
-    print(f"Error loading Data Analytics Models: {e}")
+    logger.info(f"Error loading Data Analytics Models: {e}")
     analytics_service = DataAnalyticsService()
 
 # In a real application, you'd load actual transaction data here or connect to a DB

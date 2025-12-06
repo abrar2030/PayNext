@@ -9,6 +9,10 @@ from pydantic import BaseModel
 # Assuming anomaly_detection_model.py is in the same directory or accessible
 from .anomaly_detection.anomaly_detection_model import AnomalyDetector
 
+from core.logging import get_logger
+
+logger = get_logger(__name__)
+
 app = FastAPI(title="Anomaly Detection API")
 
 
@@ -25,9 +29,9 @@ model_path = os.path.join(
 try:
     # Attempt to load the model
     anomaly_detector = AnomalyDetector.load_model(model_path)
-    print("Anomaly Detection Model loaded successfully.")
+    logger.info("Anomaly Detection Model loaded successfully.")
 except FileNotFoundError:
-    print(
+    logger.info(
         f"Model file not found at {model_path}. Training a new model for demonstration."
     )
     # If model not found, train a dummy one for demonstration purposes
@@ -42,9 +46,9 @@ except FileNotFoundError:
     X_train = anomaly_detector.preprocess(synthetic_df)
     anomaly_detector.train(X_train)
     anomaly_detector.save_model(model_path)  # Save it for future runs
-    print("New Anomaly Detection Model trained and saved.")
+    logger.info("New Anomaly Detection Model trained and saved.")
 except Exception as e:
-    print(f"Error loading Anomaly Detection Model: {e}")
+    logger.info(f"Error loading Anomaly Detection Model: {e}")
     # Fallback to an untrained model if loading fails critically
     anomaly_detector = AnomalyDetector()
 
