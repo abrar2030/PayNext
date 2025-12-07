@@ -1,11 +1,13 @@
 import os
 from datetime import datetime, timedelta
+
 import joblib
 import lightgbm as lgb
 import pandas as pd
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.preprocessing import StandardScaler
+
 from core.logging import get_logger
 
 logger = get_logger(__name__)
@@ -15,14 +17,18 @@ def train_churn_model(
     data_path: str = os.path.join(
         os.path.dirname(__file__), "..", "synthetic_churn_data.csv"
     )
-) -> Any:
+):
     """
     Train a LightGBM model to predict user churn using synthetic churn dataset.
     Saves the trained model, scaler, and feature list for inference.
     """
     df = pd.read_csv(data_path)
+
+    # Convert month to datetime for time-series features
     df["month_dt"] = pd.to_datetime(df["month"], format="%Y-%m")
     df = df.sort_values(by=["user_id", "month_dt"])
+
+    # Rolling window features for trends
     df["rolling_avg_transactions_3m"] = (
         df.groupby("user_id")["transactions_per_month"]
         .rolling(3)
@@ -47,7 +53,10 @@ def train_churn_model(
         .std()
         .reset_index(level=0, drop=True)
     )
+
     df.fillna(0, inplace=True)
+
+    # Lag features
     df["prev_transactions_per_month"] = (
         df.groupby("user_id")["transactions_per_month"].shift(1).fillna(0)
     )
@@ -57,6 +66,8 @@ def train_churn_model(
     df["prev_feature_usage_score"] = (
         df.groupby("user_id")["feature_usage_score"].shift(1).fillna(0)
     )
+
+    # Difference features
     df["transactions_diff"] = (
         df["transactions_per_month"] - df["prev_transactions_per_month"]
     )
@@ -64,6 +75,8 @@ def train_churn_model(
     df["feature_usage_diff"] = (
         df["feature_usage_score"] - df["prev_feature_usage_score"]
     )
+
+    # Aggregate per user
     user_agg = (
         df.groupby("user_id")
         .agg(
@@ -88,6 +101,8 @@ def train_churn_model(
         )
         .reset_index()
     )
+
+    # Features and target
     feature_cols = [
         "avg_transactions_per_month",
         "avg_logins_per_month",
@@ -106,26 +121,36 @@ def train_churn_model(
     ]
     X = user_agg[feature_cols]
     y = user_agg["ever_churned"]
+
+    # Scale features
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
     model_dir = os.path.join(os.path.dirname(__file__), "..")
     joblib.dump(scaler, os.path.join(model_dir, "churn_scaler.joblib"))
+
+    # Train/test split
     X_train, X_test, y_train, y_test = train_test_split(
         X_scaled, y, test_size=0.3, random_state=42, stratify=y
     )
+
+    # LightGBM with GridSearchCV
     param_grid = {
         "n_estimators": [100, 200, 300],
         "learning_rate": [0.01, 0.05, 0.1],
         "num_leaves": [20, 31, 40],
         "max_depth": [-1, 10, 20],
     }
+
     lgbm = lgb.LGBMClassifier(random_state=42, class_weight="balanced")
     grid_search = GridSearchCV(
         lgbm, param_grid, cv=3, scoring="roc_auc", verbose=1, n_jobs=-1
     )
     grid_search.fit(X_train, y_train)
+
     model_lgb = grid_search.best_estimator_
     logger.info(f"Best LightGBM parameters: {grid_search.best_params_}")
+
+    # Evaluate
     y_pred = model_lgb.predict(X_test)
     y_proba = model_lgb.predict_proba(X_test)[:, 1]
     logger.info(
@@ -134,6 +159,8 @@ def train_churn_model(
     )
     logger.info(f"Confusion Matrix:\n{confusion_matrix(y_test, y_pred)}")
     logger.info(f"ROC AUC Score: {roc_auc_score(y_test, y_proba):.4f}")
+
+    # Save model and feature columns
     joblib.dump(model_lgb, os.path.join(model_dir, "churn_model.joblib"))
     joblib.dump(feature_cols, os.path.join(model_dir, "churn_model_features.joblib"))
     logger.info("Churn model, scaler, and feature list saved.")
