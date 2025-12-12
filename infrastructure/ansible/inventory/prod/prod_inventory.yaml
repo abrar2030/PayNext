@@ -1,22 +1,30 @@
 ---
-[all:vars]
-  ansible_user=prod_user
-  ansible_ssh_private_key_file=~/.ssh/prod_key.pem
-
-  [api-gateway]
-  prod-api-gateway-1 ansible_host=192.168.3.10
-
-  [eureka-server]
-  prod-eureka-server-1 ansible_host=192.168.3.11
-
-  [user-service]
-  prod-user-service-1 ansible_host=192.168.3.12
-
-  [payment-service]
-  prod-payment-service-1 ansible_host=192.168.3.13
-
-  [notification-service]
-  prod-notification-service-1 ansible_host=192.168.3.14
-
-  [frontend]
-  prod-frontend-1 ansible_host=192.168.3.15
+all:
+  vars:
+    ansible_user: prod_user
+    ansible_ssh_private_key_file: ~/.ssh/prod_key.pem
+  children:
+    api-gateway:
+      hosts:
+        prod-api-gateway-1:
+          ansible_host: 192.168.3.10
+    eureka-server:
+      hosts:
+        prod-eureka-server-1:
+          ansible_host: 192.168.3.11
+    user-service:
+      hosts:
+        prod-user-service-1:
+          ansible_host: 192.168.3.12
+    payment-service:
+      hosts:
+        prod-payment-service-1:
+          ansible_host: 192.168.3.13
+    notification-service:
+      hosts:
+        prod-notification-service-1:
+          ansible_host: 192.168.3.14
+    frontend:
+      hosts:
+        prod-frontend-1:
+          ansible_host: 192.168.3.15
