@@ -1,7 +1,6 @@
----
 {{- range $name, $service := .Values.services }}
-{{- if $service.enabled -}}
+{{- if $service.enabled }}
 ---
 {{ include "paynext.deployment" (dict "serviceName" $name "Values" $.Values "Release" $.Release "Chart" $.Chart) }}
-{{- end -}}
-{{- end -}}
+{{- end }}
+{{- end }}

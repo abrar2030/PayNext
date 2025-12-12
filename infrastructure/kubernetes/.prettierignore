@@ -1,3 +1,3 @@
-# Helm template files with Go template syntax
+# Helm template files - contain Go template syntax that Prettier can't parse
 templates/deployment.yaml
 templates/service.yaml
