@@ -1,6 +1,0 @@
-{{- range $name, $service := .Values.services }}
----
-{{- if $service.enabled }}
-{{ include "paynext.service" (dict "serviceName" $name "Values" $.Values "Release" $.Release "Chart" $.Chart) }}
-{{- end }}
-{{- end }}
