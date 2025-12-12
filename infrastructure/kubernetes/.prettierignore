@@ -1,0 +1,3 @@
+# Helm template files with Go template syntax
+templates/deployment.yaml
+templates/service.yaml

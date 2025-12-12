@@ -1,3 +1,4 @@
+---
 {{- range $name, $service := .Values.services }}
 {{- if $service.enabled -}}
 ---
