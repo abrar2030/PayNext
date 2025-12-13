@@ -1,0 +1,19 @@
+---
+# .ansible-lint configuration
+skip_list:
+  - 'yaml[line-length]'  # Allow long lines in some cases
+  - 'name[casing]'  # Allow flexible task naming
+
+warn_list:
+  - experimental
+
+exclude_paths:
+  - .cache/
+  - .git/
+  - roles/external/
+
+# Enable offline mode for faster linting
+offline: false
+
+# Use default rules
+use_default_rules: true

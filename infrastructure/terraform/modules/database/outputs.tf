@@ -73,15 +73,15 @@ output "cluster_instances" {
   description = "Map of cluster instances"
   value = {
     for instance in aws_rds_cluster_instance.paynext_cluster_instances : instance.identifier => {
-      arn                    = instance.arn
-      identifier            = instance.identifier
-      endpoint              = instance.endpoint
-      port                  = instance.port
-      instance_class        = instance.instance_class
-      engine                = instance.engine
-      engine_version        = instance.engine_version
-      publicly_accessible   = instance.publicly_accessible
-      availability_zone     = instance.availability_zone
+      arn                          = instance.arn
+      identifier                   = instance.identifier
+      endpoint                     = instance.endpoint
+      port                         = instance.port
+      instance_class               = instance.instance_class
+      engine                       = instance.engine
+      engine_version               = instance.engine_version
+      publicly_accessible          = instance.publicly_accessible
+      availability_zone            = instance.availability_zone
       performance_insights_enabled = instance.performance_insights_enabled
     }
   }
@@ -254,10 +254,10 @@ output "connection_info" {
     primary_endpoint = aws_rds_cluster.paynext_cluster.endpoint
     reader_endpoint  = aws_rds_cluster.paynext_cluster.reader_endpoint
     proxy_endpoint   = var.enable_rds_proxy ? aws_db_proxy.paynext_proxy.endpoint : null
-    port            = aws_rds_cluster.paynext_cluster.port
-    database_name   = aws_rds_cluster.paynext_cluster.database_name
-    engine          = aws_rds_cluster.paynext_cluster.engine
-    engine_version  = aws_rds_cluster.paynext_cluster.engine_version
+    port             = aws_rds_cluster.paynext_cluster.port
+    database_name    = aws_rds_cluster.paynext_cluster.database_name
+    engine           = aws_rds_cluster.paynext_cluster.engine
+    engine_version   = aws_rds_cluster.paynext_cluster.engine_version
   }
   sensitive = true
 }
@@ -266,19 +266,19 @@ output "connection_info" {
 output "security_features_enabled" {
   description = "Summary of enabled security features"
   value = {
-    encryption_at_rest        = var.enable_encryption_at_rest
-    encryption_in_transit     = true  # Always enabled for Aurora
-    multi_az                 = var.enable_multi_az
-    deletion_protection      = var.deletion_protection
-    backup_encryption        = var.enable_encryption_at_rest
-    performance_insights     = var.enable_performance_insights
-    enhanced_monitoring      = var.enable_enhanced_monitoring
-    audit_logging           = var.enable_audit_logging
-    query_logging           = var.enable_query_logging
-    connection_logging      = var.enable_connection_logging
-    rds_proxy               = var.enable_rds_proxy
-    automated_backups       = var.enable_automated_backups
-    cross_region_backup     = var.enable_cross_region_backup
+    encryption_at_rest    = var.enable_encryption_at_rest
+    encryption_in_transit = true # Always enabled for Aurora
+    multi_az              = var.enable_multi_az
+    deletion_protection   = var.deletion_protection
+    backup_encryption     = var.enable_encryption_at_rest
+    performance_insights  = var.enable_performance_insights
+    enhanced_monitoring   = var.enable_enhanced_monitoring
+    audit_logging         = var.enable_audit_logging
+    query_logging         = var.enable_query_logging
+    connection_logging    = var.enable_connection_logging
+    rds_proxy             = var.enable_rds_proxy
+    automated_backups     = var.enable_automated_backups
+    cross_region_backup   = var.enable_cross_region_backup
   }
 }
 
@@ -297,14 +297,14 @@ output "compliance_status" {
 output "monitoring_summary" {
   description = "Summary of monitoring and performance features"
   value = {
-    performance_insights_enabled     = var.enable_performance_insights
-    performance_insights_retention   = var.performance_insights_retention_period
-    enhanced_monitoring_enabled     = var.enable_enhanced_monitoring
-    monitoring_interval             = var.monitoring_interval
-    cloudwatch_logs_enabled         = true
-    log_retention_days              = var.log_retention_days
-    cpu_alarm_threshold             = var.cpu_threshold
-    connection_alarm_threshold      = var.connection_threshold
-    memory_alarm_threshold          = var.memory_threshold
+    performance_insights_enabled   = var.enable_performance_insights
+    performance_insights_retention = var.performance_insights_retention_period
+    enhanced_monitoring_enabled    = var.enable_enhanced_monitoring
+    monitoring_interval            = var.monitoring_interval
+    cloudwatch_logs_enabled        = true
+    log_retention_days             = var.log_retention_days
+    cpu_alarm_threshold            = var.cpu_threshold
+    connection_alarm_threshold     = var.connection_threshold
+    memory_alarm_threshold         = var.memory_threshold
   }
 }

@@ -181,26 +181,26 @@ output "alb_arn" {
 output "compliance_status" {
   description = "Compliance status summary"
   value = {
-    pci_dss_compliant    = var.enable_encryption_at_rest && var.enable_encryption_in_transit && var.enable_waf
-    gdpr_compliant       = var.enable_encryption_at_rest && var.enable_cloudtrail && var.data_retention_days >= 365
-    sox_compliant        = var.enable_cloudtrail && var.enable_config && var.data_retention_days >= 2555
-    iso27001_compliant   = var.enable_guardduty && var.enable_config && var.enable_vpc_flow_logs
+    pci_dss_compliant  = var.enable_encryption_at_rest && var.enable_encryption_in_transit && var.enable_waf
+    gdpr_compliant     = var.enable_encryption_at_rest && var.enable_cloudtrail && var.data_retention_days >= 365
+    sox_compliant      = var.enable_cloudtrail && var.enable_config && var.data_retention_days >= 2555
+    iso27001_compliant = var.enable_guardduty && var.enable_config && var.enable_vpc_flow_logs
   }
 }
 
 output "security_features_enabled" {
   description = "Summary of enabled security features"
   value = {
-    vpc_flow_logs     = var.enable_vpc_flow_logs
-    guardduty         = var.enable_guardduty
-    config            = var.enable_config
-    cloudtrail        = var.enable_cloudtrail
-    waf               = var.enable_waf
-    secrets_manager   = var.enable_secrets_manager
-    encryption_at_rest = var.enable_encryption_at_rest
+    vpc_flow_logs         = var.enable_vpc_flow_logs
+    guardduty             = var.enable_guardduty
+    config                = var.enable_config
+    cloudtrail            = var.enable_cloudtrail
+    waf                   = var.enable_waf
+    secrets_manager       = var.enable_secrets_manager
+    encryption_at_rest    = var.enable_encryption_at_rest
     encryption_in_transit = var.enable_encryption_in_transit
-    multi_az          = var.enable_multi_az
-    cross_region_backup = var.enable_cross_region_backup
+    multi_az              = var.enable_multi_az
+    cross_region_backup   = var.enable_cross_region_backup
   }
 }
 

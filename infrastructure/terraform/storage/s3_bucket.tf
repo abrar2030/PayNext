@@ -36,12 +36,12 @@ resource "aws_s3_bucket_policy" "paynext_bucket_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action   = ["s3:GetObject"]
-        Effect   = "Allow"
-        Resource = ["${aws_s3_bucket.paynext_bucket.arn}/*"]
+        Action    = ["s3:GetObject"]
+        Effect    = "Allow"
+        Resource  = ["${aws_s3_bucket.paynext_bucket.arn}/*"]
         Principal = "*"
         Condition = {
-          IpAddress = { "aws:SourceIp": var.allowed_ip }
+          IpAddress = { "aws:SourceIp" : var.allowed_ip }
         }
       }
     ]

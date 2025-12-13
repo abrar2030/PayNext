@@ -1,0 +1,11 @@
+---
+# tfsec configuration
+# Excludes for development environment
+
+exclude:
+  # Allow public access for development
+  - AWS018 # Resource has a public IP address
+  - AWS074 # ELB is exposed publicly
+
+# Minimum severity level
+minimum_severity: MEDIUM

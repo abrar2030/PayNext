@@ -30,9 +30,9 @@ resource "aws_vpc" "paynext_vpc" {
   enable_dns_support   = true
 
   tags = merge(var.tags, {
-    Name                = "PayNext-VPC-${var.environment}"
-    Environment         = var.environment
-    Tier               = "Network"
+    Name                                               = "PayNext-VPC-${var.environment}"
+    Environment                                        = var.environment
+    Tier                                               = "Network"
     "kubernetes.io/cluster/${var.environment}-cluster" = "shared"
   })
 }
@@ -56,11 +56,11 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = merge(var.tags, {
-    Name = "PayNext-Public-Subnet-${count.index + 1}-${var.environment}"
-    Type = "Public"
-    Tier = "Public"
+    Name                                               = "PayNext-Public-Subnet-${count.index + 1}-${var.environment}"
+    Type                                               = "Public"
+    Tier                                               = "Public"
     "kubernetes.io/cluster/${var.environment}-cluster" = "shared"
-    "kubernetes.io/role/elb" = "1"
+    "kubernetes.io/role/elb"                           = "1"
   })
 }
 
@@ -73,11 +73,11 @@ resource "aws_subnet" "private" {
   availability_zone = local.azs[count.index]
 
   tags = merge(var.tags, {
-    Name = "PayNext-Private-Subnet-${count.index + 1}-${var.environment}"
-    Type = "Private"
-    Tier = "Application"
+    Name                                               = "PayNext-Private-Subnet-${count.index + 1}-${var.environment}"
+    Type                                               = "Private"
+    Tier                                               = "Application"
     "kubernetes.io/cluster/${var.environment}-cluster" = "owned"
-    "kubernetes.io/role/internal-elb" = "1"
+    "kubernetes.io/role/internal-elb"                  = "1"
   })
 }
 
@@ -619,11 +619,11 @@ resource "aws_vpc_endpoint" "dynamodb" {
 }
 
 resource "aws_vpc_endpoint" "ec2" {
-  vpc_id              = aws_vpc.paynext_vpc.id
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.ec2"
-  vpc_endpoint_type   = "Interface"
-  subnet_ids          = aws_subnet.private[*].id
-  security_group_ids  = [aws_security_group.vpc_endpoints.id]
+  vpc_id             = aws_vpc.paynext_vpc.id
+  service_name       = "com.amazonaws.${data.aws_region.current.name}.ec2"
+  vpc_endpoint_type  = "Interface"
+  subnet_ids         = aws_subnet.private[*].id
+  security_group_ids = [aws_security_group.vpc_endpoints.id]
 
   policy = jsonencode({
     Version = "2012-10-17"

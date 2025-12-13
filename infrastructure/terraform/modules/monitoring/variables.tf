@@ -42,7 +42,7 @@ variable "log_retention_days" {
 variable "data_retention_days" {
   description = "Number of days to retain audit and compliance data"
   type        = number
-  default     = 2555  # 7 years for financial compliance
+  default     = 2555 # 7 years for financial compliance
 
   validation {
     condition     = var.data_retention_days >= 365

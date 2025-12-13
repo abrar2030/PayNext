@@ -42,7 +42,7 @@ variable "security_group_ids" {
 variable "data_retention_days" {
   description = "Number of days to retain data for compliance"
   type        = number
-  default     = 2555  # 7 years for financial compliance
+  default     = 2555 # 7 years for financial compliance
 
   validation {
     condition     = var.data_retention_days >= 365
@@ -160,7 +160,7 @@ variable "enable_s3_notifications" {
 variable "bucket_size_alarm_threshold" {
   description = "Threshold for S3 bucket size alarm (in bytes)"
   type        = number
-  default     = 107374182400  # 100 GB
+  default     = 107374182400 # 100 GB
 
   validation {
     condition     = var.bucket_size_alarm_threshold > 0

@@ -161,37 +161,37 @@ output "cloudwatch_dashboard_name" {
 output "monitoring_features_enabled" {
   description = "Summary of enabled monitoring features"
   value = {
-    cloudtrail                    = var.enable_cloudtrail
-    guardduty                     = var.enable_guardduty
-    config                        = var.enable_config
-    cloudwatch_logs              = true
-    security_alerts              = true
-    compliance_monitoring        = var.enable_config
-    threat_detection             = var.enable_guardduty
-    api_audit_logging           = var.enable_cloudtrail
-    detailed_monitoring         = var.enable_detailed_monitoring
-    cross_region_cloudtrail     = var.enable_cross_region_cloudtrail
-    log_file_validation         = var.enable_log_file_validation
+    cloudtrail              = var.enable_cloudtrail
+    guardduty               = var.enable_guardduty
+    config                  = var.enable_config
+    cloudwatch_logs         = true
+    security_alerts         = true
+    compliance_monitoring   = var.enable_config
+    threat_detection        = var.enable_guardduty
+    api_audit_logging       = var.enable_cloudtrail
+    detailed_monitoring     = var.enable_detailed_monitoring
+    cross_region_cloudtrail = var.enable_cross_region_cloudtrail
+    log_file_validation     = var.enable_log_file_validation
   }
 }
 
 output "compliance_monitoring_status" {
   description = "Status of compliance monitoring features"
   value = {
-    s3_public_access_monitoring   = var.enable_config
-    encryption_monitoring         = var.enable_config
-    cloudtrail_monitoring        = var.enable_config
-    security_group_monitoring    = var.enable_config
-    data_retention_compliance    = var.data_retention_days >= 2555
-    audit_trail_integrity        = var.enable_log_file_validation
+    s3_public_access_monitoring = var.enable_config
+    encryption_monitoring       = var.enable_config
+    cloudtrail_monitoring       = var.enable_config
+    security_group_monitoring   = var.enable_config
+    data_retention_compliance   = var.data_retention_days >= 2555
+    audit_trail_integrity       = var.enable_log_file_validation
   }
 }
 
 output "security_monitoring_endpoints" {
   description = "Security monitoring endpoints and contacts"
   value = {
-    security_contact_email    = var.security_contact_email
-    compliance_contact_email  = var.compliance_contact_email
+    security_contact_email   = var.security_contact_email
+    compliance_contact_email = var.compliance_contact_email
     sns_topic_arn            = aws_sns_topic.security_alerts.arn
     dashboard_url            = "https://${data.aws_region.current.name}.console.aws.amazon.com/cloudwatch/home?region=${data.aws_region.current.name}#dashboards:name=${aws_cloudwatch_dashboard.paynext_dashboard.dashboard_name}"
   }

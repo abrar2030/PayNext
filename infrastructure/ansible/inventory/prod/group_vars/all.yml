@@ -1,5 +1,24 @@
 ---
+# Production Environment Variables
+# SECURITY: Do not commit real secrets to version control
+# Use Ansible Vault for sensitive values: ansible-vault encrypt_string 'your_secret' --name 'variable_name'
+
+# Database Configuration
+db_host: "{{ lookup('env', 'DB_HOST') }}"
+db_port: 5432
+db_name: "paynext_prod"
+db_user: "{{ lookup('env', 'DB_USER') }}"
+# REQUIRED: Set DB_PASSWORD environment variable or use Ansible Vault
+db_password: "{{ lookup('env', 'DB_PASSWORD') }}"
+
+# Application Configuration
 app_environment: "production"
-db_host: "prod-db.paynext.local"
-db_user: "prod_user"
-db_password: "prod_password"
+app_port: 8000
+log_level: "INFO"
+
+# Service Discovery
+eureka_server_url: "http://eureka-server:8001/eureka"
+
+# Feature Flags
+enable_debug_mode: false
+enable_ssl: true

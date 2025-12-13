@@ -321,7 +321,7 @@ variable "enable_automated_backups" {
 variable "backup_schedule" {
   description = "Cron expression for backup schedule"
   type        = string
-  default     = "cron(0 5 ? * * *)"  # Daily at 5 AM UTC
+  default     = "cron(0 5 ? * * *)" # Daily at 5 AM UTC
 }
 
 variable "backup_cold_storage_after_days" {
@@ -361,7 +361,7 @@ variable "connection_threshold" {
 variable "memory_threshold" {
   description = "Freeable memory threshold for alerts (in bytes)"
   type        = number
-  default     = 268435456  # 256 MB
+  default     = 268435456 # 256 MB
 
   validation {
     condition     = var.memory_threshold >= 1

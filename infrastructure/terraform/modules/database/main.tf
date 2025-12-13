@@ -14,14 +14,14 @@ resource "random_password" "db_master_password" {
 # Store database password in Secrets Manager
 resource "aws_secretsmanager_secret" "db_master_password" {
   name                    = "paynext/${var.environment}/database/master-password"
-  description            = "Master password for PayNext database"
-  kms_key_id             = var.kms_key_id
+  description             = "Master password for PayNext database"
+  kms_key_id              = var.kms_key_id
   recovery_window_in_days = 30
 
   tags = merge(var.tags, {
-    Name        = "PayNext-DB-Master-Password-${var.environment}"
-    Purpose     = "DatabaseCredentials"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-DB-Master-Password-${var.environment}"
+    Purpose    = "DatabaseCredentials"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -61,7 +61,7 @@ resource "aws_rds_cluster_parameter_group" "paynext_cluster_pg" {
 
   parameter {
     name  = "log_min_duration_statement"
-    value = "1000"  # Log queries taking more than 1 second
+    value = "1000" # Log queries taking more than 1 second
   }
 
   parameter {
@@ -169,39 +169,39 @@ resource "aws_db_parameter_group" "paynext_db_pg" {
 
 # RDS Aurora Cluster
 resource "aws_rds_cluster" "paynext_cluster" {
-  cluster_identifier              = "paynext-cluster-${var.environment}"
-  engine                         = var.db_engine
-  engine_version                 = var.db_engine_version
-  engine_mode                    = "provisioned"
-  database_name                  = var.db_name
-  master_username                = var.db_master_username
-  manage_master_user_password    = false
-  master_password                = random_password.db_master_password.result
+  cluster_identifier          = "paynext-cluster-${var.environment}"
+  engine                      = var.db_engine
+  engine_version              = var.db_engine_version
+  engine_mode                 = "provisioned"
+  database_name               = var.db_name
+  master_username             = var.db_master_username
+  manage_master_user_password = false
+  master_password             = random_password.db_master_password.result
 
   # Network and Security
-  db_subnet_group_name           = aws_db_subnet_group.paynext_db_subnet_group.name
-  vpc_security_group_ids         = [aws_security_group.rds_cluster.id]
+  db_subnet_group_name            = aws_db_subnet_group.paynext_db_subnet_group.name
+  vpc_security_group_ids          = [aws_security_group.rds_cluster.id]
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.paynext_cluster_pg.name
 
   # Backup and Maintenance
-  backup_retention_period        = var.backup_retention_days
-  preferred_backup_window        = "03:00-04:00"
-  preferred_maintenance_window   = "sun:04:00-sun:05:00"
-  copy_tags_to_snapshot         = true
-  deletion_protection           = var.environment == "prod" ? true : false
-  skip_final_snapshot           = var.environment == "prod" ? false : true
-  final_snapshot_identifier     = var.environment == "prod" ? "paynext-cluster-${var.environment}-final-snapshot-${formatdate("YYYY-MM-DD-hhmm", timestamp())}" : null
+  backup_retention_period      = var.backup_retention_days
+  preferred_backup_window      = "03:00-04:00"
+  preferred_maintenance_window = "sun:04:00-sun:05:00"
+  copy_tags_to_snapshot        = true
+  deletion_protection          = var.environment == "prod" ? true : false
+  skip_final_snapshot          = var.environment == "prod" ? false : true
+  final_snapshot_identifier    = var.environment == "prod" ? "paynext-cluster-${var.environment}-final-snapshot-${formatdate("YYYY-MM-DD-hhmm", timestamp())}" : null
 
   # Encryption
-  storage_encrypted              = var.enable_encryption_at_rest
-  kms_key_id                    = var.kms_key_id
+  storage_encrypted = var.enable_encryption_at_rest
+  kms_key_id        = var.kms_key_id
 
   # Logging
   enabled_cloudwatch_logs_exports = ["postgresql"]
 
   # Performance Insights
   performance_insights_enabled          = true
-  performance_insights_kms_key_id      = var.kms_key_id
+  performance_insights_kms_key_id       = var.kms_key_id
   performance_insights_retention_period = 7
 
   # Serverless v2 scaling (if needed)
@@ -211,9 +211,9 @@ resource "aws_rds_cluster" "paynext_cluster" {
   }
 
   tags = merge(var.tags, {
-    Name        = "PayNext-DB-Cluster-${var.environment}"
-    Purpose     = "Database"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-DB-Cluster-${var.environment}"
+    Purpose    = "Database"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 
   depends_on = [
@@ -243,7 +243,7 @@ resource "aws_rds_cluster_instance" "paynext_cluster_instances" {
 
   # Performance and Monitoring
   performance_insights_enabled          = true
-  performance_insights_kms_key_id      = var.kms_key_id
+  performance_insights_kms_key_id       = var.kms_key_id
   performance_insights_retention_period = 7
   monitoring_interval                   = 60
   monitoring_role_arn                   = aws_iam_role.rds_enhanced_monitoring.arn
@@ -328,8 +328,8 @@ resource "aws_iam_role_policy_attachment" "rds_enhanced_monitoring" {
 
 # RDS Proxy for connection pooling and security
 resource "aws_db_proxy" "paynext_proxy" {
-  name                   = "paynext-proxy-${var.environment}"
-  engine_family         = "POSTGRESQL"
+  name          = "paynext-proxy-${var.environment}"
+  engine_family = "POSTGRESQL"
   auth {
     auth_scheme = "SECRETS"
     secret_arn  = aws_secretsmanager_secret.db_master_password.arn
@@ -343,9 +343,9 @@ resource "aws_db_proxy" "paynext_proxy" {
     db_cluster_identifier = aws_rds_cluster.paynext_cluster.cluster_identifier
   }
 
-  require_tls = true
-  idle_client_timeout = 1800
-  max_connections_percent = 100
+  require_tls                  = true
+  idle_client_timeout          = 1800
+  max_connections_percent      = 100
   max_idle_connections_percent = 50
 
   tags = merge(var.tags, {
@@ -447,30 +447,30 @@ resource "aws_iam_role_policy" "rds_proxy" {
 resource "aws_rds_cluster" "paynext_cluster_backup" {
   count = var.enable_cross_region_backup ? 1 : 0
 
-  cluster_identifier              = "paynext-cluster-backup-${var.environment}"
-  engine                         = var.db_engine
-  engine_version                 = var.db_engine_version
+  cluster_identifier = "paynext-cluster-backup-${var.environment}"
+  engine             = var.db_engine
+  engine_version     = var.db_engine_version
 
   # Restore from snapshot
-  snapshot_identifier            = aws_rds_cluster.paynext_cluster.final_snapshot_identifier
+  snapshot_identifier = aws_rds_cluster.paynext_cluster.final_snapshot_identifier
 
   # Network (in DR region)
-  db_subnet_group_name           = "default"  # Assuming default subnet group exists in DR region
-  vpc_security_group_ids         = ["sg-default"]  # Would need to be created in DR region
+  db_subnet_group_name   = "default"      # Assuming default subnet group exists in DR region
+  vpc_security_group_ids = ["sg-default"] # Would need to be created in DR region
 
   # Backup settings
-  backup_retention_period        = var.backup_retention_days
-  copy_tags_to_snapshot         = true
-  deletion_protection           = false
-  skip_final_snapshot           = true
+  backup_retention_period = var.backup_retention_days
+  copy_tags_to_snapshot   = true
+  deletion_protection     = false
+  skip_final_snapshot     = true
 
   # Encryption
-  storage_encrypted              = var.enable_encryption_at_rest
-  kms_key_id                    = var.kms_key_id  # Would need DR region KMS key
+  storage_encrypted = var.enable_encryption_at_rest
+  kms_key_id        = var.kms_key_id # Would need DR region KMS key
 
   tags = merge(var.tags, {
-    Name        = "PayNext-DB-Cluster-Backup-${var.environment}"
-    Purpose     = "DisasterRecovery"
+    Name    = "PayNext-DB-Cluster-Backup-${var.environment}"
+    Purpose = "DisasterRecovery"
   })
 
   provider = aws.dr_region
@@ -523,7 +523,7 @@ resource "aws_cloudwatch_metric_alarm" "database_freeable_memory" {
   namespace           = "AWS/RDS"
   period              = "300"
   statistic           = "Average"
-  threshold           = "268435456"  # 256 MB in bytes
+  threshold           = "268435456" # 256 MB in bytes
   alarm_description   = "This metric monitors database freeable memory"
   alarm_actions       = [aws_sns_topic.database_alerts.arn]
 
@@ -560,7 +560,7 @@ resource "aws_backup_plan" "paynext_backup_plan" {
   rule {
     rule_name         = "daily_backup"
     target_vault_name = aws_backup_vault.paynext_backup_vault.name
-    schedule          = "cron(0 5 ? * * *)"  # Daily at 5 AM UTC
+    schedule          = "cron(0 5 ? * * *)" # Daily at 5 AM UTC
 
     recovery_point_tags = var.tags
 

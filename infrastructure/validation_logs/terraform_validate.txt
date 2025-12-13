@@ -1,0 +1,140 @@
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 165, in module "api_gateway":
+[31m│[0m [0m 165:   [4mcluster_name[0m       = module.kubernetes.cluster_name[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "cluster_name" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 166, in module "api_gateway":
+[31m│[0m [0m 166:   [4menvironment[0m        = var.environment[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "environment" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 167, in module "api_gateway":
+[31m│[0m [0m 167:   [4mvpc_id[0m             = module.vpc.vpc_id[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "vpc_id" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 168, in module "api_gateway":
+[31m│[0m [0m 168:   [4mprivate_subnet_ids[0m = module.vpc.private_subnet_ids[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "private_subnet_ids" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 169, in module "api_gateway":
+[31m│[0m [0m 169:   [4menable_waf[0m         = var.enable_waf[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "enable_waf" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 170, in module "api_gateway":
+[31m│[0m [0m 170:   [4mwaf_web_acl_arn[0m    = module.security.waf_web_acl_arn[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "waf_web_acl_arn" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 173, in module "api_gateway":
+[31m│[0m [0m 173:   [4mkms_key_id[0m          = module.security.kms_key_id[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "kms_key_id" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 174, in module "api_gateway":
+[31m│[0m [0m 174:   [4msecurity_group_ids[0m  = module.vpc.security_group_ids[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "security_group_ids" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 175, in module "api_gateway":
+[31m│[0m [0m 175:   [4msecrets_manager_arn[0m = module.security.secrets_manager_arn[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "secrets_manager_arn" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 177, in module "api_gateway":
+[31m│[0m [0m 177:   [4mtags[0m = local.common_tags[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "tags" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mMissing required argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 103, in module "storage":
+[31m│[0m [0m 103: module "storage" [4m{[0m[0m
+[31m│[0m [0m
+[31m│[0m [0mThe argument "vpc_id" is required, but no definition was found.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 106, in module "storage":
+[31m│[0m [0m 106:   [4ms3_bucket_name[0m             = var.s3_bucket_name[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "s3_bucket_name" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 108, in module "storage":
+[31m│[0m [0m 108:   [4menable_encryption_at_rest[0m  = var.enable_encryption_at_rest[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "enable_encryption_at_rest" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 110, in module "storage":
+[31m│[0m [0m 110:   [4menable_cross_region_backup[0m = var.enable_cross_region_backup[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "enable_cross_region_backup" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 111, in module "storage":
+[31m│[0m [0m 111:   [4mdr_region[0m                  = var.dr_region[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "dr_region" is not expected here.
+[31m╵[0m[0m
+[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mReference to undefined provider[0m
+[33m│[0m [0m
+[33m│[0m [0m[0m  on main.tf line 107, in module "storage":
+[33m│[0m [0m 107:     [4maws[0m.dr_region = aws.dr_region[0m
+[33m│[0m [0m
+[33m│[0m [0mThere is no explicit declaration for local provider name "aws.dr_region" in
+[33m│[0m [0mmodule.storage, so Terraform is assuming you mean to pass a configuration
+[33m│[0m [0mfor "hashicorp/aws".
+[33m│[0m [0m
+[33m│[0m [0mIf you also control the child module, add a required_providers entry named
+[33m│[0m [0m"aws.dr_region" with the source address "hashicorp/aws".
+[33m│[0m [0m
+[33m│[0m [0m(and one more similar warning elsewhere)
+[33m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mCycle: module.kubernetes.aws_security_group.eks_nodes, module.kubernetes.aws_security_group.eks_cluster_additional[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m
+[31m╵[0m[0m

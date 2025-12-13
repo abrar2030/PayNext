@@ -13,9 +13,9 @@ resource "aws_cloudwatch_log_group" "application_logs" {
   kms_key_id        = var.kms_key_id
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Application-Logs-${var.environment}"
-    LogType     = "Application"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-Application-Logs-${var.environment}"
+    LogType    = "Application"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -25,9 +25,9 @@ resource "aws_cloudwatch_log_group" "security_logs" {
   kms_key_id        = var.kms_key_id
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Security-Logs-${var.environment}"
-    LogType     = "Security"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-Security-Logs-${var.environment}"
+    LogType    = "Security"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -37,9 +37,9 @@ resource "aws_cloudwatch_log_group" "audit_logs" {
   kms_key_id        = var.kms_key_id
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Audit-Logs-${var.environment}"
-    LogType     = "Audit"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-Audit-Logs-${var.environment}"
+    LogType    = "Audit"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -49,8 +49,8 @@ resource "aws_cloudwatch_log_group" "performance_logs" {
   kms_key_id        = var.kms_key_id
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Performance-Logs-${var.environment}"
-    LogType     = "Performance"
+    Name    = "PayNext-Performance-Logs-${var.environment}"
+    LogType = "Performance"
   })
 }
 
@@ -62,9 +62,9 @@ resource "aws_s3_bucket" "cloudtrail_bucket" {
   force_destroy = false
 
   tags = merge(var.tags, {
-    Name        = "PayNext-CloudTrail-Bucket-${var.environment}"
-    Purpose     = "AuditLogging"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-CloudTrail-Bucket-${var.environment}"
+    Purpose    = "AuditLogging"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -157,7 +157,7 @@ resource "aws_s3_bucket_policy" "cloudtrail_bucket_policy" {
         Resource = "${aws_s3_bucket.cloudtrail_bucket[0].arn}/*"
         Condition = {
           StringEquals = {
-            "s3:x-amz-acl" = "bucket-owner-full-control"
+            "s3:x-amz-acl"  = "bucket-owner-full-control"
             "AWS:SourceArn" = "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/paynext-cloudtrail-${var.environment}"
           }
         }
@@ -174,8 +174,8 @@ resource "aws_cloudtrail" "paynext_cloudtrail" {
   s3_key_prefix  = "cloudtrail-logs"
 
   event_selector {
-    read_write_type                 = "All"
-    include_management_events       = true
+    read_write_type                  = "All"
+    include_management_events        = true
     exclude_management_event_sources = []
 
     data_resource {
@@ -193,19 +193,19 @@ resource "aws_cloudtrail" "paynext_cloudtrail" {
     insight_type = "ApiCallRateInsight"
   }
 
-  kms_key_id                = var.kms_key_id
+  kms_key_id                    = var.kms_key_id
   include_global_service_events = true
-  is_multi_region_trail     = true
-  enable_logging            = true
-  enable_log_file_validation = true
+  is_multi_region_trail         = true
+  enable_logging                = true
+  enable_log_file_validation    = true
 
   cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail_logs[0].arn}:*"
   cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail_logs_role[0].arn
 
   tags = merge(var.tags, {
-    Name        = "PayNext-CloudTrail-${var.environment}"
-    Purpose     = "AuditLogging"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-CloudTrail-${var.environment}"
+    Purpose    = "AuditLogging"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 
   depends_on = [aws_s3_bucket_policy.cloudtrail_bucket_policy]
@@ -294,9 +294,9 @@ resource "aws_guardduty_detector" "paynext_guardduty" {
   }
 
   tags = merge(var.tags, {
-    Name        = "PayNext-GuardDuty-${var.environment}"
-    Purpose     = "ThreatDetection"
-    Compliance  = "PCI-DSS,SOX"
+    Name       = "PayNext-GuardDuty-${var.environment}"
+    Purpose    = "ThreatDetection"
+    Compliance = "PCI-DSS,SOX"
   })
 }
 
@@ -366,9 +366,9 @@ resource "aws_s3_bucket" "config_bucket" {
   force_destroy = false
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Config-Bucket-${var.environment}"
-    Purpose     = "ComplianceMonitoring"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-Config-Bucket-${var.environment}"
+    Purpose    = "ComplianceMonitoring"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -451,7 +451,7 @@ resource "aws_s3_bucket_policy" "config_bucket_policy" {
         Resource = "${aws_s3_bucket.config_bucket[0].arn}/*"
         Condition = {
           StringEquals = {
-            "s3:x-amz-acl" = "bucket-owner-full-control"
+            "s3:x-amz-acl"      = "bucket-owner-full-control"
             "AWS:SourceAccount" = data.aws_caller_identity.current.account_id
           }
         }
@@ -578,8 +578,8 @@ resource "aws_sns_topic" "security_alerts" {
   kms_master_key_id = var.kms_key_id
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Security-Alerts-${var.environment}"
-    Purpose     = "SecurityAlerting"
+    Name    = "PayNext-Security-Alerts-${var.environment}"
+    Purpose = "SecurityAlerting"
   })
 }
 
@@ -701,9 +701,9 @@ resource "aws_cloudwatch_dashboard" "paynext_dashboard" {
         height = 6
 
         properties = {
-          query   = "SOURCE '/aws/paynext/${var.environment}/security' | fields @timestamp, @message | sort @timestamp desc | limit 100"
-          region  = data.aws_region.current.name
-          title   = "Recent Security Events"
+          query  = "SOURCE '/aws/paynext/${var.environment}/security' | fields @timestamp, @message | sort @timestamp desc | limit 100"
+          region = data.aws_region.current.name
+          title  = "Recent Security Events"
         }
       }
     ]

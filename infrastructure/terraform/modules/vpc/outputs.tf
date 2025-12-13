@@ -232,13 +232,13 @@ output "availability_zones" {
 output "network_summary" {
   description = "Summary of network configuration"
   value = {
-    vpc_cidr                = aws_vpc.paynext_vpc.cidr_block
-    availability_zones      = local.azs
-    public_subnets_count    = length(aws_subnet.public)
-    private_subnets_count   = length(aws_subnet.private)
-    database_subnets_count  = length(aws_subnet.database)
-    nat_gateways_count      = length(aws_nat_gateway.paynext_nat)
-    multi_az_enabled        = var.enable_multi_az
-    vpc_flow_logs_enabled   = var.enable_vpc_flow_logs
+    vpc_cidr               = aws_vpc.paynext_vpc.cidr_block
+    availability_zones     = local.azs
+    public_subnets_count   = length(aws_subnet.public)
+    private_subnets_count  = length(aws_subnet.private)
+    database_subnets_count = length(aws_subnet.database)
+    nat_gateways_count     = length(aws_nat_gateway.paynext_nat)
+    multi_az_enabled       = var.enable_multi_az
+    vpc_flow_logs_enabled  = var.enable_vpc_flow_logs
   }
 }

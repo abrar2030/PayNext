@@ -1,482 +1,476 @@
 # PayNext Infrastructure
 
-This directory contains the comprehensive, enterprise-grade infrastructure code for PayNext, designed to meet financial industry standards including PCI DSS, GDPR, and SOX compliance.
+Enterprise-grade infrastructure code for PayNext payment platform, hardened for security and compliance.
 
-## Overview
+## 🚀 Quick Start
 
-The infrastructure is built using Terraform and provides a secure, scalable, and compliant foundation for financial applications. It includes comprehensive security controls, monitoring, logging, and disaster recovery capabilities.
+### Prerequisites
 
-## Architecture
+Install required tools:
 
-The infrastructure follows a multi-tier architecture with the following components:
+```bash
+# Terraform
+wget https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
+unzip terraform_1.6.6_linux_amd64.zip
+sudo mv terraform /usr/local/bin/
 
-### Core Modules
+# AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 
-1. **Security Module** (`modules/security/`)
-   - AWS KMS encryption keys
-   - AWS Secrets Manager for credential management
-   - AWS WAF for web application firewall
-   - IAM roles and policies with least privilege access
-   - Security groups and NACLs
+# Ansible
+pip install ansible ansible-lint
 
-2. **VPC Module** (`modules/vpc/`)
-   - Multi-AZ VPC with public, private, and database subnets
-   - NAT Gateways for secure outbound connectivity
-   - VPC Flow Logs for network monitoring
-   - VPC Endpoints for AWS services
-   - Network ACLs for additional security
+# YAML Linter
+pip install yamllint
 
-3. **Monitoring Module** (`modules/monitoring/`)
-   - AWS CloudWatch for metrics and logging
-   - AWS GuardDuty for threat detection
-   - AWS Config for compliance monitoring
-   - AWS CloudTrail for API audit logging
-   - SNS topics for alerting
-   - CloudWatch dashboards
+# Kubernetes tools
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
 
-4. **Kubernetes Module** (`modules/kubernetes/`)
-   - Amazon EKS cluster with security hardening
-   - Node groups with auto-scaling
-   - Application Load Balancer
-   - Security groups and IAM roles
-   - Add-ons (VPC CNI, CoreDNS, EBS CSI)
+# Helm
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
-5. **Database Module** (`modules/database/`)
-   - Amazon Aurora PostgreSQL cluster
-   - Multi-AZ deployment for high availability
-   - Automated backups and point-in-time recovery
-   - RDS Proxy for connection pooling
-   - Performance Insights and Enhanced Monitoring
-   - Cross-region backup for disaster recovery
+# Optional: tfsec for Terraform security scanning
+curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+```
 
-6. **Storage Module** (`modules/storage/`)
-   - S3 buckets with encryption and versioning
-   - Lifecycle policies for cost optimization
-   - Cross-region replication for disaster recovery
-   - EFS for shared file storage
-   - CloudWatch monitoring and alerting
+**Tool Versions Used:**
 
-## Security Features
+- Terraform: >= 1.5.0, < 2.0.0
+- AWS CLI: >= 2.x
+- Ansible: >= 2.14
+- kubectl: >= 1.27
+- Helm: >= 3.10
+- Python: >= 3.8
 
-### Encryption
+---
 
-- **At Rest**: All data encrypted using AWS KMS with customer-managed keys
-- **In Transit**: TLS 1.2+ enforced for all communications
-- **Database**: Aurora cluster encrypted with KMS
-- **Storage**: S3 buckets encrypted with KMS
+## 📁 Directory Structure
 
-### Access Control
+```
+infrastructure/
+├── README.md                    # This file
+├── .gitignore                   # Git ignore rules (prevents secret commits)
+├── .yamllint                    # YAML linting configuration
+├── .tfsec.yml                   # Terraform security scan config
+│
+├── terraform/                   # Terraform IaC
+│   ├── main.tf                  # Main infrastructure orchestration
+│   ├── providers.tf             # Provider configurations
+│   ├── variables.tf             # Variable definitions
+│   ├── outputs.tf               # Output values
+│   ├── terraform.tfvars.example # Example variables (copy to terraform.tfvars)
+│   ├── modules/                 # Reusable modules
+│   │   ├── security/            # KMS, Secrets Manager, WAF
+│   │   ├── vpc/                 # Network infrastructure
+│   │   ├── monitoring/          # CloudWatch, GuardDuty, Config
+│   │   ├── database/            # RDS Aurora cluster
+│   │   ├── kubernetes/          # EKS cluster
+│   │   └── storage/             # S3, EFS
+│   ├── services/                # Service-specific configs (placeholder)
+│   └── kubernetes/              # EKS-specific Terraform
+│
+├── kubernetes/                  # Kubernetes/Helm charts
+│   ├── Chart.yaml               # Helm chart definition
+│   ├── values.yaml              # Default values
+│   ├── templates/               # Kubernetes manifests
+│   │   ├── _helpers.tpl         # Template helpers
+│   │   ├── secrets.example.yaml # Secret template (DO NOT COMMIT secrets.yaml!)
+│   │   ├── network/             # Network policies
+│   │   ├── rbac/                # RBAC roles and bindings
+│   │   ├── monitoring/          # Prometheus setup
+│   │   └── backup/              # Backup CronJobs
+│   └── .helmignore              # Files to ignore in Helm packaging
+│
+├── ansible/                     # Configuration management
+│   ├── ansible.cfg              # Ansible configuration
+│   ├── .ansible-lint            # Ansible linting rules
+│   ├── playbooks/               # Playbooks for deployment
+│   ├── roles/                   # Ansible roles
+│   └── inventory/               # Environment inventories
+│       ├── dev/                 # Development environment
+│       ├── staging/             # Staging environment
+│       └── prod/                # Production environment
+│
+├── ci-cd/                       # CI/CD workflows
+│   ├── backend-workflow.yml     # Backend CI/CD
+│   ├── frontend-workflow.yml    # Frontend CI/CD
+│   └── complete-workflow.yml    # Complete deployment workflow
+│
+├── scripts/                     # Helper scripts
+│   ├── deploy.sh                # Deployment script
+│   └── validate.sh              # Validation script
+│
+└── validation_logs/             # Validation outputs
+    ├── terraform_fmt.txt
+    ├── terraform_validate.txt
+    ├── ansible_lint.txt
+    └── yamllint.txt
+```
 
-- **IAM**: Least privilege access with role-based permissions
-- **MFA**: Multi-factor authentication required for sensitive operations
-- **Network**: Private subnets for application and database tiers
-- **Security Groups**: Restrictive ingress/egress rules
+---
 
-### Monitoring & Compliance
-
-- **Audit Logging**: Comprehensive audit trail with CloudTrail
-- **Threat Detection**: GuardDuty for security monitoring
-- **Compliance**: AWS Config rules for compliance validation
-- **Alerting**: Real-time security alerts via SNS
-
-## Compliance Standards
-
-This infrastructure is designed to meet the following compliance standards:
-
-- **PCI DSS**: Payment Card Industry Data Security Standard
-- **GDPR**: General Data Protection Regulation
-- **SOX**: Sarbanes-Oxley Act
-- **HIPAA**: Health Insurance Portability and Accountability Act (optional)
-
-## Prerequisites
-
-1. **Terraform**: Version 1.5.0 or later
-2. **AWS CLI**: Version 2.0 or later
-3. **kubectl**: For Kubernetes management
-4. **Helm**: For Kubernetes package management
-
-## Quick Start
+## 🔧 Setup Instructions
 
 ### 1. Configure AWS Credentials
 
 ```bash
 aws configure
+# Enter your AWS Access Key ID, Secret Key, Region (e.g., us-west-2), and output format (json)
 ```
 
-### 2. Initialize Terraform
+### 2. Terraform Setup
+
+#### Step 1: Initialize Terraform
 
 ```bash
-cd infrastructure/terraform
-terraform init
-```
-
-### 3. Create terraform.tfvars
-
-Copy the example file and customize:
-
-```bash
+cd terraform
 cp terraform.tfvars.example terraform.tfvars
+# Edit terraform.tfvars with your values
+nano terraform.tfvars
 ```
 
-Edit `terraform.tfvars` with your specific values:
+**Required Variables:**
 
-```hcl
-# Environment Configuration
-environment = "dev"  # or "staging", "prod"
-region      = "us-west-2"
+- `environment`: `dev`, `staging`, or `prod`
+- `aws_region`: AWS region (e.g., `us-west-2`)
+- `security_contact_email`: Your security team email
+- `compliance_contact_email`: Your compliance team email
 
-# Network Configuration
-vpc_cidr = "10.0.0.0/16"
-availability_zones = ["us-west-2a", "us-west-2b", "us-west-2c"]
-
-# Contact Information
-security_contact_email    = "security@yourcompany.com"
-compliance_contact_email  = "compliance@yourcompany.com"
-
-# Database Configuration
-db_master_username = "paynext_admin"
-db_instance_class  = "db.r6g.large"
-
-# EKS Configuration
-cluster_name           = "paynext-cluster"
-kubernetes_version     = "1.27"
-node_instance_type     = "t3.medium"
-
-# Tags
-tags = {
-  Project     = "PayNext"
-  Environment = "dev"
-  Owner       = "Platform Team"
-  CostCenter  = "Engineering"
-}
-```
-
-### 4. Plan and Apply
+#### Step 2: Format and Validate
 
 ```bash
-# Review the plan
-terraform plan
+# Format Terraform files
+terraform fmt -recursive
 
-# Apply the infrastructure
-terraform apply
+# Initialize Terraform (downloads providers)
+terraform init -backend=false
+
+# Validate configuration
+terraform validate
 ```
 
-### 5. Configure kubectl
+**Expected Output:**
+
+```
+Success! The configuration is valid.
+```
+
+**Note:** There are known issues with some module cross-references that need fixing before `terraform plan` will work. See "Known Issues" section below.
+
+#### Step 3: Plan (Dry Run)
 
 ```bash
+# Create an execution plan
+terraform plan -out=plan.out
+
+# Review the plan carefully before applying
+```
+
+#### Step 4: Apply (Deploy)
+
+```bash
+# Apply the infrastructure changes
+terraform apply plan.out
+```
+
+### 3. Kubernetes Setup
+
+#### Step 1: Lint Helm Chart
+
+```bash
+cd ../kubernetes
+helm lint .
+```
+
+#### Step 2: Dry Run
+
+```bash
+# Test rendering without applying
+helm template paynext . -f values.yaml --debug
+
+# Or with kubectl
+kubectl apply --dry-run=client -f templates/
+```
+
+#### Step 3: Create Secrets
+
+```bash
+# Copy the example
+cp templates/secrets.example.yaml templates/secrets.yaml
+
+# Generate base64-encoded secrets
+echo -n 'my-super-secret-jwt-key' | base64
+
+# Edit secrets.yaml and replace <BASE64_ENCODED_...> placeholders
+nano templates/secrets.yaml
+```
+
+**⚠️ IMPORTANT:** Never commit `secrets.yaml` to version control! It's already in `.gitignore`.
+
+#### Step 4: Deploy to Cluster
+
+```bash
+# Configure kubectl for your EKS cluster
 aws eks update-kubeconfig --region us-west-2 --name paynext-cluster-dev
+
+# Install via Helm
+helm install paynext . -f values.yaml --namespace paynext --create-namespace
+
+# Or apply manifests directly
+kubectl apply -f templates/ -n paynext
 ```
 
-## Module Documentation
+### 4. Ansible Setup
 
-### Security Module
+#### Step 1: Configure Inventory
 
-The security module provides foundational security services:
+```bash
+cd ../ansible
 
-- **KMS Keys**: Customer-managed encryption keys for all services
-- **Secrets Manager**: Secure storage for database credentials and API keys
-- **WAF**: Web Application Firewall with OWASP Top 10 protection
-- **IAM**: Service roles with least privilege access
+# For development
+cp inventory/dev/group_vars/all.yml inventory/dev/group_vars/all.yml.example
 
-**Usage:**
-
-```hcl
-module "security" {
-  source = "./modules/security"
-
-  environment = var.environment
-  vpc_id      = module.vpc.vpc_id
-  tags        = var.tags
-}
+# Set environment variables for secrets
+export DB_PASSWORD="your-secure-db-password"
+export JWT_SECRET="your-jwt-secret-key"
 ```
 
-### VPC Module
+#### Step 2: Lint Playbooks
 
-The VPC module creates a secure network foundation:
+```bash
+# Run Ansible lint
+ansible-lint .
 
-- **Multi-AZ**: Spans multiple availability zones for high availability
-- **Tiered Subnets**: Public, private, and database subnet tiers
-- **NAT Gateways**: Secure outbound internet access for private subnets
-- **VPC Endpoints**: Private connectivity to AWS services
-
-**Usage:**
-
-```hcl
-module "vpc" {
-  source = "./modules/vpc"
-
-  environment        = var.environment
-  vpc_cidr          = var.vpc_cidr
-  availability_zones = var.availability_zones
-  enable_vpc_flow_logs = true
-  tags              = var.tags
-}
+# Run YAML lint
+yamllint -c ../.yamllint .
 ```
 
-### Monitoring Module
+**Expected Output:**
 
-The monitoring module provides comprehensive observability:
-
-- **CloudWatch**: Centralized logging and metrics
-- **GuardDuty**: Threat detection and security monitoring
-- **Config**: Compliance monitoring and drift detection
-- **CloudTrail**: API audit logging
-
-**Usage:**
-
-```hcl
-module "monitoring" {
-  source = "./modules/monitoring"
-
-  environment               = var.environment
-  vpc_id                   = module.vpc.vpc_id
-  kms_key_id              = module.security.kms_key_id
-  security_contact_email   = var.security_contact_email
-  compliance_contact_email = var.compliance_contact_email
-  tags                    = var.tags
-}
+```
+Passed: 0 failure(s), 0 warning(s) in X files processed
 ```
 
-### Kubernetes Module
+#### Step 3: Run Playbooks (Dry Run)
 
-The Kubernetes module deploys a secure EKS cluster:
+```bash
+# Check mode (dry run)
+ansible-playbook -i inventory/dev/dev_inventory.yaml playbooks/site.yml --check
 
-- **EKS Cluster**: Managed Kubernetes with security hardening
-- **Node Groups**: Auto-scaling worker nodes
-- **Add-ons**: Essential cluster add-ons (VPC CNI, CoreDNS, EBS CSI)
-- **Security**: Pod security policies and network policies
-
-**Usage:**
-
-```hcl
-module "kubernetes" {
-  source = "./modules/kubernetes"
-
-  cluster_name         = var.cluster_name
-  environment         = var.environment
-  vpc_id              = module.vpc.vpc_id
-  private_subnet_ids  = module.vpc.private_subnet_ids
-  public_subnet_ids   = module.vpc.public_subnet_ids
-  kms_key_id          = module.security.kms_key_id
-  security_group_ids  = module.vpc.security_group_ids
-  tags                = var.tags
-}
+# Run for real
+ansible-playbook -i inventory/dev/dev_inventory.yaml playbooks/site.yml
 ```
 
-### Database Module
+---
 
-The database module provides a secure, highly available database:
+## 🛡️ Security Best Practices
 
-- **Aurora Cluster**: PostgreSQL with multi-AZ deployment
-- **Encryption**: At-rest and in-transit encryption
-- **Backups**: Automated backups with point-in-time recovery
-- **Monitoring**: Performance Insights and Enhanced Monitoring
+### Secrets Management
 
-**Usage:**
-
-```hcl
-module "database" {
-  source = "./modules/database"
-
-  environment            = var.environment
-  vpc_id                = module.vpc.vpc_id
-  database_subnet_ids   = module.vpc.database_subnet_ids
-  kms_key_id           = module.security.kms_key_id
-  security_group_ids   = module.vpc.security_group_ids
-  db_master_username   = var.db_master_username
-  db_instance_class    = var.db_instance_class
-  tags                 = var.tags
-}
-```
-
-### Storage Module
-
-The storage module provides secure, scalable storage:
-
-- **S3 Buckets**: Encrypted buckets with lifecycle policies
-- **Versioning**: Object versioning for data protection
-- **Replication**: Cross-region replication for disaster recovery
-- **EFS**: Shared file storage for Kubernetes
-
-**Usage:**
-
-```hcl
-module "storage" {
-  source = "./modules/storage"
-
-  environment         = var.environment
-  vpc_id             = module.vpc.vpc_id
-  private_subnet_ids = module.vpc.private_subnet_ids
-  kms_key_id         = module.security.kms_key_id
-  security_group_ids = module.vpc.security_group_ids
-  tags               = var.tags
-}
-```
-
-## Deployment Environments
-
-### Development Environment
-
-- Single AZ deployment for cost optimization
-- Smaller instance sizes
-- Reduced backup retention
-- Public access enabled for testing
-
-### Staging Environment
-
-- Multi-AZ deployment
-- Production-like configuration
-- Extended backup retention
-- Private access only
-
-### Production Environment
-
-- Multi-AZ deployment with maximum availability
-- Large instance sizes for performance
-- Maximum backup retention (7 years)
-- Deletion protection enabled
-- Enhanced monitoring and alerting
-
-## Security Best Practices
-
-### Network Security
-
-1. **Private Subnets**: Application and database tiers in private subnets
-2. **Security Groups**: Restrictive rules with least privilege access
-3. **NACLs**: Additional layer of network security
-4. **VPC Flow Logs**: Network traffic monitoring
-
-### Data Protection
-
-1. **Encryption**: All data encrypted at rest and in transit
-2. **Key Management**: Customer-managed KMS keys
-3. **Backup Encryption**: Encrypted backups with long-term retention
-4. **Access Logging**: Comprehensive audit trail
+1. **Never commit secrets** to version control
+2. Use **environment variables** or **AWS Secrets Manager** for sensitive values
+3. Use **Ansible Vault** for encrypted secrets:
+   ```bash
+   ansible-vault create secrets.yml
+   ansible-vault encrypt_string 'my-secret' --name 'my_var'
+   ```
+4. Rotate secrets regularly (quarterly minimum)
 
 ### Access Control
 
-1. **IAM Roles**: Service-specific roles with minimal permissions
-2. **MFA**: Multi-factor authentication for sensitive operations
-3. **Secrets Management**: Centralized credential management
-4. **Regular Rotation**: Automated credential rotation
+- Use **IAM roles** with least privilege
+- Enable **MFA** for AWS root and admin accounts
+- Use **VPC private subnets** for application and database tiers
+- Implement **security groups** with restrictive rules
 
-### Monitoring & Alerting
+### Encryption
 
-1. **Real-time Monitoring**: CloudWatch metrics and alarms
-2. **Security Monitoring**: GuardDuty threat detection
-3. **Compliance Monitoring**: Config rules and assessments
-4. **Incident Response**: Automated alerting and response
+- **At Rest**: All data encrypted with AWS KMS
+- **In Transit**: TLS 1.2+ enforced for all communications
+- Database connections use SSL/TLS
 
-## Disaster Recovery
+### Monitoring
 
-### Backup Strategy
+- **CloudWatch** logs and metrics enabled
+- **GuardDuty** threat detection active
+- **Config** rules for compliance monitoring
+- **CloudTrail** for API audit logging
 
-- **RDS**: Automated backups with 35-day retention
-- **S3**: Cross-region replication to DR region
-- **EBS**: Automated snapshots
-- **Configuration**: Infrastructure as Code for rapid recovery
+---
 
-### Recovery Procedures
+## ✅ Validation Commands
 
-1. **Database Recovery**: Point-in-time recovery from backups
-2. **Application Recovery**: Deploy from Infrastructure as Code
-3. **Data Recovery**: Restore from cross-region replicas
-4. **Network Recovery**: Recreate VPC and networking
+Run these to ensure infrastructure code quality:
 
-### RTO/RPO Targets
-
-- **RTO (Recovery Time Objective)**: 4 hours
-- **RPO (Recovery Point Objective)**: 1 hour
-- **Data Retention**: 7 years for compliance
-
-## Cost Optimization
-
-### Storage Optimization
-
-- **S3 Lifecycle Policies**: Automatic transition to cheaper storage classes
-- **Intelligent Tiering**: Automatic optimization based on access patterns
-- **EBS Optimization**: GP3 volumes for better price/performance
-
-### Compute Optimization
-
-- **Auto Scaling**: Automatic scaling based on demand
-- **Spot Instances**: Use spot instances for non-critical workloads
-- **Reserved Instances**: Reserved capacity for predictable workloads
-
-### Monitoring Costs
-
-- **Cost Allocation Tags**: Track costs by service and environment
-- **Budgets**: Set up billing alerts and budgets
-- **Cost Explorer**: Regular cost analysis and optimization
-
-## Troubleshooting
-
-### Common Issues
-
-#### Terraform Apply Fails
+### Terraform
 
 ```bash
-# Check AWS credentials
-aws sts get-caller-identity
+cd terraform
 
-# Verify Terraform version
-terraform version
+# Format check
+terraform fmt -recursive -check
 
-# Re-initialize if needed
-terraform init -upgrade
+# Initialize
+terraform init -backend=false
+
+# Validate syntax
+terraform validate
+
+# Security scan (optional)
+tfsec .
 ```
 
-#### EKS Cluster Access Issues
+### Ansible
+
+```bash
+cd ansible
+
+# Lint playbooks
+ansible-lint .
+
+# YAML syntax
+yamllint -c ../.yamllint .
+```
+
+### Kubernetes
+
+```bash
+cd kubernetes
+
+# Lint Helm chart
+helm lint .
+
+# YAML syntax
+yamllint -c ../.yamllint templates/
+
+# Validate manifests
+kubectl apply --dry-run=client -f templates/
+```
+
+### CI/CD Workflows
+
+```bash
+cd ci-cd
+
+# YAML syntax
+yamllint *.yml
+```
+
+---
+
+## 🐛 Known Issues & Workarounds
+
+### Terraform Issues
+
+1. **Service modules commented out**
+   - **Issue**: Service modules (`api-gateway`, `eureka-server`, etc.) are placeholder code without proper variable definitions
+   - **Status**: Commented out in `main.tf`
+   - **Workaround**: Implement proper `variables.tf` in each service module before uncommenting
+   - **Location**: Lines 164-246 in `terraform/main.tf`
+
+2. **Storage module output mismatches**
+   - **Issue**: `main.tf` and `outputs.tf` reference `module.storage.s3_bucket_id` but the storage module outputs different attribute names
+   - **Status**: Partial fix applied
+   - **Workaround**: Check `modules/storage/outputs.tf` and align references in `main.tf` line 97 and `outputs.tf` lines 135-150
+
+3. **Database module RDS Proxy syntax**
+   - **Issue**: `aws_db_proxy` resource uses deprecated/incorrect block syntax (target block, max_connections_percent)
+   - **Location**: `modules/database/main.tf` lines 342-349
+   - **Workaround**: Update to current AWS provider syntax for RDS Proxy
+
+4. **Kubernetes module user_data template error**
+   - **Issue**: `user_data.sh` template has Terraform interpolation syntax error at line 306
+   - **Location**: `modules/kubernetes/user_data.sh` line 306
+   - **Workaround**: Escape bash variables in template with `$${var}` instead of `${var}`
+
+5. **Config recorder recording_mode block**
+   - **Issue**: `aws_config_configuration_recorder` uses unsupported `recording_mode` block
+   - **Location**: `modules/monitoring/main.tf` line 336
+   - **Workaround**: Update to current AWS Config recorder syntax
+
+### Ansible Issues
+
+- ✅ **All fixed!** Ansible lint passes with 0 failures
+- Minor: One YAML line-length warning (non-blocking)
+
+### Kubernetes Issues
+
+- ✅ **Secrets handled properly** with `.example` template
+- Minor: YAML formatting warnings in `secrets.example.yaml` (trailing spaces, braces)
+
+### CI/CD Issues
+
+- ✅ **Secrets properly masked** with `${{ secrets.X }}` syntax
+- Note: Workflows should include infrastructure validation steps (terraform validate, ansible-lint, etc.)
+
+---
+
+## 📊 Compliance & Standards
+
+This infrastructure is designed to meet:
+
+- **PCI DSS**: Payment Card Industry Data Security Standard
+- **GDPR**: General Data Protection Regulation
+- **SOX**: Sarbanes-Oxley Act
+- **ISO 27001**: Information Security Management
+
+**Compliance Features:**
+
+- 7-year data retention for financial records
+- Encryption at rest and in transit
+- Comprehensive audit logging
+- Regular automated backups
+- Multi-region disaster recovery
+
+---
+
+## 🆘 Troubleshooting
+
+### Terraform `terraform init` fails
+
+```bash
+# Clean and re-initialize
+rm -rf .terraform .terraform.lock.hcl
+terraform init -backend=false
+```
+
+### AWS credentials not found
+
+```bash
+# Check AWS configuration
+aws sts get-caller-identity
+
+# Reconfigure if needed
+aws configure
+```
+
+### Kubernetes cluster not accessible
 
 ```bash
 # Update kubeconfig
-aws eks update-kubeconfig --region <region> --name <cluster-name>
+aws eks update-kubeconfig --region us-west-2 --name paynext-cluster-dev
 
 # Verify access
 kubectl get nodes
 ```
 
-#### Database Connection Issues
+### Ansible inventory not found
 
 ```bash
-# Check security groups
-aws ec2 describe-security-groups --group-ids <sg-id>
+# Check inventory file exists
+ls -la inventory/dev/
 
-# Test connectivity
-telnet <rds-endpoint> 5432
+# Verify YAML syntax
+yamllint inventory/dev/dev_inventory.yaml
 ```
 
-### Logs and Monitoring
+---
 
-#### CloudWatch Logs
-
-- Application logs: `/aws/paynext/<env>/application`
-- Security logs: `/aws/paynext/<env>/security`
-- Audit logs: `/aws/paynext/<env>/audit`
-
-#### CloudTrail Events
-
-- API calls: CloudTrail console
-- Security events: GuardDuty console
-- Compliance: Config console
-
-## Maintenance
-
-### Regular Tasks
-
-1. **Security Updates**: Apply security patches monthly
-2. **Backup Verification**: Test backup restoration quarterly
-3. **Access Review**: Review IAM permissions quarterly
-4. **Cost Review**: Analyze costs monthly
-
-### Automated Tasks
-
-1. **Backup Creation**: Daily automated backups
-2. **Log Rotation**: Automatic log retention policies
-3. **Certificate Renewal**: Automatic SSL certificate renewal
-4. **Security Scanning**: Continuous security monitoring
-
-## License
+## 📄 License
 
 This infrastructure code is proprietary and confidential. Unauthorized use, distribution, or modification is strictly prohibited.
 

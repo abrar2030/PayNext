@@ -1,0 +1,6 @@
+[WARNING]: log file at '/var/log/ansible.log' is not writeable and we cannot create it, aborting
+
+[WARNING]: log file at '/var/log/ansible.log' is not writeable and we cannot create it, aborting
+
+
+Passed: 0 failure(s), 0 warning(s) in 1 files processed of 2 encountered. Last profile that met the validation criteria was 'production'.

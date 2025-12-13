@@ -93,17 +93,17 @@ output "node_groups" {
   description = "Map of EKS node groups"
   value = {
     for k, v in aws_eks_node_group.paynext_nodes : k => {
-      arn           = v.arn
-      status        = v.status
-      capacity_type = v.capacity_type
+      arn            = v.arn
+      status         = v.status
+      capacity_type  = v.capacity_type
       instance_types = v.instance_types
-      ami_type      = v.ami_type
-      node_role_arn = v.node_role_arn
-      subnet_ids    = v.subnet_ids
+      ami_type       = v.ami_type
+      node_role_arn  = v.node_role_arn
+      subnet_ids     = v.subnet_ids
       scaling_config = v.scaling_config
-      update_config = v.update_config
-      labels        = v.labels
-      taints        = v.taints
+      update_config  = v.update_config
+      labels         = v.labels
+      taints         = v.taints
     }
   }
 }
@@ -218,15 +218,15 @@ output "ebs_csi_role_arn" {
 output "cluster_config_summary" {
   description = "Summary of cluster configuration"
   value = {
-    cluster_name                = aws_eks_cluster.paynext_cluster.name
-    kubernetes_version          = aws_eks_cluster.paynext_cluster.version
-    endpoint_private_access     = aws_eks_cluster.paynext_cluster.vpc_config[0].endpoint_private_access
-    endpoint_public_access      = aws_eks_cluster.paynext_cluster.vpc_config[0].endpoint_public_access
-    public_access_cidrs        = aws_eks_cluster.paynext_cluster.vpc_config[0].public_access_cidrs
-    encryption_enabled         = length(aws_eks_cluster.paynext_cluster.encryption_config) > 0
-    logging_enabled            = length(aws_eks_cluster.paynext_cluster.enabled_cluster_log_types) > 0
-    node_groups_count          = length(aws_eks_node_group.paynext_nodes)
-    addons_count              = 4  # vpc-cni, coredns, kube-proxy, ebs-csi-driver
+    cluster_name            = aws_eks_cluster.paynext_cluster.name
+    kubernetes_version      = aws_eks_cluster.paynext_cluster.version
+    endpoint_private_access = aws_eks_cluster.paynext_cluster.vpc_config[0].endpoint_private_access
+    endpoint_public_access  = aws_eks_cluster.paynext_cluster.vpc_config[0].endpoint_public_access
+    public_access_cidrs     = aws_eks_cluster.paynext_cluster.vpc_config[0].public_access_cidrs
+    encryption_enabled      = length(aws_eks_cluster.paynext_cluster.encryption_config) > 0
+    logging_enabled         = length(aws_eks_cluster.paynext_cluster.enabled_cluster_log_types) > 0
+    node_groups_count       = length(aws_eks_node_group.paynext_nodes)
+    addons_count            = 4 # vpc-cni, coredns, kube-proxy, ebs-csi-driver
   }
 }
 
@@ -234,14 +234,14 @@ output "cluster_config_summary" {
 output "security_features_enabled" {
   description = "Summary of enabled security features"
   value = {
-    secrets_encryption         = var.enable_encryption_at_rest
-    private_endpoint           = true
-    public_endpoint_restricted = !var.enable_public_access || length(var.public_access_cidrs) < 2
-    cluster_logging           = length(var.cluster_log_types) > 0
-    node_security_groups      = true
+    secrets_encryption             = var.enable_encryption_at_rest
+    private_endpoint               = true
+    public_endpoint_restricted     = !var.enable_public_access || length(var.public_access_cidrs) < 2
+    cluster_logging                = length(var.cluster_log_types) > 0
+    node_security_groups           = true
     iam_roles_for_service_accounts = true
-    encrypted_ebs_volumes     = true
-    security_hardened_nodes   = true
+    encrypted_ebs_volumes          = true
+    security_hardened_nodes        = true
   }
 }
 
@@ -257,8 +257,8 @@ output "cluster_access_info" {
   value = {
     cluster_endpoint = aws_eks_cluster.paynext_cluster.endpoint
     cluster_name     = aws_eks_cluster.paynext_cluster.name
-    region          = data.aws_region.current.name
-    oidc_issuer     = aws_eks_cluster.paynext_cluster.identity[0].oidc[0].issuer
-    kubectl_command = "aws eks update-kubeconfig --region ${data.aws_region.current.name} --name ${aws_eks_cluster.paynext_cluster.name}"
+    region           = data.aws_region.current.name
+    oidc_issuer      = aws_eks_cluster.paynext_cluster.identity[0].oidc[0].issuer
+    kubectl_command  = "aws eks update-kubeconfig --region ${data.aws_region.current.name} --name ${aws_eks_cluster.paynext_cluster.name}"
   }
 }

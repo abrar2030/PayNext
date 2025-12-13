@@ -6,4 +6,4 @@
     - role: payment-service
   vars:
     eureka_server_url: "http://eureka-server:8001/eureka"
-    jwt_secret: "your_jwt_secret_here"
+    jwt_secret: "{{ lookup('env', 'JWT_SECRET') }}"

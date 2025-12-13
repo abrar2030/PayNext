@@ -125,13 +125,15 @@ resource "aws_security_group" "eks_cluster_additional" {
   vpc_id      = var.vpc_id
   description = "Additional security group for EKS cluster ${var.cluster_name}"
 
-  ingress {
-    description = "HTTPS from nodes"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    security_groups = [aws_security_group.eks_nodes.id]
-  }
+  # NOTE: Ingress rule moved to separate resource to avoid circular dependency
+  # 
+  #   ingress {
+  #     description     = "HTTPS from nodes"
+  #     from_port       = 443
+  #     to_port         = 443
+  #     protocol        = "tcp"
+  #     security_groups = [aws_security_group.eks_nodes.id]
+  #   }
 
   egress {
     description = "All outbound traffic"
@@ -244,19 +246,21 @@ resource "aws_security_group" "eks_nodes" {
     self        = true
   }
 
-  ingress {
-    description = "Pod to pod communication"
-    from_port   = 1025
-    to_port     = 65535
-    protocol    = "tcp"
-    security_groups = [aws_security_group.eks_cluster_additional.id]
-  }
+  # NOTE: Ingress rule moved to separate resource to avoid circular dependency
+  # 
+  #   ingress {
+  #     description     = "Pod to pod communication"
+  #     from_port       = 1025
+  #     to_port         = 65535
+  #     protocol        = "tcp"
+  #     security_groups = [aws_security_group.eks_cluster_additional.id]
+  #   }
 
   ingress {
-    description = "HTTPS from cluster"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
+    description     = "HTTPS from cluster"
+    from_port       = 443
+    to_port         = 443
+    protocol        = "tcp"
     security_groups = [aws_security_group.eks_cluster_additional.id]
   }
 
@@ -277,7 +281,7 @@ resource "aws_security_group" "eks_nodes" {
   }
 
   tags = merge(var.tags, {
-    Name = "${var.cluster_name}-nodes-sg"
+    Name                                        = "${var.cluster_name}-nodes-sg"
     "kubernetes.io/cluster/${var.cluster_name}" = "owned"
   })
 
@@ -305,16 +309,16 @@ resource "aws_launch_template" "eks_nodes" {
     device_name = "/dev/xvda"
     ebs {
       volume_size           = var.node_disk_size
-      volume_type          = "gp3"
-      encrypted            = true
-      kms_key_id           = var.kms_key_id
+      volume_type           = "gp3"
+      encrypted             = true
+      kms_key_id            = var.kms_key_id
       delete_on_termination = true
     }
   }
 
   metadata_options {
     http_endpoint               = "enabled"
-    http_tokens                = "required"
+    http_tokens                 = "required"
     http_put_response_hop_limit = 2
     instance_metadata_tags      = "enabled"
   }
@@ -326,7 +330,7 @@ resource "aws_launch_template" "eks_nodes" {
   tag_specifications {
     resource_type = "instance"
     tags = merge(var.tags, {
-      Name = "${var.cluster_name}-node"
+      Name                                        = "${var.cluster_name}-node"
       "kubernetes.io/cluster/${var.cluster_name}" = "owned"
     })
   }
@@ -377,7 +381,7 @@ resource "aws_eks_node_group" "paynext_nodes" {
   labels = merge(
     each.value.labels,
     {
-      "node-group" = each.key
+      "node-group"  = each.key
       "environment" = var.environment
     }
   )
@@ -462,8 +466,8 @@ resource "aws_iam_role" "vpc_cni_role" {
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
           StringEquals = {
-            "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub": "system:serviceaccount:kube-system:aws-node"
-            "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:aud": "sts.amazonaws.com"
+            "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub" : "system:serviceaccount:kube-system:aws-node"
+            "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:aud" : "sts.amazonaws.com"
           }
         }
       }
@@ -493,8 +497,8 @@ resource "aws_iam_role" "ebs_csi_role" {
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
           StringEquals = {
-            "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
-            "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:aud": "sts.amazonaws.com"
+            "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub" : "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+            "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:aud" : "sts.amazonaws.com"
           }
         }
       }
@@ -531,8 +535,8 @@ resource "aws_lb" "paynext_alb" {
   subnets            = var.public_subnet_ids
 
   enable_deletion_protection = var.environment == "prod" ? true : false
-  enable_http2              = true
-  enable_waf_fail_open      = false
+  enable_http2               = true
+  enable_waf_fail_open       = false
 
   access_logs {
     bucket  = aws_s3_bucket.alb_logs.bucket

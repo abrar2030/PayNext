@@ -11,9 +11,9 @@ resource "aws_s3_bucket" "paynext_primary" {
   force_destroy = var.environment != "prod"
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Primary-Storage-${var.environment}"
-    Purpose     = "ApplicationData"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-Primary-Storage-${var.environment}"
+    Purpose    = "ApplicationData"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -23,9 +23,9 @@ resource "aws_s3_bucket" "paynext_documents" {
   force_destroy = var.environment != "prod"
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Documents-${var.environment}"
-    Purpose     = "DocumentStorage"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-Documents-${var.environment}"
+    Purpose    = "DocumentStorage"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -35,9 +35,9 @@ resource "aws_s3_bucket" "paynext_backup" {
   force_destroy = false
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Backup-Storage-${var.environment}"
-    Purpose     = "BackupStorage"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-Backup-Storage-${var.environment}"
+    Purpose    = "BackupStorage"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -47,9 +47,9 @@ resource "aws_s3_bucket" "paynext_audit_logs" {
   force_destroy = false
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Audit-Logs-${var.environment}"
-    Purpose     = "AuditLogging"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-Audit-Logs-${var.environment}"
+    Purpose    = "AuditLogging"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -233,7 +233,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "paynext_documents_lifecycle" {
     }
 
     transition {
-      days          = 2555  # 7 years
+      days          = 2555 # 7 years
       storage_class = "DEEP_ARCHIVE"
     }
 
@@ -303,7 +303,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "paynext_audit_logs_lifecycle" 
     }
 
     transition {
-      days          = 2555  # 7 years for compliance
+      days          = 2555 # 7 years for compliance
       storage_class = "DEEP_ARCHIVE"
     }
 
@@ -327,10 +327,10 @@ resource "aws_s3_bucket_policy" "paynext_primary_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "DenyInsecureConnections"
-        Effect = "Deny"
+        Sid       = "DenyInsecureConnections"
+        Effect    = "Deny"
         Principal = "*"
-        Action = "s3:*"
+        Action    = "s3:*"
         Resource = [
           aws_s3_bucket.paynext_primary.arn,
           "${aws_s3_bucket.paynext_primary.arn}/*"
@@ -342,11 +342,11 @@ resource "aws_s3_bucket_policy" "paynext_primary_policy" {
         }
       },
       {
-        Sid    = "DenyUnencryptedObjectUploads"
-        Effect = "Deny"
+        Sid       = "DenyUnencryptedObjectUploads"
+        Effect    = "Deny"
         Principal = "*"
-        Action = "s3:PutObject"
-        Resource = "${aws_s3_bucket.paynext_primary.arn}/*"
+        Action    = "s3:PutObject"
+        Resource  = "${aws_s3_bucket.paynext_primary.arn}/*"
         Condition = {
           StringNotEquals = {
             "s3:x-amz-server-side-encryption" = "aws:kms"
@@ -366,9 +366,9 @@ resource "aws_s3_bucket" "paynext_backup_replica" {
   force_destroy = false
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Backup-Replica-${var.environment}"
-    Purpose     = "DisasterRecovery"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-Backup-Replica-${var.environment}"
+    Purpose    = "DisasterRecovery"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -558,7 +558,7 @@ resource "aws_cloudwatch_metric_alarm" "s3_bucket_size" {
   evaluation_periods  = "1"
   metric_name         = "BucketSizeBytes"
   namespace           = "AWS/S3"
-  period              = "86400"  # 24 hours
+  period              = "86400" # 24 hours
   statistic           = "Average"
   threshold           = var.bucket_size_alarm_threshold
   alarm_description   = "This metric monitors S3 bucket size"
@@ -577,11 +577,11 @@ resource "aws_efs_file_system" "paynext_efs" {
   count = var.enable_efs ? 1 : 0
 
   creation_token                  = "paynext-efs-${var.environment}"
-  performance_mode               = "generalPurpose"
-  throughput_mode               = "provisioned"
+  performance_mode                = "generalPurpose"
+  throughput_mode                 = "provisioned"
   provisioned_throughput_in_mibps = 100
-  encrypted                     = true
-  kms_key_id                    = var.kms_key_id
+  encrypted                       = true
+  kms_key_id                      = var.kms_key_id
 
   tags = merge(var.tags, {
     Name = "PayNext-EFS-${var.environment}"

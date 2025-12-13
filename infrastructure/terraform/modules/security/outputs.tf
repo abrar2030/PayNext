@@ -102,11 +102,11 @@ output "security_features_enabled" {
 output "compliance_features" {
   description = "Compliance features enabled"
   value = {
-    encryption_at_rest     = true
-    key_rotation          = true
-    multi_region_keys     = true
-    audit_logging         = var.enable_config
-    security_monitoring   = var.enable_security_hub
+    encryption_at_rest       = true
+    key_rotation             = true
+    multi_region_keys        = true
+    audit_logging            = var.enable_config
+    security_monitoring      = var.enable_security_hub
     web_application_firewall = var.enable_waf
   }
 }

@@ -1,0 +1,148 @@
+[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mReference to undefined provider[0m
+[33m│[0m [0m
+[33m│[0m [0m[0m  on main.tf line 107, in module "storage":
+[33m│[0m [0m 107:     [4maws[0m.dr_region = aws.dr_region[0m
+[33m│[0m [0m
+[33m│[0m [0mThere is no explicit declaration for local provider name "aws.dr_region" in
+[33m│[0m [0mmodule.storage, so Terraform is assuming you mean to pass a configuration
+[33m│[0m [0mfor "hashicorp/aws".
+[33m│[0m [0m
+[33m│[0m [0mIf you also control the child module, add a required_providers entry named
+[33m│[0m [0m"aws.dr_region" with the source address "hashicorp/aws".
+[33m│[0m [0m
+[33m│[0m [0m(and one more similar warning elsewhere)
+[33m╵[0m[0m
+[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mArgument is deprecated[0m
+[33m│[0m [0m
+[33m│[0m [0m[0m  with module.kubernetes.aws_eks_addon.vpc_cni,
+[33m│[0m [0m  on modules/kubernetes/main.tf line 418, in resource "aws_eks_addon" "vpc_cni":
+[33m│[0m [0m 418:   resolve_conflicts        = [4m"OVERWRITE"[0m[0m
+[33m│[0m [0m
+[33m│[0m [0mresolve_conflicts is deprecated. The resolve_conflicts attribute can't be
+[33m│[0m [0mset to "PRESERVE" on initial resource creation. Use
+[33m│[0m [0mresolve_conflicts_on_create and/or resolve_conflicts_on_update instead.
+[33m│[0m [0m
+[33m│[0m [0m(and 2 more similar warnings elsewhere)
+[33m╵[0m[0m
+[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mInvalid Attribute Combination[0m
+[33m│[0m [0m
+[33m│[0m [0m[0m  with module.monitoring.aws_s3_bucket_lifecycle_configuration.cloudtrail_bucket_lifecycle,
+[33m│[0m [0m  on modules/monitoring/main.tf line 105, in resource "aws_s3_bucket_lifecycle_configuration" "cloudtrail_bucket_lifecycle":
+[33m│[0m [0m 105: resource "aws_s3_bucket_lifecycle_configuration" "cloudtrail_bucket_lifecycle" [4m{[0m[0m
+[33m│[0m [0m
+[33m│[0m [0mNo attribute specified when one (and only one) of
+[33m│[0m [0m[rule[0].filter,rule[0].prefix] is required
+[33m│[0m [0m
+[33m│[0m [0mThis will be an error in a future version of the provider
+[33m│[0m [0m
+[33m│[0m [0m(and 4 more similar warnings elsewhere)
+[33m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported attribute[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on main.tf line 97, in module "monitoring":
+[31m│[0m [0m  97:   s3_bucket_id = module.storage[4m.s3_bucket_id[0m[0m
+[31m│[0m [0m    [90m├────────────────[0m
+[31m│[0m [0m[0m    [90m│[0m [1mmodule.storage[0m is a object
+[31m│[0m [0m[0m
+[31m│[0m [0mThis object does not have an attribute named "s3_bucket_id".
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported attribute[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on outputs.tf line 135, in output "s3_bucket_id":
+[31m│[0m [0m 135:   value       = module.storage[4m.s3_bucket_id[0m[0m
+[31m│[0m [0m    [90m├────────────────[0m
+[31m│[0m [0m[0m    [90m│[0m [1mmodule.storage[0m is a object
+[31m│[0m [0m[0m
+[31m│[0m [0mThis object does not have an attribute named "s3_bucket_id".
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported attribute[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on outputs.tf line 140, in output "s3_bucket_arn":
+[31m│[0m [0m 140:   value       = module.storage[4m.s3_bucket_arn[0m[0m
+[31m│[0m [0m    [90m├────────────────[0m
+[31m│[0m [0m[0m    [90m│[0m [1mmodule.storage[0m is a object
+[31m│[0m [0m[0m
+[31m│[0m [0mThis object does not have an attribute named "s3_bucket_arn".
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported attribute[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on outputs.tf line 145, in output "s3_bucket_domain_name":
+[31m│[0m [0m 145:   value       = module.storage[4m.s3_bucket_domain_name[0m[0m
+[31m│[0m [0m    [90m├────────────────[0m
+[31m│[0m [0m[0m    [90m│[0m [1mmodule.storage[0m is a object
+[31m│[0m [0m[0m
+[31m│[0m [0mThis object does not have an attribute named "s3_bucket_domain_name".
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported attribute[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on outputs.tf line 150, in output "s3_bucket_regional_domain_name":
+[31m│[0m [0m 150:   value       = module.storage[4m.s3_bucket_regional_domain_name[0m[0m
+[31m│[0m [0m    [90m├────────────────[0m
+[31m│[0m [0m[0m    [90m│[0m [1mmodule.storage[0m is a object
+[31m│[0m [0m[0m
+[31m│[0m [0mThis object does not have an attribute named
+[31m│[0m [0m"s3_bucket_regional_domain_name".
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported block type[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on modules/database/main.tf line 342, in resource "aws_db_proxy" "paynext_proxy":
+[31m│[0m [0m 342:   [4mtarget[0m {[0m
+[31m│[0m [0m
+[31m│[0m [0mBlocks of type "target" are not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on modules/database/main.tf line 348, in resource "aws_db_proxy" "paynext_proxy":
+[31m│[0m [0m 348:   [4mmax_connections_percent[0m      = 100[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "max_connections_percent" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported argument[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on modules/database/main.tf line 349, in resource "aws_db_proxy" "paynext_proxy":
+[31m│[0m [0m 349:   [4mmax_idle_connections_percent[0m = 50[0m
+[31m│[0m [0m
+[31m│[0m [0mAn argument named "max_idle_connections_percent" is not expected here.
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mError in function call[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on modules/kubernetes/main.tf line 301, in resource "aws_launch_template" "eks_nodes":
+[31m│[0m [0m 301:   user_data = base64encode([4mtemplatefile([0m"${path.module}/user_data.sh", {
+[31m│[0m [0m 302:     cluster_name        = var.cluster_name
+[31m│[0m [0m 303:     cluster_endpoint    = aws_eks_cluster.paynext_cluster.endpoint
+[31m│[0m [0m 304:     cluster_ca          = aws_eks_cluster.paynext_cluster.certificate_authority[0].data
+[31m│[0m [0m 305:     bootstrap_arguments = var.bootstrap_arguments
+[31m│[0m [0m 306:   }))[0m
+[31m│[0m [0m    [90m├────────────────[0m
+[31m│[0m [0m[0m    [90m│[0m while calling [1mtemplatefile[0m([0mpath, vars)
+[31m│[0m [0m    [90m│[0m [1mpath.module[0m is "modules/kubernetes"
+[31m│[0m [0m[0m    [90m│[0m [1mvar.bootstrap_arguments[0m is a string
+[31m│[0m [0m[0m    [90m│[0m [1mvar.cluster_name[0m is a string
+[31m│[0m [0m[0m
+[31m│[0m [0mCall to function "templatefile" failed:
+[31m│[0m [0mmodules/kubernetes/user_data.sh:306,44-45: Extra characters after
+[31m│[0m [0minterpolation expression; Template interpolation doesn't expect a colon at
+[31m│[0m [0mthis location. Did you intend this to be a literal sequence to be processed
+[31m│[0m [0mas part of another language? If so, you can escape it by starting with
+[31m│[0m [0m"$${" instead of just "${"..
+[31m╵[0m[0m
+[31m╷[0m[0m
+[31m│[0m [0m[1m[31mError: [0m[0m[1mUnsupported block type[0m
+[31m│[0m [0m
+[31m│[0m [0m[0m  on modules/monitoring/main.tf line 336, in resource "aws_config_configuration_recorder" "paynext_config":
+[31m│[0m [0m 336:     [4mrecording_mode[0m {[0m
+[31m│[0m [0m
+[31m│[0m [0mBlocks of type "recording_mode" are not expected here.
+[31m╵[0m[0m

@@ -42,7 +42,7 @@ resource "helm_release" "prometheus" {
   chart      = "prometheus"
   version    = "14.5.0"
 
-  namespace = "monitoring"
+  namespace        = "monitoring"
   create_namespace = true
 
   values = [

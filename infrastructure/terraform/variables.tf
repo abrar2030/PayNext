@@ -5,7 +5,7 @@ variable "aws_region" {
   default     = "us-west-2"
 
   validation {
-    condition = can(regex("^[a-z]{2}-[a-z]+-[0-9]$", var.aws_region))
+    condition     = can(regex("^[a-z]{2}-[a-z]+-[0-9]$", var.aws_region))
     error_message = "AWS region must be in the format: us-west-2, eu-west-1, etc."
   }
 }
@@ -104,7 +104,7 @@ variable "compliance_standards" {
 variable "data_retention_days" {
   description = "Number of days to retain logs and audit data"
   type        = number
-  default     = 2555  # 7 years for financial compliance
+  default     = 2555 # 7 years for financial compliance
 
   validation {
     condition     = var.data_retention_days >= 365
@@ -188,7 +188,7 @@ variable "database_subnet_cidrs" {
 variable "availability_zones" {
   description = "List of availability zones to use"
   type        = list(string)
-  default     = []  # Will be auto-detected based on region
+  default     = [] # Will be auto-detected based on region
 }
 
 variable "enable_multi_az" {

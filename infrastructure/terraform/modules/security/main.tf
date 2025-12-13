@@ -3,8 +3,8 @@
 
 # KMS Key for encryption at rest
 resource "aws_kms_key" "paynext_key" {
-  description              = "PayNext encryption key for ${var.environment}"
-  deletion_window_in_days  = var.kms_key_deletion_window
+  description             = "PayNext encryption key for ${var.environment}"
+  deletion_window_in_days = var.kms_key_deletion_window
   enable_key_rotation     = true
   multi_region            = true
 
@@ -87,9 +87,9 @@ resource "aws_kms_key" "paynext_key" {
   })
 
   tags = merge(var.tags, {
-    Name        = "PayNext-KMS-Key-${var.environment}"
-    Purpose     = "Encryption"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-KMS-Key-${var.environment}"
+    Purpose    = "Encryption"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -103,19 +103,19 @@ resource "aws_secretsmanager_secret" "paynext_secrets" {
   count = var.enable_secrets_manager ? 1 : 0
 
   name                    = "paynext/${var.environment}/application-secrets"
-  description            = "PayNext application secrets for ${var.environment}"
-  kms_key_id             = aws_kms_key.paynext_key.arn
+  description             = "PayNext application secrets for ${var.environment}"
+  kms_key_id              = aws_kms_key.paynext_key.arn
   recovery_window_in_days = 30
 
   replica {
-    region = "us-east-1"
+    region     = "us-east-1"
     kms_key_id = aws_kms_key.paynext_key.arn
   }
 
   tags = merge(var.tags, {
-    Name        = "PayNext-Secrets-${var.environment}"
-    Purpose     = "SecretsManagement"
-    Compliance  = "PCI-DSS,GDPR,SOX"
+    Name       = "PayNext-Secrets-${var.environment}"
+    Purpose    = "SecretsManagement"
+    Compliance = "PCI-DSS,GDPR,SOX"
   })
 }
 
@@ -125,7 +125,7 @@ resource "aws_secretsmanager_secret_version" "paynext_secrets_version" {
 
   secret_id = aws_secretsmanager_secret.paynext_secrets[0].id
   secret_string = jsonencode({
-    database_password     = "CHANGE_ME_IN_PRODUCTION"
+    database_password    = "CHANGE_ME_IN_PRODUCTION"
     jwt_secret           = "CHANGE_ME_IN_PRODUCTION"
     api_key              = "CHANGE_ME_IN_PRODUCTION"
     encryption_key       = "CHANGE_ME_IN_PRODUCTION"
@@ -252,7 +252,7 @@ resource "aws_wafv2_web_acl" "paynext_waf" {
 
     statement {
       geo_match_statement {
-        country_codes = ["CN", "RU", "KP", "IR"]  # Example high-risk countries
+        country_codes = ["CN", "RU", "KP", "IR"] # Example high-risk countries
       }
     }
 
@@ -264,9 +264,9 @@ resource "aws_wafv2_web_acl" "paynext_waf" {
   }
 
   tags = merge(var.tags, {
-    Name        = "PayNext-WAF-${var.environment}"
-    Purpose     = "WebApplicationFirewall"
-    Compliance  = "PCI-DSS,OWASP"
+    Name       = "PayNext-WAF-${var.environment}"
+    Purpose    = "WebApplicationFirewall"
+    Compliance = "PCI-DSS,OWASP"
   })
 
   visibility_config {

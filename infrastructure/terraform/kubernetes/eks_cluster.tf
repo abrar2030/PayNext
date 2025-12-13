@@ -23,8 +23,8 @@ module "eks" {
   }
 
   # Enable necessary Kubernetes features for the EKS cluster
-  enable_irsa            = true
-  manage_aws_auth        = true
+  enable_irsa     = true
+  manage_aws_auth = true
 
   tags = {
     Environment = "production"
