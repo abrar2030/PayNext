@@ -5,7 +5,7 @@ import com.fintech.userservice.model.AuditLog;
 import com.fintech.userservice.repository.AuditLogRepository;
 import java.time.LocalDateTime;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

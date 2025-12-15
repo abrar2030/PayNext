@@ -13,14 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface UserClient {
 
   @GetMapping("/api/users/{id}")
-  @CircuitBreaker(name = "userService", fallbackMethod = "getUserByIdFallback")
   UserDTO getUserById(@PathVariable("id") Long id);
-
-  default UserDTO getUserByIdFallback(Long id, Exception e) {
-    // Fallback implementation when user service is down
-    logger.info("Fallback: Unable to get user with ID: " + id);
-    return new UserDTO(id, "Unknown", "User", "unknown@example.com");
-  }
 
   @Component
   class UserClientFallback implements UserClient {
@@ -29,7 +22,7 @@ public interface UserClient {
     @Override
     public UserDTO getUserById(Long id) {
       logger.warn("User service is down. Using fallback for user ID: {}", id);
-      return new UserDTO(id, "Unknown", "User", "unknown@example.com");
+      return new UserDTO(id, "Unknown User", "unknown@example.com");
     }
   }
 }

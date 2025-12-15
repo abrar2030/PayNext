@@ -2,7 +2,7 @@ package com.fintech.paymentservice.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "payments")

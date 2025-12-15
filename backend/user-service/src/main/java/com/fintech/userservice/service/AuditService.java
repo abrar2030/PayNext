@@ -3,7 +3,7 @@ package com.fintech.userservice.service;
 import com.fintech.userservice.model.AuditLog;
 import java.time.LocalDateTime;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

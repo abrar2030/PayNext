@@ -15,9 +15,6 @@ public interface OTPVerificationRepository extends JpaRepository<OTPVerification
   Optional<OTPVerification> findByUserIdAndOtpTypeAndIsUsedFalse(
       Long userId, OTPVerification.OTPType otpType);
 
-  List<OTPVerification> findByUserIdAndOtpTypeAndIsUsedFalse(
-      Long userId, OTPVerification.OTPType otpType);
-
   List<OTPVerification> findByExpiresAtBefore(LocalDateTime dateTime);
 
   @Query(

@@ -2,7 +2,7 @@ package com.fintech.aifraudservice.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

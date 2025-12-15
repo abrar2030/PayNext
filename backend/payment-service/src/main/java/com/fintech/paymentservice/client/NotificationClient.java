@@ -15,14 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface NotificationClient {
 
   @PostMapping("/api/notifications/send")
-  @CircuitBreaker(name = "notificationService", fallbackMethod = "sendNotificationFallback")
   void sendNotification(@RequestBody NotificationRequest notificationRequest);
-
-  default void sendNotificationFallback(NotificationRequest notificationRequest, Exception e) {
-    // Fallback implementation when notification service is down
-    logger.info("Fallback: Unable to send notification. Will retry later.");
-    // Here you could queue the notification for later retry
-  }
 
   @Component
   class NotificationClientFallback implements NotificationClient {
@@ -31,8 +24,8 @@ public interface NotificationClient {
     @Override
     public void sendNotification(NotificationRequest notificationRequest) {
       logger.warn(
-          "Notification service is down. Using fallback for notification: {}",
-          notificationRequest.getSubject());
+          "Notification service is down. Using fallback for notification to: {}",
+          notificationRequest.getRecipient());
       // Could implement a fallback strategy like storing in a database for later retry
     }
   }

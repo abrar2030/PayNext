@@ -155,10 +155,12 @@ public class OTPServiceImpl implements OTPService {
   }
 
   private void invalidateExistingOTPs(Long userId, OTPVerification.OTPType type) {
-    List<OTPVerification> existingOTPs =
+    Optional<OTPVerification> existingOTP =
         otpRepository.findByUserIdAndOtpTypeAndIsUsedFalse(userId, type);
-    existingOTPs.forEach(otp -> otp.setIsUsed(true));
-    otpRepository.saveAll(existingOTPs);
+    existingOTP.ifPresent(otp -> {
+      otp.setIsUsed(true);
+      otpRepository.save(otp);
+    });
   }
 
   private void sendEmailOTP(String email, String otpCode, OTPVerification.OTPType type) {

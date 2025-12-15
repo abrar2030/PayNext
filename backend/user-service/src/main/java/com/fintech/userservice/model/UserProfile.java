@@ -2,8 +2,8 @@ package com.fintech.userservice.model;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

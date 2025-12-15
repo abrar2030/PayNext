@@ -9,7 +9,7 @@
     <!-- Inherit from the root POM -->
     <parent>
         <groupId>com.fintech</groupId>
-        <artifactId>fintech-payment-solution</artifactId>
+        <artifactId>paynext-backend</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -18,11 +18,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <!-- Spring Boot and Spring Cloud versions (if not inherited) -->
-    <properties>
-        <java.version>11</java.version>
-        <spring-cloud.version>2021.0.4</spring-cloud.version>
-    </properties>
+    <!-- Spring Boot and Spring Cloud versions inherited from parent -->
 
     <dependencies>
         <!-- Eureka Server Dependency -->
@@ -51,18 +47,6 @@
             <version>42.3.8</version>
         </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <!-- Build plugins are inherited from the parent POM -->
 </project>

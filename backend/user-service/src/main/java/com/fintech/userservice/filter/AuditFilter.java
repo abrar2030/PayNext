@@ -1,13 +1,13 @@
 package com.fintech.userservice.filter;
 
 import com.fintech.userservice.service.AuditService;
-import com.fintech.userservice.util.JwtUtil;
+import com.fintech.common.util.JwtUtil;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -84,7 +84,14 @@ public class AuditFilter extends OncePerRequestFilter {
       String authHeader = request.getHeader("Authorization");
       if (authHeader != null && authHeader.startsWith("Bearer ")) {
         String token = authHeader.substring(7);
-        return jwtUtil.extractUserId(token);
+        String username = jwtUtil.getUsernameFromToken(token);
+        if (username != null) {
+          try {
+            return Long.parseLong(username);
+          } catch (NumberFormatException e) {
+            log.debug("Username is not a numeric user ID: {}", username);
+          }
+        }
       }
     } catch (Exception e) {
       log.debug("Could not extract user ID from request: {}", e.getMessage());

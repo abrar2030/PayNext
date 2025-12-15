@@ -1,7 +1,7 @@
 package com.fintech.notificationservice.service;
 
 import com.fintech.notificationservice.model.NotificationRequest;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.*;
@@ -42,7 +42,7 @@ public class EmailNotificationService implements NotificationService {
 
       mailSender.send(message);
 
-    } catch (MailException | javax.mail.MessagingException e) {
+    } catch (MailException | jakarta.mail.MessagingException e) {
       e.printStackTrace();
       // Handle exception
     }
