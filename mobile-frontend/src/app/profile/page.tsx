@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -35,6 +35,8 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
+import { useAuth } from "@/contexts/AuthContext";
+import { Loader2, Settings as SettingsIcon } from "lucide-react";
 
 // Define the form schema for editing profile
 const profileFormSchema = z.object({
@@ -43,56 +45,74 @@ const profileFormSchema = z.object({
 });
 
 export default function ProfilePage() {
-  // Placeholder user data (could come from context/API later)
-  const [user, setUser] = useState({
-    name: "Alex Johnson",
-    email: "alex.j@example.com",
-    avatarUrl: "https://github.com/shadcn.png", // Example avatar
-  });
-
+  const { user, logout, updateProfile, isLoading } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Define the edit profile form
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      name: user.name,
-      email: user.email,
+      name: user?.name || "",
+      email: user?.email || "",
     },
   });
 
-  // Watch form values to update user state optimistically or on successful save
-  // For simplicity, we'll update on successful save in this example
+  // Update form when user data changes
+  useEffect(() => {
+    if (user) {
+      form.reset({
+        name: user.name,
+        email: user.email,
+      });
+    }
+  }, [user, form]);
 
   // Define a submit handler for profile edit
   async function onProfileSubmit(values: z.infer<typeof profileFormSchema>) {
-    console.log("Updating profile:", values);
-    await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate API call
-
-    // Simulate success/failure
-    const success = Math.random() > 0.2; // 80% success rate
-
-    if (success) {
-      setUser((prevUser) => ({
-        ...prevUser,
+    setIsSubmitting(true);
+    try {
+      const success = await updateProfile({
         name: values.name,
         email: values.email,
-      }));
-      toast.success("Profile updated successfully!");
-      setIsEditing(false); // Close the dialog/form on success
-    } else {
-      toast.error("Failed to update profile. Please try again.");
+      });
+
+      if (success) {
+        toast.success("Profile updated successfully!");
+        setIsEditing(false);
+      } else {
+        toast.error("Failed to update profile. Please try again.");
+      }
+    } catch (error) {
+      console.error("Profile update error:", error);
+      toast.error("An unexpected error occurred");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
-  // Mock logout function
+  // Handle logout
   const handleLogout = () => {
-    console.log("Logging out...");
-    // In a real app, clear auth tokens, redirect to login
-    toast.info("You have been logged out.");
-    // Simulate redirect or state change
-    // router.push('/login'); // If using Next.js router
+    logout();
   };
+
+  // Mock settings handler
+  const handleSettings = () => {
+    toast.info("Settings page coming soon!");
+  };
+
+  if (isLoading || !user) {
+    return (
+      <div className="space-y-6">
+        <h1 className="text-2xl font-bold">Profile</h1>
+        <Card>
+          <CardContent className="flex items-center justify-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -102,15 +122,19 @@ export default function ProfilePage() {
         <CardHeader className="items-center text-center">
           <Avatar className="w-24 h-24 mb-4">
             <AvatarImage src={user.avatarUrl} alt={user.name} />
-            <AvatarFallback>
+            <AvatarFallback className="text-2xl">
               {user.name
                 .split(" ")
                 .map((n) => n[0])
-                .join("")}
+                .join("")
+                .toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <CardTitle>{user.name}</CardTitle>
           <p className="text-muted-foreground">{user.email}</p>
+          {user.id && (
+            <p className="text-xs text-muted-foreground mt-1">ID: {user.id}</p>
+          )}
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Edit Profile Dialog */}
@@ -169,18 +193,24 @@ export default function ProfilePage() {
                         Cancel
                       </Button>
                     </DialogClose>
-                    <Button type="submit">Save changes</Button>
+                    <Button type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Saving...
+                        </>
+                      ) : (
+                        "Save changes"
+                      )}
+                    </Button>
                   </DialogFooter>
                 </form>
               </Form>
             </DialogContent>
           </Dialog>
 
-          <Button
-            variant="outline"
-            className="w-full"
-            onClick={() => toast.info("Settings page not implemented yet.")}
-          >
+          <Button variant="outline" className="w-full" onClick={handleSettings}>
+            <SettingsIcon className="mr-2 h-4 w-4" />
             Settings
           </Button>
 

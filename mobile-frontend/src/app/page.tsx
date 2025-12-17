@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -18,7 +19,7 @@ import {
   QrCode,
   Send,
   Landmark,
-} from "lucide-react"; // Import icons
+} from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -26,84 +27,128 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogClose,
-} from "@/components/ui/dialog"; // Import Dialog components
-import QrScanner from "@/components/QrScanner"; // Import the QrScanner component
+} from "@/components/ui/dialog";
+import QrScanner from "@/components/QrScanner";
 import { toast } from "sonner";
+import { mockApiClient, useMockData, apiClient } from "@/lib/api-client";
+import { useAuth } from "@/contexts/AuthContext";
 
-// Placeholder function for API calls (remains the same for now)
-const fetchFromApi = async (endpoint: string) => {
-  console.log(`Fetching from API: ${endpoint}`);
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate slightly longer delay
+interface Transaction {
+  id: string;
+  type: string;
+  description: string;
+  date: string;
+  amount: number;
+  currency: string;
+  status?: string;
+}
 
-  if (endpoint === "/api/balance") {
-    return { balance: 1234.56, currency: "USD" };
-  }
-  if (endpoint === "/api/transactions?limit=3") {
-    return [
-      {
-        id: 1,
-        type: "debit",
-        description: "Coffee Shop",
-        date: "Apr 28, 2025",
-        amount: -5.5,
-        currency: "USD",
-      },
-      {
-        id: 2,
-        type: "credit",
-        description: "Salary Deposit",
-        date: "Apr 27, 2025",
-        amount: 2500.0,
-        currency: "USD",
-      },
-      {
-        id: 3,
-        type: "debit",
-        description: "Online Store",
-        date: "Apr 26, 2025",
-        amount: -78.9,
-        currency: "USD",
-      },
-    ];
-  }
-  return null;
-};
+interface BalanceData {
+  balance: number;
+  currency: string;
+}
 
 export default function HomePage() {
   const [balance, setBalance] = useState<number | null>(null);
-  const [transactions, setTransactions] = useState<any[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const { user, isAuthenticated } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
       try {
-        const balanceData = await fetchFromApi("/api/balance");
-        const transactionData = await fetchFromApi("/api/transactions?limit=3");
-        if (balanceData) setBalance(balanceData.balance);
-        if (transactionData) setTransactions(transactionData);
+        const client = useMockData ? mockApiClient : apiClient;
+
+        const [balanceResponse, transactionResponse] = await Promise.all([
+          client.getBalance(),
+          client.getTransactions(3),
+        ]);
+
+        if (balanceResponse.success && balanceResponse.data) {
+          const balanceData = balanceResponse.data as BalanceData;
+          setBalance(balanceData.balance);
+        } else {
+          toast.error("Failed to load balance data");
+        }
+
+        if (transactionResponse.success && transactionResponse.data) {
+          setTransactions(transactionResponse.data as Transaction[]);
+        } else {
+          toast.error("Failed to load transaction data");
+        }
       } catch (error) {
         console.error("Failed to fetch data:", error);
-        toast.error("Failed to load dashboard data.");
+        toast.error("Failed to load dashboard data");
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
     loadData();
   }, []);
 
-  // Handler for successful QR scan
-  const handleScanSuccess = (decodedText: string, decodedResult: any) => {
+  const handleScanSuccess = async (decodedText: string, decodedResult: any) => {
     console.log(`Scan result: ${decodedText}`, decodedResult);
-    toast.success(`QR Code Scanned: ${decodedText}`);
-    setIsScannerOpen(false); // Close the dialog after successful scan
-    // TODO: Add logic to handle the scanned data (e.g., prefill send form, navigate)
+    setIsScannerOpen(false);
+
+    try {
+      // Parse QR code data
+      if (decodedText.startsWith("paynext://")) {
+        const url = new URL(decodedText);
+        const action = url.hostname;
+
+        if (action === "request") {
+          // Handle payment request QR
+          const detailsParam = url.searchParams.get("details");
+          if (detailsParam) {
+            const details = JSON.parse(decodeURIComponent(detailsParam));
+            // Navigate to send page with pre-filled data
+            router.push(
+              `/send?recipient=${details.userId}&amount=${details.amount}&memo=${encodeURIComponent(details.memo || "")}`,
+            );
+            toast.success("Opening payment form...");
+          }
+        } else if (action === "pay") {
+          // Handle direct payment QR
+          const detailsParam = url.searchParams.get("details");
+          if (detailsParam) {
+            const details = JSON.parse(decodeURIComponent(detailsParam));
+            router.push(
+              `/send?recipient=${details.recipient}&amount=${details.amount}`,
+            );
+            toast.success("Opening payment form...");
+          }
+        } else {
+          toast.info(`QR Code Scanned: ${decodedText}`);
+        }
+      } else {
+        // Generic QR code - treat as recipient ID
+        router.push(`/send?recipient=${encodeURIComponent(decodedText)}`);
+        toast.info("Recipient scanned. Opening payment form...");
+      }
+    } catch (error) {
+      console.error("Failed to parse QR code:", error);
+      toast.error("Invalid QR code format");
+    }
   };
 
-  // Handler for scan failure (optional)
   const handleScanFailure = (error: any) => {
-    // console.error(`Scan failed: ${error}`);
-    // toast.error("QR Scan Failed. Please try again.");
+    // Silently handle scan failures - they're expected during scanning
+  };
+
+  const formatDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+    } catch {
+      return dateString;
+    }
   };
 
   return (
@@ -124,6 +169,11 @@ export default function HomePage() {
         </CardHeader>
         <CardContent>
           <p className="text-sm text-primary-foreground/80">Available Funds</p>
+          {user && (
+            <p className="text-xs text-primary-foreground/60 mt-1">
+              Welcome, {user.name}
+            </p>
+          )}
         </CardContent>
       </Card>
 
@@ -147,13 +197,12 @@ export default function HomePage() {
               variant="outline"
               className="flex flex-col items-center justify-center h-24 w-full"
             >
-              <Landmark className="h-6 w-6 mb-1 text-green-500" />{" "}
-              {/* Changed icon for Request */}
+              <Landmark className="h-6 w-6 mb-1 text-green-500" />
               <span className="text-xs">Request</span>
             </Button>
           </Link>
 
-          {/* QR Scan Dialog Trigger */}
+          {/* QR Scan Dialog */}
           <Dialog open={isScannerOpen} onOpenChange={setIsScannerOpen}>
             <DialogTrigger asChild>
               <Button
@@ -169,7 +218,6 @@ export default function HomePage() {
                 <DialogTitle>Scan QR Code</DialogTitle>
               </DialogHeader>
               <div className="p-4">
-                {/* Render scanner only when dialog is open */}
                 {isScannerOpen && (
                   <QrScanner
                     onScanSuccess={handleScanSuccess}
@@ -179,7 +227,6 @@ export default function HomePage() {
               </div>
               <DialogClose asChild className="absolute top-4 right-4">
                 <Button type="button" variant="ghost" size="icon">
-                  {/* Add a close icon if desired, or rely on clicking outside */}
                   <span className="sr-only">Close</span>
                 </Button>
               </DialogClose>
@@ -218,7 +265,9 @@ export default function HomePage() {
                   </div>
                   <div className="flex-grow">
                     <p className="font-medium text-sm">{tx.description}</p>
-                    <p className="text-xs text-muted-foreground">{tx.date}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {formatDate(tx.date)}
+                    </p>
                   </div>
                   <p
                     className={`font-medium text-sm ${tx.amount < 0 ? "text-red-600 dark:text-red-400" : "text-green-600 dark:text-green-400"}`}

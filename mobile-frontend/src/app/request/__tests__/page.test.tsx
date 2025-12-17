@@ -1,60 +1,72 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import RequestPage from "../page"; // Adjust import path
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import RequestPage from "@/app/request/page";
+import { useAuth } from "@/contexts/AuthContext";
 
-// Mock necessary components or hooks used by RequestPage
-// Example: Mocking a service or hook for submitting requests
-jest.mock("../../../services/RequestService", () => ({
-  submitPaymentRequest: jest
-    .fn()
-    .mockResolvedValue({ success: true, requestId: "req_123" }),
-}));
+// Mock dependencies
+jest.mock("@/contexts/AuthContext");
+jest.mock("@/lib/api-client");
 
-describe("Mobile RequestPage", () => {
-  test("renders request form elements", () => {
-    render(<RequestPage />);
+describe("RequestPage Component", () => {
+  const mockUser = {
+    id: "user123",
+    name: "Test User",
+    email: "test@example.com",
+  };
 
-    // Check for form elements like amount, description, recipient (if applicable)
-    expect(screen.getByLabelText(/amount/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/description/i)).toBeInTheDocument(); // Optional
-    expect(
-      screen.getByRole("button", { name: /generate request link/i }),
-    ).toBeInTheDocument(); // Or similar button text
-  });
-
-  test("allows user to input request details", () => {
-    render(<RequestPage />);
-
-    const amountInput = screen.getByLabelText(/amount/i);
-    const descriptionInput = screen.getByLabelText(/description/i);
-
-    fireEvent.change(amountInput, { target: { value: "50" } });
-    fireEvent.change(descriptionInput, {
-      target: { value: "Payment for lunch" },
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useAuth as jest.Mock).mockReturnValue({
+      user: mockUser,
+      isAuthenticated: true,
+      isLoading: false,
     });
-
-    expect(amountInput.value).toBe("50");
-    expect(descriptionInput.value).toBe("Payment for lunch");
   });
 
-  // Add tests for form submission, validation, generating QR code/link, error handling
-  /*
-  test('submits payment request on button click', async () => {
-    const mockSubmit = jest.requireMock('../../../services/RequestService').submitPaymentRequest;
+  it("renders the request money form", () => {
     render(<RequestPage />);
 
-    fireEvent.change(screen.getByLabelText(/amount/i), { target: { value: '50' } });
-    fireEvent.change(screen.getByLabelText(/description/i), { target: { value: 'Payment for lunch' } });
-    fireEvent.click(screen.getByRole('button', { name: /generate request link/i }));
+    expect(screen.getByText("Request Money")).toBeInTheDocument();
+    expect(screen.getByLabelText(/Amount \(\$\)/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Memo/i)).toBeInTheDocument();
+  });
 
-    // Check if the service function was called
+  it("shows validation error for invalid amount", async () => {
+    render(<RequestPage />);
+    const user = userEvent.setup();
+
+    const submitButton = screen.getByRole("button", {
+      name: /Generate Request QR Code/i,
+    });
+    await user.click(submitButton);
+
     await waitFor(() => {
-      expect(mockSubmit).toHaveBeenCalledWith({ amount: '50', description: 'Payment for lunch' });
+      expect(
+        screen.getByText(/Amount must be a positive number/i),
+      ).toBeInTheDocument();
     });
-
-    // Check if success message or generated link/QR code is displayed
-    // expect(await screen.findByText(/request generated successfully/i)).toBeInTheDocument();
   });
-  */
+
+  it("has generate QR code button", () => {
+    render(<RequestPage />);
+
+    expect(
+      screen.getByRole("button", { name: /Generate Request QR Code/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("displays form fields with proper labels", () => {
+    render(<RequestPage />);
+
+    expect(screen.getByLabelText(/Amount \(\$\)/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Memo \(Optional\)/i)).toBeInTheDocument();
+  });
+
+  it("initially does not show QR code", () => {
+    render(<RequestPage />);
+
+    expect(
+      screen.queryByText(/Scan QR Code or Copy Link/i),
+    ).not.toBeInTheDocument();
+  });
 });

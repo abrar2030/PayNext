@@ -1,66 +1,59 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import BottomNav from "../BottomNav"; // Adjust import path
+import { render, screen } from "@testing-library/react";
+import BottomNav from "@/components/BottomNav";
+import { usePathname } from "next/navigation";
 
-// Mock next/navigation if used for routing
+// Mock next/navigation
 jest.mock("next/navigation", () => ({
-  useRouter: () => ({
-    push: jest.fn(), // Mock the push function
-  }),
-  usePathname: () => "/", // Mock the current path
+  usePathname: jest.fn(),
 }));
 
-describe("Mobile BottomNav Component", () => {
-  test("renders navigation items correctly", () => {
+describe("BottomNav Component", () => {
+  it("renders all navigation items", () => {
+    (usePathname as jest.Mock).mockReturnValue("/");
+
     render(<BottomNav />);
 
-    // Check if key navigation links/icons are present
-    // Adjust names based on actual implementation (e.g., using aria-label or text)
-    expect(screen.getByRole("link", { name: /home/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /send/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /request/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /profile/i })).toBeInTheDocument();
+    expect(screen.getByText("Home")).toBeInTheDocument();
+    expect(screen.getByText("Send")).toBeInTheDocument();
+    expect(screen.getByText("Request")).toBeInTheDocument();
+    expect(screen.getByText("Profile")).toBeInTheDocument();
   });
 
-  test("highlights the active link based on pathname", () => {
-    // Mock pathname to match one of the links
-    jest.mock(
-      "next/navigation",
-      () => ({
-        useRouter: () => ({ push: jest.fn() }),
-        usePathname: () => "/send", // Mock path for 'Send'
-      }),
-      { virtual: true },
-    );
+  it("highlights the active route", () => {
+    (usePathname as jest.Mock).mockReturnValue("/send");
 
     render(<BottomNav />);
 
-    const sendLink = screen.getByRole("link", { name: /send/i });
-    // Check if the active link has a specific style or attribute (e.g., aria-current)
-    // This depends on how active state is implemented in BottomNav.tsx
-    // Example: expect(sendLink).toHaveClass('active');
-    // Example: expect(sendLink).toHaveAttribute('aria-current', 'page');
-    // Add the specific assertion based on your component's implementation
+    const sendLink = screen.getByText("Send").closest("a");
+    expect(sendLink).toHaveClass("text-primary");
   });
 
-  test("navigates when a link is clicked", () => {
-    const mockPush = jest.fn();
-    jest.mock(
-      "next/navigation",
-      () => ({
-        useRouter: () => ({ push: mockPush }),
-        usePathname: () => "/",
-      }),
-      { virtual: true },
-    );
+  it("renders correct navigation links", () => {
+    (usePathname as jest.Mock).mockReturnValue("/");
 
     render(<BottomNav />);
 
-    const profileLink = screen.getByRole("link", { name: /profile/i });
-    fireEvent.click(profileLink);
+    expect(screen.getByText("Home").closest("a")).toHaveAttribute("href", "/");
+    expect(screen.getByText("Send").closest("a")).toHaveAttribute(
+      "href",
+      "/send",
+    );
+    expect(screen.getByText("Request").closest("a")).toHaveAttribute(
+      "href",
+      "/request",
+    );
+    expect(screen.getByText("Profile").closest("a")).toHaveAttribute(
+      "href",
+      "/profile",
+    );
+  });
 
-    // Check if router.push was called with the correct path
-    expect(mockPush).toHaveBeenCalledWith("/profile");
+  it("applies correct CSS classes to the navigation container", () => {
+    (usePathname as jest.Mock).mockReturnValue("/");
+
+    const { container } = render(<BottomNav />);
+
+    const nav = container.querySelector("nav");
+    expect(nav).toHaveClass("fixed", "bottom-0");
   });
 });

@@ -4,6 +4,8 @@ import "./globals.css";
 import BottomNav from "@/components/BottomNav";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/contexts/AuthContext";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,13 +35,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen flex flex-col">
-            <main className="flex-grow container mx-auto p-4 pb-20">
-              {children}
-            </main>
-            <BottomNav />
-            <Toaster />
-          </div>
+          <AuthProvider>
+            <ErrorBoundary>
+              <div className="min-h-screen flex flex-col">
+                <main className="flex-grow container mx-auto p-4 pb-20">
+                  {children}
+                </main>
+                <BottomNav />
+                <Toaster />
+              </div>
+            </ErrorBoundary>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { toast } from "sonner";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +19,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { mockApiClient, useMockData, apiClient } from "@/lib/api-client";
+import { Loader2 } from "lucide-react";
 
 // Define the form schema using Zod
 const formSchema = z.object({
@@ -30,7 +34,10 @@ const formSchema = z.object({
 });
 
 export default function SendPage() {
-  // 1. Define your form.
+  const searchParams = useSearchParams();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Define form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,22 +47,49 @@ export default function SendPage() {
     },
   });
 
-  // 2. Define a submit handler.
+  // Pre-fill form from URL parameters
+  useEffect(() => {
+    const recipient = searchParams.get("recipient");
+    const amount = searchParams.get("amount");
+    const memo = searchParams.get("memo");
+
+    if (recipient) {
+      form.setValue("recipient", decodeURIComponent(recipient));
+    }
+    if (amount) {
+      form.setValue("amount", parseFloat(amount));
+    }
+    if (memo) {
+      form.setValue("memo", decodeURIComponent(memo));
+    }
+  }, [searchParams, form]);
+
+  // Submit handler
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Simulate API call
-    console.log("Sending money:", values);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setIsSubmitting(true);
+    try {
+      const client = useMockData ? mockApiClient : apiClient;
+      const response = await client.sendPayment({
+        recipient: values.recipient,
+        amount: values.amount,
+        memo: values.memo,
+      });
 
-    // Simulate success/failure
-    const success = Math.random() > 0.2; // 80% success rate
-
-    if (success) {
-      toast.success(
-        `Successfully sent $${values.amount.toFixed(2)} to ${values.recipient}!`,
-      );
-      form.reset(); // Reset form on success
-    } else {
-      toast.error("Failed to send money. Please try again.");
+      if (response.success) {
+        toast.success(
+          `Successfully sent $${values.amount.toFixed(2)} to ${values.recipient}!`,
+        );
+        form.reset();
+      } else {
+        toast.error(
+          response.error?.message || "Failed to send money. Please try again.",
+        );
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      toast.error("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -120,8 +154,15 @@ export default function SendPage() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full">
-                Send Money
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  "Send Money"
+                )}
               </Button>
             </form>
           </Form>

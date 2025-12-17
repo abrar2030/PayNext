@@ -1,64 +1,70 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import QrScanner from "../QrScanner"; // Adjust import path
+import { render, screen, waitFor } from "@testing-library/react";
+import QrScanner from "@/components/QrScanner";
 
-// Mock the react-qr-scanner library or the underlying browser APIs if needed
-// This is often complex. A simpler approach is to test component logic around the scanner.
-jest.mock("react-qr-scanner", () => {
-  // Mock the component, allowing us to simulate scan results or errors
-  return ({ onScan, onError }) => (
-    <div data-testid="react-qr-scanner-mock">
-      {/* Add buttons or elements to simulate scan/error for testing */}
-      <button onClick={() => onScan({ text: "simulated-qr-data" })}>
-        Simulate Scan
-      </button>
-      <button onClick={() => onError(new Error("Simulated Scan Error"))}>
-        Simulate Error
-      </button>
-    </div>
-  );
-});
+// Mock html5-qrcode
+jest.mock("html5-qrcode", () => ({
+  Html5QrcodeScanner: jest.fn().mockImplementation(() => ({
+    render: jest.fn(),
+    clear: jest.fn().mockResolvedValue(undefined),
+  })),
+  Html5QrcodeScanType: {
+    SCAN_TYPE_CAMERA: "camera",
+    SCAN_TYPE_FILE: "file",
+  },
+}));
 
-describe("Mobile QrScanner Component", () => {
-  test("renders the QR scanner mock", () => {
-    const handleScan = jest.fn();
-    const handleError = jest.fn();
-    render(<QrScanner onScan={handleScan} onError={handleError} />);
+describe("QrScanner Component", () => {
+  const mockOnScanSuccess = jest.fn();
+  const mockOnScanFailure = jest.fn();
 
-    expect(screen.getByTestId("react-qr-scanner-mock")).toBeInTheDocument();
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  test("calls onScan prop when mock scanner simulates a scan", () => {
-    const handleScan = jest.fn();
-    const handleError = jest.fn();
-    render(<QrScanner onScan={handleScan} onError={handleError} />);
+  it("renders the QR scanner container", () => {
+    const { container } = render(
+      <QrScanner
+        onScanSuccess={mockOnScanSuccess}
+        onScanFailure={mockOnScanFailure}
+      />,
+    );
 
-    const simulateScanButton = screen.getByRole("button", {
-      name: /simulate scan/i,
+    const scannerDiv = container.querySelector("#html5qr-code-full-region");
+    expect(scannerDiv).toBeInTheDocument();
+  });
+
+  it("initializes scanner on mount", async () => {
+    render(
+      <QrScanner
+        onScanSuccess={mockOnScanSuccess}
+        onScanFailure={mockOnScanFailure}
+      />,
+    );
+
+    await waitFor(() => {
+      const { Html5QrcodeScanner } = require("html5-qrcode");
+      expect(Html5QrcodeScanner).toHaveBeenCalled();
     });
-    fireEvent.click(simulateScanButton);
-
-    expect(handleScan).toHaveBeenCalledTimes(1);
-    expect(handleScan).toHaveBeenCalledWith("simulated-qr-data"); // Check the data passed
-    expect(handleError).not.toHaveBeenCalled();
   });
 
-  test("calls onError prop when mock scanner simulates an error", () => {
-    const handleScan = jest.fn();
-    const handleError = jest.fn();
-    const simulatedError = new Error("Simulated Scan Error");
-    render(<QrScanner onScan={handleScan} onError={handleError} />);
+  it("renders with correct div id for scanner initialization", () => {
+    const { container } = render(
+      <QrScanner
+        onScanSuccess={mockOnScanSuccess}
+        onScanFailure={mockOnScanFailure}
+      />,
+    );
 
-    const simulateErrorButton = screen.getByRole("button", {
-      name: /simulate error/i,
-    });
-    fireEvent.click(simulateErrorButton);
-
-    expect(handleError).toHaveBeenCalledTimes(1);
-    expect(handleError).toHaveBeenCalledWith(simulatedError); // Check the error passed
-    expect(handleScan).not.toHaveBeenCalled();
+    expect(container.querySelector("#html5qr-code-full-region")).toBeTruthy();
   });
 
-  // Add tests for props like delay, constraints, styling if applicable
+  it("accepts optional onScanFailure prop", () => {
+    const { container } = render(
+      <QrScanner onScanSuccess={mockOnScanSuccess} />,
+    );
+
+    expect(
+      container.querySelector("#html5qr-code-full-region"),
+    ).toBeInTheDocument();
+  });
 });

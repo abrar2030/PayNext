@@ -1,36 +1,79 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import HomePage from "../page"; // Adjust the import path based on your file structure
+import { render, screen, waitFor } from "@testing-library/react";
+import HomePage from "@/app/page";
+import { useAuth } from "@/contexts/AuthContext";
+import { mockApiClient } from "@/lib/api-client";
 
-// Mock child components or hooks if necessary
-jest.mock("../../components/BottomNav", () => () => (
-  <div data-testid="bottom-nav-mock">Bottom Nav</div>
-));
-// Mock any hooks or context providers used by the page
+// Mock dependencies
+jest.mock("@/contexts/AuthContext");
+jest.mock("@/lib/api-client");
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+  }),
+}));
 
-describe("Mobile HomePage", () => {
-  test("renders main page elements", () => {
-    render(<HomePage />);
+describe("HomePage Component", () => {
+  const mockUser = {
+    id: "user123",
+    name: "Test User",
+    email: "test@example.com",
+  };
 
-    // Example: Check for a welcome message or a key element
-    // Replace 'Welcome to PayNext Mobile' with actual text content from your page
-    expect(screen.getByText(/Welcome to PayNext Mobile/i)).toBeInTheDocument();
-
-    // Example: Check if mocked components are rendered
-    expect(screen.getByTestId("bottom-nav-mock")).toBeInTheDocument();
-
-    // Add more specific assertions based on the actual content of page.tsx
-    // e.g., check for buttons, balance display, transaction summaries etc.
+  beforeEach(() => {
+    jest.clearAllMocks();
+    (useAuth as jest.Mock).mockReturnValue({
+      user: mockUser,
+      isAuthenticated: true,
+      isLoading: false,
+    });
   });
 
-  // Add tests for interactions, data loading (if any), etc.
-  /*
-  test('handles button click', () => {
+  it("renders the home page with balance section", async () => {
     render(<HomePage />);
-    const sendButton = screen.getByRole('button', { name: /send money/i });
-    fireEvent.click(sendButton);
-    // Add assertions to check the outcome of the click, e.g., navigation
+
+    await waitFor(() => {
+      expect(screen.getByText("Current Balance")).toBeInTheDocument();
+    });
   });
-  */
+
+  it("displays loading skeletons while fetching data", () => {
+    render(<HomePage />);
+
+    const skeletons = document.querySelectorAll(".animate-pulse");
+    expect(skeletons.length).toBeGreaterThan(0);
+  });
+
+  it("renders quick action buttons", async () => {
+    render(<HomePage />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Send")).toBeInTheDocument();
+      expect(screen.getByText("Request")).toBeInTheDocument();
+      expect(screen.getByText("Scan QR")).toBeInTheDocument();
+    });
+  });
+
+  it("displays recent transactions section", async () => {
+    render(<HomePage />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Recent Transactions")).toBeInTheDocument();
+    });
+  });
+
+  it("displays user welcome message when user is authenticated", async () => {
+    render(<HomePage />);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Welcome, Test User/)).toBeInTheDocument();
+    });
+  });
+
+  it("formats balance correctly", async () => {
+    render(<HomePage />);
+
+    await waitFor(() => {
+      expect(screen.getByText("$1234.56")).toBeInTheDocument();
+    });
+  });
 });
