@@ -1,1 +1,0 @@
-./inventory/dev/group_vars/all.yml:11:121: [warning] line too long (145 > 120 characters) (line-length)
