@@ -15,25 +15,26 @@ public class JwtUtil {
 
   private final long expiration = 604800000L; // 7 days
 
-  // Updated to use UserDetails as a more generic contract
+  // Generate token using UserDetails
   public String generateToken(UserDetails userDetails) {
     Date now = new Date();
     Date expiryDate = new Date(now.getTime() + expiration);
 
     return Jwts.builder()
-        .setSubject(userDetails.getUsername()) // Use username (which is often the ID/email)
+        .setSubject(userDetails.getUsername())
         .claim(
             "role",
             userDetails.getAuthorities().stream()
                 .findFirst()
                 .map(Object::toString)
-                .orElse("USER")) // Assuming role is available
+                .orElse("USER"))
         .setIssuedAt(now)
         .setExpiration(expiryDate)
         .signWith(SignatureAlgorithm.HS512, secret)
         .compact();
   }
 
+  // Extract username from token
   public String getUsernameFromToken(String token) {
     try {
       Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
@@ -50,5 +51,41 @@ public class JwtUtil {
       log.error("JWT claims string is empty: {}", ex.getMessage());
     }
     return null;
+  }
+
+  // Validate token against username
+  public boolean validateToken(String token, String username) {
+    try {
+      String extractedUsername = getUsernameFromToken(token);
+      return extractedUsername != null
+          && extractedUsername.equals(username)
+          && !isTokenExpired(token);
+    } catch (Exception e) {
+      log.error("Error validating token: {}", e.getMessage());
+      return false;
+    }
+  }
+
+  // Check if token is expired
+  private boolean isTokenExpired(String token) {
+    try {
+      Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+      return claims.getExpiration().before(new Date());
+    } catch (ExpiredJwtException ex) {
+      return true;
+    } catch (Exception ex) {
+      log.error("Error checking token expiration: {}", ex.getMessage());
+      return true;
+    }
+  }
+
+  // Extract claims from token
+  public Claims extractAllClaims(String token) {
+    try {
+      return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+    } catch (Exception e) {
+      log.error("Error extracting claims from token: {}", e.getMessage());
+      return null;
+    }
   }
 }

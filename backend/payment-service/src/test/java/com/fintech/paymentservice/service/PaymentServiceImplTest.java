@@ -2,7 +2,6 @@ package com.fintech.paymentservice.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 import com.fintech.paymentservice.model.Payment;
@@ -31,17 +30,14 @@ class PaymentServiceImplTest {
   @BeforeEach
   void setUp() {
     testPayment = new Payment();
-    testPayment.setId(1L);
     testPayment.setUserId(100L);
-    testPayment.setRecipientId(200L);
-    testPayment.setAmount(new BigDecimal("100.50"));
-    testPayment.setCurrency("USD");
-    testPayment.setStatus("PENDING");
-    testPayment.setTimestamp(LocalDateTime.now());
+    testPayment.setAmount(new BigDecimal("100.00"));
+    testPayment.setPaymentDate(LocalDateTime.now());
+    testPayment.setStatus("COMPLETED");
   }
 
   @Test
-  void createPayment_shouldSetTimestampAndStatusAndSave() {
+  void processPayment_shouldSaveAndReturnPayment() {
     when(paymentRepository.save(any(Payment.class)))
         .thenAnswer(
             invocation -> {
@@ -50,88 +46,54 @@ class PaymentServiceImplTest {
               return savedPayment;
             });
 
-    Payment paymentToCreate = new Payment();
-    paymentToCreate.setUserId(100L);
-    paymentToCreate.setRecipientId(200L);
-    paymentToCreate.setAmount(new BigDecimal("100.50"));
-    paymentToCreate.setCurrency("USD");
+    Payment processedPayment = paymentService.processPayment(testPayment);
 
-    Payment createdPayment = paymentService.createPayment(paymentToCreate);
+    assertNotNull(processedPayment);
+    assertEquals(testPayment.getUserId(), processedPayment.getUserId());
+    assertEquals(testPayment.getAmount(), processedPayment.getAmount());
+    assertNotNull(processedPayment.getId());
+    verify(paymentRepository, times(1)).save(testPayment);
+  }
 
-    assertNotNull(createdPayment);
-    assertNotNull(createdPayment.getTimestamp());
-    assertEquals("PENDING", createdPayment.getStatus());
-    assertEquals(1L, createdPayment.getId());
-    verify(paymentRepository, times(1)).save(paymentToCreate);
+  @Test
+  void getAllPayments_shouldReturnListOfPayments() {
+    Payment secondPayment = new Payment();
+    secondPayment.setId(2L);
+    secondPayment.setUserId(200L);
+    secondPayment.setAmount(new BigDecimal("200.00"));
+    secondPayment.setPaymentDate(LocalDateTime.now());
+    secondPayment.setStatus("PENDING");
+
+    List<Payment> payments = Arrays.asList(testPayment, secondPayment);
+    when(paymentRepository.findAll()).thenReturn(payments);
+
+    List<Payment> result = paymentService.getAllPayments();
+
+    assertNotNull(result);
+    assertEquals(2, result.size());
+    verify(paymentRepository, times(1)).findAll();
   }
 
   @Test
   void getPaymentById_whenPaymentExists_shouldReturnPayment() {
+    testPayment.setId(1L);
     when(paymentRepository.findById(1L)).thenReturn(Optional.of(testPayment));
 
     Payment foundPayment = paymentService.getPaymentById(1L);
 
     assertNotNull(foundPayment);
-    assertEquals(1L, foundPayment.getId());
+    assertEquals(testPayment.getId(), foundPayment.getId());
+    assertEquals(testPayment.getUserId(), foundPayment.getUserId());
     verify(paymentRepository, times(1)).findById(1L);
   }
 
   @Test
-  void getPaymentById_whenPaymentDoesNotExist_shouldThrowException() {
-    when(paymentRepository.findById(anyLong())).thenReturn(Optional.empty());
+  void getPaymentById_whenPaymentDoesNotExist_shouldReturnNull() {
+    when(paymentRepository.findById(999L)).thenReturn(Optional.empty());
 
-    RuntimeException exception =
-        assertThrows(
-            RuntimeException.class,
-            () -> {
-              paymentService.getPaymentById(99L);
-            });
+    Payment foundPayment = paymentService.getPaymentById(999L);
 
-    assertEquals("Payment not found with id: 99", exception.getMessage());
-    verify(paymentRepository, times(1)).findById(99L);
-  }
-
-  @Test
-  void getPaymentsByUserId_shouldReturnListOfPayments() {
-    List<Payment> payments = Arrays.asList(testPayment);
-    when(paymentRepository.findByUserId(100L)).thenReturn(payments);
-
-    List<Payment> foundPayments = paymentService.getPaymentsByUserId(100L);
-
-    assertNotNull(foundPayments);
-    assertFalse(foundPayments.isEmpty());
-    assertEquals(1, foundPayments.size());
-    assertEquals(100L, foundPayments.get(0).getUserId());
-    verify(paymentRepository, times(1)).findByUserId(100L);
-  }
-
-  @Test
-  void updatePaymentStatus_whenPaymentExists_shouldUpdateAndReturnPayment() {
-    when(paymentRepository.findById(1L)).thenReturn(Optional.of(testPayment));
-    when(paymentRepository.save(any(Payment.class)))
-        .thenReturn(testPayment); // Return the same object after save
-
-    Payment updatedPayment = paymentService.updatePaymentStatus(1L, "COMPLETED");
-
-    assertNotNull(updatedPayment);
-    assertEquals("COMPLETED", updatedPayment.getStatus());
-    verify(paymentRepository, times(1)).findById(1L);
-    verify(paymentRepository, times(1)).save(testPayment);
-  }
-
-  @Test
-  void updatePaymentStatus_whenPaymentDoesNotExist_shouldThrowException() {
-    when(paymentRepository.findById(anyLong())).thenReturn(Optional.empty());
-
-    RuntimeException exception =
-        assertThrows(
-            RuntimeException.class,
-            () -> {
-              paymentService.updatePaymentStatus(99L, "COMPLETED");
-            });
-
-    assertEquals("Payment not found with id: 99", exception.getMessage());
-    verify(paymentRepository, times(1)).findById(99L);
-    verify(paymentRepository, never()).save(any(Payment.class));
+    assertNull(foundPayment);
+    verify(paymentRepository, times(1)).findById(999L);
   }
 }

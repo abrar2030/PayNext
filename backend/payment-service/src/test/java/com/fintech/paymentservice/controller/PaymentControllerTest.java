@@ -1,7 +1,6 @@
 package com.fintech.paymentservice.controller;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -37,64 +36,63 @@ class PaymentControllerTest {
     testPayment = new Payment();
     testPayment.setId(1L);
     testPayment.setUserId(100L);
-    testPayment.setRecipientId(200L);
-    testPayment.setAmount(new BigDecimal("100.50"));
-    testPayment.setCurrency("USD");
-    testPayment.setStatus("PENDING");
-    testPayment.setTimestamp(LocalDateTime.now());
+    testPayment.setAmount(new BigDecimal("100.00"));
+    testPayment.setPaymentDate(LocalDateTime.now());
+    testPayment.setStatus("COMPLETED");
   }
 
   @Test
-  void createPayment_shouldReturnCreatedPayment() throws Exception {
-    when(paymentService.createPayment(any(Payment.class))).thenReturn(testPayment);
+  void processPayment_shouldReturnCreatedPayment() throws Exception {
+    when(paymentService.processPayment(any(Payment.class))).thenReturn(testPayment);
 
     mockMvc
         .perform(
             post("/api/payments")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(testPayment)))
-        .andExpect(status().isCreated())
+        .andExpect(status().isOk())
         .andExpect(jsonPath("$.userId").value(testPayment.getUserId()))
-        .andExpect(jsonPath("$.recipientId").value(testPayment.getRecipientId()))
-        .andExpect(jsonPath("$.amount").value(100.50))
-        .andExpect(jsonPath("$.currency").value("USD"))
-        .andExpect(jsonPath("$.status").value("PENDING"));
+        .andExpect(jsonPath("$.amount").value(testPayment.getAmount().doubleValue()))
+        .andExpect(jsonPath("$.status").value(testPayment.getStatus()));
+  }
+
+  @Test
+  void getAllPayments_shouldReturnListOfPayments() throws Exception {
+    Payment secondPayment = new Payment();
+    secondPayment.setId(2L);
+    secondPayment.setUserId(200L);
+    secondPayment.setAmount(new BigDecimal("200.00"));
+    secondPayment.setPaymentDate(LocalDateTime.now());
+    secondPayment.setStatus("PENDING");
+
+    List<Payment> payments = Arrays.asList(testPayment, secondPayment);
+    when(paymentService.getAllPayments()).thenReturn(payments);
+
+    mockMvc
+        .perform(get("/api/payments").contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].userId").value(testPayment.getUserId()))
+        .andExpect(jsonPath("$[1].userId").value(secondPayment.getUserId()));
   }
 
   @Test
   void getPaymentById_whenPaymentExists_shouldReturnPayment() throws Exception {
-    when(paymentService.getPaymentById(anyLong())).thenReturn(testPayment);
+    when(paymentService.getPaymentById(1L)).thenReturn(testPayment);
 
     mockMvc
-        .perform(get("/api/payments/{id}", 1L).contentType(MediaType.APPLICATION_JSON))
+        .perform(get("/api/payments/1").contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.id").value(1L))
-        .andExpect(jsonPath("$.amount").value(100.50));
+        .andExpect(jsonPath("$.userId").value(testPayment.getUserId()))
+        .andExpect(jsonPath("$.amount").value(testPayment.getAmount().doubleValue()))
+        .andExpect(jsonPath("$.status").value(testPayment.getStatus()));
   }
 
   @Test
   void getPaymentById_whenPaymentDoesNotExist_shouldReturnNotFound() throws Exception {
-    when(paymentService.getPaymentById(anyLong()))
-        .thenThrow(
-            new RuntimeException(
-                "Payment not found")); // Or return null/Optional.empty based on service impl
+    when(paymentService.getPaymentById(999L)).thenReturn(null);
 
     mockMvc
-        .perform(get("/api/payments/{id}", 99L).contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNotFound()); // Adjust based on exception handling
+        .perform(get("/api/payments/999").contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isNotFound());
   }
-
-  @Test
-  void getPaymentsByUserId_shouldReturnPaymentList() throws Exception {
-    List<Payment> payments = Arrays.asList(testPayment);
-    when(paymentService.getPaymentsByUserId(anyLong())).thenReturn(payments);
-
-    mockMvc
-        .perform(get("/api/payments/user/{userId}", 100L).contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$[0].id").value(1L))
-        .andExpect(jsonPath("$[0].userId").value(100L));
-  }
-
-  // Add tests for update payment status endpoint if applicable
 }

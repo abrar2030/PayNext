@@ -9,8 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fintech.userservice.model.User;
 import com.fintech.userservice.service.UserService;
-import com.fintech.userservice.util.JwtUtil;
-import java.util.Optional;
+import com.fintech.common.util.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ class UserControllerTest {
   @MockBean
   private AuthenticationManager authenticationManager; // Mocked as it's often used in controllers
 
-  @MockBean private JwtUtil jwtUtil; // Mocked as it's often used in controllers
+  @MockBean private JwtUtil jwtUtil; // Mocked - imported from common-module
 
   @MockBean private UserDetailsService userDetailsService; // Often required by SecurityConfig
 
@@ -49,8 +48,8 @@ class UserControllerTest {
   }
 
   @Test
-  void registerUser_shouldReturnCreatedUser() throws Exception {
-    when(userService.registerUser(any(User.class))).thenReturn(testUser);
+  void saveUser_shouldReturnCreatedUser() throws Exception {
+    when(userService.saveUser(any(User.class))).thenReturn(testUser);
 
     mockMvc
         .perform(
@@ -69,7 +68,7 @@ class UserControllerTest {
     // Here, we simplify by assuming a path variable or request param for ID/username
     // Or mock the principal extraction logic if applicable
 
-    when(userService.findByUsername(anyString())).thenReturn(Optional.of(testUser));
+    when(userService.findByUsername(anyString())).thenReturn(testUser);
     // Mock authentication if needed for the endpoint
     // SecurityContextHolder.getContext().setAuthentication(...);
 
@@ -87,7 +86,7 @@ class UserControllerTest {
 
   @Test
   void getUserProfile_whenUserDoesNotExist_shouldReturnNotFound() throws Exception {
-    when(userService.findByUsername(anyString())).thenReturn(Optional.empty());
+    when(userService.findByUsername(anyString())).thenReturn(null);
 
     mockMvc
         .perform(

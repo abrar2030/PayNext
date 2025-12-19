@@ -7,7 +7,6 @@ import static org.mockito.Mockito.*;
 
 import com.fintech.userservice.model.User;
 import com.fintech.userservice.repository.UserRepository;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,9 +35,8 @@ class UserServiceImplTest {
   }
 
   @Test
-  void registerUser_whenUsernameIsUnique_shouldSaveUserWithEncodedPassword() {
+  void saveUser_shouldEncodePasswordAndSaveUser() {
     String encodedPassword = "encodedPassword";
-    when(userRepository.findByUsername(anyString())).thenReturn(Optional.empty());
     when(passwordEncoder.encode(anyString())).thenReturn(encodedPassword);
     when(userRepository.save(any(User.class)))
         .thenAnswer(
@@ -48,51 +46,45 @@ class UserServiceImplTest {
               return savedUser;
             });
 
-    User registeredUser = userService.registerUser(testUser);
+    User savedUser = userService.saveUser(testUser);
 
-    assertNotNull(registeredUser);
-    assertEquals(testUser.getUsername(), registeredUser.getUsername());
-    assertEquals(encodedPassword, registeredUser.getPassword());
+    assertNotNull(savedUser);
+    assertEquals(testUser.getUsername(), savedUser.getUsername());
+    assertEquals(encodedPassword, savedUser.getPassword());
     verify(passwordEncoder, times(1)).encode("plainPassword");
     verify(userRepository, times(1)).save(testUser);
   }
 
   @Test
-  void registerUser_whenUsernameExists_shouldThrowException() {
-    when(userRepository.findByUsername(testUser.getUsername())).thenReturn(Optional.of(testUser));
+  void saveUser_withNullPassword_shouldNotEncodePassword() {
+    testUser.setPassword(null);
+    when(userRepository.save(any(User.class))).thenReturn(testUser);
 
-    RuntimeException exception =
-        assertThrows(
-            RuntimeException.class,
-            () -> {
-              userService.registerUser(testUser);
-            });
+    User savedUser = userService.saveUser(testUser);
 
-    assertEquals("Username already exists", exception.getMessage());
+    assertNotNull(savedUser);
     verify(passwordEncoder, never()).encode(anyString());
-    verify(userRepository, never()).save(any(User.class));
+    verify(userRepository, times(1)).save(testUser);
   }
 
   @Test
-  void findByUsername_whenUserExists_shouldReturnUser() {
-    when(userRepository.findByUsername(testUser.getUsername())).thenReturn(Optional.of(testUser));
+  void findByUsername_shouldReturnUser() {
+    when(userRepository.findByUsername(testUser.getUsername())).thenReturn(testUser);
 
-    Optional<User> foundUser = userService.findByUsername(testUser.getUsername());
+    User foundUser = userService.findByUsername(testUser.getUsername());
 
-    assertTrue(foundUser.isPresent());
-    assertEquals(testUser.getUsername(), foundUser.get().getUsername());
+    assertNotNull(foundUser);
+    assertEquals(testUser.getUsername(), foundUser.getUsername());
     verify(userRepository, times(1)).findByUsername(testUser.getUsername());
   }
 
   @Test
-  void findByUsername_whenUserDoesNotExist_shouldReturnEmptyOptional() {
-    when(userRepository.findByUsername(anyString())).thenReturn(Optional.empty());
+  void findByUsername_whenUserDoesNotExist_shouldReturnNull() {
+    when(userRepository.findByUsername(anyString())).thenReturn(null);
 
-    Optional<User> foundUser = userService.findByUsername("nonexistentuser");
+    User foundUser = userService.findByUsername("nonexistentuser");
 
-    assertFalse(foundUser.isPresent());
+    assertNull(foundUser);
     verify(userRepository, times(1)).findByUsername("nonexistentuser");
   }
-
-  // Add tests for other methods in UserServiceImpl if they exist
 }

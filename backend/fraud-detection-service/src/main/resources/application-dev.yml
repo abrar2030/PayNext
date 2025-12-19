@@ -24,13 +24,13 @@ spring:
       ddl-auto: create-drop
     show-sql: false
 
-  # Redis Configuration (optional for dev)
+  # Redis Configuration (optional for dev - will fail gracefully if not available)
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
 
-  # Kafka Configuration (optional for dev)
+  # Kafka Configuration (optional for dev - will fail gracefully if not available)
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     producer:
@@ -48,38 +48,39 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8001/eureka/
-    register-with-eureka: true
-    fetch-registry: true
-  instance:
-    prefer-ip-address: true
+    enabled: ${EUREKA_ENABLED:true}
 
 # Actuator Configuration
 management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,prometheus
+        include: health,info,metrics
   endpoint:
     health:
       show-details: always
-  metrics:
-    export:
-      prometheus:
-        enabled: true
 
 # ML Model Configuration
 fraud:
   detection:
     model:
+      retrain:
+        schedule: "0 0 2 * * ?"
       version: v1.0
     threshold:
       high: 0.6
       critical: 0.8
 
+# Cache Configuration (using simple cache for dev instead of Redis)
+cache:
+  type: ${CACHE_TYPE:simple}
+  redis:
+    time-to-live: 3600000
+
 # Logging Configuration
 logging:
   level:
-    com.fintech.aifraudservice: INFO
+    com.fintech.aifraudservice: DEBUG
     org.springframework.kafka: WARN
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
