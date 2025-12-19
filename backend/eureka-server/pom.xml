@@ -21,6 +21,12 @@
     <!-- Spring Boot and Spring Cloud versions inherited from parent -->
 
     <dependencies>
+        <!-- Spring Boot Actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- Eureka Server Dependency -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

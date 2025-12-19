@@ -1,0 +1,9 @@
+/home/user/backend-fixes/backend/fraud-detection-service/src/main/java/com/fintech/aifraudservice/controller/FraudDetectionController.java
+/home/user/backend-fixes/backend/fraud-detection-service/src/main/java/com/fintech/aifraudservice/service/TransactionAnalysisRequest.java
+/home/user/backend-fixes/backend/fraud-detection-service/src/main/java/com/fintech/aifraudservice/model/TransactionAnalysis.java
+/home/user/backend-fixes/backend/fraud-detection-service/src/main/java/com/fintech/aifraudservice/model/UserBehaviorProfile.java
+/home/user/backend-fixes/backend/fraud-detection-service/src/main/java/com/fintech/aifraudservice/AIFraudDetectionServiceApplication.java
+/home/user/backend-fixes/backend/fraud-detection-service/src/main/java/com/fintech/aifraudservice/service/FraudDetectionServiceImpl.java
+/home/user/backend-fixes/backend/fraud-detection-service/src/main/java/com/fintech/aifraudservice/repository/UserBehaviorProfileRepository.java
+/home/user/backend-fixes/backend/fraud-detection-service/src/main/java/com/fintech/aifraudservice/service/FraudDetectionService.java
+/home/user/backend-fixes/backend/fraud-detection-service/src/main/java/com/fintech/aifraudservice/repository/TransactionAnalysisRepository.java

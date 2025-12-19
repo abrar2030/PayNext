@@ -1,0 +1,52 @@
+# API Gateway Development Profile Configuration
+server:
+  port: 8002
+
+spring:
+  application:
+    name: api-gateway
+
+  # Set Web Application Type to Reactive
+  main:
+    web-application-type: reactive
+    allow-bean-definition-overriding: true
+
+  # Cloud Gateway Configuration (routes can be added here or in code)
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:defaultSecretKeyForDevelopmentOnlyNotForProduction123456789}
+  expiration-time: 3600000 # 1 hour in milliseconds
+
+# Eureka Configuration
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8001/eureka/}
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    health:
+      show-details: always
+
+# Logging Configuration
+logging:
+  level:
+    com.fintech.apigateway: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.security: INFO

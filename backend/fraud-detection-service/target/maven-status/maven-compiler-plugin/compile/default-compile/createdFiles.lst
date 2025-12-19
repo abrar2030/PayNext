@@ -1,0 +1,11 @@
+com/fintech/aifraudservice/model/TransactionAnalysis$RiskLevel.class
+com/fintech/aifraudservice/model/UserBehaviorProfile.class
+com/fintech/aifraudservice/service/FraudDetectionServiceImpl.class
+com/fintech/aifraudservice/service/TransactionAnalysisRequest.class
+com/fintech/aifraudservice/controller/FraudDetectionController.class
+com/fintech/aifraudservice/repository/UserBehaviorProfileRepository.class
+com/fintech/aifraudservice/model/TransactionAnalysis$FraudStatus.class
+com/fintech/aifraudservice/model/TransactionAnalysis.class
+com/fintech/aifraudservice/AIFraudDetectionServiceApplication.class
+com/fintech/aifraudservice/repository/TransactionAnalysisRepository.class
+com/fintech/aifraudservice/service/FraudDetectionService.class
