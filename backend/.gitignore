@@ -148,14 +148,3 @@ secrets.properties
 credentials.yml
 *.pem
 *.key
-
-# -------------------------
-# Tips (commented)
-# -------------------------
-# If you'd like to allow committing a specific file that would otherwise be ignored,
-# use: git add -f <file>
-#
-# Review the "Local profile / override files" section and adapt names to your project
-# conventions (for example, some teams use application-dev.yml and commit it — only
-# ignore what should definitely remain local).
-
