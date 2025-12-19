@@ -1,4 +1,0 @@
-com/fintech/apigateway/security/SecurityConfig.class
-com/fintech/apigateway/security/JwtAuthenticationEntryPoint.class
-com/fintech/apigateway/security/JwtAuthenticationFilter.class
-com/fintech/apigateway/ApiGatewayApplication.class
