@@ -8,7 +8,7 @@ This directory contains the Helm chart for deploying the PayNext microservice ap
   - `templates/_deployment.tpl`
   - `templates/_service.tpl`
 - **Service-Centric Configuration**: All microservice-specific configurations (image, ports, replicas, probes) are now managed centrally in the `values.yaml` file under the `services` map.
-- **Enhanced Deployments**: The generic deployment template includes:
+- **Deployments**: The generic deployment template includes:
   - Conditional inclusion of **Resource Limits and Requests** via the `resources` block in `values.yaml`.
   - Conditional inclusion of **Liveness and Readiness Probes**, with sensible defaults provided for the Java-based services in `values.yaml` (assuming Spring Boot Actuator endpoints).
 

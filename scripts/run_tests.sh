@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # =====================================================
-#   PayNext - Enhanced Testing Automation Script
+#   PayNext - Testing Automation Script
 # =====================================================
 # This script automates comprehensive testing across all components of the PayNext platform,
 # including backend services, web frontend, and mobile frontend.
