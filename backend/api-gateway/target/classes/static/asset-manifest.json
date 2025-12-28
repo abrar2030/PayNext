@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.css": "/pnx-frontend/static/css/main.af0b01c7.css",
+    "main.js": "/pnx-frontend/static/js/main.932c9f39.js",
+    "index.html": "/pnx-frontend/index.html",
+    "main.af0b01c7.css.map": "/pnx-frontend/static/css/main.af0b01c7.css.map",
+    "main.932c9f39.js.map": "/pnx-frontend/static/js/main.932c9f39.js.map"
+  },
+  "entrypoints": ["static/css/main.af0b01c7.css", "static/js/main.932c9f39.js"]
+}
