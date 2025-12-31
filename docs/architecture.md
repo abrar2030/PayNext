@@ -1,120 +1,407 @@
-# PayNext Project Architecture Overview
+# Architecture Overview
 
-The **PayNext** project follows a modern microservices-based architecture designed to deliver scalable, efficient, and secure financial transactions. This document provides an in-depth overview of the system's architecture, components, and data flow to help understand the design principles behind PayNext.
+PayNext follows a microservices architecture pattern with cloud-native design principles, providing scalability, resilience, and maintainability.
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [Microservices Architecture](#microservices-architecture)
-- [Components](#components)
-  - [Eureka Server](#eureka-server)
-  - [API Gateway](#api-gateway)
-  - [User Service](#user-service)
-  - [Payment Service](#payment-service)
-  - [Notification Service](#notification-service)
-  - [Frontend](#frontend)
+- [High-Level Architecture](#high-level-architecture)
+- [System Components](#system-components)
+- [Service Communication](#service-communication)
 - [Data Flow](#data-flow)
-- [Security](#security)
-- [Deployment](#deployment)
+- [Security Architecture](#security-architecture)
+- [Deployment Architecture](#deployment-architecture)
 
-## Overview
+## High-Level Architecture
 
-The PayNext platform aims to provide a seamless and reliable experience for financial transactions. By leveraging a microservices architecture, PayNext offers flexibility, high availability, and scalability. The architecture uses Kubernetes for container orchestration, Helm for package management, and Terraform for infrastructure as code (IaC).
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Client Layer                              │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐      │
+│  │ Web Dashboard│    │  Mobile App  │    │  Third-Party │      │
+│  │  (React 18)  │    │  (Next.js)   │    │     APIs     │      │
+│  └──────┬───────┘    └──────┬───────┘    └──────┬───────┘      │
+└─────────┼──────────────────┼──────────────────┼────────────────┘
+          │                  │                  │
+          └──────────────────┼──────────────────┘
+                             │
+┌────────────────────────────┼───────────────────────────────────┐
+│                   API Gateway Layer                             │
+│         ┌──────────────────┴──────────────────┐                │
+│         │    API Gateway (Spring Cloud)       │                │
+│         │  - Routing                          │                │
+│         │  - Authentication                   │                │
+│         │  - Rate Limiting                    │                │
+│         └──────────────────┬──────────────────┘                │
+└────────────────────────────┼───────────────────────────────────┘
+                             │
+┌────────────────────────────┼───────────────────────────────────┐
+│                  Service Discovery Layer                        │
+│            ┌─────────────────────────────┐                      │
+│            │   Eureka Server (Netflix)   │                      │
+│            │   - Service Registration    │                      │
+│            │   - Health Monitoring       │                      │
+│            └─────────────────────────────┘                      │
+└─────────────────────────────────────────────────────────────────┘
+                             │
+┌────────────────────────────┼───────────────────────────────────┐
+│                  Microservices Layer                            │
+│  ┌───────────┐  ┌───────────┐  ┌──────────┐  ┌─────────────┐  │
+│  │   User    │  │  Payment  │  │Transaction│  │Notification │  │
+│  │  Service  │  │  Service  │  │  Service  │  │   Service   │  │
+│  └─────┬─────┘  └─────┬─────┘  └─────┬────┘  └──────┬──────┘  │
+│        │              │              │               │          │
+└────────┼──────────────┼──────────────┼───────────────┼──────────┘
+         │              │              │               │
+┌────────┼──────────────┼──────────────┼───────────────┼──────────┐
+│        │    ML Services Layer (Python/FastAPI)       │          │
+│  ┌─────┴──┐  ┌────────┴──┐  ┌────────┴────┐  ┌──────┴──────┐  │
+│  │ Fraud  │  │  Credit   │  │    Churn    │  │Categorization│ │
+│  │Detection│  │ Scoring   │  │ Prediction  │  │   Service    │ │
+│  └────────┘  └───────────┘  └─────────────┘  └──────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+         │              │              │               │
+┌────────┼──────────────┼──────────────┼───────────────┼──────────┐
+│                    Data & Infrastructure Layer                   │
+│  ┌───────────┐  ┌──────────┐  ┌──────────┐  ┌──────────────┐  │
+│  │   MySQL   │  │  Redis   │  │ RabbitMQ │  │  Monitoring  │  │
+│  │ (Primary) │  │  (Cache) │  │(Messaging)│ │(Prometheus)  │  │
+│  └───────────┘  └──────────┘  └──────────┘  └──────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-## Microservices Architecture
+## System Components
 
-PayNext employs a microservices-based architecture where different business functions are broken down into self-contained services. Each service has its own database and runs independently, making the architecture resilient and easy to scale. Communication between services is done via REST APIs.
+### 1. API Gateway
 
-The primary microservices include:
+**Purpose**: Centralized entry point for all client requests
 
-1. **User Service**: Manages user registration, authentication, and user profiles.
-2. **Payment Service**: Handles all aspects of financial transactions, such as initiating payments, processing payments, and transaction history.
-3. **Notification Service**: Sends notifications to users for various activities such as payment confirmations or account updates.
+**File**: `backend/api-gateway/`
 
-Each of these services communicates with the **API Gateway** to route external requests and ensure secure access control.
+**Responsibilities**:
 
-## Components
+- Request routing to microservices
+- JWT token validation
+- Rate limiting and throttling
+- Circuit breaking
+- Request/response logging
 
-### Eureka Server
+**Technology**: Spring Cloud Gateway (Reactive)
 
-- **Purpose**: Acts as a service registry for managing microservices within the system.
-- **Technology**: Built using **Spring Cloud Netflix Eureka**.
-- **Responsibilities**:
-  - Registers all the microservices.
-  - Ensures that each service can discover other services for communication.
-  - Provides resiliency by maintaining service instance information.
+### 2. Service Registry (Eureka)
 
-### API Gateway
+**Purpose**: Service discovery and health monitoring
 
-- **Purpose**: Acts as the entry point for all external requests to the microservices.
-- **Technology**: Uses **Spring Cloud Gateway**.
-- **Responsibilities**:
-  - Manages and routes requests to different microservices.
-  - Handles **JWT authentication** for securing access.
-  - Implements rate limiting and load balancing.
+**File**: `backend/eureka-server/`
 
-### User Service
+**Responsibilities**:
 
-- **Purpose**: Manages user information, including registration, login, and profile.
-- **Technology**: Developed with **Spring Boot** and connects to a **PostgreSQL** database.
-- **Key Features**:
-  - User registration and authentication.
-  - JWT token generation for securing requests.
-  - CRUD operations for user profiles.
+- Dynamic service registration
+- Service instance health checks
+- Load balancing coordination
+- Service metadata management
 
-### Payment Service
+**Technology**: Netflix Eureka
 
-- **Purpose**: Facilitates financial transactions.
-- **Technology**: Built using **Spring Boot**, communicates with the **User Service** to validate users, and stores transactions in a **PostgreSQL** database.
-- **Key Features**:
-  - Initiates payments between users.
-  - Manages different payment methods.
-  - Stores transaction history.
+### 3. User Service
 
-### Notification Service
+**Purpose**: User account and authentication management
 
-- **Purpose**: Sends notifications related to different events in the system.
-- **Technology**: Developed with **Spring Boot**.
-- **Communication**: Integrates with the **User Service** and **Payment Service** to send appropriate notifications.
-- **Key Features**:
-  - Email and SMS notifications.
-  - Real-time alerts for payment-related events.
+**File**: `backend/user-service/`
 
-### Frontend
+**Responsibilities**:
 
-- **Purpose**: User interface to access the PayNext platform.
-- **Technology**: Built with **React.js**.
-- **Key Features**:
-  - Registration, login, and payment initiation.
-  - Dashboard for viewing account details and payment history.
-  - Responsive design to ensure usability across devices.
+- User registration and profile management
+- Authentication (JWT generation)
+- Role-based access control (RBAC)
+- Password management and security
+
+**Database**: MySQL (user_db)
+
+**Key Entities**: User, Role, Permission
+
+### 4. Payment Service
+
+**Purpose**: Core payment processing
+
+**File**: `backend/payment-service/`
+
+**Responsibilities**:
+
+- Payment transaction processing
+- Multiple payment method support
+- Multi-currency handling
+- Payment gateway integration
+- Transaction validation
+
+**Database**: MySQL (payment_db)
+
+**Cache**: Redis
+
+**Key Entities**: Payment, PaymentMethod, Currency
+
+### 5. Transaction Service
+
+**Purpose**: Transaction history and reconciliation
+
+**File**: `backend/transaction-service/` (planned/integrated with payment-service)
+
+**Responsibilities**:
+
+- Transaction recording and tracking
+- Refund processing
+- Chargeback handling
+- Financial reconciliation
+- Audit trail
+
+### 6. Notification Service
+
+**Purpose**: Multi-channel notifications
+
+**File**: `backend/notification-service/`
+
+**Responsibilities**:
+
+- Email notifications (SMTP)
+- SMS notifications
+- Push notifications
+- Notification templates
+- Delivery tracking
+
+**Database**: MySQL (notification_db)
+
+**Message Queue**: RabbitMQ/Kafka
+
+### 7. Fraud Detection Service
+
+**Purpose**: AI-powered fraud prevention
+
+**File**: `ml_services/fraud/`
+
+**Responsibilities**:
+
+- Real-time fraud scoring
+- Anomaly detection
+- Risk assessment
+- Model training and updating
+
+**Technology**: Python, FastAPI, scikit-learn
+
+**Models**: Random Forest, Isolation Forest, Autoencoder
+
+## Service Communication
+
+### Synchronous Communication (REST)
+
+Services communicate via RESTful APIs through the API Gateway:
+
+```
+Client → API Gateway → Service Registry → Target Service
+```
+
+**Example Flow**:
+
+1. Client sends request to API Gateway
+2. Gateway validates JWT token
+3. Gateway discovers service location from Eureka
+4. Gateway routes request to service
+5. Service processes and returns response
+
+### Asynchronous Communication (Message Queue)
+
+Event-driven communication for non-blocking operations:
+
+```
+Service → RabbitMQ/Kafka → Subscribed Services
+```
+
+**Use Cases**:
+
+- Payment confirmation emails
+- Fraud alert notifications
+- Transaction logs
+- Analytics events
 
 ## Data Flow
 
-1. **User Registration**: A new user registers via the frontend. The request goes through the **API Gateway** and is routed to the **User Service**, which stores the information in the database.
+### Payment Processing Flow
 
-2. **Authentication**: When a user logs in, the **User Service** authenticates the credentials and generates a **JWT token**, which is used for all subsequent requests to secure the communication.
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Gateway
+    participant UserService
+    participant PaymentService
+    participant FraudService
+    participant NotificationService
 
-3. **Payment Process**:
-   - The user initiates a payment from the frontend, and the request is routed through the **API Gateway**.
-   - The **Payment Service** validates the request and processes the payment if the user is authenticated.
-   - After processing, the **Notification Service** sends a notification to the user.
+    Client->>Gateway: POST /api/payments
+    Gateway->>Gateway: Validate JWT
+    Gateway->>UserService: Verify user
+    UserService-->>Gateway: User valid
+    Gateway->>FraudService: Check fraud
+    FraudService-->>Gateway: Risk score
+    Gateway->>PaymentService: Process payment
+    PaymentService->>PaymentService: Save transaction
+    PaymentService-->>Gateway: Payment result
+    Gateway->>NotificationService: Send confirmation
+    Gateway-->>Client: Payment response
+```
 
-4. **Service Discovery**: All services are registered with the **Eureka Server** for discovery. For example, if the **Payment Service** needs to communicate with the **User Service**, it discovers the appropriate instance via Eureka.
+### Authentication Flow
 
-## Security
+```
+1. User → API Gateway: POST /users/login {username, password}
+2. Gateway → User Service: Forward credentials
+3. User Service → Database: Validate credentials
+4. User Service → JWT Util: Generate token
+5. User Service → Gateway: Return JWT token
+6. Gateway → User: Return token
+```
 
-- **JWT Authentication**: The **User Service** generates JWT tokens to ensure secure access to the system. The **API Gateway** verifies the JWT tokens for all incoming requests.
-- **HTTPS**: All communication is encrypted to ensure data integrity and confidentiality.
-- **Role-Based Access Control (RBAC)**: Access to different resources is managed through roles.
+### Fraud Detection Integration
 
-## Deployment
+```
+1. Payment Service: Receive payment request
+2. Payment Service → Fraud Service: Send transaction data
+3. Fraud Service → ML Model: Predict fraud probability
+4. ML Model → Fraud Service: Return risk score
+5. Fraud Service → Payment Service: Fraud assessment
+6. Payment Service: Approve/Decline based on score
+```
 
-- **Containerization**: All services are containerized using **Docker**.
-- **Kubernetes**: Used for orchestration. **EKS (Elastic Kubernetes Service)** manages the containerized services in the cloud.
-- **Infrastructure as Code**: **Terraform** is used to provision the cloud infrastructure, including **VPCs**, **EKS clusters**, and **S3 buckets**.
-- **Helm**: Manages Kubernetes deployments using Helm charts, enabling easy upgrades and rollbacks.
+## Security Architecture
 
----
+### Authentication & Authorization
 
-This architecture ensures that PayNext is highly scalable, resilient, and secure, making it a solid foundation for a modern FinTech solution. Let me know if you need any further details or specific architectural diagrams!
+**JWT-Based Authentication**:
+
+- Stateless token-based auth
+- 1-hour token expiry
+- Refresh token support
+- Token stored in HTTP-only cookies
+
+**RBAC Model**:
+
+```
+User → Role → Permissions
+```
+
+Roles: USER, MERCHANT, ADMIN
+
+### Data Security
+
+**Encryption**:
+
+- TLS 1.3 for data in transit
+- AES-256 for sensitive data at rest
+- Payment data tokenization
+
+**Compliance**:
+
+- PCI DSS Level 1
+- GDPR compliant
+- SOC 2 Type II (planned)
+
+## Deployment Architecture
+
+### Docker Compose (Development)
+
+```yaml
+services:
+  - eureka-server
+  - api-gateway
+  - user-service
+  - payment-service
+  - notification-service
+  - mysql
+  - redis
+  - rabbitmq
+```
+
+### Kubernetes (Production)
+
+```
+Namespace: paynext
+├── Deployments
+│   ├── eureka-server (replicas: 1)
+│   ├── api-gateway (replicas: 3)
+│   ├── user-service (replicas: 2)
+│   ├── payment-service (replicas: 3)
+│   └── notification-service (replicas: 2)
+├── Services (ClusterIP, LoadBalancer)
+├── Ingress (HTTPS)
+├── ConfigMaps & Secrets
+└── Persistent Volumes (MySQL, Redis)
+```
+
+### Cloud Architecture (AWS Example)
+
+```
+- VPC with public/private subnets
+- EKS cluster for microservices
+- RDS MySQL (Multi-AZ)
+- ElastiCache Redis
+- Application Load Balancer
+- Route53 DNS
+- CloudWatch monitoring
+- S3 for backups
+```
+
+## Module-to-File Mapping
+
+| Module               | Primary Files                       | Dependencies        |
+| -------------------- | ----------------------------------- | ------------------- |
+| API Gateway          | `backend/api-gateway/src/`          | Eureka, JWT         |
+| Eureka Server        | `backend/eureka-server/src/`        | None                |
+| User Service         | `backend/user-service/src/`         | MySQL, Eureka, JWT  |
+| Payment Service      | `backend/payment-service/src/`      | MySQL, Redis, Kafka |
+| Notification Service | `backend/notification-service/src/` | MySQL, RabbitMQ     |
+| Fraud Detection      | `ml_services/fraud/`                | Python, FastAPI     |
+| Common Module        | `backend/common-module/src/`        | Shared utilities    |
+
+## Scalability Patterns
+
+### Horizontal Scaling
+
+- Services run as multiple replicas
+- Load balanced by Kubernetes
+- Stateless design enables scaling
+
+### Caching Strategy
+
+- Redis for frequently accessed data
+- Cache-aside pattern
+- TTL-based expiration
+
+### Database Optimization
+
+- Connection pooling (HikariCP)
+- Read replicas for heavy queries
+- Indexed columns for performance
+
+## Monitoring & Observability
+
+### Metrics (Prometheus)
+
+- Request count/latency
+- Error rates
+- Database connection pool
+- JVM metrics
+
+### Logging (ELK Stack)
+
+- Centralized log aggregation
+- Structured logging (JSON)
+- Correlation IDs for tracing
+
+### Tracing (Zipkin/Jaeger)
+
+- Distributed request tracing
+- Performance bottleneck identification
+- Dependency visualization
+
+## Next Steps
+
+- [API Reference](API.md) - API endpoints
+- [Configuration](CONFIGURATION.md) - Service configuration
+- [Kubernetes Deployment](examples/05-kubernetes-deployment.md) - Deploy guide
