@@ -86,9 +86,3 @@ PayNext/
 - **GitHub Repository**: [https://github.com/abrar2030/PayNext](https://github.com/abrar2030/PayNext)
 - **Issues**: Report bugs and request features via GitHub Issues
 - **License**: MIT License
-
-## Documentation Updates
-
-This documentation was last updated: 2025-01-01
-
-For questions or feedback about the documentation, please open an issue on GitHub.
