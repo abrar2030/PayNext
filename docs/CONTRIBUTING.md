@@ -52,7 +52,7 @@ git clone https://github.com/YOUR_USERNAME/PayNext.git
 cd PayNext
 
 # 2. Add upstream remote
-git remote add upstream https://github.com/abrar2030/PayNext.git
+git remote add upstream https://github.com/quantsingularity/PayNext.git
 
 # 3. Install dependencies
 ./scripts/dev_environment_setup.sh

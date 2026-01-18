@@ -193,7 +193,7 @@ GATEWAY_IMAGE_TAG=latest
 # Global settings
 global:
   environment: production
-  registry: docker.io/abrar2030
+  registry: docker.io/quantsingularity
 
 # Service replicas
 replicaCount:

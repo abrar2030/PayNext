@@ -1,7 +1,7 @@
 # PayNext
 
-![CI/CD Status](https://img.shields.io/github/actions/workflow/status/abrar2030/PayNext/cicd.yml?branch=main&label=CI/CD&logo=github)
-[![Test Coverage](https://img.shields.io/badge/coverage-87%25-brightgreen)](https://github.com/abrar2030/PayNext/actions)
+![CI/CD Status](https://img.shields.io/github/actions/workflow/status/quantsingularity/PayNext/cicd.yml?branch=main&label=CI/CD&logo=github)
+[![Test Coverage](https://img.shields.io/badge/coverage-87%25-brightgreen)](https://github.com/quantsingularity/PayNext/actions)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## 💳 Modern Microservices Payment Platform
@@ -150,7 +150,7 @@ Follow these steps to set up the local development environment:
 
 | Step                        | Command                                                            | Description                                                          |
 | :-------------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------- |
-| **1. Clone Repository**     | `git clone https://github.com/abrar2030/PayNext.git && cd PayNext` | Download the source code and navigate to the project directory.      |
+| **1. Clone Repository**     | `git clone https://github.com/quantsingularity/PayNext.git && cd PayNext` | Download the source code and navigate to the project directory.      |
 | **2. Start Infrastructure** | `docker-compose up -d mysql rabbitmq redis`                        | Start core infrastructure services (database, message queue, cache). |
 | **3. Build & Run Backend**  | `./paynext.sh build-run-backend`                                   | Build and start all Spring Boot microservices.                       |
 | **4. Run Frontend**         | `cd web-frontend && npm install && npm start`                      | Install dependencies and start the web dashboard.                    |

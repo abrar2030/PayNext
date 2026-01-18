@@ -1,7 +1,7 @@
 ---
 service_name: "user-service"
 service_port: 8003
-image_repository: "abrar2030/backend:user-service"
+image_repository: "quantsingularity/backend:user-service"
 container_name: "user-service"
 network_name: "fintech-network"
 config_file_path: "/etc/user-service/config.yml"

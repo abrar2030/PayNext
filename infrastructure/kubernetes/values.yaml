@@ -19,7 +19,7 @@ global:
       enabled: true
 
 image:
-  repository: abrar2030
+  repository: quantsingularity
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -58,7 +58,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      repository: abrar2030/backend-api-gateway
+      repository: quantsingularity/backend-api-gateway
       tag: latest
     service:
       type: NodePort
@@ -95,7 +95,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      repository: abrar2030/backend-eureka-server
+      repository: quantsingularity/backend-eureka-server
       tag: latest
     service:
       type: NodePort
@@ -132,7 +132,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      repository: abrar2030/frontend-fintech-payment
+      repository: quantsingularity/frontend-fintech-payment
       tag: latest
     service:
       type: NodePort
@@ -153,7 +153,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      repository: abrar2030/backend-notification-service
+      repository: quantsingularity/backend-notification-service
       tag: latest
     service:
       type: ClusterIP
@@ -189,7 +189,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      repository: abrar2030/backend-payment-service
+      repository: quantsingularity/backend-payment-service
       tag: latest
     service:
       type: ClusterIP
@@ -225,7 +225,7 @@ services:
     enabled: true
     replicaCount: 1
     image:
-      repository: abrar2030/backend-user-service
+      repository: quantsingularity/backend-user-service
       tag: latest
     service:
       type: ClusterIP

@@ -122,7 +122,7 @@ jobs:
           build-args: |
             SERVICE_NAME=eureka-server
           push: true
-          tags: abrar2030/paynext-eureka-server:${{ env.ENV_TAG }}
+          tags: quantsingularity/paynext-eureka-server:${{ env.ENV_TAG }}
 
       - name: Build and push API Gateway
         uses: docker/build-push-action@v5
@@ -132,7 +132,7 @@ jobs:
           build-args: |
             SERVICE_NAME=api-gateway
           push: true
-          tags: abrar2030/paynext-api-gateway:${{ env.ENV_TAG }}
+          tags: quantsingularity/paynext-api-gateway:${{ env.ENV_TAG }}
 
       - name: Build and push User Service
         uses: docker/build-push-action@v5
@@ -142,7 +142,7 @@ jobs:
           build-args: |
             SERVICE_NAME=user-service
           push: true
-          tags: abrar2030/paynext-user-service:${{ env.ENV_TAG }}
+          tags: quantsingularity/paynext-user-service:${{ env.ENV_TAG }}
 
       - name: Build and push Payment Service
         uses: docker/build-push-action@v5
@@ -152,7 +152,7 @@ jobs:
           build-args: |
             SERVICE_NAME=payment-service
           push: true
-          tags: abrar2030/paynext-payment-service:${{ env.ENV_TAG }}
+          tags: quantsingularity/paynext-payment-service:${{ env.ENV_TAG }}
 
       - name: Build and push Notification Service
         uses: docker/build-push-action@v5
@@ -162,7 +162,7 @@ jobs:
           build-args: |
             SERVICE_NAME=notification-service
           push: true
-          tags: abrar2030/paynext-notification-service:${{ env.ENV_TAG }}
+          tags: quantsingularity/paynext-notification-service:${{ env.ENV_TAG }}
 
   deploy:
     runs-on: ubuntu-latest

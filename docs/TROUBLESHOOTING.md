@@ -358,7 +358,7 @@ curl http://localhost:8003/actuator/health  # User Service
 
 ## Getting Help
 
-- **GitHub Issues**: [Report bugs](https://github.com/abrar2030/PayNext/issues)
+- **GitHub Issues**: [Report bugs](https://github.com/quantsingularity/PayNext/issues)
 - **Documentation**: [Full docs](README.md)
 - **Logs**: Always include logs when reporting issues
 

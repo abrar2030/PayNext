@@ -99,7 +99,7 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: true
-          tags: abrar2030/paynext-frontend:${{ env.ENV_TAG }}
+          tags: quantsingularity/paynext-frontend:${{ env.ENV_TAG }}
 
   deploy:
     runs-on: ubuntu-latest

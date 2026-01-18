@@ -6,7 +6,7 @@ PayNext is a robust, cloud-native payment processing platform built with microse
 
 Get started with PayNext in 3 simple steps:
 
-1. **Clone & Setup**: `git clone https://github.com/abrar2030/PayNext.git && cd PayNext`
+1. **Clone & Setup**: `git clone https://github.com/quantsingularity/PayNext.git && cd PayNext`
 2. **Start Services**: `docker-compose up -d` (for Docker) or `./scripts/paynext.sh build && ./scripts/paynext.sh start` (for local)
 3. **Access Dashboard**: Open `http://localhost:3000` in your browser
 
@@ -83,6 +83,6 @@ PayNext/
 
 ## Support & Resources
 
-- **GitHub Repository**: [https://github.com/abrar2030/PayNext](https://github.com/abrar2030/PayNext)
+- **GitHub Repository**: [https://github.com/quantsingularity/PayNext](https://github.com/quantsingularity/PayNext)
 - **Issues**: Report bugs and request features via GitHub Issues
 - **License**: MIT License

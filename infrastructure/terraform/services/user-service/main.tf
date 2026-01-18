@@ -30,7 +30,7 @@ resource "kubernetes_deployment" "user_service" {
       spec {
         container {
           name  = "user-service"
-          image = "abrar2030/backend:user-service"
+          image = "quantsingularity/backend:user-service"
 
           ports {
             container_port = 8003

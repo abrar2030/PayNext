@@ -9,7 +9,7 @@
         state: absent
     - name: Remove Docker Images
       shell: |
-        docker rmi $(docker images -q "abrar2030/backend:*" "abrar2030/frontend:*") || true
+        docker rmi $(docker images -q "quantsingularity/backend:*" "quantsingularity/frontend:*") || true
       ignore_errors: yes
     - name: Clean up unused Docker volumes and networks
       command: docker system prune -f

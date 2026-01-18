@@ -50,7 +50,7 @@ Best for: Testing, development, quick demos
 
 ```bash
 # Clone repository
-git clone https://github.com/abrar2030/PayNext.git
+git clone https://github.com/quantsingularity/PayNext.git
 cd PayNext
 
 # Copy environment configuration
@@ -75,7 +75,7 @@ Best for: Active development, debugging, customization
 
 ```bash
 # 1. Clone and navigate
-git clone https://github.com/abrar2030/PayNext.git
+git clone https://github.com/quantsingularity/PayNext.git
 cd PayNext
 
 # 2. Install dependencies
@@ -118,7 +118,7 @@ See [Kubernetes Deployment](examples/05-kubernetes-deployment.md) for complete g
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/abrar2030/PayNext.git
+git clone https://github.com/quantsingularity/PayNext.git
 cd PayNext
 ```
 

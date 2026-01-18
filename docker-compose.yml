@@ -4,7 +4,7 @@ services:
     build:
       context: ./backend/eureka-server
       dockerfile: Dockerfile
-    image: abrar2030/paynextbackend:eureka-server
+    image: quantsingularity/paynextbackend:eureka-server
     container_name: eureka-server
     ports:
       - "8001:8001"
@@ -14,7 +14,7 @@ services:
     build:
       context: ./backend/api-gateway
       dockerfile: Dockerfile
-    image: abrar2030/paynextbackend:api-gateway
+    image: quantsingularity/paynextbackend:api-gateway
     container_name: api-gateway
     ports:
       - "8002:8002"
@@ -32,7 +32,7 @@ services:
     build:
       context: ./backend/user-service
       dockerfile: Dockerfile
-    image: abrar2030/paynextbackend:user-service
+    image: quantsingularity/paynextbackend:user-service
     container_name: user-service
     ports:
       - "8003:8003"
@@ -46,7 +46,7 @@ services:
     build:
       context: ./backend/payment-service
       dockerfile: Dockerfile
-    image: abrar2030/paynextbackend:payment-service
+    image: quantsingularity/paynextbackend:payment-service
     container_name: payment-service
     ports:
       - "8004:8004"
@@ -62,7 +62,7 @@ services:
     build:
       context: ./backend/notification-service
       dockerfile: Dockerfile
-    image: abrar2030/paynextbackend:notification-service
+    image: quantsingularity/paynextbackend:notification-service
     container_name: notification-service
     ports:
       - "8005:8005"
@@ -77,7 +77,7 @@ services:
     build:
       context: ./ml_services
       dockerfile: Dockerfile.fraud
-    image: abrar2030/paynext-ml:fraud-detection-service
+    image: quantsingularity/paynext-ml:fraud-detection-service
     container_name: fraud-detection-service
     ports:
       - "5000:5000"
@@ -88,7 +88,7 @@ services:
     build:
       context: ./ml_services
       dockerfile: Dockerfile.churn
-    image: abrar2030/paynext-ml:churn-prediction-service
+    image: quantsingularity/paynext-ml:churn-prediction-service
     container_name: churn-prediction-service
     ports:
       - "5001:5001"
@@ -99,7 +99,7 @@ services:
     build:
       context: ./ml_services
       dockerfile: Dockerfile.categorization
-    image: abrar2030/paynext-ml:categorization-service
+    image: quantsingularity/paynext-ml:categorization-service
     container_name: categorization-service
     ports:
       - "5002:5002"
@@ -110,7 +110,7 @@ services:
     build:
       context: ./ml_services
       dockerfile: Dockerfile.recommendation
-    image: abrar2030/paynext-ml:recommendation-service
+    image: quantsingularity/paynext-ml:recommendation-service
     container_name: recommendation-service
     ports:
       - "5003:5003"
@@ -121,7 +121,7 @@ services:
     build:
       context: ./ml_services
       dockerfile: Dockerfile.credit_scoring
-    image: abrar2030/paynext-ml:credit-scoring-service
+    image: quantsingularity/paynext-ml:credit-scoring-service
     container_name: credit-scoring-service
     ports:
       - "5005:5005"
@@ -132,7 +132,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: abrar2030/paynextfrontend:frontend
+    image: quantsingularity/paynextfrontend:frontend
     container_name: frontend
     ports:
       - "3001:80"

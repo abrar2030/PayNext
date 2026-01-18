@@ -30,7 +30,7 @@ resource "kubernetes_deployment" "payment_service" {
       spec {
         container {
           name  = "payment-service"
-          image = "abrar2030/backend:payment-service"
+          image = "quantsingularity/backend:payment-service"
 
           ports {
             container_port = 8004

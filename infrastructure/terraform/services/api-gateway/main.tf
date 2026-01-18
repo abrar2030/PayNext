@@ -30,7 +30,7 @@ resource "kubernetes_deployment" "api_gateway" {
       spec {
         container {
           name  = "api-gateway"
-          image = "abrar2030/backend:api-gateway"
+          image = "quantsingularity/backend:api-gateway"
 
           ports {
             container_port = 8002

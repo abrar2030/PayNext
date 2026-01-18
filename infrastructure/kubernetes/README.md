@@ -41,7 +41,7 @@ All microservice configurations are managed through the `services` map in `value
 | :--------------------------------- | :--------------------------------------------------------------- |
 | `services.<name>.enabled`          | Boolean to enable/disable deployment of the service.             |
 | `services.<name>.replicaCount`     | Number of pod replicas for the service.                          |
-| `services.<name>.image.repository` | Docker image repository (e.g., `abrar2030/backend-api-gateway`). |
+| `services.<name>.image.repository` | Docker image repository (e.g., `quantsingularity/backend-api-gateway`). |
 | `services.<name>.image.tag`        | Docker image tag (e.g., `latest` or a specific build number).    |
 | `services.<name>.service`          | Kubernetes Service configuration (type, ports, nodePort).        |
 | `services.<name>.resources`        | CPU/Memory requests and limits.                                  |

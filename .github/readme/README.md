@@ -175,7 +175,7 @@ The development environment is implicitly defined through the workflows:
 
 The production environment is configured with the following components:
 
-1. **Container Registry**: Docker Hub (abrar2030 namespace)
+1. **Container Registry**: Docker Hub (quantsingularity namespace)
 2. **Deployment Platform**: Kubernetes
 3. **Services**: Deployed as separate Kubernetes deployments
 4. **Configuration**: Stored in Kubernetes manifests in the kubernetes/ directory

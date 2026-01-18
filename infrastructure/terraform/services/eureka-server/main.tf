@@ -30,7 +30,7 @@ resource "kubernetes_deployment" "eureka_server" {
       spec {
         container {
           name  = "eureka-server"
-          image = "abrar2030/backend:eureka-server"
+          image = "quantsingularity/backend:eureka-server"
 
           ports {
             container_port = 8001

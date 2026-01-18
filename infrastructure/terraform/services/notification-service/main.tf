@@ -30,7 +30,7 @@ resource "kubernetes_deployment" "notification_service" {
       spec {
         container {
           name  = "notification-service"
-          image = "abrar2030/backend:notification-service"
+          image = "quantsingularity/backend:notification-service"
 
           ports {
             container_port = 8005
