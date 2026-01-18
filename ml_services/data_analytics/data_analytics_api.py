@@ -1,8 +1,7 @@
 import os
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import List
 
-import joblib
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel

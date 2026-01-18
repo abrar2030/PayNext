@@ -37,16 +37,16 @@ This directory contains the Helm chart for deploying the PayNext microservice ap
 
 All microservice configurations are managed through the `services` map in `values.yaml`.
 
-| Service Key                        | Description                                                      |
-| :--------------------------------- | :--------------------------------------------------------------- |
-| `services.<name>.enabled`          | Boolean to enable/disable deployment of the service.             |
-| `services.<name>.replicaCount`     | Number of pod replicas for the service.                          |
+| Service Key                        | Description                                                             |
+| :--------------------------------- | :---------------------------------------------------------------------- |
+| `services.<name>.enabled`          | Boolean to enable/disable deployment of the service.                    |
+| `services.<name>.replicaCount`     | Number of pod replicas for the service.                                 |
 | `services.<name>.image.repository` | Docker image repository (e.g., `quantsingularity/backend-api-gateway`). |
-| `services.<name>.image.tag`        | Docker image tag (e.g., `latest` or a specific build number).    |
-| `services.<name>.service`          | Kubernetes Service configuration (type, ports, nodePort).        |
-| `services.<name>.resources`        | CPU/Memory requests and limits.                                  |
-| `services.<name>.livenessProbe`    | Liveness probe configuration.                                    |
-| `services.<name>.readinessProbe`   | Readiness probe configuration.                                   |
+| `services.<name>.image.tag`        | Docker image tag (e.g., `latest` or a specific build number).           |
+| `services.<name>.service`          | Kubernetes Service configuration (type, ports, nodePort).               |
+| `services.<name>.resources`        | CPU/Memory requests and limits.                                         |
+| `services.<name>.livenessProbe`    | Liveness probe configuration.                                           |
+| `services.<name>.readinessProbe`   | Readiness probe configuration.                                          |
 
 ---
 

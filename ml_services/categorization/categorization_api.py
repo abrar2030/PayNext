@@ -1,7 +1,6 @@
 import os
 
 import joblib
-import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
