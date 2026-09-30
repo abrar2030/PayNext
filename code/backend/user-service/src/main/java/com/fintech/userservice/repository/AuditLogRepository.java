@@ -45,7 +45,7 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
   List<Object[]> findTopIPAddresses(@Param("since") LocalDateTime since);
 
   /**
-   * Bulk delete audit logs older than the given cutoff — avoids loading all rows into memory.
+   * Bulk delete audit logs older than the given cutoff - avoids loading all rows into memory.
    */
   @Modifying
   @Query("DELETE FROM AuditLog al WHERE al.createdAt < :cutoff")

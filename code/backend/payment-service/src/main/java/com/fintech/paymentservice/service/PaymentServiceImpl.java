@@ -54,7 +54,7 @@ public class PaymentServiceImpl implements PaymentService {
                   + payment.getAmount()
                   + " has been processed successfully. Reference ID: "
                   + savedPayment.getId());
-      notificationRequest.setSubject("PayNext — Payment Confirmation");
+      notificationRequest.setSubject("PayNext - Payment Confirmation");
       notificationClient.sendNotification(notificationRequest);
     } catch (Exception e) {
       log.warn(

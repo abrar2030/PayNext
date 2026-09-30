@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# run-all.sh — build and start all PayNext services locally.
+# run-all.sh - build and start all PayNext services locally.
 # Run from the project root (code/).
 set -euo pipefail
 
@@ -30,7 +30,7 @@ for arg in "$@"; do
     esac
 done
 
-echo "=== PayNext — Starting all services ==="
+echo "=== PayNext - Starting all services ==="
 
 # 1. Train ML models. train_all.py skips models that already exist unless --force.
 if [[ "$SKIP_ML" == true ]]; then

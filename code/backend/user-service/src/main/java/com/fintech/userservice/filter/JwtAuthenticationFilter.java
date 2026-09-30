@@ -20,7 +20,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   @Autowired private JwtUtil jwtUtil;
 
-  // Inject interface, not the concrete implementation — allows @WebMvcTest to mock it
+  // Inject interface, not the concrete implementation - allows @WebMvcTest to mock it
   @Autowired private UserDetailsService userDetailsService;
 
   @Override

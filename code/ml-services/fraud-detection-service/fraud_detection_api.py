@@ -1,5 +1,5 @@
 """
-Fraud Detection Service — FastAPI Application Entry Point
+Fraud Detection Service - FastAPI Application Entry Point
 =========================================================
 Service name : fraud-detection-service
 Port         : 9001
@@ -51,7 +51,7 @@ async def lifespan(app: FastAPI):
     loaded = svc.load_models()
     if not loaded:
         logger.warning(
-            "ML models not found — train them with: "
+            "ML models not found - train them with: "
             "python fraud_detection_model.py --data ../ml-common/synthetic_transactions.csv  "
             "Rule-based scoring is active in the meantime."
         )
@@ -87,7 +87,7 @@ app.add_middleware(
 
 
 class TransactionAnalysisRequest(BaseModel):
-    """Full analysis — persists to DB and publishes a Kafka event."""
+    """Full analysis - persists to DB and publishes a Kafka event."""
 
     transaction_id: str
     user_id: str
@@ -113,7 +113,7 @@ class TransactionAnalysisRequest(BaseModel):
 
 
 class RealtimeScoreRequest(BaseModel):
-    """Lightweight score — no DB write, no Kafka event."""
+    """Lightweight score - no DB write, no Kafka event."""
 
     transaction_id: Optional[str] = None
     user_id: str

@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * Unit tests for UserServiceImpl — pure Mockito, no Spring context.
+ * Unit tests for UserServiceImpl - pure Mockito, no Spring context.
  */
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {

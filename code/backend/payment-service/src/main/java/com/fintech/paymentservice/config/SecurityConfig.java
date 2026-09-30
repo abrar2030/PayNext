@@ -45,7 +45,7 @@ public class SecurityConfig {
     return http.build();
   }
 
-  /** Inline JWT authentication filter — reads the shared JwtUtil from common-module. */
+  /** Inline JWT authentication filter - reads the shared JwtUtil from common-module. */
   @Component
   public static class JwtAuthFilter extends OncePerRequestFilter {
 

@@ -1,5 +1,5 @@
 """
-train_all.py — Train all PayNext Python ML models in sequence.
+train_all.py - Train all PayNext Python ML models in sequence.
 
 By default each model is skipped when its artifact already exists, so this is safe and
 fast to run on every startup. Pass --force (or set FORCE_TRAIN=1) to retrain everything.
@@ -84,13 +84,13 @@ def main() -> int:
         script_path = os.path.join(BASE, directory, script)
         if not os.path.isfile(script_path):
             logger.warning(
-                "Skipping %s — training script not found: %s", name, script_path
+                "Skipping %s - training script not found: %s", name, script_path
             )
             continue
 
         marker_path = os.path.join(BASE, directory, marker)
         if not args.force and os.path.isfile(marker_path):
-            logger.info("Skipping %s — model already present (%s)", name, marker)
+            logger.info("Skipping %s - model already present (%s)", name, marker)
             skipped += 1
             continue
 

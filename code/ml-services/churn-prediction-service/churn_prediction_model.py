@@ -27,7 +27,7 @@ def train_churn_model(data_path: str = _CHURN_DATA):
     """
     if not os.path.isfile(data_path):
         logger.warning(
-            "Churn data CSV not found at %s — generating synthetic data first.",
+            "Churn data CSV not found at %s - generating synthetic data first.",
             data_path,
         )
         from churn_prediction_data_generator import generate_churn_data
@@ -40,7 +40,7 @@ def train_churn_model(data_path: str = _CHURN_DATA):
     df["month_dt"] = pd.to_datetime(df["month"], format="%Y-%m")
     df = df.sort_values(by=["user_id", "month_dt"])
 
-    # Rolling features — fillna AFTER computing to keep NaN sentinel rows
+    # Rolling features - fillna AFTER computing to keep NaN sentinel rows
     df["rolling_avg_transactions_3m"] = (
         df.groupby("user_id")["transactions_per_month"]
         .rolling(3)
@@ -133,7 +133,7 @@ def train_churn_model(data_path: str = _CHURN_DATA):
 
     # Guard: stratify requires at least 2 classes
     if y.nunique() < 2:
-        logger.warning("Only one churn class in data — skipping stratify.")
+        logger.warning("Only one churn class in data - skipping stratify.")
         stratify_arg = None
     else:
         stratify_arg = y

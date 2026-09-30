@@ -50,7 +50,7 @@ public class OTPServiceImpl implements OTPService {
       Twilio.init(twilioAccountSid, twilioAuthToken);
       log.info("Twilio SDK initialized");
     } else {
-      log.warn("Twilio credentials are placeholders — SMS sending is disabled");
+      log.warn("Twilio credentials are placeholders - SMS sending is disabled");
     }
   }
 

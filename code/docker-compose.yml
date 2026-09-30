@@ -1,7 +1,7 @@
 version: "3.8"
 
 # =============================================================================
-# PayNext — Unified Backend
+# PayNext - Unified Backend
 # Java services  : 8001–8005  (code/backend/)
 # Python ML services : 9001–9007  (code/ml-services/)
 # =============================================================================

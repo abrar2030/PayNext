@@ -557,7 +557,7 @@ def analyze_transaction(req: Dict[str, Any], db: Session) -> TransactionAnalysis
 
 
 def get_realtime_score(req: Dict[str, Any], db: Session) -> Dict[str, Any]:
-    """Lightweight score without persisting — for pre-authorisation checks."""
+    """Lightweight score without persisting - for pre-authorisation checks."""
     user_id = str(req["user_id"])
     ml = _compute_ml_score(req)
     vel = _velocity_score(user_id, req, db)
@@ -667,8 +667,8 @@ def mark_transaction_fraud(
 
 
 def retrain_model() -> None:
-    """Trigger asynchronous model retraining (stub — wire to a task queue in production)."""
-    logger.info("Model retrain requested — submitting background job")
+    """Trigger asynchronous model retraining (stub - wire to a task queue in production)."""
+    logger.info("Model retrain requested - submitting background job")
     import threading
 
     from fraud_detection_model import train_fraud_model

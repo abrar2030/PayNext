@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# build-all.sh — Build all Java microservices from the backend/ directory
+# build-all.sh - Build all Java microservices from the backend/ directory
 # Usage: cd backend/ && ./build-all.sh
 set -e
 

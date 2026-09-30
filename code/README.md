@@ -1,25 +1,25 @@
-# PayNext — Backend Monorepo
+# PayNext - Backend Monorepo
 
 ```
 code/
 ├── backend/           Java microservices (Spring Boot)
-│   ├── api-gateway/         Port 8002 — reactive gateway + JWT validation
+│   ├── api-gateway/         Port 8002 - reactive gateway + JWT validation
 │   ├── common-module/       Shared JWT utilities + PasswordValidator
-│   ├── eureka-server/       Port 8001 — service registry
-│   ├── notification-service/ Port 8005 — email notifications (Thymeleaf)
-│   ├── payment-service/     Port 8004 — payment processing
-│   ├── user-service/        Port 8003 — auth, OTP, audit logging
+│   ├── eureka-server/       Port 8001 - service registry
+│   ├── notification-service/ Port 8005 - email notifications (Thymeleaf)
+│   ├── payment-service/     Port 8004 - payment processing
+│   ├── user-service/        Port 8003 - auth, OTP, audit logging
 │   └── pom.xml              Parent Maven POM
 │
 ├── ml-services/       Python ML services (FastAPI)
-│   ├── anomaly-detection-service/   Port 9002 — IsolationForest anomaly detection
-│   ├── categorization-service/      Port 9005 — TF-IDF + SVC transaction categorization
-│   ├── churn-prediction-service/    Port 9003 — LightGBM churn prediction
-│   ├── credit-scoring-service/      Port 9006 — RandomForest credit risk scoring
-│   ├── data-analytics-service/      Port 9007 — KMeans segmentation + trend analysis
-│   ├── fraud-detection-service/     Port 9001 — RF + IsolationForest + AutoEncoder fraud
+│   ├── anomaly-detection-service/   Port 9002 - IsolationForest anomaly detection
+│   ├── categorization-service/      Port 9005 - TF-IDF + SVC transaction categorization
+│   ├── churn-prediction-service/    Port 9003 - LightGBM churn prediction
+│   ├── credit-scoring-service/      Port 9006 - RandomForest credit risk scoring
+│   ├── data-analytics-service/      Port 9007 - KMeans segmentation + trend analysis
+│   ├── fraud-detection-service/     Port 9001 - RF + IsolationForest + AutoEncoder fraud
 │   ├── ml-common/                   Shared synthetic data generators
-│   └── recommendation-service/      Port 9004 — KMeans + TF-IDF recommendations
+│   └── recommendation-service/      Port 9004 - KMeans + TF-IDF recommendations
 │
 ├── docker-compose.yml  Full stack (infrastructure + all services)
 ├── scripts/

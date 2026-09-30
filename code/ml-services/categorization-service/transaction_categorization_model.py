@@ -29,7 +29,7 @@ def train_categorization_model(data_path: str = _DEFAULT_DATA):
     """
     if not os.path.isfile(data_path):
         logger.warning(
-            "Categorization data CSV not found at %s — generating now.", data_path
+            "Categorization data CSV not found at %s - generating now.", data_path
         )
         from transaction_categorization_data_generator import (
             generate_categorization_data,

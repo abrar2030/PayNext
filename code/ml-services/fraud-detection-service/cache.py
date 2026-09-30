@@ -2,7 +2,7 @@
 Redis cache wrapper for the Fraud Detection Service.
 Caches serialised user behaviour profiles so repeated DB lookups during
 high-throughput scoring are avoided.  Falls back silently when Redis is
-unavailable — the service stays operational, just without caching.
+unavailable - the service stays operational, just without caching.
 """
 
 import json

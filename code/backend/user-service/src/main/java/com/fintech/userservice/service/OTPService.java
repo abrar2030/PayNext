@@ -18,7 +18,7 @@ public interface OTPService {
 
   /**
    * Clean up expired OTPs.
-   * NOTE: @Scheduled is intentionally on the implementation only —
+   * NOTE: @Scheduled is intentionally on the implementation only -
    * Spring proxies require scheduling annotations on the concrete class.
    */
   void cleanupExpiredOTPs();

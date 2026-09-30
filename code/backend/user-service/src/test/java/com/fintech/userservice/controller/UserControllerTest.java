@@ -77,7 +77,7 @@ class UserControllerTest {
 
   @BeforeEach
   void setUpJwtFilter() throws Exception {
-    // Make the JWT filter a transparent pass-through — delegate to the next filter in chain
+    // Make the JWT filter a transparent pass-through - delegate to the next filter in chain
     org.mockito.Mockito.doAnswer(
             inv -> {
               jakarta.servlet.FilterChain chain = inv.getArgument(2);

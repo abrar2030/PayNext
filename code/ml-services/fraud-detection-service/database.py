@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 _DB_URL = os.getenv(
     "DB_URL",
-    "sqlite:///./fraud_detection_dev.db",  # SQLite fallback — no server needed locally
+    "sqlite:///./fraud_detection_dev.db",  # SQLite fallback - no server needed locally
 )
 
 _connect_args = {"check_same_thread": False} if _DB_URL.startswith("sqlite") else {}

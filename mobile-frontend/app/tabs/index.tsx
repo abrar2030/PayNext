@@ -209,7 +209,7 @@ export default function HomeScreen() {
             />
           ) : (
             <Text style={styles.balanceAmount}>
-              {balance !== null ? formatCurrency(balance) : "—"}
+              {balance !== null ? formatCurrency(balance) : "-"}
             </Text>
           )}
           <Text style={styles.balanceSub}>USD • PayNext Wallet</Text>

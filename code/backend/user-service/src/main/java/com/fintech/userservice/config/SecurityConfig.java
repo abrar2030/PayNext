@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-  // Inject interface — lets @WebMvcTest satisfy this via @MockBean UserDetailsService
+  // Inject interface - lets @WebMvcTest satisfy this via @MockBean UserDetailsService
   @Autowired private UserDetailsService userDetailsService;
   @Autowired private JwtAuthenticationFilter jwtAuthenticationFilter;
 

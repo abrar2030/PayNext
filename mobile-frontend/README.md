@@ -1,4 +1,4 @@
-# PayNext — Expo Mobile App
+# PayNext - Expo Mobile App
 
 A full-featured mobile payment app built with **Expo (React Native)** and **Expo Router**, converted from a Next.js 15 web app.
 
@@ -87,13 +87,13 @@ paynext-expo/
 
 ### ✅ Screens
 
-- **Login** — email/password, form validation, show/hide password
-- **Register** — full form + auto-login after registration
-- **Dashboard** — balance card, quick actions, recent transactions, pull-to-refresh
-- **Send Money** — recipient, amount (with quick-pick pills), memo, success banner
-- **Request Money** — generates QR code, copy/share link
-- **Transaction History** — search, filter by type (all/received/sent), summary cards
-- **Profile** — edit profile, settings toggles (notifications, biometric), logout
+- **Login** - email/password, form validation, show/hide password
+- **Register** - full form + auto-login after registration
+- **Dashboard** - balance card, quick actions, recent transactions, pull-to-refresh
+- **Send Money** - recipient, amount (with quick-pick pills), memo, success banner
+- **Request Money** - generates QR code, copy/share link
+- **Transaction History** - search, filter by type (all/received/sent), summary cards
+- **Profile** - edit profile, settings toggles (notifications, biometric), logout
 
 ### ✅ UX / Quality
 
@@ -101,10 +101,10 @@ paynext-expo/
 - **Pull-to-refresh** on Dashboard and Transactions
 - **KeyboardAvoidingView** on all forms
 - **Quick amount pills** on Send screen (missing in original)
-- **Auth guard** — unauthenticated users redirected to login
+- **Auth guard** - unauthenticated users redirected to login
 - **Error boundaries** for crash recovery
 - **AsyncStorage** replaces `localStorage` for token persistence
-- Mock API always succeeds (original had random 80% success rate — fixed)
+- Mock API always succeeds (original had random 80% success rate - fixed)
 - `useMockData` flag fixed to work correctly in dev
 
 ### ✅ Native Replacements
@@ -129,7 +129,7 @@ paynext-expo/
 | ----------------------------- | --------------------------- | ---------------------------------- |
 | `EXPO_PUBLIC_API_BASE_URL`    | `http://localhost:8080`     | Backend base URL                   |
 | `EXPO_PUBLIC_API_GATEWAY_URL` | `http://localhost:8080/api` | API Gateway URL                    |
-| `EXPO_PUBLIC_ENV`             | —                           | Set to `development` for mock data |
+| `EXPO_PUBLIC_ENV`             | -                           | Set to `development` for mock data |
 
 > **Note:** In development (`__DEV__` = true), mock data is always used regardless of the env var.
 
